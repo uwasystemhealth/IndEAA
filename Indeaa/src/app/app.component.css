@@ -1,0 +1,16 @@
+#top {
+    background-color:rgb(255, 121, 45);
+    padding: 10px;
+}
+
+p {
+    color: white;
+}
+
+#mcol p{
+    text-align: center;
+}
+
+#rcol p{
+    text-align: right;
+}
