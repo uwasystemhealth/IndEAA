@@ -8,8 +8,21 @@ import { RReviewComponent } from './r-review/r-review.component';
 
 const routes: Routes = [
   {
-    path: 'review',
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'r-landing'
+  },
+  {
+    path: 'r-landing',
+    component: RLandingComponent
+  },
+  {
+    path: 'review/:id',
     component: RReviewComponent
+  },
+  {
+    path: "**",
+    redirectTo: "r-landing"
   }
 ];
 
