@@ -20,7 +20,9 @@ export class RReviewComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.id = params['id'];
-      this.review = this.reviewService.reviews[this.id];
+      this.review = this.reviewService.reviews.find(obj => {
+        return obj.id == this.id
+      });
     });
   }
 

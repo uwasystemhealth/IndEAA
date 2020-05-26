@@ -1,5 +1,4 @@
 import { ReviewState } from './review-state.enum';
-import { ReviewService } from './review.service';
 
 export class Review {
     id: number;
