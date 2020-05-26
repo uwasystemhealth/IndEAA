@@ -13,7 +13,7 @@ export class Eoc {
         this.ioas = ioas;
     }
 
-    id(){
+    get id(){
         return `${this.competency}.${this.subId}`;
     }
 }

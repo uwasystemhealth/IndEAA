@@ -1,20 +1,21 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RReviewAEocComponent } from './r-review-a-eoc.component';
+import { CompetencyDisplayComponent } from './competency-display.component';
 
-describe('RReviewAEocComponent', () => {
-  let component: RReviewAEocComponent;
-  let fixture: ComponentFixture<RReviewAEocComponent>;
+
+describe('ComponentDisplayComponent', () => {
+  let component: CompetencyDisplayComponent;
+  let fixture: ComponentFixture<CompetencyDisplayComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RReviewAEocComponent ]
+      declarations: [ CompetencyDisplayComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RReviewAEocComponent);
+    fixture = TestBed.createComponent(CompetencyDisplayComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,9 +1,9 @@
 <h4>review-a works</h4>
 <mat-vertical-stepper>
     <mat-step *ngFor="let competency of competencies" label="Competency {{competency.num}}">
-        <app-r-review-a-eoc >
+        <app-competency-display [competency]="competency">
 
-        </app-r-review-a-eoc>
+        </app-competency-display>
     </mat-step>
     <mat-step label="Dls">
         <p>DLs step selected</p>

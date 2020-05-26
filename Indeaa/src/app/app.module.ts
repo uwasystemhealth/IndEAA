@@ -1,9 +1,15 @@
+//Angular imports
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+//Material imports
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatDividerModule } from '@angular/material/divider';
 
+//Own component imports
 import { AppComponent } from './app.component';
 import { RLandingComponent } from './r-landing/r-landing.component';
 import { RReviewComponent } from './r-review/r-review.component';
@@ -12,8 +18,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { RReviewBComponent } from './r-review-b/r-review-b.component';
 import { RReviewCComponent } from './r-review-c/r-review-c.component';
 import { RReviewDComponent } from './r-review-d/r-review-d.component';
-import { RReviewAEocComponent } from './r-review-a-eoc/r-review-a-eoc.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CompetencyDisplayComponent } from './competency-display/competency-display.component';
+import { EocDisplayComponent } from './eoc-display/eoc-display.component';
 
 const routes: Routes = [
   {
@@ -45,12 +51,15 @@ const routes: Routes = [
     RReviewBComponent,
     RReviewCComponent,
     RReviewDComponent,
-    RReviewAEocComponent
+    CompetencyDisplayComponent,
+    EocDisplayComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes),
     MatStepperModule,
+    MatTabsModule,
+    MatDividerModule,
     BrowserAnimationsModule
   ],
   providers: [],
