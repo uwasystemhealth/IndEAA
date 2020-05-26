@@ -1,3 +1,11 @@
 <h4>review-a works</h4>
-<p *ngFor="let competency of competencies" routerLink="eoc/{{competency.num}}"> VStepper stand in 1</p>
-<router-outlet></router-outlet>
+<mat-vertical-stepper>
+    <mat-step *ngFor="let competency of competencies" label="Competency {{competency.num}}">
+        <app-r-review-a-eoc >
+
+        </app-r-review-a-eoc>
+    </mat-step>
+    <mat-step label="Dls">
+        <p>DLs step selected</p>
+    </mat-step>
+</mat-vertical-stepper>

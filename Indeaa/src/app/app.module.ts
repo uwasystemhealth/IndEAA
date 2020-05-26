@@ -1,7 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { Routes, RouterModule } from '@angular/router';
+
+import { MatStepperModule } from '@angular/material/stepper';
+
 import { AppComponent } from './app.component';
 import { RLandingComponent } from './r-landing/r-landing.component';
 import { RReviewComponent } from './r-review/r-review.component';
@@ -11,6 +13,7 @@ import { RReviewBComponent } from './r-review-b/r-review-b.component';
 import { RReviewCComponent } from './r-review-c/r-review-c.component';
 import { RReviewDComponent } from './r-review-d/r-review-d.component';
 import { RReviewAEocComponent } from './r-review-a-eoc/r-review-a-eoc.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const routes: Routes = [
   {
@@ -25,32 +28,9 @@ const routes: Routes = [
   {
     path: 'r-review/:id',
     component: RReviewComponent,
-    children: [
-    {
-      path: 'A',
-      component: RReviewAComponent,
-      children: [
-        {
-          path: 'eoc/:num',
-          component: RReviewAEocComponent
-        }
-      ]
-    },
-    {
-      path: 'B',
-      component: RReviewBComponent
-    },
-    {
-      path: 'C',
-      component: RReviewCComponent
-    },
-    {
-      path: 'D',
-      component: RReviewDComponent
-    }]
   },
   {
-    path: "aa*aa",
+    path: "*",
     redirectTo: "r-landing"
   }
 ];
@@ -69,7 +49,9 @@ const routes: Routes = [
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    MatStepperModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

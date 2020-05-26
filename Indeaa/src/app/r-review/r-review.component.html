@@ -1,7 +1,30 @@
-<h3 style="display:block;">r-review works! id: {{review.id}}</h3>
+<h3 style="display:block;">{{review.name}}</h3>
 
-<p routerLink="A"> Stepper stand in 1</p>
-<p routerLink="B"> Stepper stand in 2</p>
-<p routerLink="C"> Stepper stand in 3</p>
-<p routerLink="D"> Stepper stand in 4</p>
-<router-outlet></router-outlet>
+<mat-horizontal-stepper>
+    <mat-step label="Overview">
+        <div>
+            <button mat-button matStepperNext>Next</button>
+        </div>
+        <app-r-review-a></app-r-review-a>
+    </mat-step>
+    <mat-step label="Documents">
+        <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+        </div>
+        <app-r-review-b></app-r-review-b>
+    </mat-step>
+    <mat-step label="Assessment">
+        <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+        </div>
+        <app-r-review-c></app-r-review-c>
+    </mat-step>
+    <mat-step label="Review">
+        <div>
+            <button mat-button matStepperPrevious>Back</button>
+        </div>
+        <app-r-review-d></app-r-review-d>
+    </mat-step>
+</mat-horizontal-stepper>
