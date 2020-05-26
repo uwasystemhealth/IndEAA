@@ -1,0 +1,27 @@
+<div id="row">
+    <div id="col1">
+        <div class="el header">
+            Level of Development
+        </div>   
+        <div class="el" *ngFor="let dl of dls">
+            <p><em>{{dl.id}}.{{dl.title}}</em></p>
+            <p>{{dl.description}}</p>
+        </div>
+    </div>
+   <div id="col2">
+       <div class="el header">
+           AQF Level
+       </div>
+        <div class="el" *ngFor="let dl of dls">
+            <p *ngIf="dl.aqf"><em>{{dl.aqf.id}}</em>. {{dl.aqf.description}}</p>
+        </div>
+    </div>
+   <div id="col3">
+        <div class="el header">
+            Predominant Bloom Level
+        </div>
+        <div class="el" *ngFor="let dl of dls">
+            <p><em>{{dl.bloom.range}}</em>: {{dl.bloom.description}}</p>
+        </div>
+    </div>
+</div>

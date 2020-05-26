@@ -1,0 +1,24 @@
+#row{
+    display: flex;
+}
+
+#col1{
+    flex: 1.4;
+}
+
+#col2{
+    flex: 1;
+}
+
+#col3{
+    flex: 1;
+}
+
+.el{
+    height: 60px;
+}
+
+.header{
+    height: 20px;
+    font-weight: 800;
+}

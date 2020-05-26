@@ -1,11 +1,13 @@
-<h4>review-a works</h4>
 <mat-vertical-stepper>
     <mat-step *ngFor="let competency of competencies" label="Competency {{competency.num}}">
-        <app-competency-display [competency]="competency">
-
-        </app-competency-display>
+        <app-competency-display [competency]="competency"></app-competency-display>
+        <br/>
+        <button mat-button matStepperPrevious *ngIf="competency">Back</button>
+        <button mat-button matStepperNext>Next</button>
     </mat-step>
     <mat-step label="Dls">
-        <p>DLs step selected</p>
+        <app-dl-display></app-dl-display>
+        <button mat-button matStepperPrevious>Back</button>
+        <!--TODO: Next button to step 2-->
     </mat-step>
 </mat-vertical-stepper>
