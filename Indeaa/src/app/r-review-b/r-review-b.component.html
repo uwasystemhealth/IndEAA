@@ -5,3 +5,13 @@
         <p>These should form the basis of your assessment of how TODO contributes to the attainment of the Elements of Competency outliend in Step 1</p>
     </mat-card-content>
 </mat-card>
+<br/>
+<div class="flex-grid">
+    <div class="flex-element" *ngFor="let resource of resources">
+        <div>
+            <h2>{{resource.title}}</h2>
+            <h3>Uploaded on {{resource.uploaded | date}}</h3>
+            <p>{{resource.description}}</p>
+        </div>
+    </div>
+</div>

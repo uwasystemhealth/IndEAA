@@ -9,6 +9,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule, MatCard } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 //Own component imports
 import { AppComponent } from './app.component';
@@ -64,6 +65,7 @@ const routes: Routes = [
     MatTabsModule,
     MatDividerModule,
     MatCardModule,
+    MatGridListModule,
     BrowserAnimationsModule
   ],
   providers: [],
