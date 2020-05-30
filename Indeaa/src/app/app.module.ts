@@ -23,6 +23,7 @@ import { RReviewDComponent } from './r-review-d/r-review-d.component';
 import { CompetencyDisplayComponent } from './competency-display/competency-display.component';
 import { EocDisplayComponent } from './eoc-display/eoc-display.component';
 import { DlDisplayComponent } from './dl-display/dl-display.component';
+import { ResourceTileComponent } from './resource-tile/resource-tile.component';
 
 const routes: Routes = [
   {
@@ -56,7 +57,8 @@ const routes: Routes = [
     RReviewDComponent,
     CompetencyDisplayComponent,
     EocDisplayComponent,
-    DlDisplayComponent
+    DlDisplayComponent,
+    ResourceTileComponent
   ],
   imports: [
     BrowserModule,

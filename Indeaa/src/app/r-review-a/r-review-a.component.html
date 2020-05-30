@@ -2,7 +2,7 @@
     <mat-step *ngFor="let competency of competencies" label="Competency {{competency.num}}">
         <app-competency-display [competency]="competency"></app-competency-display>
         <br/>
-        <button mat-button matStepperPrevious *ngIf="competency">Back</button>
+        <button mat-button matStepperPrevious *ngIf="competency.id != 1">Back</button>
         <button mat-button matStepperNext>Next</button>
     </mat-step>
     <mat-step label="Dls">

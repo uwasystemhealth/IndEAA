@@ -8,10 +8,8 @@
 <br/>
 <div class="flex-grid">
     <div class="flex-element" *ngFor="let resource of resources">
-        <div>
-            <h2>{{resource.title}}</h2>
-            <h3>Uploaded on {{resource.uploaded | date}}</h3>
-            <p>{{resource.description}}</p>
-        </div>
+        <app-resource-tile [resource]="resource">
+
+        </app-resource-tile>
     </div>
 </div>
