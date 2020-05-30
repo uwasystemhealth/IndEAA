@@ -1,1 +1,15 @@
-<p>r-review-c works!</p>
+<h1>Assessment</h1>
+<div>
+    <mat-accordion>
+        <mat-expansion-panel *ngFor="let competency of competencies">
+            <mat-expansion-panel-header>
+                <mat-panel-title>Competency {{competency.num}}</mat-panel-title>
+                <mat-panel-description>EOC {{competency.eocs[0].id}} - {{competency.eocs[competency.eocs.length-1].id}}</mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="flex-grid">
+                <app-eoc-assessment-tile class="flex-element" [eoc]="eoc" *ngFor="let eoc of competency.eocs">
+                </app-eoc-assessment-tile>
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>

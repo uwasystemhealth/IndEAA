@@ -10,6 +10,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule, MatCard } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 //Own component imports
 import { AppComponent } from './app.component';
@@ -24,6 +25,7 @@ import { CompetencyDisplayComponent } from './competency-display/competency-disp
 import { EocDisplayComponent } from './eoc-display/eoc-display.component';
 import { DlDisplayComponent } from './dl-display/dl-display.component';
 import { ResourceTileComponent } from './resource-tile/resource-tile.component';
+import { EocAssessmentTileComponent } from './eoc-assessment-tile/eoc-assessment-tile.component';
 
 const routes: Routes = [
   {
@@ -58,7 +60,8 @@ const routes: Routes = [
     CompetencyDisplayComponent,
     EocDisplayComponent,
     DlDisplayComponent,
-    ResourceTileComponent
+    ResourceTileComponent,
+    EocAssessmentTileComponent
   ],
   imports: [
     BrowserModule,
@@ -68,6 +71,7 @@ const routes: Routes = [
     MatDividerModule,
     MatCardModule,
     MatGridListModule,
+    MatExpansionModule,
     BrowserAnimationsModule
   ],
   providers: [],

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { EocService } from '../eoc.service';
+import { Competency } from '../competency';
 
 @Component({
   selector: 'app-r-review-c',
@@ -6,10 +8,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./r-review-c.component.css']
 })
 export class RReviewCComponent implements OnInit {
-
-  constructor() { }
+  competencies: Competency[];
+   
+  constructor(private eocService: EocService) { }
 
   ngOnInit(): void {
+    this.competencies = this.eocService.competencies;
   }
 
 }
