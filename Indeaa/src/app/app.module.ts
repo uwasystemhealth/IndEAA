@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { OverlayModule} from '@angular/cdk/overlay';
 
 //Material imports
 import { MatStepperModule } from '@angular/material/stepper';
@@ -26,6 +27,7 @@ import { EocDisplayComponent } from './eoc-display/eoc-display.component';
 import { DlDisplayComponent } from './dl-display/dl-display.component';
 import { ResourceTileComponent } from './resource-tile/resource-tile.component';
 import { EocAssessmentTileComponent } from './eoc-assessment-tile/eoc-assessment-tile.component';
+import { EocAssessmentOverlayComponent } from './eoc-assessment-overlay/eoc-assessment-overlay.component';
 
 const routes: Routes = [
   {
@@ -61,7 +63,8 @@ const routes: Routes = [
     EocDisplayComponent,
     DlDisplayComponent,
     ResourceTileComponent,
-    EocAssessmentTileComponent
+    EocAssessmentTileComponent,
+    EocAssessmentOverlayComponent
   ],
   imports: [
     BrowserModule,
@@ -72,7 +75,8 @@ const routes: Routes = [
     MatCardModule,
     MatGridListModule,
     MatExpansionModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    OverlayModule
   ],
   providers: [],
   bootstrap: [AppComponent],
