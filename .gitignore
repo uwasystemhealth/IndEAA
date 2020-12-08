@@ -1,3 +1,6 @@
+# docker compose
+mongo/
+
 # ENV
 .env
 .env-development

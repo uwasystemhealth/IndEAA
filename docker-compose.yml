@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  db:
+    image: mongo
+    container_name: indeaa_mongo
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes: 
+      -  ./mongo/data:/data/db
+    ports:
+      - 27017:27017 # Host:Container
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+
+  server:
+    build:
+      context: .
+      dockerfile: docker/server/Dockerfile
+    container_name: indeaa_server
+    restart: unless-stopped
+    env_file:
+      - .env
+    depends_on: 
+      - db
+    ports:
+      - 3030:3030 # Host:Container
+    volumes:
+      - ./server:/app_code
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+
+  client:
+    build:
+      context: .
+      dockerfile: docker/client/Dockerfile
+    container_name: indeaa_client
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - 3000:3000 # Host:Container
+    volumes:
+      - ./client:/app_code
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+
+  docs:
+    build:
+      context: .
+      dockerfile: docker/mkdocs/Dockerfile
+    container_name: indeaa_docs
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - 8100:8000
+    volumes:
+      - ./mkdocs:/docs
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    
