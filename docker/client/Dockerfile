@@ -11,7 +11,7 @@ RUN chmod +x /runtime.sh
 COPY ./client /app_code
 
 # Install ALL Dependencies
-RUN yarn install --production=false 
+RUN yarn install
 
 # ========================================
 # ---- Executed at Container Runtime ----

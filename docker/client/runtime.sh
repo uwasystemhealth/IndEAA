@@ -45,6 +45,19 @@ if [[ -z "${NODE_ENV}" ]]; then
 fi
 
 # ====================================================================================
+# Install extra dependencies if ENV is LOCAL
+# ====================================================================================
+if [ "${NODE_ENV^^}" = "DEVELOPMENT" ]; then
+
+    # Install some extras
+    echo "  "
+    echo "======= Installing extra libraries just for DEVELOPMENT env ======================================================="
+    yarn install --production=false
+fi
+
+# CI TEST DOWN THE TRACK
+
+# ====================================================================================
 # Run inbuilt NextJS server if ENV is LOCAL
 # ====================================================================================
 if [ "${NODE_ENV^^}" = "DEVELOPMENT" ]; then
