@@ -28,7 +28,7 @@ services:
     depends_on: 
       - db
     ports:
-      - 3030:3030 # Host:Container
+      - 10006:3030 # Host:Container
     volumes:
       # File syncing
       - ./server:/app_code
@@ -46,7 +46,7 @@ services:
     env_file:
       - .env
     ports:
-      - 3000:3000 # Host:Container
+      - 10004:3000 # Host:Container
     volumes:
       # File syncing
       - ./client:/app_code
@@ -66,7 +66,7 @@ services:
     env_file:
       - .env
     ports:
-      - 8100:8000
+      - 10005:8000
     volumes:
       - ./mkdocs:/docs
     stdin_open: true # docker run -i
