@@ -66,3 +66,5 @@ nav:
   - Introduction: administrator/index.md
 - Developer:
   - Introduction: developer/index.md
+  - Data Engineering: developer/data_engineering.md
+  - Transport/Integration Layer (Feathers-redux): developer/feathers_redux.md
