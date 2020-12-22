@@ -25,6 +25,9 @@ import PageChange from "components/MaterialKit/PageChange/PageChange.js";
 
 import "assets/scss/nextjs-material-kit.scss?v=1.1.0";
 
+// Own Components
+import Navbar from "components/Layout/Navbar"
+
 Router.events.on("routeChangeStart", url => {
   console.log(`Loading: ${url}`);
   document.body.classList.add("body-page-transition");
@@ -78,8 +81,9 @@ export default class MyApp extends App {
     return (
       <React.Fragment>
         <Head>
-          <title>NextJS Material Kit by Creative Tim</title>
+          <title>IndEAA - System Health Lab</title>
         </Head>
+        <Navbar></Navbar>
         <Component {...pageProps} />
       </React.Fragment>
     );
