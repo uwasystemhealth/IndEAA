@@ -9,7 +9,6 @@ import People from "@material-ui/icons/People";
 // core components
 import Header from "components/MaterialKit/Header/Header.js";
 import HeaderLinks from "components/MaterialKit/Header/HeaderLinks.js";
-import Footer from "components/MaterialKit/Footer/Footer.js";
 import GridContainer from "components/MaterialKit/Grid/GridContainer.js";
 import GridItem from "components/MaterialKit/Grid/GridItem.js";
 import Button from "components/MaterialKit/CustomButtons/Button.js";
@@ -18,6 +17,10 @@ import CardBody from "components/MaterialKit/Card/CardBody.js";
 import CardHeader from "components/MaterialKit/Card/CardHeader.js";
 import CardFooter from "components/MaterialKit/Card/CardFooter.js";
 import CustomInput from "components/MaterialKit/CustomInput/CustomInput.js";
+
+// Own Components
+import Navbar from "components/Layout/Navbar"
+import Footer from "components/Layout/Footer"
 
 import styles from "assets/jss/nextjs-material-kit/pages/loginPage.js";
 
@@ -40,6 +43,7 @@ export default function LoginPage(props) {
         backgroundPosition: "top center"
       }}
     >
+      <Navbar></Navbar>
       <div className={classes.container}>
         <GridContainer justify="center">
           <GridItem xs={12} sm={6} md={4}>
@@ -72,8 +76,9 @@ export default function LoginPage(props) {
           </GridItem>
         </GridContainer>
       </div>
+      <Footer whiteFont></Footer>
     </div>
   );
 }
 
-LoginPage.customLayout=()=><></>
+LoginPage.customLayout = ({ children }) => <div>{children}</div>

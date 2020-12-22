@@ -100,7 +100,11 @@ export default class MyApp extends App {
             </React.Fragment>
           )
           :
-          (<CustomLayout><Component {...pageProps} /></CustomLayout>)
+          (
+            <CustomLayout>
+              <Component {...pageProps} />
+            </CustomLayout>
+          )
         }
 
       </React.Fragment>
