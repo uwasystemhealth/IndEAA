@@ -54,6 +54,7 @@ export default function HeaderLinks(props) {
                     href="https://indeaa-docs.systemhealthlab.com/"
                     color="transparent"
                     target="_blank"
+                    external={true}
                     className={classes.navLink}
                 >
                     <Icon className={classes.icons}>unarchive</Icon> Documentation
@@ -67,10 +68,9 @@ export default function HeaderLinks(props) {
                     classes={{ tooltip: classes.tooltip }}
                 >
                     <Button
-                        color="rose"
+                        color="info"
                         href="/login"
                         target="_blank"
-                        className={classes.navLink}
                     >
                         Login
                     </Button>

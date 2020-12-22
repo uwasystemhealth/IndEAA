@@ -15,15 +15,15 @@ const Navbar = () => {
 
     return (
         <Header
-            color="white"
+            color="primary"
             brand="NextJS Material Kit"
             brandImage={<img id='logo' src='/img/logos/SHL.png' alt='logo' className={classes.img} />}
             rightLinks={<HeaderLinks />}
             fixed
-            changeColorOnScroll={{
-                height: 400,
-                color: "primary"
-            }}
+            // changeColorOnScroll={{
+            //     height: 400,
+            //     color: "primary"
+            // }}
         />
     )
 }

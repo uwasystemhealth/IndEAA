@@ -44,10 +44,10 @@ const RegularButton = React.forwardRef((props, ref) => {
 					</Button>
 				</Link>
 			) : (
-				<Button href={href} {...rest} ref={ref} classes={{ root: btnClasses }}>
-					{children}
-				</Button>
-			)}
+					<Button href={href} {...rest} ref={ref} classes={{ root: btnClasses }}>
+						{children}
+					</Button>
+				)}
 		</Fragment>
 	);
 });
