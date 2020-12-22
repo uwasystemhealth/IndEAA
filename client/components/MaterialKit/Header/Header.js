@@ -54,7 +54,7 @@ export default function Header(props) {
         .classList.remove(classes[changeColorOnScroll.color]);
     }
   };
-  const { color, rightLinks, leftLinks, brand, fixed, absolute } = props;
+  const { color, rightLinks, leftLinks, brand, brandImage, fixed, absolute } = props;
   const appBarClasses = classNames({
     [classes.appBar]: true,
     [classes[color]]: color,
@@ -62,8 +62,8 @@ export default function Header(props) {
     [classes.fixed]: fixed
   });
   const brandComponent = (
-    <Link href="/components" as="/components">
-      <Button className={classes.title}>{brand}</Button>
+    <Link href='/' as='/'>
+      <Button className={classes.title}>{brandImage}{' '}{brand}</Button>
     </Link>
   );
   return (
@@ -131,6 +131,7 @@ Header.propTypes = {
   rightLinks: PropTypes.node,
   leftLinks: PropTypes.node,
   brand: PropTypes.string,
+  brandImage: PropTypes.node,
   fixed: PropTypes.bool,
   absolute: PropTypes.bool,
   // this will cause the sidebar to change the color from
