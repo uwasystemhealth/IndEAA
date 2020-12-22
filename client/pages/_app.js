@@ -27,6 +27,8 @@ import "assets/scss/nextjs-material-kit.scss?v=1.1.0";
 
 // Own Components
 import Navbar from "components/Layout/Navbar"
+import ContentWrapper from "components/Layout/ContentWrapper"
+import Footer from 'components/Layout/Footer';
 
 Router.events.on("routeChangeStart", url => {
   console.log(`Loading: ${url}`);
@@ -78,13 +80,31 @@ export default class MyApp extends App {
   render() {
     const { Component, pageProps } = this.props;
 
+    // Use this custom layout if it exist
+    const CustomLayout = Component.customLayout
+
+    // Title with Default
+    const pageTitle = Component.pageTitle || "IndEAA Page"
+
     return (
       <React.Fragment>
-        <Head>
-          <title>IndEAA - System Health Lab</title>
-        </Head>
-        <Navbar></Navbar>
-        <Component {...pageProps} />
+        {CustomLayout == null ?
+          (
+            <React.Fragment>
+              <Head>
+                <title>IndEAA - System Health Lab</title>
+              </Head>
+              <Navbar></Navbar>
+              <ContentWrapper title={pageTitle}>
+                <Component {...pageProps} />
+              </ContentWrapper>
+              <Footer></Footer>
+            </React.Fragment>
+          )
+          :
+          (<CustomLayout><Component {...pageProps} /></CustomLayout>)
+        }
+
       </React.Fragment>
     );
   }
