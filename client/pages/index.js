@@ -28,7 +28,7 @@ const useStyles = makeStyles(styles);
 export default function LandingPage(props) {
   const classes = useStyles();
   return (
-    <div>
+    <>
       <Parallax filter responsive image={require("assets/img/landing-bg.jpg")}>
         <div className={classes.container}>
           <GridContainer>
@@ -63,6 +63,8 @@ export default function LandingPage(props) {
         </div>
       </div>
       <Footer />
-    </div>
+    </>
   );
 }
+
+LandingPage.customLayout = () => <></>
