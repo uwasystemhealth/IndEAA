@@ -18,23 +18,23 @@
 // // // Variables - Styles that are used on more than one component
 // #############################
 
-const hexColorToRGB = function(hexColor) {
+const hexColorToRGB = function (hexColor) {
   let detectShorthand = /^#?([a-f\d])([a-f\d])([a-f\d])$/i; // #000 vs #000000
-  hexColor = hexColor.replace(detectShorthand, function(m, r, g, b) {
+  hexColor = hexColor.replace(detectShorthand, function (m, r, g, b) {
     return r + r + g + g + b + b;
   });
 
   const hex_array = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hexColor); // #000000 to #ffffff
   return hex_array
     ? {
-        r: parseInt(hex_array[1], 16), // 0-255
-        g: parseInt(hex_array[2], 16), // 0-255
-        b: parseInt(hex_array[3], 16) // 0-255
-      }
+      r: parseInt(hex_array[1], 16), // 0-255
+      g: parseInt(hex_array[2], 16), // 0-255
+      b: parseInt(hex_array[3], 16) // 0-255
+    }
     : null;
 };
 
-const hexToRGBAlpha = function(hexColor, alpha) {
+const hexToRGBAlpha = function (hexColor, alpha) {
   let rgb = hexColorToRGB(hexColor);
   return `rgba(${rgb.r},${rgb.g},${rgb.b},${alpha})`;
 };
@@ -90,7 +90,7 @@ const defaultFont = {
   lineHeight: "1.5em"
 };
 
-const primaryColor = "#9c27b0";
+const primaryColor = "#F68C2C";
 const warningColor = "#ff9800";
 const dangerColor = "#f44336";
 const successColor = "#4caf50";
@@ -152,7 +152,7 @@ const roseBoxShadow = {
 
 const warningCardHeader = {
   color: "#fff",
-  background: "linear-gradient(60deg, #ffa726, #fb8c00)",
+  background: "linear-gradient(60deg, #FEDDAA, #F36821)",
   ...warningBoxShadow
 };
 const successCardHeader = {
