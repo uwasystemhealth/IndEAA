@@ -28,7 +28,6 @@ import "assets/scss/nextjs-material-kit.scss?v=1.1.0";
 // Own Components
 import Navbar from "components/Layout/Navbar"
 import ContentWrapper from "components/Layout/ContentWrapper"
-import Footer from 'components/Layout/Footer';
 
 Router.events.on("routeChangeStart", url => {
   console.log(`Loading: ${url}`);
@@ -95,10 +94,9 @@ export default class MyApp extends App {
                 <title>IndEAA - System Health Lab</title>
               </Head>
               <Navbar></Navbar>
-              <ContentWrapper title={pageTitle}>
+              <ContentWrapper>
                 <Component {...pageProps} />
               </ContentWrapper>
-              <Footer></Footer>
             </React.Fragment>
           )
           :

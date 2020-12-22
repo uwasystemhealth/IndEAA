@@ -8,7 +8,7 @@ const CoordinatorMainPage = () => {
 
     const classes = useStyles();
     return (
-        <div className={classes.container}>
+        <div >
             Coordinator Main CoordinatorMainPage
         </div>
     )

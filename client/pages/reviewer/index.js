@@ -8,7 +8,7 @@ const ReviewerMainPage = () => {
 
     const classes = useStyles();
     return (
-        <div className={classes.container}>
+        <div >
             ReviewerMainPage
         </div>
     )

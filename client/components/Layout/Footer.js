@@ -24,7 +24,7 @@ export default function Footer(props) {
   });
   const aClasses = classNames({
     [classes.a]: true,
-    [classes.footerWhiteFont]: whiteFont
+    // [classes.footerWhiteFont]: whiteFont
   });
   return (
     <footer className={footerClasses}>
@@ -40,7 +40,7 @@ export default function Footer(props) {
           </a>{" "}
           and
           Michael Nefiodiovas on Behalf of the {' '}
-          <a href='https://systemhealthlab.com/' target='_blank'>
+          <a href='https://systemhealthlab.com/' className={aClasses} target='_blank'>
             System Health Lab
 						</a>{' '}
         </div>

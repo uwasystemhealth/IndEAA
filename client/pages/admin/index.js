@@ -8,7 +8,7 @@ const AdminstratorMainPage = () => {
 
     const classes = useStyles();
     return (
-        <div className={classes.container}>
+        <div >
             Main AdminstratorMainPage
         </div>
     )

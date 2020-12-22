@@ -11,7 +11,7 @@ const ReviewerCourseReviewPage1 = () => {
 
     const classes = useStyles();
     return (
-        <div className={classes.container}>
+        <div >
             {courseID}
             ReviewerCourseReviewPage1
         </div>

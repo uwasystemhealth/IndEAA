@@ -1,34 +1,45 @@
 import React from 'react'
 
 // CORE COMPONENTS
+import Card from "components/MaterialKit/Card/Card.js";
+import CardBody from "components/MaterialKit/Card/CardBody.js";
 import GridContainer from 'components/MaterialKit/Grid/GridContainer.js';
 import GridItem from 'components/MaterialKit/Grid/GridItem.js';
 import Parallax from 'components/MaterialKit/Parallax/Parallax.js';
 
+// OWN COMPONENTS
+import Footer from 'components/Layout/Footer';
+
 // STYLES
 import classNames from 'classnames';
 import { makeStyles } from '@material-ui/core/styles';
-import styles from 'assets/jss/nextjs-material-kit/pages/landingPage.js';
+import styles from "assets/jss/nextjs-material-kit/pages/loginPage.js";
 const useStyles = makeStyles(styles);
+import image from "assets/img/bg7.jpg";
 
-const ContentWrapper = ({ title, children }) => {
+const ContentWrapper = ({ children }) => {
     const classes = useStyles();
-
     return (
         <>
-            <Parallax small filter responsive image={require("assets/img/landing-bg.jpg")}>
+            <div
+                className={classes.pageHeader}
+                style={{
+                    backgroundImage: "url(" + image + ")",
+                    backgroundSize: "cover",
+                    backgroundPosition: "top center"
+                }}
+            >
                 <div className={classes.container}>
-                    <GridContainer>
-                        <GridItem xs={12}>
-                            <h1 className={classes.title}>{title}</h1>
-                        </GridItem>
+                    <GridContainer justify="center">
+                        <Card >
+                            <CardBody>
+                                {children}
+                            </CardBody>
+                        </Card>
+
                     </GridContainer>
                 </div>
-            </Parallax>
-            <div className={classNames(classes.main, classes.mainRaised)}>
-                <div className={classes.container}>
-                    {children}
-                </div>
+                <Footer whiteFont></Footer>
             </div>
         </>
     )

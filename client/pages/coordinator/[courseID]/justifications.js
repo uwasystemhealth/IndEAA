@@ -11,7 +11,7 @@ const CoordinatorCourseJustificationsPage = () => {
 
     const classes = useStyles();
     return (
-        <div className={classes.container}>
+        <div >
             {courseID}
             CoordinatorCourseJustificationsPage
         </div>
