@@ -19,6 +19,8 @@ import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import Head from "next/head";
 import Router from "next/router";
+import { Provider } from "react-redux";
+import store, { feathersClient } from "store/feathersClient"
 
 import PageChange from "components/MaterialKit/PageChange/PageChange.js";
 
@@ -53,6 +55,7 @@ const MyApp = ({ Component, pageProps }) => {
   const pageTitle = Component.pageTitle || "IndEAA Page"
 
   useEffect(() => {
+    // Template Licenses
     let comment = document.createComment(`
 
 =========================================================
@@ -71,10 +74,27 @@ const MyApp = ({ Component, pageProps }) => {
 
 `);
     document.insertBefore(comment, document.documentElement);
+
+
+    // Authentication Setup - UseEffect cannot handle async
+    const authenticate = async () => {
+      try {
+        await feathersClient.reAuthenticate()
+        alert("Successful Authentication")
+      }
+      catch (err) {
+        // Cant Authenticate
+        console.log(err)
+        // TODO: Insert Set Login Provider to Null
+
+      }
+    }
+
+    authenticate()
   }
     , [])
   return (
-    <React.Fragment>
+    <Provider store={store}>
       { CustomLayout == null ?
         (
           <React.Fragment>
@@ -95,7 +115,7 @@ const MyApp = ({ Component, pageProps }) => {
         )
       }
 
-    </React.Fragment >
+    </Provider>
   );
 }
 

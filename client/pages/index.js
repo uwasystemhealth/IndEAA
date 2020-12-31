@@ -54,10 +54,9 @@ export default function LoginPage(props) {
                   <div className={classes.socialLine}>
                     <Button
                       justIcon
-                      href="#pablo"
-                      target="_blank"
+                      href={`${process.env.NEXT_PUBLIC_BACKEND_URL}/oauth/google`}
                       color="transparent"
-                      onClick={e => e.preventDefault()}
+                      external={true}
                     >
                       <i className={"fab fa-google-plus-g"} />
                     </Button>

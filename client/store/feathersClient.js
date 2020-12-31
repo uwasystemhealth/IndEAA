@@ -1,6 +1,6 @@
 import configureStore from "../store"
 import io from "socket.io-client"
-import feathers from '@feathersjs/feathers';
+import feathers from '@feathersjs/client';
 import socketio from '@feathersjs/socketio-client';
 import Realtime from "feathers-offline-realtime"
 
@@ -10,9 +10,10 @@ export const socket = io(process.env.NEXT_PUBLIC_BACKEND_URL, {
     transports: ['websocket'],
     forceNew: true
 });
-console.log(socket)
+// console.log(socket)
 export const feathersClient = feathers()
 feathersClient.configure(socketio(socket));
+feathersClient.configure(feathers.authentication())
 
 
 // Configure Redux
