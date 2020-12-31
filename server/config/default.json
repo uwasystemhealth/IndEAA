@@ -28,8 +28,10 @@
       "passwordField": "password"
     },
     "oauth": {
-      "redirect": "/",
+      "redirect": "FRONTEND_REDIRECT_URL",
       "google": {
+        "redirect_uri": "BACKEND_HOST_CALLBACK",
+        "callback": "/oauth/google/authenticate",
         "key": "GOOGLE_OAUTH_KEY",
         "secret": "GOOGLE_OAUTH_SECRET",
         "scope": [
@@ -40,5 +42,5 @@
       }
     }
   },
-  "mongodb": "mongodb://db:27017/server"
+  "mongodb": "mongodb://admin:admin@db:27017/server?authSource=admin"
 }
