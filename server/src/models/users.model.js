@@ -6,10 +6,10 @@ module.exports = function (app) {
   const modelName = 'users';
   const mongooseClient = app.get('mongooseClient');
   const schema = new mongooseClient.Schema({
-  
-  
     googleId: { type: String },
-  
+    name: { type: String },
+    picture: { type: String },
+    email: { type: String }
   }, {
     timestamps: true
   });
