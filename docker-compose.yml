@@ -1,0 +1,75 @@
+version: '3.3'
+
+services:
+  db:
+    image: mongo
+    container_name: indeaa_mongo
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes: 
+      # - ./mongo/data:/data/db  - use this for windows
+      - ~/docker/mongo/data/db:/data/db # use this for mac and linux
+    ports:
+      - 27017:27017 # Host:Container
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+
+  server:
+    build:
+      context: .
+      dockerfile: docker/server/Dockerfile
+    container_name: indeaa_server
+    restart: unless-stopped
+    env_file:
+      - .env
+    depends_on: 
+      - db
+    ports:
+      - 10006:3030 # Host:Container
+    volumes:
+      # File syncing
+      - ./server:/app_code
+      # Barrier for OS node modules specific
+      - /app_code/node_modules
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+
+  client:
+    build:
+      context: .
+      dockerfile: docker/client/Dockerfile
+    container_name: indeaa_client
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - 10004:3000 # Host:Container
+    volumes:
+      # File syncing
+      - ./client:/app_code
+      # Barrier for OS node modules specific
+      - /app_code/node_modules
+      # Nextjs specific build
+      - /app_code/.next
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+
+  docs:
+    build:
+      context: .
+      dockerfile: docker/mkdocs/Dockerfile
+    container_name: indeaa_docs
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - 10005:8000
+    volumes:
+      - ./mkdocs:/docs
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    

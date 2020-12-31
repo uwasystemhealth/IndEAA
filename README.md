@@ -1,2 +1,4 @@
 # IndEAA
-An incomplete project creating a web portal to allow industry advisory panels to review engineering units.
+A web application that streamlines course review by industry advisory panels.
+
+Full documentation [here](https://uwasystemhealth.github.io/IndEAA/) or the raw format [here](https://github.com/uwasystemhealth/IndEAA/tree/main/mkdocs/docs).
