@@ -12,7 +12,7 @@ export const socket = io(process.env.NEXT_PUBLIC_BACKEND_URL, {
 });
 console.log(socket)
 export const feathersClient = feathers()
-    .configure(socketio(socket));
+feathersClient.configure(socketio(socket));
 
 
 // Configure Redux
