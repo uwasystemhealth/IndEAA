@@ -15,9 +15,8 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
-import App from "next/app";
 import Head from "next/head";
 import Router from "next/router";
 
@@ -46,8 +45,14 @@ Router.events.on("routeChangeError", () => {
   document.body.classList.remove("body-page-transition");
 });
 
-export default class MyApp extends App {
-  componentDidMount() {
+const MyApp = ({ Component, pageProps }) => {
+  // Use this custom layout if it exist
+  const CustomLayout = Component.customLayout
+
+  // Title with Default
+  const pageTitle = Component.pageTitle || "IndEAA Page"
+
+  useEffect(() => {
     let comment = document.createComment(`
 
 =========================================================
@@ -67,47 +72,41 @@ export default class MyApp extends App {
 `);
     document.insertBefore(comment, document.documentElement);
   }
-  static async getInitialProps({ Component, router, ctx }) {
-    let pageProps = {};
-
-    if (Component.getInitialProps) {
-      pageProps = await Component.getInitialProps(ctx);
-    }
-
-    return { pageProps };
-  }
-  render() {
-    const { Component, pageProps } = this.props;
-
-    // Use this custom layout if it exist
-    const CustomLayout = Component.customLayout
-
-    // Title with Default
-    const pageTitle = Component.pageTitle || "IndEAA Page"
-
-    return (
-      <React.Fragment>
-        {CustomLayout == null ?
-          (
-            <React.Fragment>
-              <Head>
-                <title>IndEAA - System Health Lab</title>
-              </Head>
-              <Navbar></Navbar>
-              <ContentWrapper>
-                <Component {...pageProps} />
-              </ContentWrapper>
-            </React.Fragment>
-          )
-          :
-          (
-            <CustomLayout>
+    , [])
+  return (
+    <React.Fragment>
+      { CustomLayout == null ?
+        (
+          <React.Fragment>
+            <Head>
+              <title>IndEAA - System Health Lab</title>
+            </Head>
+            <Navbar></Navbar>
+            <ContentWrapper>
               <Component {...pageProps} />
-            </CustomLayout>
-          )
-        }
+            </ContentWrapper>
+          </React.Fragment>
+        )
+        :
+        (
+          <CustomLayout>
+            <Component {...pageProps} />
+          </CustomLayout>
+        )
+      }
 
-      </React.Fragment>
-    );
-  }
+    </React.Fragment >
+  );
 }
+
+MyApp.getInitialProps = async ({ Component, router, ctx }) => {
+  let pageProps = {};
+
+  if (Component.getInitialProps) {
+    pageProps = await Component.getInitialProps(ctx);
+  }
+
+  return { pageProps };
+}
+
+export default MyApp;
