@@ -15,9 +15,15 @@ const EvaluationListing = ({
 }) => {
   const classes = useStyles();
 
-  // 2. Render course list elements
-
-  return <div className={classes.listing}></div>;
+  return (
+    <div className={classes.listing}>
+      <h2>{courseId}</h2>
+      <br />
+      <h3>{coordinators}</h3>
+      <br />
+      <p>{evaluationDescription}</p>
+    </div>
+  );
 };
 
 export default EvaluationListing;
