@@ -1,5 +1,5 @@
 // CUSTOM COMPONENTS
-import CourseList from "../../components/Coordinator/CourseList/CourseList";
+import CourseList from "../../components/Coordinator/Evaluation/EvaluationList";
 
 //Styles
 import { makeStyles } from "@material-ui/core/styles";
