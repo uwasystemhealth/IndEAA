@@ -32,11 +32,13 @@ const EvaluationListing = ({
 }) => {
   const classes = useStyles();
 
+  const coordinatorNames = coordinators.join(", ");
+
   return (
     <Grid className={classes.root}>
       <GridItem xs={9}>
         <h2>{courseCode}</h2>
-        <h3>{coordinators}</h3>
+        <h3>{coordinatorNames}.</h3>
         <p>{evaluationDescription}</p>
       </GridItem>
       <GridItem xs={3} className={classes.buttons}>
