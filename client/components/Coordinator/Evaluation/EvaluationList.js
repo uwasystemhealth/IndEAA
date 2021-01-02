@@ -32,13 +32,24 @@ const EvaluationList = () => {
         createdAt: "1/1/2021",
         createdBy: {},
         EOC: [],
+        coordinators: ["Melinda Hodkiewics"],
+      },
+      {
+        courseid: "CITS2002",
+        documents: [],
+        reviewDescription: "Intro unit for beginner programmers",
+        reviewTargetDate: "9/12/2020",
+        isArchived: true,
+        createdAt: "5/12/2020",
+        createdBy: {},
+        EOC: [],
+        coordinators: ["Chris McDonald"],
       },
     ]);
 
     setLoading(false);
   }, []);
 
-  // 2. Render course list elements
   if (loading) {
     return (
       <Card>
@@ -47,9 +58,23 @@ const EvaluationList = () => {
     );
   }
 
+  // 2. Render course list elements
+  const evaluationListings = courseEvaluations.map(
+    ({ courseid, reviewDescription, coordinators }) => {
+      return (
+        <EvaluationListing
+          key={courseid}
+          courseId={courseid}
+          coordinators={coordinators}
+          evaluationDescription={reviewDescription}
+        />
+      );
+    }
+  );
+
   return (
     <Card>
-      <CardBody></CardBody>
+      <CardBody>{evaluationListings}</CardBody>
     </Card>
   );
 };
