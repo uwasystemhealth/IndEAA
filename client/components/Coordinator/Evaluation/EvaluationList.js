@@ -2,6 +2,8 @@
 import Card from "components/MaterialKit/Card/Card.js";
 import CardBody from "components/MaterialKit/Card/CardBody.js";
 import CardHeader from "components/MaterialKit/Card/CardHeader.js";
+import CardFooter from "components/MaterialKit/Card/CardFooter.js";
+import Button from "components/MaterialKit/CustomButtons/Button.js";
 import ListItem from "@material-ui/core/ListItem";
 import List from "@material-ui/core/List";
 
@@ -11,7 +13,12 @@ import EvaluationListing from "./EvaluationListing.js";
 //Styles
 import { makeStyles } from "@material-ui/core/styles";
 import styles from "assets/jss/nextjs-material-kit/pages/landingPage.js";
-const useStyles = makeStyles(styles);
+const useStyles = makeStyles(() => ({
+  ...styles,
+  footer: {
+    flexDirection: "row-reverse",
+  },
+}));
 
 import { useEffect, useState } from "react";
 
@@ -87,6 +94,9 @@ const EvaluationList = () => {
       <CardBody>
         <List className={classes.list}>{evaluationListings}</List>
       </CardBody>
+      <CardFooter className={classes.footer}>
+        <Button color="secondary">Create New Evaluation</Button>
+      </CardFooter>
     </Card>
   );
 };
