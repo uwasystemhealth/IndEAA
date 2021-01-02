@@ -10,15 +10,6 @@ import Link from "@material-ui/core/Link";
 import { makeStyles } from "@material-ui/core/styles";
 import styles from "assets/jss/nextjs-material-kit/pages/landingPage.js";
 const useStyles = makeStyles(() => ({
-  buttons: {
-    display: "flex",
-    justifyContent: "space-around",
-    alignItems: "center",
-  },
-  button: {
-    width: "10em",
-    height: "10em",
-  },
   root: {
     width: "inherit",
   },
@@ -35,18 +26,30 @@ const EvaluationListing = ({
   const coordinatorNames = coordinators.join(", ");
 
   return (
-    <Grid className={classes.root}>
-      <GridItem xs={9}>
+    <Grid className={classes.root} direction="row" alignItems="center">
+      <GridItem xs={8}>
         <h2>{courseCode}</h2>
         <h3>{coordinatorNames}.</h3>
         <p>{evaluationDescription}</p>
       </GridItem>
-      <GridItem xs={3} className={classes.buttons}>
-        <Button color="primary" type="button" startIcon={<PictureAsPdfIcon />}>
+      <GridItem xs={2}>
+        <Button
+          color="primary"
+          type="button"
+          size="large"
+          startIcon={<PictureAsPdfIcon />}
+        >
           Export
         </Button>
+      </GridItem>
+      <GridItem xs={2}>
         <Link href={`/coordinator/${evalId}`}>
-          <Button color="primary" type="button" startIcon={<HowToVoteIcon />}>
+          <Button
+            color="primary"
+            size="large"
+            type="button"
+            startIcon={<HowToVoteIcon />}
+          >
             Reviews
           </Button>
         </Link>
