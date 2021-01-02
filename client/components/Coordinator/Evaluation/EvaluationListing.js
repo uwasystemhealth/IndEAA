@@ -3,6 +3,7 @@ import PictureAsPdfIcon from "@material-ui/icons/PictureAsPdf";
 import HowToVoteIcon from "@material-ui/icons/HowToVote";
 import Grid from "components/MaterialKit/Grid/GridContainer.js";
 import GridItem from "components/MaterialKit/Grid/GridItem.js";
+import Button from "components/MaterialKit/CustomButtons/Button.js";
 
 //Styles
 import { makeStyles } from "@material-ui/core/styles";
@@ -14,8 +15,8 @@ const useStyles = makeStyles(() => ({
     alignItems: "center",
   },
   button: {
-    width: "5rem",
-    height: "5rem",
+    width: "10em",
+    height: "10em",
   },
 }));
 
@@ -30,14 +31,18 @@ const EvaluationListing = ({
     <Grid>
       <GridItem xs={9}>
         <h2>{courseId}</h2>
-
         <h3>{coordinators}</h3>
-
         <p>{evaluationDescription}</p>
       </GridItem>
       <GridItem xs={3} className={classes.buttons}>
-        <PictureAsPdfIcon className={classes.button} />
-        <HowToVoteIcon className={classes.button} />
+        <Button color="primary" type="button">
+          <PictureAsPdfIcon className={classes.button} />
+          <p>Export</p>
+        </Button>
+        <Button color="primary" type="button">
+          <HowToVoteIcon className={classes.button} />
+          <p>Reviews</p>
+        </Button>
       </GridItem>
     </Grid>
   );
