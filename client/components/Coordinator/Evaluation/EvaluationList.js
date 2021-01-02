@@ -1,6 +1,7 @@
 // CORE COMPONENTS
 import Card from "components/MaterialKit/Card/Card.js";
 import CardBody from "components/MaterialKit/Card/CardBody.js";
+import CardHeader from "components/MaterialKit/Card/CardHeader.js";
 import ListItem from "@material-ui/core/ListItem";
 import List from "@material-ui/core/List";
 
@@ -80,6 +81,9 @@ const EvaluationList = () => {
 
   return (
     <Card>
+      <CardHeader color="success">
+        <h2>Manage Course Evaluations</h2>
+      </CardHeader>
       <CardBody>
         <List className={classes.list}>{evaluationListings}</List>
       </CardBody>
