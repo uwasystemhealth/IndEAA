@@ -10,7 +10,21 @@ const useStyles = makeStyles(styles);
 const CourseList = () => {
   const classes = useStyles();
 
-  // 1. Load courses from database
+  // 1. Find all CourseEvaluations where the createdBy key matches the logged in user
+  const CourseEvaluations = [
+    {
+      courseid: "MECH5521/MECH5522",
+      documents: [],
+      reviewDescription:
+        "This is a capstone unit for engineering students where they make something cool",
+      reviewTargetDate: "10/10/2021",
+      isArchived: false,
+      createdAt: "1/1/2021",
+      createdBy: {},
+      EOC: [],
+    },
+  ];
+
   // 2. Render course list elements
 
   return (
