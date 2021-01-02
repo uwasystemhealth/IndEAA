@@ -18,6 +18,9 @@ const useStyles = makeStyles(() => ({
     width: "10em",
     height: "10em",
   },
+  root: {
+    width: "inherit",
+  },
 }));
 
 const EvaluationListing = ({
@@ -28,20 +31,23 @@ const EvaluationListing = ({
   const classes = useStyles();
 
   return (
-    <Grid>
+    <Grid className={classes.root}>
       <GridItem xs={9}>
         <h2>{courseId}</h2>
         <h3>{coordinators}</h3>
         <p>{evaluationDescription}</p>
       </GridItem>
       <GridItem xs={3} className={classes.buttons}>
-        <Button color="primary" type="button">
-          <PictureAsPdfIcon className={classes.button} />
-          <p>Export</p>
+        <Button
+          className="btn-lg"
+          color="primary"
+          type="button"
+          startIcon={<PictureAsPdfIcon />}
+        >
+          Export
         </Button>
-        <Button color="primary" type="button">
-          <HowToVoteIcon className={classes.button} />
-          <p>Reviews</p>
+        <Button color="primary" type="button" startIcon={<HowToVoteIcon />}>
+          Reviews
         </Button>
       </GridItem>
     </Grid>

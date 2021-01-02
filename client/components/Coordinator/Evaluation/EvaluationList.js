@@ -1,6 +1,8 @@
 // CORE COMPONENTS
 import Card from "components/MaterialKit/Card/Card.js";
 import CardBody from "components/MaterialKit/Card/CardBody.js";
+import ListItem from "@material-ui/core/ListItem";
+import List from "@material-ui/core/List";
 
 // CUSTOM COMPONENTS
 import EvaluationListing from "./EvaluationListing.js";
@@ -62,19 +64,22 @@ const EvaluationList = () => {
   const evaluationListings = courseEvaluations.map(
     ({ courseid, reviewDescription, coordinators }) => {
       return (
-        <EvaluationListing
-          key={courseid}
-          courseId={courseid}
-          coordinators={coordinators}
-          evaluationDescription={reviewDescription}
-        />
+        <ListItem key={courseid} divider>
+          <EvaluationListing
+            courseId={courseid}
+            coordinators={coordinators}
+            evaluationDescription={reviewDescription}
+          />
+        </ListItem>
       );
     }
   );
 
   return (
     <Card>
-      <CardBody>{evaluationListings}</CardBody>
+      <CardBody>
+        <List className={classes.list}>{evaluationListings}</List>
+      </CardBody>
     </Card>
   );
 };
