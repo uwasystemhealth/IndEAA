@@ -25,6 +25,7 @@ const EvaluationList = () => {
 
     setCourseEvaluations([
       {
+        _id: "1231",
         courseid: "MECH5521/MECH5522",
         documents: [],
         reviewDescription:
@@ -37,6 +38,7 @@ const EvaluationList = () => {
         coordinators: ["Melinda Hodkiewics"],
       },
       {
+        _id: "4343",
         courseid: "CITS2002",
         documents: [],
         reviewDescription: "Intro unit for beginner programmers",
@@ -45,7 +47,7 @@ const EvaluationList = () => {
         createdAt: "5/12/2020",
         createdBy: {},
         EOC: [],
-        coordinators: ["Chris McDonald"],
+        coordinators: ["Chris McDonald", "Melinda Hodkiewics"],
       },
     ]);
 
@@ -62,11 +64,12 @@ const EvaluationList = () => {
 
   // 2. Render course list elements
   const evaluationListings = courseEvaluations.map(
-    ({ courseid, reviewDescription, coordinators }) => {
+    ({ _id, courseid, reviewDescription, coordinators }) => {
       return (
-        <ListItem key={courseid} divider>
+        <ListItem key={_id} divider>
           <EvaluationListing
-            courseId={courseid}
+            evalId={_id}
+            courseCode={courseid}
             coordinators={coordinators}
             evaluationDescription={reviewDescription}
           />

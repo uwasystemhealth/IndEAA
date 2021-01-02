@@ -4,6 +4,7 @@ import HowToVoteIcon from "@material-ui/icons/HowToVote";
 import Grid from "components/MaterialKit/Grid/GridContainer.js";
 import GridItem from "components/MaterialKit/Grid/GridItem.js";
 import Button from "components/MaterialKit/CustomButtons/Button.js";
+import Link from "@material-ui/core/Link";
 
 //Styles
 import { makeStyles } from "@material-ui/core/styles";
@@ -24,7 +25,8 @@ const useStyles = makeStyles(() => ({
 }));
 
 const EvaluationListing = ({
-  courseId,
+  evalId,
+  courseCode,
   coordinators,
   evaluationDescription,
 }) => {
@@ -33,22 +35,19 @@ const EvaluationListing = ({
   return (
     <Grid className={classes.root}>
       <GridItem xs={9}>
-        <h2>{courseId}</h2>
+        <h2>{courseCode}</h2>
         <h3>{coordinators}</h3>
         <p>{evaluationDescription}</p>
       </GridItem>
       <GridItem xs={3} className={classes.buttons}>
-        <Button
-          className="btn-lg"
-          color="primary"
-          type="button"
-          startIcon={<PictureAsPdfIcon />}
-        >
+        <Button color="primary" type="button" startIcon={<PictureAsPdfIcon />}>
           Export
         </Button>
-        <Button color="primary" type="button" startIcon={<HowToVoteIcon />}>
-          Reviews
-        </Button>
+        <Link href={`/coordinator/${evalId}`}>
+          <Button color="primary" type="button" startIcon={<HowToVoteIcon />}>
+            Reviews
+          </Button>
+        </Link>
       </GridItem>
     </Grid>
   );
