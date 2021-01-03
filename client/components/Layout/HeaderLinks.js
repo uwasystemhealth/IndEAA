@@ -14,6 +14,10 @@ import { Apps, CloudDownload } from "@material-ui/icons";
 import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
 
+// redux
+import { useSelector, useDispatch } from "react-redux"
+import { signOut } from "actions/auth"
+
 // core components
 import CustomDropdown from "components/MaterialKit/CustomDropdown/CustomDropdown.js";
 import Button from "components/MaterialKit/CustomButtons/Button.js";
@@ -23,6 +27,8 @@ import styles from "assets/jss/nextjs-material-kit/components/headerLinksStyle.j
 const useStyles = makeStyles(styles);
 
 export default function HeaderLinks(props) {
+    const user = useSelector(state => state.auth.user)
+    const dispatch = useDispatch()
     const classes = useStyles();
     return (
         <List className={classes.list}>
@@ -60,22 +66,26 @@ export default function HeaderLinks(props) {
                     <Icon className={classes.icons}>unarchive</Icon> Documentation
         </Button>
             </ListItem>
-            <ListItem className={classes.listItem}>
-                <Tooltip
-                    id="instagram-tooltip"
-                    title="Login"
-                    placement={"top"}
-                    classes={{ tooltip: classes.tooltip }}
-                >
-                    <Button
+
+            {user &&
+                (<ListItem className={classes.listItem}>
+                    <Tooltip
+                        title={`You are login as ${user.name}`}
+                        placement={"top"}
+                        classes={{ tooltip: classes.tooltip }}
+                    ><Button
                         color="info"
-                        href="/login"
-                        target="_blank"
+                        onClick={(e) => dispatch(signOut())}
                     >
-                        Login
-                    </Button>
-                </Tooltip>
-            </ListItem>
+                            Signout
+                        </Button>
+                    </Tooltip>
+                </ListItem>
+
+                )
+
+            }
+
         </List>
     );
 }

@@ -22,8 +22,11 @@ import CustomInput from "components/MaterialKit/CustomInput/CustomInput.js";
 import Navbar from "components/Layout/Navbar"
 import Footer from "components/Layout/Footer"
 
-import styles from "assets/jss/nextjs-material-kit/pages/loginPage.js";
+// redux
+import { useSelector } from "react-redux"
 
+// Styles
+import styles from "assets/jss/nextjs-material-kit/pages/loginPage.js";
 import image from "assets/img/bg7.jpg";
 
 const useStyles = makeStyles(styles);
@@ -34,6 +37,11 @@ export default function LoginPage(props) {
     setCardAnimation("");
   }, 700);
   const classes = useStyles();
+
+  // Get User Details
+  const user = useSelector((state) => state.auth.user)
+  console.log(user)
+
   return (
     <div
       className={classes.pageHeader}
@@ -50,17 +58,23 @@ export default function LoginPage(props) {
             <Card className={classes[cardAnimaton]}>
               <form className={classes.form}>
                 <CardHeader color="primary" className={classes.cardHeader}>
-                  <h4>Login</h4>
-                  <div className={classes.socialLine}>
-                    <Button
-                      justIcon
-                      href={`${process.env.NEXT_PUBLIC_BACKEND_URL}/oauth/google`}
-                      color="transparent"
-                      external={true}
-                    >
-                      <i className={"fab fa-google-plus-g"} />
-                    </Button>
-                  </div>
+                  {
+                    user !== null ?
+                      <h4>Greetings, {user.name}</h4>
+                      :
+                      (<><h4>Login</h4>
+                        <div className={classes.socialLine}>
+                          <Button
+                            justIcon
+                            href={`${process.env.NEXT_PUBLIC_BACKEND_URL}/oauth/google`}
+                            color="transparent"
+                            external={true}
+                          >
+                            <i className={"fab fa-google-plus-g"} />
+                          </Button>
+                        </div></>)
+                  }
+
                 </CardHeader>
                 {/* <CardBody>
                   

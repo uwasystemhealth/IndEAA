@@ -21,7 +21,7 @@ export const authenticateReducer = (state = initState, action) => {
                 error: action.error
             }
         case "SIGNOUT_SUCCESS":
-            return state
+            return initState
         default:
             return state
     }

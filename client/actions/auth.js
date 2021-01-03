@@ -20,3 +20,10 @@ export const signIn = () => async (dispatch, getState) => {
         })
     }
 }
+
+export const signOut = () => async (dispatch, getState) => {
+    await feathersClient.logout()
+    return dispatch({
+        type: "SIGNOUT_SUCCESS"
+    })
+}
