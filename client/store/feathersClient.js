@@ -12,7 +12,11 @@ export const socket = io(process.env.NEXT_PUBLIC_BACKEND_URL, {
 });
 // console.log(socket)
 export const feathersClient = feathers()
-feathersClient.configure(socketio(socket));
+feathersClient.configure(socketio(socket,
+    {
+        timeout: 10000 // Increase timeout (defualt 5000ms)
+    }
+));
 feathersClient.configure(feathers.authentication())
 
 
