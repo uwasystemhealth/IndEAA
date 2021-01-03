@@ -2,16 +2,28 @@
 //
 // See http://mongoosejs.com/docs/models.html
 // for more of what you can do here.
+const DefaultSchema = require('../types/default.schema');
+const NameType = require('../types/name.type');
+const EmailType = require('../types/email.type');
+const ObjectIdType = require('../types/objectId.type');
+
+
 module.exports = function (app) {
   const modelName = 'users';
   const mongooseClient = app.get('mongooseClient');
-  const schema = new mongooseClient.Schema({
-    googleId: { type: String },
-    name: { type: String },
+  const schema = DefaultSchema(app);
+
+  schema.add({
+    googleId: { type: String, required: true },
+    name: NameType(),
     picture: { type: String },
-    email: { type: String }
-  }, {
-    timestamps: true
+    email: EmailType(),
+    perms: [
+      {
+        course_id: ObjectIdType("course", app),
+        role: { type: String, enum: ["Administrator", "Coordinator", "Reviewer"], required: true },
+      }
+    ]
   });
 
   // This is necessary to avoid model compilation errors in watch mode

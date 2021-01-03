@@ -51,6 +51,7 @@
     "dotenv": "^8.2.0",
     "feathers-mongoose": "^8.3.1",
     "helmet": "^4.2.0",
+    "lodash": "^4.17.20",
     "mongodb-core": "^3.2.7",
     "mongoose": "^5.10.13",
     "serve-favicon": "^2.5.0",
