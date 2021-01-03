@@ -14,14 +14,19 @@ export const socket = io(process.env.NEXT_PUBLIC_BACKEND_URL, {
 export const feathersClient = feathers()
 feathersClient.configure(socketio(socket,
     {
-        timeout: 10000 // Increase timeout (defualt 5000ms)
+        timeout: 15000 // Increase timeout (defualt 5000ms)
     }
 ));
 feathersClient.configure(feathers.authentication())
 
 
 // Configure Redux
-export const services = reduxifyServices(feathersClient, ['users', 'todo']);
+export const services = reduxifyServices(feathersClient,
+    [
+        'users',
+        'course-evaluation'
+    ]);
+
 
 const store = configureStore(services);
 export default store;

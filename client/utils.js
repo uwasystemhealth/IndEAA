@@ -2,3 +2,5 @@
 export const getAvailablePermissionsOfUser = (permissions)=>{
     return new Set(permissions.map(permission => permission.role))
 }
+
+export const permissions = ["Administrator","Coordinator","Reviewer"]

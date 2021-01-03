@@ -4,10 +4,10 @@ import { combineReducers } from 'redux';
 // Custom Reducers
 import { authenticateReducer } from "reducers/auth"
 
-export default function (reduxifiedServices) {
+export default function rootReducer(reduxifiedServices) {
   return combineReducers({
     users: reduxifiedServices.users.reducer,
-    todo: reduxifiedServices.todo.reducer,
+    courseEvaluation: reduxifiedServices["course-evaluation"].reducer,
     auth: authenticateReducer
   });
 }
