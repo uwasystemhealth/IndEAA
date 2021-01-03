@@ -26,6 +26,8 @@ import styles from "assets/jss/nextjs-material-kit/components/headerLinksStyle.j
 
 const useStyles = makeStyles(styles);
 
+const permissions = ["administrator", "coordinator", "reviewer"]
+
 export default function HeaderLinks(props) {
     const user = useSelector(state => state.auth.user)
     const dispatch = useDispatch()
@@ -44,13 +46,13 @@ export default function HeaderLinks(props) {
                         }}
                         buttonIcon={Apps}
                         dropdownList={[
-                            <Link href="/admin/">
+                            <Link href="/administrator">
                                 <a className={classes.dropdownLink}>Administrator</a>
                             </Link>,
-                            <Link href="/coordinator/">
+                            <Link href="/coordinator">
                                 <a className={classes.dropdownLink}>Coordinator</a>
                             </Link>,
-                            <Link href="/reviewer/">
+                            <Link href="/reviewer">
                                 <a className={classes.dropdownLink}>Reviewer</a>
                             </Link>,
                         ]}
