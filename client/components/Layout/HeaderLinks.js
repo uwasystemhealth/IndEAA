@@ -32,29 +32,31 @@ export default function HeaderLinks(props) {
     const classes = useStyles();
     return (
         <List className={classes.list}>
-            <ListItem className={classes.listItem}>
-                <CustomDropdown
-                    noLiPadding
-                    navDropdown
-                    buttonText="[Role Name]"
-                    buttonProps={{
-                        className: classes.navLink,
-                        color: "transparent"
-                    }}
-                    buttonIcon={Apps}
-                    dropdownList={[
-                        <Link href="/admin/">
-                            <a className={classes.dropdownLink}>Administrator</a>
-                        </Link>,
-                        <Link href="/coordinator/">
-                            <a className={classes.dropdownLink}>Coordinator</a>
-                        </Link>,
-                        <Link href="/reviewer/">
-                            <a className={classes.dropdownLink}>Reviewer</a>
-                        </Link>,
-                    ]}
-                />
-            </ListItem>
+            {user &&
+                <ListItem className={classes.listItem}>
+                    <CustomDropdown
+                        noLiPadding
+                        navDropdown
+                        buttonText="[Role Name]"
+                        buttonProps={{
+                            className: classes.navLink,
+                            color: "transparent"
+                        }}
+                        buttonIcon={Apps}
+                        dropdownList={[
+                            <Link href="/admin/">
+                                <a className={classes.dropdownLink}>Administrator</a>
+                            </Link>,
+                            <Link href="/coordinator/">
+                                <a className={classes.dropdownLink}>Coordinator</a>
+                            </Link>,
+                            <Link href="/reviewer/">
+                                <a className={classes.dropdownLink}>Reviewer</a>
+                            </Link>,
+                        ]}
+                    />
+                </ListItem>
+            }
             <ListItem className={classes.listItem}>
                 <Button
                     href="https://indeaa-docs.systemhealthlab.com/"
