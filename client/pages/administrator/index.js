@@ -1,16 +1,80 @@
+import { useEffect, useState } from "react"
+
+// MUI Icons
+import Placeholder from "@material-ui/icons/Mood";
+
+// Core Components
+import Card from "components/MaterialKit/Card/Card.js";
+import CardBody from "components/MaterialKit/Card/CardBody.js";
+import CardHeader from "components/MaterialKit/Card/CardHeader.js";
+import Button from "components/MaterialKit/CustomButtons/Button.js";
+import Grid from "components/MaterialKit/Grid/GridContainer.js";
+import GridItem from "components/MaterialKit/Grid/GridItem.js";
 
 //Styles
 import { makeStyles } from "@material-ui/core/styles";
-import styles from "assets/jss/nextjs-material-kit/pages/landingPage.js";
+import styles from "assets/jss/nextjs-material-kit/pages/landingPage";
+
+// Redux
+import { useDispatch, useSelector } from "react-redux"
+import { services } from "store/feathersClient"
+
+// Helper
+import { getAvailablePermissionsOfUser } from "utils"
+
 const useStyles = makeStyles(styles);
 
 const AdminstratorMainPage = () => {
+    const dispatch = useDispatch()
+
+    // Update state with all users
+    useEffect(() => {
+        dispatch(services.users.find())
+    }, [])
+
+    const userState = useSelector(state => state.users)
+    const authUserState = useSelector(state => state.auth.user)
+    // console.log(userState)
+
+    // Check Permission of Users
+    const isAdministrator = getAvailablePermissionsOfUser(authUserState.perms).has("Administrator")
+
+    // Current User Selected
+    const [currentUserSelected, setCurrentUserSelected] = useState(null)
 
     const classes = useStyles();
     return (
-        <div >
-            Main AdminstratorMainPage
-        </div>
+        <Card>
+            <CardHeader color="primary">Manage Users</CardHeader>
+            <CardBody>
+                <Grid direction="row" alignItems="center" justify="center">
+                    {userState && !userState.isLoading ?
+                        userState.queryResult.data.map(user => (
+                            <GridItem key={user._id} md={6}><Card>
+                                <CardBody>
+                                    <Grid direction="row" alignItems="center" justify="center">
+                                        <GridItem xs={9}>
+                                            <Placeholder></Placeholder>
+                                            <Placeholder></Placeholder>
+                                            <Placeholder></Placeholder>
+                                            <h4>{user.name}</h4>
+                                            <p>{user.email}</p>
+                                        </GridItem>
+                                        <GridItem xs={1}>
+                                            <Button color="primary" justIcon round
+                                                onClick={(e) => setCurrentUser(user._id)}
+                                            ><Placeholder></Placeholder></Button>
+                                        </GridItem>
+                                    </Grid>
+                                </CardBody>
+                            </Card></GridItem>
+                        ))
+                        :
+                        <p>Loading...</p>
+                    }
+                </Grid>
+            </CardBody>
+        </Card >
     )
 }
 
