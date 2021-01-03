@@ -20,7 +20,7 @@ import ReactDOM from "react-dom";
 import Head from "next/head";
 import Router from "next/router";
 import { Provider } from "react-redux";
-import store, { feathersClient } from "store/feathersClient"
+import store from "store/feathersClient"
 
 import PageChange from "components/MaterialKit/PageChange/PageChange.js";
 
@@ -29,6 +29,7 @@ import "assets/scss/nextjs-material-kit.scss?v=1.1.0";
 // Own Components
 import Navbar from "components/Layout/Navbar"
 import ContentWrapper from "components/Layout/ContentWrapper"
+import AuthGuard from "components/Layout/AuthGuard"
 
 Router.events.on("routeChangeStart", url => {
   console.log(`Loading: ${url}`);
@@ -48,6 +49,7 @@ Router.events.on("routeChangeError", () => {
 });
 
 const MyApp = ({ Component, pageProps }) => {
+
   // Use this custom layout if it exist
   const CustomLayout = Component.customLayout
 
@@ -75,27 +77,11 @@ const MyApp = ({ Component, pageProps }) => {
 `);
     document.insertBefore(comment, document.documentElement);
 
-
-    // Authentication Setup - UseEffect cannot handle async
-    const authenticate = async () => {
-      try {
-        await feathersClient.reAuthenticate()
-        alert("Successful Authentication")
-      }
-      catch (err) {
-        // Cant Authenticate
-        console.log(err)
-        // TODO: Insert Set Login Provider to Null
-
-      }
-    }
-
-    authenticate()
   }
     , [])
   return (
     <Provider store={store}>
-      { CustomLayout == null ?
+      <AuthGuard>{CustomLayout == null ?
         (
           <React.Fragment>
             <Head>
@@ -113,7 +99,7 @@ const MyApp = ({ Component, pageProps }) => {
             <Component {...pageProps} />
           </CustomLayout>
         )
-      }
+      }</AuthGuard>
 
     </Provider>
   );
