@@ -76,8 +76,14 @@ const EvaluationList = () => {
     );
   }
 
-  // 2. Render course list elements
-  const evaluationListings = courseEvaluations.map(
+  let evaluationListings = courseEvaluations;
+  // 2. Filter out archived courses
+  if (!showArchived) {
+    evaluationListings = courseEvaluations.filter((val) => !val.isArchived);
+  }
+
+  // 3. Render course list elements
+  evaluationListings = evaluationListings.map(
     ({ _id, courseid, reviewDescription, coordinators }) => {
       return (
         <ListItem key={_id} divider>
