@@ -114,8 +114,14 @@ const EOCAccordion = () => {
       },
     ];
 
+    setEOCSets(eocs);
+
     setLoading(false);
   }, []);
+
+  if (loading) {
+    return <Card>Loading...</Card>;
+  }
 
   return (
     <Card>
