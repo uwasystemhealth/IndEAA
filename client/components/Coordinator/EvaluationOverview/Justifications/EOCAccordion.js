@@ -144,12 +144,18 @@ const EOCAccordion = () => {
   }
 
   const accordions = EOCSets.map((eocSet) => {
+    const eocCards = eocSet.EOCS.map((eoc) => {
+      const title = `EOC ${eocSet.setNum}.${eoc.EOCNum}`;
+
+      return <EOCCard key={title} title={title} description={eoc.desc} />;
+    });
+
     return (
       <Accordion key={eocSet.setNum}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           EOC {eocSet.setNum}: {eocSet.setName}
         </AccordionSummary>
-        <AccordionDetails>yeet</AccordionDetails>
+        <AccordionDetails>{eocCards}</AccordionDetails>
       </Accordion>
     );
   });
