@@ -5,10 +5,10 @@ import Chat from "@material-ui/icons/Chat";
 import Build from "@material-ui/icons/Build";
 
 // CUSTOM COMPONENTS
-import General from "./General.js";
-import Justifications from "./Justifications.js";
-import Documents from "./Documents.js";
-import Reviews from "./Reviews.js";
+import General from "./General";
+import Justifications from "./Justifications";
+import Documents from "./Documents";
+import Reviews from "./Reviews";
 
 // Styles
 import styles from "assets/jss/nextjs-material-kit/pages/landingPage.js";
