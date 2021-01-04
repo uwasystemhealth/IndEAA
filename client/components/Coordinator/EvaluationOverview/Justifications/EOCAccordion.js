@@ -5,6 +5,7 @@ import CardHeader from "components/MaterialKit/Card/CardHeader.js";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 import { useState, useEffect } from "react";
 
@@ -123,13 +124,18 @@ const EOCAccordion = () => {
     return <Card>Loading...</Card>;
   }
 
-  return (
-    <Card>
-      <Accordion>
-        <AccordionSummary>Acc</AccordionSummary>
+  const accordions = EOCSets.map((eocSet) => {
+    return (
+      <Accordion key={eocSet.setNum}>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          EOC {eocSet.setNum}: {eocSet.setName}
+        </AccordionSummary>
+        <AccordionDetails>yeet</AccordionDetails>
       </Accordion>
-    </Card>
-  );
+    );
+  });
+
+  return <Card>{accordions}</Card>;
 };
 
 export default EOCAccordion;
