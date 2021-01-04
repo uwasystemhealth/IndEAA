@@ -6,6 +6,8 @@ import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import GridContainer from "components/MaterialKit/Grid/GridContainer.js";
+import GridItem from "components/MaterialKit/Grid/GridItem.js";
 
 // CUSTOM COMPONENTS
 import EOCCard from "./EOCCard.js";
@@ -148,14 +150,16 @@ const EOCAccordion = () => {
       const title = `EOC ${eocSet.setNum}.${eoc.EOCNum}`;
 
       return (
-        <EOCCard
-          key={title}
-          eocID={eoc._id}
-          title={title}
-          description={eoc.desc}
-          rating={null}
-          justification={null}
-        />
+        <GridItem xs={4}>
+          <EOCCard
+            key={title}
+            eocID={eoc._id}
+            title={title}
+            description={eoc.desc}
+            rating={null}
+            justification={null}
+          />
+        </GridItem>
       );
     });
 
@@ -164,7 +168,9 @@ const EOCAccordion = () => {
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           EOC {eocSet.setNum}: {eocSet.setName}
         </AccordionSummary>
-        <AccordionDetails>{eocCards}</AccordionDetails>
+        <AccordionDetails>
+          <GridContainer>{eocCards}</GridContainer>
+        </AccordionDetails>
       </Accordion>
     );
   });

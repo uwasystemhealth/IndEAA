@@ -31,10 +31,10 @@ const EOCCard = ({ title, description, rating, justification, eocID }) => {
       <CardHeader>{title}</CardHeader>
       <CardBody>
         <GridContainer>
-          <GridItem xs={6}>
+          <GridItem xs={8}>
             <Muted>{description}</Muted>
           </GridItem>
-          <GridItem xs={6}>
+          <GridItem xs={4}>
             <Button>
               <FindInPageIcon />
               View
