@@ -147,7 +147,16 @@ const EOCAccordion = () => {
     const eocCards = eocSet.EOCS.map((eoc) => {
       const title = `EOC ${eocSet.setNum}.${eoc.EOCNum}`;
 
-      return <EOCCard key={title} title={title} description={eoc.desc} />;
+      return (
+        <EOCCard
+          key={title}
+          eocID={eoc._id}
+          title={title}
+          description={eoc.desc}
+          rating={null}
+          justification={null}
+        />
+      );
     });
 
     return (
