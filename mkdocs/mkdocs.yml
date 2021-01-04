@@ -57,14 +57,15 @@ extra_javascript:
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
 nav:
-- Overview: index.md
-- Coordinator:
-  - Introduction: coordinator/index.md
-- Reviewer:
-  - Introduction: reviewer/index.md
-- Administrator:
-  - Introduction: administrator/index.md
-- Developer:
-  - Introduction: developer/index.md
-  - Data Engineering: developer/data_engineering.md
-  - Transport/Integration Layer (Feathers-redux): developer/feathers_redux.md
+  - Overview: index.md
+  - Coordinator:
+      - Introduction: coordinator/index.md
+  - Reviewer:
+      - Introduction: reviewer/index.md
+  - Administrator:
+      - Introduction: administrator/index.md
+  - Developer:
+      - Introduction: developer/index.md
+      - Front End: developer/frontend.md
+      - Data Engineering: developer/data_engineering.md
+      - Transport/Integration Layer (Feathers-redux): developer/feathers_redux.md
