@@ -6,6 +6,8 @@ import CardFooter from "components/MaterialKit/Card/CardFooter.js";
 import Muted from "components/MaterialKit/Typography/Muted.js";
 import Success from "components/MaterialKit/Typography/Success.js";
 import Danger from "components/MaterialKit/Typography/Danger.js";
+import GridContainer from "components/MaterialKit/Grid/GridContainer.js";
+import GridItem from "components/MaterialKit/Grid/GridItem.js";
 
 const EOCCard = ({ title, description, rating, justification, eocID }) => {
   const ratingMsg =
@@ -15,13 +17,25 @@ const EOCCard = ({ title, description, rating, justification, eocID }) => {
       <Danger>Your Rating: None</Danger>
     );
 
+  const justMsg =
+    justification != null ? (
+      <Success>Your Justification: {justification}</Success>
+    ) : (
+      <Danger>Your Justification: None</Danger>
+    );
+
   return (
     <Card>
       <CardHeader>{title}</CardHeader>
       <CardBody>
         <Muted>{description}</Muted>
       </CardBody>
-      <CardFooter>{ratingMsg}</CardFooter>
+      <CardFooter>
+        <GridContainer direction="column" alignItems="flex-start">
+          <GridItem>{ratingMsg}</GridItem>
+          <GridItem>{justMsg}</GridItem>
+        </GridContainer>
+      </CardFooter>
     </Card>
   );
 };
