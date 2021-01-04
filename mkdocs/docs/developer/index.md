@@ -4,14 +4,6 @@ This is the documentation for developer used to maintain this software.
 
 ## Tech Stack
 
-### Frontend - Nextjs/React
-
-[**React documentation**](https://reactjs.org/docs/getting-started.html)  
-React is a UI library in JavaScript that utilizes the power of Client-Side Rendering (CSR) for Single Page Application (SPA). It makes development easier by using the concept of component modularisation.
-
-[**Nextjs documentation**](https://nextjs.org/docs)  
-Nextjs is a library on top of React that a lot of extra features for React. However, it may have some difficulty when it comes to server-side rendering. Hence, will be under consideration.
-
 ### Frontend + Backend Integration - Feathers-Redux
 
 [**Redux documentation**](https://redux.js.org/)  
