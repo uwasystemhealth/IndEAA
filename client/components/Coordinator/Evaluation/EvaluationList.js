@@ -4,8 +4,13 @@ import CardBody from "components/MaterialKit/Card/CardBody.js";
 import CardHeader from "components/MaterialKit/Card/CardHeader.js";
 import CardFooter from "components/MaterialKit/Card/CardFooter.js";
 import Button from "components/MaterialKit/CustomButtons/Button.js";
+import GridContainer from "components/MaterialKit/Grid/GridContainer.js";
+import GridItem from "components/MaterialKit/Grid/GridItem.js";
 import ListItem from "@material-ui/core/ListItem";
 import List from "@material-ui/core/List";
+import FormGroup from "@material-ui/core/FormGroup";
+import Switch from "@material-ui/core/Switch";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 
 // CUSTOM COMPONENTS
 import EvaluationListing from "./EvaluationListing.js";
@@ -27,6 +32,7 @@ const EvaluationList = () => {
 
   const [courseEvaluations, setCourseEvaluations] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showArchived, setShowArchived] = useState(false);
 
   useEffect(() => {
     // 1. Find all CourseEvaluations where the createdBy key matches the logged in user
@@ -89,7 +95,28 @@ const EvaluationList = () => {
   return (
     <Card>
       <CardHeader color="success">
-        <h2>Manage Course Evaluations</h2>
+        <GridContainer>
+          <GridItem xs={6}>
+            <h2>Manage Course Evaluations</h2>
+          </GridItem>
+          <GridItem xs={6}>
+            <FormGroup row>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={showArchived}
+                    onChange={(e) => {
+                      setShowArchived(e.target.checked);
+                    }}
+                    name="checkedA"
+                    color="primary"
+                  />
+                }
+                label="Show Archived"
+              />
+            </FormGroup>
+          </GridItem>
+        </GridContainer>
       </CardHeader>
       <CardBody>
         <List className={classes.list}>{evaluationListings}</List>
