@@ -11,6 +11,7 @@ import List from "@material-ui/core/List";
 import FormGroup from "@material-ui/core/FormGroup";
 import Switch from "@material-ui/core/Switch";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import { spacing } from "@material-ui/system";
 
 // CUSTOM COMPONENTS
 import EvaluationListing from "./EvaluationListing.js";
@@ -18,10 +19,15 @@ import EvaluationListing from "./EvaluationListing.js";
 //Styles
 import { makeStyles } from "@material-ui/core/styles";
 import styles from "assets/jss/nextjs-material-kit/pages/landingPage.js";
+import checkboxStyles from "assets/jss/nextjs-material-kit/customCheckboxRadioSwitch.js";
 const useStyles = makeStyles(() => ({
   ...styles,
+  ...checkboxStyles,
   footer: {
     flexDirection: "row-reverse",
+  },
+  checkbox: {
+    marginLeft: "1rem",
   },
 }));
 
@@ -102,25 +108,28 @@ const EvaluationList = () => {
     <Card>
       <CardHeader color="success">
         <GridContainer>
-          <GridItem xs={6}>
+          <GridItem xs={9}>
             <h2>Manage Course Evaluations</h2>
           </GridItem>
-          <GridItem xs={6}>
-            <FormGroup row>
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={showArchived}
-                    onChange={(e) => {
-                      setShowArchived(e.target.checked);
-                    }}
-                    name="checkedA"
-                    color="primary"
-                  />
-                }
-                label="Show Archived"
-              />
-            </FormGroup>
+          <GridItem xs={2}>
+            <Card ml={10}>
+              <FormGroup row>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      className={classes.checkbox}
+                      checked={showArchived}
+                      onChange={(e) => {
+                        setShowArchived(e.target.checked);
+                      }}
+                      name="checkedA"
+                      color="primary"
+                    />
+                  }
+                  label="Show Archived"
+                />
+              </FormGroup>
+            </Card>
           </GridItem>
         </GridContainer>
       </CardHeader>
