@@ -1,13 +1,23 @@
+// CORE COMPONENTS
+import GridContainer from "components/MaterialKit/Grid/GridContainer.js";
+import GridItem from "components/MaterialKit/Grid/GridItem.js";
+
+// CUSTOM COMPONENTS
+import DocumentCard from "components/Coordinator/EvaluationOverview/Documents/DocumentCard.js";
+
 const Documents = () => {
   return (
-    <p>
-      think that’s a responsibility that I have, to push possibilities, to show
-      people, this is the level that things could be at. So when you get
-      something that has the name Kanye West on it, it’s supposed to be pushing
-      the furthest possibilities. I will be the leader of a company that ends up
-      being worth billions of dollars, because I got the answers. I understand
-      culture. I am the nucleus.
-    </p>
+    <GridContainer>
+      <GridItem>
+        <DocumentCard
+          documentID="adsf"
+          title="Design Project Outline"
+          createdDate="19 Dec 2020"
+          uri="https://docs.google.com/document/d/1rdLcaVBP_z-vE_5-gbaOevRbd6e_vkRjTQpuXyRF_FU/"
+          eocs={[1, 2, 3]}
+        />
+      </GridItem>
+    </GridContainer>
   );
 };
 
