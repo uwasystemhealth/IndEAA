@@ -48,10 +48,10 @@ const Documents = () => {
   }
 
   const documentComps = documents.map((doc) => (
-    <GridItem key={doc._id}>
+    <GridItem key={doc._id} xs={6}>
       <DocumentCard
         documentID={doc._id}
-        title={doc.title}
+        title={doc.name}
         createdDate={doc.added}
         uri={doc.uri}
         eocs={doc.eocs}
