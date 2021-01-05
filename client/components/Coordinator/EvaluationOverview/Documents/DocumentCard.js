@@ -8,7 +8,7 @@ const DocumentCard = ({ documentID, title, createdDate, uri, eocs }) => {
     <Card>
       <CardHeader>{title}</CardHeader>
       <CardBody>
-        <p>Added on {createdDate}</p>
+        <p>Added on createdDate</p>
         <p>URI: {uri}</p>
       </CardBody>
       <CardFooter>{eocs}</CardFooter>
