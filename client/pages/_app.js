@@ -53,6 +53,10 @@ const MyApp = ({ Component, pageProps }) => {
   // Use this custom layout if it exist
   const CustomLayout = Component.customLayout
 
+  // AuthGuard Enabled Unless Specified
+  const isProtected = typeof (Component.isProtected) === "undefined" ? true : Component.isProtected
+  // The AuthGuard to be rendered will either be the AuthGuard or a Fragment depending on Presence
+
   // Title with Default
   const pageTitle = Component.pageTitle || "IndEAA Page"
 
@@ -79,9 +83,10 @@ const MyApp = ({ Component, pageProps }) => {
 
   }
     , [])
+
   return (
     <Provider store={store}>
-      <AuthGuard>{CustomLayout == null ?
+      <AuthGuard isProtected={isProtected}>{CustomLayout == null ?
         (
           <React.Fragment>
             <Head>

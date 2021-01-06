@@ -18,6 +18,10 @@ import IconButton from "@material-ui/core/IconButton";
 import { useSelector, useDispatch } from "react-redux"
 import { signOut } from "actions/auth"
 
+// Utils
+import { getAvailablePermissionsOfUser, roleIcons } from "utils"
+
+
 // core components
 import CustomDropdown from "components/MaterialKit/CustomDropdown/CustomDropdown.js";
 import Button from "components/MaterialKit/CustomButtons/Button.js";
@@ -26,36 +30,37 @@ import styles from "assets/jss/nextjs-material-kit/components/headerLinksStyle.j
 
 const useStyles = makeStyles(styles);
 
-const permissions = ["administrator", "coordinator", "reviewer"]
 
 export default function HeaderLinks(props) {
     const user = useSelector(state => state.auth.user)
+    const currentRoleSelected = useSelector(state => state.general.currentRoleSelected)
+
     const dispatch = useDispatch()
     const classes = useStyles();
+
+    // Get All the Unique permissions of the user by the role
+    // Turn it into JSX Links
+    const rolesOfUser = user && Array.from(getAvailablePermissionsOfUser(user.perms))
+    const rolesLinksToUsers = user && rolesOfUser.map(
+        permission => <Link href={`/${permission.toLowerCase()}`}>
+            <a className={classes.dropdownLink}>{permission}</a>
+        </Link>
+    )
+    console.log(user)
     return (
         <List className={classes.list}>
-            {user &&
+            {user && rolesOfUser.length != 0 &&
                 <ListItem className={classes.listItem}>
                     <CustomDropdown
                         noLiPadding
                         navDropdown
-                        buttonText="[Role Name]"
+                        buttonText={currentRoleSelected || "Choose Your Role"}
                         buttonProps={{
                             className: classes.navLink,
                             color: "transparent"
                         }}
-                        buttonIcon={Apps}
-                        dropdownList={[
-                            <Link href="/administrator">
-                                <a className={classes.dropdownLink}>Administrator</a>
-                            </Link>,
-                            <Link href="/coordinator">
-                                <a className={classes.dropdownLink}>Coordinator</a>
-                            </Link>,
-                            <Link href="/reviewer">
-                                <a className={classes.dropdownLink}>Reviewer</a>
-                            </Link>,
-                        ]}
+                        buttonIcon={currentRoleSelected ? roleIcons[currentRoleSelected] : Apps}
+                        dropdownList={rolesLinksToUsers}
                     />
                 </ListItem>
             }

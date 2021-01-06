@@ -2,10 +2,12 @@
 import { combineReducers } from 'redux';
 
 // Custom Reducers
+import { generalReducer } from "reducers/general"
 import { authenticateReducer } from "reducers/auth"
 
 export default function rootReducer(reduxifiedServices) {
   return combineReducers({
+    general: generalReducer,
     users: reduxifiedServices.users.reducer,
     courseEvaluation: reduxifiedServices["course-evaluation"].reducer,
     auth: authenticateReducer
