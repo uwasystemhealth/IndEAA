@@ -9,7 +9,7 @@ export default function rootReducer(reduxifiedServices) {
   return combineReducers({
     general: generalReducer,
     users: reduxifiedServices.users.reducer,
-    courseEvaluation: reduxifiedServices["course-evaluation"].reducer,
+    "course-evaluation": reduxifiedServices["course-evaluation"].reducer,
     auth: authenticateReducer
   });
 }

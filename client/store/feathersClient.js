@@ -4,7 +4,7 @@ import feathers from '@feathersjs/client';
 import socketio from '@feathersjs/socketio-client';
 import Realtime from "feathers-offline-realtime"
 
-import reduxifyServices, { getServicesStatus } from "feathers-redux"
+import reduxifyServices, { getServicesStatus, bindWithDispatch } from "feathers-redux"
 // Configure Feathers
 export const socket = io(process.env.NEXT_PUBLIC_BACKEND_URL, {
     transports: ['websocket'],
@@ -21,15 +21,18 @@ feathersClient.configure(feathers.authentication())
 
 
 // Configure Redux
-export const services = reduxifyServices(feathersClient,
-    [
-        'users',
-        'course-evaluation'
-    ]);
+export const serviceNames = [
+    'users',
+    'course-evaluation'
+]
+export const rawServices = reduxifyServices(feathersClient, serviceNames);
 
-
-const store = configureStore(services);
+const store = configureStore(rawServices);
 export default store;
+
+export const services = bindWithDispatch(store.dispatch, rawServices)
+
+
 
 
 // Configure realtime & connect it to services

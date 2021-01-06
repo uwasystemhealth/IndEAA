@@ -12,6 +12,9 @@ import Grid from "components/MaterialKit/Grid/GridContainer.js";
 import GridItem from "components/MaterialKit/Grid/GridItem.js";
 import Tooltip from "@material-ui/core/Tooltip";
 
+// Own Components
+import UserModal from "components/administrator/UserModal"
+
 //Styles
 import { makeStyles } from "@material-ui/core/styles";
 import styles from "assets/jss/nextjs-material-kit/pages/landingPage";
@@ -30,26 +33,39 @@ const AdminstratorMainPage = () => {
 
     // Update state with all users
     useEffect(() => {
-        dispatch(services.users.find())
+        services.users.find()
+        services["course-evaluation"].find({
+            query: {
+                $select: ["courseId"]
+            }
+        })
     }, [])
 
     const userState = useSelector(state => state.users)
+    const courseEvaluation = useSelector(state => state["course-evaluation"])
     const authUserState = useSelector(state => state.auth.user)
 
     // Current User Selected
     const [currentUserSelected, setCurrentUserSelected] = useState(null)
 
-    const selectUser = (user_id) => {
+    const selectUser = async (user_id) => {
+        // Make life easier by doing a direct query
+        const userSelectedDetails = await services.users.get(user_id)
+        setCurrentUserSelected(userSelectedDetails.value)
+    }
 
+    const deselectUser = () => {
+        setCurrentUserSelected(null)
     }
 
     const classes = useStyles();
     return (
         <Card>
+            <UserModal user={currentUserSelected} courseEvaluation={courseEvaluation} closeModal={deselectUser}></UserModal>
             <CardHeader color="primary">Manage Users</CardHeader>
             <CardBody>
                 <Grid direction="row" alignItems="center" justify="center">
-                    {userState && !userState.isLoading ?
+                    {userState && userState.queryResult != null ?
                         userState.queryResult.data.map(user => {
                             const rolesOfUser = Array.from(getAvailablePermissionsOfUser(user.perms))
                             return (
