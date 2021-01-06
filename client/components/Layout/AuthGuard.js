@@ -15,28 +15,28 @@ const AuthGuard = ({ children }) => {
     const user = useSelector(state => state.auth.user)
     const router = useRouter()
 
-    let notAllowed = false
+    let allowed = false // Server side starts with false
     if (typeof window !== "undefined") {
+        allowed = true // true until becomes unauthorised
+
         // Force the user to login when unauthenticated
         if (user === null &&
             router.pathname !== "/" &&
             !("feathers-jwt" in window.localStorage)
         ) {
             router.push("/")
-            notAllowed = true
+            allowed = false
         }
 
         if (user !== null) {// Check Permission of User
-            permissions.every(permission => {
-                if (router.pathname.startsWith(`/${permission.toLowerCase()}`) &&
-                    !getAvailablePermissionsOfUser(user.perms).has(permission)
-                ) {
-                    router.push("/404")
-                    notAllowed = true
-                    return false // Breaks the "every" loop
-                }
-                return true // Continue "every" loop
-            })
+            const currentRoleBeingChecked = permissions.find(
+                permission => router.pathname.startsWith(`/${permission.toLowerCase()}`))
+
+            if (currentRoleBeingChecked &&
+                !getAvailablePermissionsOfUser(user.perms).has(currentRoleBeingChecked)) {
+                router.push("/404")
+                allowed = false
+            }
 
             // If the router has the courseId, then a combination of both the courseId
             // and permission should be found
@@ -44,16 +44,10 @@ const AuthGuard = ({ children }) => {
                 const { courseID } = router.query
                 const currentCourse = services.courseEvaluation.get({ courseId: courseID })
                 const courseSpecificPermissions = user.perms.filter(permission => currentCourse._id == permission.course_id)
-                permissions.every(permission => {
-                    if (router.pathname.startsWith(`/${permission.toLowerCase()}`) &&
-                        !getAvailablePermissionsOfUser(courseSpecificPermissions).has(permission)
-                    ) {
-                        router.push("/404")
-                        notAllowed = true
-                        return false // Breaks the "every" loop
-                    }
-                    return true // Continue "every" loop
-                })
+                if (!getAvailablePermissionsOfUser(courseSpecificPermissions).has(currentRoleBeingChecked)) {
+                    router.push("/404")
+                    allowed = false
+                }
             }
         }
 
@@ -66,8 +60,9 @@ const AuthGuard = ({ children }) => {
     }, [])
 
 
+    console.log(allowed)
     return (
-        <div>{notAllowed ? null : children}</div>
+        <div>{allowed ? children : null}</div>
     )
 }
 
