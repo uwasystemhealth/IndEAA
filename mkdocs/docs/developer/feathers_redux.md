@@ -111,6 +111,51 @@ messagesRealtime.connect()
     .then(() => console.log('Realtime replication started'));
 ```
 
+## Using Feathers Query and Actions
+There are two types of services that can be fetched from `feathersClient.js`:
+ - `rawServices` this are services that are not binded to the state which means that calls made from here will not affect the state
+ - `services` (binded with dispatch)
+
+??? Info "How is this configured"
+    ```js
+    import reduxifyServices, { getServicesStatus, bindWithDispatch } from "feathers-redux"
+    import configureStore from "../store"
+
+    ...
+
+        // Configure Redux
+    export const serviceNames = [
+        'users',
+        'course-evaluation'
+    ]
+    export const rawServices = reduxifyServices(feathersClient, serviceNames);
+
+    const store = configureStore(rawServices);
+    export default store;
+
+    export const services = bindWithDispatch(store.dispatch, rawServices)
+
+    ```
+
+Most of the time, you will want to update the state upon entering a page. Be wary, to select only data that you think you will need at this time.
+
+???+ Example "Administrator View Fetching data of users and course name"
+    useEffect(() => {
+        services.users.find()
+        services["course-evaluation"].find({
+            query: {
+                $select: ["courseId"]
+            }
+        })
+    }, [])
+
+??? alert "Note: Feathers Routes does not work with Camel Casing"
+    Feathers routes does not work with camel casing because of the convention of how internet URLs are not case sensitive, hence the use of kebab case.
+
+    This is very important to know!!! Because services name will be named after it.
+
+
+
 ## Using and Creating Custom Action and Reducer
 An example of a custom action and reducer is authentication. There are mainly 3 parts that you need to do to create a custom action and reducer for state management, see below as follow.
 
@@ -189,7 +234,7 @@ import { signIn } from "actions/auth"
     export default function (reduxifiedServices) {
       return combineReducers({
         users: reduxifiedServices.users.reducer,
-        todo: reduxifiedServices.todo.reducer,
+        "course-evalution": reduxifiedServices["course-evaluation"].reducer,
         auth: authenticateReducer
       });
     }
