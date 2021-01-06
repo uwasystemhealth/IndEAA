@@ -10,6 +10,7 @@ import CardHeader from "components/MaterialKit/Card/CardHeader.js";
 import Button from "components/MaterialKit/CustomButtons/Button.js";
 import Grid from "components/MaterialKit/Grid/GridContainer.js";
 import GridItem from "components/MaterialKit/Grid/GridItem.js";
+import Tooltip from "@material-ui/core/Tooltip";
 
 //Styles
 import { makeStyles } from "@material-ui/core/styles";
@@ -20,7 +21,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { services } from "store/feathersClient"
 
 // Helper
-import { getAvailablePermissionsOfUser } from "utils"
+import { getAvailablePermissionsOfUser, roleIcons } from "utils"
 
 const useStyles = makeStyles(styles);
 
@@ -34,13 +35,13 @@ const AdminstratorMainPage = () => {
 
     const userState = useSelector(state => state.users)
     const authUserState = useSelector(state => state.auth.user)
-    // console.log(userState)
-
-    // Check Permission of Users
-    const isAdministrator = getAvailablePermissionsOfUser(authUserState.perms).has("Administrator")
 
     // Current User Selected
     const [currentUserSelected, setCurrentUserSelected] = useState(null)
+
+    const selectUser = (user_id) => {
+
+    }
 
     const classes = useStyles();
     return (
@@ -49,26 +50,37 @@ const AdminstratorMainPage = () => {
             <CardBody>
                 <Grid direction="row" alignItems="center" justify="center">
                     {userState && !userState.isLoading ?
-                        userState.queryResult.data.map(user => (
-                            <GridItem key={user._id} md={6}><Card>
-                                <CardBody>
-                                    <Grid direction="row" alignItems="center" justify="center">
-                                        <GridItem xs={9}>
-                                            <Placeholder></Placeholder>
-                                            <Placeholder></Placeholder>
-                                            <Placeholder></Placeholder>
-                                            <h4>{user.name}</h4>
-                                            <p>{user.email}</p>
-                                        </GridItem>
-                                        <GridItem xs={1}>
-                                            <Button color="primary" justIcon round
-                                                onClick={(e) => setCurrentUser(user._id)}
-                                            ><Placeholder></Placeholder></Button>
-                                        </GridItem>
-                                    </Grid>
-                                </CardBody>
-                            </Card></GridItem>
-                        ))
+                        userState.queryResult.data.map(user => {
+                            const rolesOfUser = Array.from(getAvailablePermissionsOfUser(user.perms))
+                            return (
+                                <GridItem key={user._id} md={6}><Card>
+                                    <CardBody>
+                                        <Grid direction="row" alignItems="center" justify="center">
+                                            <GridItem xs={9}>
+                                                {rolesOfUser.map(role => {
+                                                    const RoleIcon = roleIcons[role]
+                                                    return (
+                                                        <Tooltip
+                                                            title={`${user.name} has ${role} permission`}
+                                                            placement={"top"}
+                                                            classes={{ tooltip: classes.tooltip }}
+                                                        ><RoleIcon></RoleIcon>
+                                                        </Tooltip>
+                                                    )
+                                                })}
+                                                <h4>{user.name}</h4>
+                                                <p>{user.email}</p>
+                                            </GridItem>
+                                            <GridItem xs={1}>
+                                                <Button color="primary" justIcon round
+                                                    onClick={(e) => selectUser(user._id)}
+                                                ><Placeholder></Placeholder></Button>
+                                            </GridItem>
+                                        </Grid>
+                                    </CardBody>
+                                </Card></GridItem>
+                            )
+                        })
                         :
                         <p>Loading...</p>
                     }

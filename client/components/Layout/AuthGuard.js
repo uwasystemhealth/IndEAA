@@ -18,10 +18,13 @@ const AuthGuard = ({ children, isProtected }) => {
         dispatch(signIn())
     }, [])
 
+    // Hooks
+    const user = useSelector(state => state.auth.user)
+    const router = useRouter()
+
     if (isProtected) {
         // Check Login Of User
-        const user = useSelector(state => state.auth.user)
-        const router = useRouter()
+
 
         let allowed = false // Server side starts with false
         if (typeof window !== "undefined") {

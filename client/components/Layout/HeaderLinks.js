@@ -42,9 +42,12 @@ export default function HeaderLinks(props) {
     // Turn it into JSX Links
     const rolesOfUser = user && Array.from(getAvailablePermissionsOfUser(user.perms))
     const rolesLinksToUsers = user && rolesOfUser.map(
-        permission => <Link href={`/${permission.toLowerCase()}`}>
-            <a className={classes.dropdownLink}>{permission}</a>
-        </Link>
+        permission => {
+            const RoleIcon = roleIcons[permission]
+            return (<Link href={`/${permission.toLowerCase()}`}>
+                <a className={classes.dropdownLink}><RoleIcon></RoleIcon>{permission}</a>
+            </Link>)
+        }
     )
     console.log(user)
     return (
