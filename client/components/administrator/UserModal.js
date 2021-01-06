@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // material-ui components
 import Slide from "@material-ui/core/Slide";
 import Dialog from "@material-ui/core/Dialog";
@@ -46,52 +46,49 @@ export default function Modal(
     { user, courseEvaluation, closeModal }
 ) {
     const classes = useStyles();
-    const [modalState, setModalState] = useState(
-        {
-            isAdministrator: user && getAvailablePermissionsOfUser(user.perms).has("Administrator"),
-            perms: user && user.perms
-        }
-    )
-    const toggleAdministrator = () => {
-        const { isAdministrator } = modalState
-        setModalState({ ...modalState, isAdministrator: !isAdministrator })
-
-        // Not yet admin, so add it
-        if (!isAdministrator) {
-            addPerms(null, "Administrator")
-        }
-        else {
-            removePerms(null, "Administrator")
-        }
+    const initialStateModal = {
+        isAdministrator: user && getAvailablePermissionsOfUser(user.perms).has("Administrator"),
+        isCoordinator: user && getAvailablePermissionsOfUser(user.perms).has("Coordinator"),
+        perms: user && user.perms
     }
-    const addPerms = (course_id, role) => {
-        const { perms } = modalState
+    const [modalState, setModalState] = useState(initialStateModal)
 
-        // Make sure that it doesnt exist in the list
-        // TODO: Take care of duplicate names of items
-        const index = perms.find(perm => perm.course_id == course_id)
+    // Rerenders on everytime the user changes
+    useEffect(() => {
+        setModalState(initialStateModal)
+    }, [user])
 
-        // Does not yet exist so add perm is allowed
-        if (index == -1) {
-            perms.push({
-                course_id, role
-            })
-            setModalState(...modalState, perms)
-        }
+    // Creates a function that toggles a specific role
+    const toggleRole = (role) => () => {
+        togglePerms(null, role)
     }
-    const removePerms = (course_id, role) => {
-        const { perms } = modalState
 
-        // Make sure that it doesnt exist in the list
-        // TODO: Take care of duplicate names of items
+    const togglePerms = (course_id, role) => {
+        const { isAdministrator, isCoordinator, perms } = modalState
         const index = perms.find(perm => perm.course_id == course_id && perm.role == role)
 
-        // Does not yet exist so add perm is allowed
-        if (index != -1) {
-            perms.splice(index, 1) // Pop a specific index
-            setModalState(...modalState, perms)
+        // TODO: Take care of duplicate names of items still works
+
+        if (typeof index === "undefined") { // Permission Does not exist
+            perms.push({ course_id, role })
         }
+        else { // Permission Exists
+            perms.splice(index, 1) // Pop a specific index
+        }
+        console.log(perms)
+        console.log(index)
+        const changedAdminPerm = role == "Administrator" ? !isAdministrator : isAdministrator
+        const changedCoordinatorPerm = role == "Coordinator" ? !isCoordinator : isCoordinator
+
+        setModalState(
+            {
+                isAdministrator: changedAdminPerm,
+                isCoordinator: changedCoordinatorPerm,
+                perms
+            })
+
     }
+
     return (
         <Dialog
             classes={{
@@ -106,6 +103,7 @@ export default function Modal(
             maxWidth='lg'
             scroll='body'
             onClose={() => closeModal()}
+            key={user}
         >
             <DialogTitle
                 id="classic-modal-slide-title"
@@ -132,7 +130,7 @@ export default function Modal(
                         <Grid direction="row" alignItems="center" justify="center">
                             <GridItem md={4}>
                                 < BasicInformationField user={user} classes={classes} isAdministrator={modalState.isAdministrator}
-                                    toggleAdministrator={toggleAdministrator} />
+                                    isCoordinator={modalState.isCoordinator} toggleRole={toggleRole} />
                             </GridItem>
                             <GridItem md={8}>
                                 <CustomTabs
@@ -143,7 +141,13 @@ export default function Modal(
                                             tabIcon: Placeholder,
                                             tabContent: (
                                                 <List>
-                                                    {courseEvaluation}
+                                                    {courseEvaluation.queryResult.data.map(
+                                                        course => (
+                                                            <ListItem>
+                                                                <DesignedCheckBox onClick={() => null} isChecked={true} label={course.courseId}></DesignedCheckBox>
+                                                            </ListItem>
+                                                        )
+                                                    )}
                                                 </List>
                                             )
                                         },
@@ -182,7 +186,7 @@ export default function Modal(
     );
 }
 
-const BasicInformationField = ({ user, classes, isAdministrator, toggleAdministrator }) => {
+const BasicInformationField = ({ user, classes, isAdministrator, isCoordinator, toggleRole }) => {
     return (
         <>
             <img src={user.picture} className={classes.imgRounded + " " + classes.imgFluid} />
@@ -206,11 +210,14 @@ const BasicInformationField = ({ user, classes, isAdministrator, toggleAdministr
                     disabled: true,
                     value: user.email
                 }} />
-            <DesignedCheckBox onClick={toggleAdministrator} isChecked={isAdministrator}></DesignedCheckBox>
+            <DesignedCheckBox onClick={toggleRole("Administrator")} isChecked={isAdministrator}
+                label={"Administrator"}></DesignedCheckBox>
+            <DesignedCheckBox onClick={toggleRole("Coordinator")} isChecked={isCoordinator}
+                label={"Coordinator"}></DesignedCheckBox>
         </>
     );
 }
-const DesignedCheckBox = ({ onClick, isChecked }) => {
+const DesignedCheckBox = ({ onClick, isChecked, label }) => {
     const classes = useStyles()
     return (<FormControlLabel
         control={<Checkbox
@@ -221,6 +228,6 @@ const DesignedCheckBox = ({ onClick, isChecked }) => {
             icon={<Check className={classes.uncheckedIcon} />}
             classes={{ checked: classes.checked }} />}
         classes={{ label: classes.label }}
-        label="Administrator" />);
+        label={label} />);
 }
 
