@@ -9,9 +9,13 @@ import IconButton from "@material-ui/core/IconButton";
 // @material-ui/icons
 import Close from "@material-ui/icons/Close";
 // core components
-import Button from "components/CustomButtons/Button.js";
+import Button from "components/MaterialKit/CustomButtons/Button.js";
 
-// import modalStyle from "assets/jss/material-dashboard-pro-react/modalStyle.js";
+// Styles
+import { makeStyles } from "@material-ui/core/styles";
+import modalStyle from "assets/jss/nextjs-material-kit/modalStyle.js";
+const useStyles = makeStyles(modalStyle);
+
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="down" ref={ref} {...props} />;
