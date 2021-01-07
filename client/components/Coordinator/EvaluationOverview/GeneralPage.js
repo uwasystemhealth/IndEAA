@@ -21,7 +21,7 @@ import { useState, useEffect } from "react";
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const getEvaluationDetails = async (courseID) => {
-  await sleep(3000);
+  await sleep(1000);
   // throw new Error(
   //   "ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla"
   // );
