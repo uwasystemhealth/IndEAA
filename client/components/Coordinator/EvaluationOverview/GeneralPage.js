@@ -3,6 +3,9 @@ import CustomTabs from "components/MaterialKit/CustomTabs/CustomTabs.js";
 import Face from "@material-ui/icons/Face";
 import Chat from "@material-ui/icons/Chat";
 import Build from "@material-ui/icons/Build";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import InfoArea from "components/MaterialKit/InfoArea/InfoArea.js";
+import ErrorIcon from "@material-ui/icons/Error";
 
 // CUSTOM COMPONENTS
 import General from "./General";
@@ -11,12 +14,62 @@ import Documents from "./Documents";
 import Reviews from "./Reviews";
 
 // Styles
-import styles from "assets/jss/nextjs-material-kit/pages/landingPage.js";
+import landingStyles from "assets/jss/nextjs-material-kit/pages/landingPage.js";
 import { makeStyles } from "@material-ui/core/styles";
-const useStyles = makeStyles({ ...styles });
+const useStyles = makeStyles({ ...landingStyles });
+
+import { useState, useEffect } from "react";
+
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+const getCourseDetails = async (courseID) => {
+  await sleep(3000);
+  // throw new Error(
+  //   "ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla"
+  // );
+  return {
+    title: "MECH5551/MECH5552",
+  };
+};
 
 const GeneralPage = ({ courseID }) => {
   const classes = useStyles();
+  const [loading, setLoading] = useState(true);
+  const [evaluation, setEvaluation] = useState({});
+  const [error, setError] = useState(false);
+
+  useEffect(async () => {
+    try {
+      const response = await getCourseDetails(courseID);
+      setEvaluation(response);
+      setError(false);
+    } catch (e) {
+      console.log(e);
+      setError(e);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  if (loading) {
+    return (
+      <div>
+        <CircularProgress />;
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <InfoArea
+        title="Oh no! There's been an error!"
+        description={error.message}
+        icon={ErrorIcon}
+        iconColor="danger"
+      />
+    );
+  }
+
   return (
     <CustomTabs
       headerColor="success"
