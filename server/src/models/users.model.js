@@ -20,7 +20,7 @@ module.exports = function (app) {
     email: EmailType(),
     perms: [
       {
-        course_id: ObjectIdType("course", app, required=false),
+        course_id: ObjectIdType("course-evaluation", app, required = false),
         role: { type: String, enum: ["Administrator", "Coordinator", "Reviewer"], required: true },
       }
     ]
