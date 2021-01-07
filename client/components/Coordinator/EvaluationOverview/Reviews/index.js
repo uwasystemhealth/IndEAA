@@ -9,10 +9,10 @@ import OtherFunctions from "./OtherFunctions";
 const Reviews = () => {
   return (
     <GridContainer>
-      <GridItem xs={7}>
+      <GridItem xs={9}>
         <ReviewProgress />
       </GridItem>
-      <GridItem xs={5}>
+      <GridItem xs={3}>
         <OtherFunctions />
       </GridItem>
     </GridContainer>
