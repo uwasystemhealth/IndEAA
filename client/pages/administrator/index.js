@@ -14,6 +14,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 
 // Own Components
 import UserModal from "components/administrator/UserModal"
+import CreateUserModal from "components/administrator/CreateUserModal"
 
 //Styles
 import { makeStyles } from "@material-ui/core/styles";
@@ -47,6 +48,10 @@ const AdminstratorMainPage = () => {
 
     // Current User Selected
     const [currentUserSelected, setCurrentUserSelected] = useState(null)
+    const [isNewUserModalOpen, setIsNewUserModalOpen] = useState(false)
+
+    const openNewUserModal = () => setIsNewUserModalOpen(true)
+    const closeNewUserModal = () => setIsNewUserModalOpen(false)
 
     const selectUser = async (user_id) => {
         // Make life easier by doing a direct query
@@ -63,41 +68,48 @@ const AdminstratorMainPage = () => {
     return (
         <Card>
             <UserModal user={currentUserSelected} courseEvaluation={courseEvaluation} closeModal={deselectUser}></UserModal>
+            <CreateUserModal isOpen={isNewUserModalOpen} setCurrentUserSelected={setCurrentUserSelected}
+            closeModal={closeNewUserModal}></CreateUserModal>
             <CardHeader color="primary">Manage Users</CardHeader>
             <CardBody>
                 <Grid direction="row" alignItems="center" justify="center">
                     {userState && userState.queryResult != null ?
-                        userState.queryResult.data.map(user => {
-                            const rolesOfUser = Array.from(getAvailablePermissionsOfUser(user.perms))
-                            return (
-                                <GridItem key={user._id} md={6}><Card>
-                                    <CardBody>
-                                        <Grid direction="row" alignItems="center" justify="center">
-                                            <GridItem xs={9}>
-                                                {rolesOfUser.map(role => {
-                                                    const RoleIcon = roleIcons[role]
-                                                    return (
-                                                        <Tooltip
-                                                            title={`${user.name} has ${role} permission`}
-                                                            placement={"top"}
-                                                            classes={{ tooltip: classes.tooltip }}
-                                                        ><RoleIcon></RoleIcon>
-                                                        </Tooltip>
-                                                    )
-                                                })}
-                                                <h4>{user.name}</h4>
-                                                <p>{user.email}</p>
-                                            </GridItem>
-                                            <GridItem xs={1}>
-                                                <Button color="primary" justIcon round
-                                                    onClick={(e) => selectUser(user._id)}
-                                                ><Placeholder></Placeholder></Button>
-                                            </GridItem>
-                                        </Grid>
-                                    </CardBody>
-                                </Card></GridItem>
-                            )
-                        })
+                        <>
+                            {userState.queryResult.data.map(user => {
+                                const rolesOfUser = Array.from(getAvailablePermissionsOfUser(user.perms))
+                                return (
+                                    <GridItem key={user._id} md={6}><Card>
+                                        <CardBody>
+                                            <Grid direction="row" alignItems="center" justify="center">
+                                                <GridItem xs={9}>
+                                                    {rolesOfUser.map(role => {
+                                                        const RoleIcon = roleIcons[role]
+                                                        return (
+                                                            <Tooltip
+                                                                title={`${user.name || user.email} has  permission`}
+                                                                placement={"top"}
+                                                                classes={{ tooltip: classes.tooltip }}
+                                                            ><RoleIcon></RoleIcon>
+                                                            </Tooltip>
+                                                        )
+                                                    })}
+                                                    <h4>{user.name || user.email}</h4>
+                                                    <p>{user.name ? user.email : "Has Not Yet Logged In"}</p>
+                                                </GridItem>
+                                                <GridItem xs={1}>
+                                                    <Button color="primary" justIcon round
+                                                        onClick={(e) => selectUser(user._id)}
+                                                    ><Placeholder></Placeholder></Button>
+                                                </GridItem>
+                                            </Grid>
+                                        </CardBody>
+                                    </Card></GridItem>
+                                )
+                            })}
+                            <GridItem>
+                                <Button color="primary" onClick={() => openNewUserModal()}>Add New User</Button>
+                            </GridItem>
+                        </>
                         :
                         <p>Loading...</p>
                     }

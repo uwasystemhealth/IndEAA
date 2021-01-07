@@ -15,11 +15,15 @@ module.exports = function (options = {}) {
 
         if (queryResult.total > 0) {
             const existingUser = queryResult.data[0]
-            context.data.perms = existingUser.perms
-            // DELETE OPERATION are usually destructive
-            // In this case, the user in the system is unlikely to have done
-            // without google access
-            await app.service("users").remove(existingUser._id)
+
+            // User has not logged in if googleId is not yet defined
+            if (typeof existingUser.googleId === "undefined") {
+                context.data.perms = existingUser.perms
+                // DELETE OPERATION are usually destructive
+                // In this case, the user in the system is unlikely to have done
+                // without google access
+                await app.service("users").remove(existingUser._id)
+            }
         }
 
         return context;

@@ -17,7 +17,7 @@ module.exports = function (app) {
     googleId: { type: String },
     name: NameType(required = false),
     picture: { type: String },
-    email: EmailType(),
+    email: EmailType({ unique: true }),
     perms: [
       {
         course_id: ObjectIdType("course-evaluation", app, required = false),

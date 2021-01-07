@@ -1,4 +1,4 @@
-module.exports = (required=[true, 'An email is required.'], opts) => ({
+module.exports = (opts,required=[true, 'An email is required.']) => ({
   type: String,
   required,
   match: [/^.+@.+[.].+$/, 'Invalid email provided.'],
