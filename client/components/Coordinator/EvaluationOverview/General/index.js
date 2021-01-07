@@ -20,6 +20,7 @@ const getReviewInfo = async (reviewID) => {
     description: "example description",
     createdBy: "Frinze Erin Lapuz",
     createdOn: new Date(),
+    courseTitle: "MECH5551/MECH5552",
   };
 };
 
@@ -60,7 +61,7 @@ const General = ({ reviewID }) => {
       </GridItem>
       <GridItem xs={6}>
         <OtherInformation {...reviewInfo} />
-        <Controls />
+        <Controls {...reviewInfo} />
       </GridItem>
     </GridContainer>
   );

@@ -6,13 +6,13 @@ import ManageReviewers from "./ManageReviewers.js";
 
 import { useState } from "react";
 
-const Controls = () => {
+const Controls = ({ courseTitle }) => {
   return (
     <Card>
       <CardBody>
         <Button color="warning">Archive</Button>
         <Button color="warning">Force Completion</Button>
-        <ManageReviewers />
+        <ManageReviewers courseTitle={courseTitle} />
       </CardBody>
     </Card>
   );
