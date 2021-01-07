@@ -1,22 +1,67 @@
+// CORE COMPONENTS
+import GridContainer from "components/MaterialKit/Grid/GridContainer.js";
+import GridItem from "components/MaterialKit/Grid/GridItem.js";
+import CircularProgress from "@material-ui/core/CircularProgress";
+
 // CUSTOM COMPONENTS
 import Information from "./Information.js";
 import OtherInformation from "./OtherInformation.js";
 import Controls from "./Controls";
-import GridContainer from "components/MaterialKit/Grid/GridContainer.js";
-import GridItem from "components/MaterialKit/Grid/GridItem.js";
+import Error from "components/Utility/Error";
 
-const General = () => {
+import { useState, useEffect } from "react";
+
+const getReviewInfo = async (reviewID) => {
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+
+  return {
+    reviewID,
+    dueDate: new Date(),
+    description: "example description",
+  };
+};
+
+const General = ({ reviewID }) => {
+  const [loading, setLoading] = useState(true);
+  const [reviewInfo, setReviewInfo] = useState({});
+  const [error, setError] = useState(false);
+
+  useEffect(async () => {
+    try {
+      const response = await getReviewInfo(reviewID);
+      setReviewInfo(response);
+      setError(false);
+    } catch (e) {
+      console.log(e);
+      setError(e);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  if (loading) {
     return (
-        <GridContainer>
-            <GridItem xs={6}>
-                <Information />
-            </GridItem>
-            <GridItem xs={6}>
-                <OtherInformation />
-                <Controls />
-            </GridItem>
-        </GridContainer>
+      <div>
+        <CircularProgress />;
+      </div>
     );
+  }
+
+  if (error) {
+    return <Error msg={error.message} />;
+  }
+
+  return (
+    <GridContainer>
+      <GridItem xs={6}>
+        <Information {...reviewInfo} />
+      </GridItem>
+      <GridItem xs={6}>
+        <OtherInformation />
+        <Controls />
+      </GridItem>
+    </GridContainer>
+  );
 };
 
 export default General;

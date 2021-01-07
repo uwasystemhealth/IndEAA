@@ -68,7 +68,7 @@ const GeneralPage = ({ courseID }) => {
         {
           tabName: "General",
           tabIcon: Face,
-          tabContent: <General />,
+          tabContent: <General reviewID={courseID} />,
         },
         {
           tabName: "Justifications",
