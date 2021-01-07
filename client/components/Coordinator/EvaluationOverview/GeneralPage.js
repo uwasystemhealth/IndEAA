@@ -4,8 +4,6 @@ import Face from "@material-ui/icons/Face";
 import Chat from "@material-ui/icons/Chat";
 import Build from "@material-ui/icons/Build";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import InfoArea from "components/MaterialKit/InfoArea/InfoArea.js";
-import ErrorIcon from "@material-ui/icons/Error";
 
 // CUSTOM COMPONENTS
 import General from "./General";
