@@ -4,6 +4,7 @@ import GridItem from "components/MaterialKit/Grid/GridItem.js";
 import Card from "components/MaterialKit/Card/Card.js";
 import CardBody from "components/MaterialKit/Card/CardBody.js";
 import Button from "components/MaterialKit/CustomButtons/Button.js";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 // STYLES
 import modalStyle from "assets/jss/nextjs-material-kit/modalStyle.js";
@@ -14,6 +15,9 @@ const useStyles = makeStyles({
   ...modalStyle,
   cardTitle,
   cardSubtitle,
+  center: {
+    textAlign: "center",
+  },
 });
 
 const ReviewerListing = ({ email, name, inviter, status }) => {
@@ -22,7 +26,7 @@ const ReviewerListing = ({ email, name, inviter, status }) => {
   return (
     <Card>
       <CardBody>
-        <GridContainer>
+        <GridContainer justify="space-evenly" alignItems="center">
           <GridItem xs={4}>
             <h3 className={classes.cardTitle}>{name}</h3>
             <h4 className={classes.cardSubtitle}>{email}</h4>
@@ -36,8 +40,11 @@ const ReviewerListing = ({ email, name, inviter, status }) => {
               Status: <b>{status}</b>
             </h5>
           </GridItem>
-          <GridItem xs={4}>
-            <Button color="danger">Delete</Button>
+          <GridItem xs={4} className={classes.center}>
+            <Button color="danger">
+              <DeleteIcon />
+              Delete
+            </Button>
           </GridItem>
         </GridContainer>
       </CardBody>

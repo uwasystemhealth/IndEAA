@@ -33,7 +33,7 @@ const ManageReviewers = ({ courseTitle, reviewers }) => {
   return (
     <>
       <Button color="info" onClick={() => setModal(true)}>
-        Manage Coordinators
+        Manage Reviewers
       </Button>
 
       <Dialog
