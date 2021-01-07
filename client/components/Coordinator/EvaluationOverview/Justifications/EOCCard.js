@@ -11,7 +11,17 @@ import GridItem from "components/MaterialKit/Grid/GridItem.js";
 import Button from "components/MaterialKit/CustomButtons/Button.js";
 import FindInPageIcon from "@material-ui/icons/FindInPage";
 
+// STYLES
+import { makeStyles } from "@material-ui/core/styles";
+import { cardTitle } from "assets/jss/nextjs-material-kit.js";
+const styles = {
+  cardTitle,
+};
+const useStyles = makeStyles(styles);
+
 const EOCCard = ({ title, description, rating, justification, eocID }) => {
+  const classes = useStyles();
+
   const ratingMsg =
     rating != null ? (
       <Success>Your Rating: {rating}</Success>
@@ -28,8 +38,8 @@ const EOCCard = ({ title, description, rating, justification, eocID }) => {
 
   return (
     <Card>
-      <CardHeader>{title}</CardHeader>
       <CardBody>
+        <h4 className={classes.cardTitle}>{title}</h4>
         <GridContainer>
           <GridItem xs={8}>
             <Muted>{description}</Muted>
