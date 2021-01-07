@@ -16,6 +16,7 @@ import HelpIcon from "@material-ui/icons/Help";
 
 // CUSTOM COMPONENTS
 import ApplyTo from "./ApplyTo.js";
+import DocumentViewer from "./DocumentViewer.js";
 
 // STYLES
 import { makeStyles } from "@material-ui/core/styles";
@@ -72,7 +73,9 @@ const ManageEOC = ({ title, description }) => {
                 </CardBody>
               </Card>
             </GridItem>
-            <GridItem xs={6}>general documents</GridItem>
+            <GridItem xs={6}>
+              <DocumentViewer />
+            </GridItem>
           </GridContainer>
         </DialogContent>
       </Dialog>
