@@ -52,7 +52,7 @@ const DocumentCard = ({ documentID, title, createdDate, uri, eocs }) => {
               </a>
             </p>
           </GridItem>
-          <GridItem xs={2}>
+          <GridItem xs={3}>
             <GridContainer direction="column">
               <Button color="white">
                 <PageViewIcon />
