@@ -3,6 +3,9 @@ import Card from "components/MaterialKit/Card/Card.js";
 import CardBody from "components/MaterialKit/Card/CardBody.js";
 import CardHeader from "components/MaterialKit/Card/CardHeader.js";
 
+// CUSTOM COMPONENTS
+import Stepper from "./Stepper.js";
+
 // STYLES
 import { makeStyles } from "@material-ui/core/styles";
 import { cardTitle, cardSubtitle } from "assets/jss/nextjs-material-kit.js";
@@ -20,6 +23,7 @@ const ProgressDisplay = ({ name, email, stage, reviewID }) => {
       <CardBody>
         <h4 className={classes.cardTitle}>{name}</h4>
         <h5 className={classes.cardSubtitle}>{email}</h5>
+        <Stepper step={1} />
       </CardBody>
     </Card>
   );
