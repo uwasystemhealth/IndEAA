@@ -48,7 +48,7 @@ const Documents = () => {
   }
 
   const documentComps = documents.map((doc) => (
-    <GridItem key={doc._id} xs={6}>
+    <GridItem key={doc._id} xs={5}>
       <DocumentCard
         documentID={doc._id}
         title={doc.name}
@@ -59,7 +59,7 @@ const Documents = () => {
     </GridItem>
   ));
 
-  return <GridContainer>{documentComps}</GridContainer>;
+  return <GridContainer justify="space-around">{documentComps}</GridContainer>;
 };
 
 export default Documents;
