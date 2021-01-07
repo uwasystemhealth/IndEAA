@@ -2,7 +2,12 @@
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
+import DialogActions from "@material-ui/core/DialogActions";
 import Button from "components/MaterialKit/CustomButtons/Button.js";
+import CustomInput from "components/MaterialKit/CustomInput/CustomInput.js";
+import SendIcon from "@material-ui/icons/Send";
+import GridContainer from "components/MaterialKit/Grid/GridContainer.js";
+import GridItem from "components/MaterialKit/Grid/GridItem.js";
 
 // CUSTOM COMPONENTS
 import ReviewerListing from "./ReviewerListing.js";
@@ -46,6 +51,28 @@ const ManageReviewers = ({ courseTitle, reviewers }) => {
           {courseTitle} Reviewers
         </DialogTitle>
         <DialogContent>{reviewerCards}</DialogContent>
+        <DialogActions>
+          <GridContainer>
+            <GridItem xs={12}>
+              <h3>Email of reviewer to invite</h3>
+            </GridItem>
+            <GridItem xs={6}>
+              <CustomInput
+                id="regular"
+                labelText="reviewer@gmail.com"
+                formControlProps={{
+                  fullWidth: true,
+                }}
+              />
+            </GridItem>
+            <GridItem xs={6}>
+              <Button color="white">
+                <SendIcon />
+                Invite
+              </Button>
+            </GridItem>
+          </GridContainer>
+        </DialogActions>
       </Dialog>
     </>
   );
