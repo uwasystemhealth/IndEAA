@@ -2,14 +2,17 @@
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogActions from "@material-ui/core/DialogActions";
 import Button from "components/MaterialKit/CustomButtons/Button.js";
+
+// CUSTOM COMPONENTS
+import ReviewerListing from "./ReviewerListing.js";
 
 // STYLES
 import modalStyle from "assets/jss/nextjs-material-kit/modalStyle.js";
+
 import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles({
-  modalStyle,
+  ...modalStyle,
 });
 
 import React, { useState } from "react";
@@ -32,12 +35,13 @@ const ManageReviewers = ({ courseTitle }) => {
         open={modal}
         keepMounted
         onClose={() => setModal(false)}
+        maxWidth="md"
+        fullWidth
       >
         <DialogTitle id="form-dialog-title">
           {courseTitle} Reviewers
         </DialogTitle>
-        <DialogContent>yeeet</DialogContent>
-        <DialogActions>byeah</DialogActions>
+        <DialogContent></DialogContent>
       </Dialog>
     </>
   );
