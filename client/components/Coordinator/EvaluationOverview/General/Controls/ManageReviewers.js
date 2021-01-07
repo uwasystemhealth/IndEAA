@@ -17,9 +17,13 @@ const useStyles = makeStyles({
 
 import React, { useState } from "react";
 
-const ManageReviewers = ({ courseTitle }) => {
+const ManageReviewers = ({ courseTitle, reviewers }) => {
   const classes = useStyles();
   const [modal, setModal] = useState(false);
+
+  const reviewerCards = reviewers.map((reviewer) => (
+    <ReviewerListing key={reviewer.name} {...reviewer} />
+  ));
 
   return (
     <>
@@ -41,7 +45,7 @@ const ManageReviewers = ({ courseTitle }) => {
         <DialogTitle id="form-dialog-title">
           {courseTitle} Reviewers
         </DialogTitle>
-        <DialogContent></DialogContent>
+        <DialogContent>{reviewerCards}</DialogContent>
       </Dialog>
     </>
   );

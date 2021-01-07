@@ -16,24 +16,24 @@ const useStyles = makeStyles({
   cardSubtitle,
 });
 
-const ReviewerListing = () => {
+const ReviewerListing = ({ email, name, inviter, status }) => {
+  const classes = useStyles();
+
   return (
     <Card>
       <CardBody>
         <GridContainer>
           <GridItem xs={4}>
-            <h3 className={classes.cardTitle}>Michael Nefiodovas</h3>
-            <h4 className={classes.cardSubtitle}>
-              michael.nefiodovas@uwa.edu.au
-            </h4>
+            <h3 className={classes.cardTitle}>{name}</h3>
+            <h4 className={classes.cardSubtitle}>{email}</h4>
           </GridItem>
 
           <GridItem xs={4}>
             <h5>
-              Inviter: <b>You</b>
+              Inviter: <b>{inviter}</b>
             </h5>
             <h5>
-              Status: <b>Invite Pending</b>
+              Status: <b>{status}</b>
             </h5>
           </GridItem>
           <GridItem xs={4}>

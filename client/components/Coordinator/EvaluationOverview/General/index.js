@@ -21,6 +21,26 @@ const getReviewInfo = async (reviewID) => {
     createdBy: "Frinze Erin Lapuz",
     createdOn: new Date(),
     courseTitle: "MECH5551/MECH5552",
+    reviewers: [
+      {
+        name: "Michael Nefiodovas",
+        email: "michael.nefiodovas@uwa.edu.au",
+        inviter: "Robert French",
+        status: "Invite pending",
+      },
+      {
+        name: "Frinze Lapuz",
+        email: "frinze.lapuz@uwa.edu.au",
+        inviter: "Robert French",
+        status: "Invite pending",
+      },
+      {
+        name: "Melinda Hodkiewicz",
+        email: "melinda.hokiewicz@uwa.edu.au",
+        inviter: "Robert French",
+        status: "Accepted",
+      },
+    ],
   };
 };
 
