@@ -63,22 +63,27 @@ export default function Modal(
         togglePerms(null, role)
     }
 
+    const getIndexOfPermission = (allPerms, course_id, role) => {
+        // This checks done are comparison by the course Mongo Object ID
+        // Returns undefined if permisions is undefineed
+        return allPerms && allPerms.findIndex(perm => perm.course_id === course_id && perm.role === role)
+    }
+
     const togglePerms = (course_id, role) => {
         const { isAdministrator, isCoordinator, perms } = modalState
-        const index = perms.find(perm => perm.course_id == course_id && perm.role == role)
+        const index = getIndexOfPermission(perms, course_id, role)
 
-        // TODO: Take care of duplicate names of items still works
-
-        if (typeof index === "undefined") { // Permission Does not exist
+        if (index == -1 || typeof index === "undefined") { // Permission Does not exist
             perms.push({ course_id, role })
         }
         else { // Permission Exists
             perms.splice(index, 1) // Pop a specific index
         }
-        console.log(perms)
-        console.log(index)
-        const changedAdminPerm = role == "Administrator" ? !isAdministrator : isAdministrator
-        const changedCoordinatorPerm = role == "Coordinator" ? !isCoordinator : isCoordinator
+
+        const changedAdminPerm = role === "Administrator" ? !isAdministrator : isAdministrator
+
+        // Null Course Id Coordinator
+        const changedCoordinatorPerm = role === "Coordinator" && course_id === null ? !isCoordinator : isCoordinator
 
         setModalState(
             {
@@ -144,7 +149,11 @@ export default function Modal(
                                                     {courseEvaluation.queryResult.data.map(
                                                         course => (
                                                             <ListItem>
-                                                                <DesignedCheckBox onClick={() => null} isChecked={true} label={course.courseId}></DesignedCheckBox>
+                                                                <DesignedCheckBox
+                                                                    onClick={() => togglePerms(course._id, "Coordinator")}
+                                                                    isChecked={getIndexOfPermission(modalState.perms, course._id, "Coordinator") >= 0}
+                                                                    label={course.courseId}>
+                                                                </DesignedCheckBox>
                                                             </ListItem>
                                                         )
                                                     )}
@@ -155,16 +164,19 @@ export default function Modal(
                                             tabName: "Reviewer",
                                             tabIcon: Placeholder,
                                             tabContent: (
-                                                <p className={classes.textCenter}>
-                                                    I think that’s a responsibility that I have, to push
-                                                    possibilities, to show people, this is the level that
-                                                    things could be at. I will be the leader of a company
-                                                    that ends up being worth billions of dollars, because I
-                                                    got the answers. I understand culture. I am the nucleus.
-                                                    I think that’s a responsibility that I have, to push
-                                                    possibilities, to show people, this is the level that
-                                                    things could be at.
-                                                </p>
+                                                <List>
+                                                    {courseEvaluation.queryResult.data.map(
+                                                        course => (
+                                                            <ListItem>
+                                                                <DesignedCheckBox
+                                                                    onClick={() => togglePerms(course._id, "Reviewer")}
+                                                                    isChecked={getIndexOfPermission(modalState.perms, course._id, "Reviewer") >= 0}
+                                                                    label={course.courseId}>
+                                                                </DesignedCheckBox>
+                                                            </ListItem>
+                                                        )
+                                                    )}
+                                                </List>
                                             )
                                         }
                                     ]}
@@ -213,7 +225,7 @@ const BasicInformationField = ({ user, classes, isAdministrator, isCoordinator, 
             <DesignedCheckBox onClick={toggleRole("Administrator")} isChecked={isAdministrator}
                 label={"Administrator"}></DesignedCheckBox>
             <DesignedCheckBox onClick={toggleRole("Coordinator")} isChecked={isCoordinator}
-                label={"Coordinator"}></DesignedCheckBox>
+                label={"Coordinator (can create more course reviews)"}></DesignedCheckBox>
         </>
     );
 }
