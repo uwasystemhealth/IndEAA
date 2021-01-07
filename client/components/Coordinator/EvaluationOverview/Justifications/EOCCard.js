@@ -20,7 +20,8 @@ const styles = {
 };
 const useStyles = makeStyles(styles);
 
-const EOCCard = ({ title, description, rating, justification, eocID }) => {
+const EOCCard = (props) => {
+  const { title, description, rating, justification, eocID } = props;
   const classes = useStyles();
 
   const ratingMsg =
@@ -46,7 +47,7 @@ const EOCCard = ({ title, description, rating, justification, eocID }) => {
             <Muted>{description}</Muted>
           </GridItem>
           <GridItem xs={4}>
-            <ManageEOC />
+            <ManageEOC {...props} />
           </GridItem>
         </GridContainer>
       </CardBody>
