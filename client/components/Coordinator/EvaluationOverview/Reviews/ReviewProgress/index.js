@@ -11,7 +11,7 @@ const ReviewProgress = () => {
     {
       name: "Michael Nefiodovas",
       email: "michael.nefiodovas@uwa.edu.au",
-      stage: 3,
+      stage: 0,
       reviewID: "asdsafdg",
     },
   ];
