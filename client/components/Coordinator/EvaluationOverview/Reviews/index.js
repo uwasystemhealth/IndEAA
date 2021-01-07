@@ -6,6 +6,7 @@ const Reviews = () => {
   return (
     <div>
       <ReviewProgress />
+      <OtherFunctions />
     </div>
   );
 };
