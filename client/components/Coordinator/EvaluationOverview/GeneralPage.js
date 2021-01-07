@@ -21,8 +21,7 @@ const useStyles = makeStyles({ ...landingStyles });
 import { useState, useEffect } from "react";
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
-const getCourseDetails = async (courseID) => {
+const getEvaluationDetails = async (courseID) => {
   await sleep(3000);
   // throw new Error(
   //   "ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla"
@@ -40,7 +39,7 @@ const GeneralPage = ({ courseID }) => {
 
   useEffect(async () => {
     try {
-      const response = await getCourseDetails(courseID);
+      const response = await getEvaluationDetails(courseID);
       setEvaluation(response);
       setError(false);
     } catch (e) {
