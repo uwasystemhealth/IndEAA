@@ -30,6 +30,10 @@ import CustomTabs from "components/MaterialKit/CustomTabs/CustomTabs.js";
 // Utils
 import { getAvailablePermissionsOfUser } from "utils"
 
+// Redux
+import { useSelector } from "react-redux"
+import { services } from "store/feathersClient"
+
 // Styles
 import { makeStyles } from "@material-ui/core/styles";
 import checkboxStyles from "assets/jss/nextjs-material-kit/customCheckboxRadioSwitch.js";
@@ -45,6 +49,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function Modal(
     { user, courseEvaluation, closeModal }
 ) {
+    const authUser = useSelector(state => state.auth.user)
     const classes = useStyles();
     const initialStateModal = {
         isAdministrator: user && getAvailablePermissionsOfUser(user.perms).has("Administrator"),
@@ -94,6 +99,11 @@ export default function Modal(
 
     }
 
+    const handleSave = () => {
+        const { perms } = modalState
+        services.users.patch(user._id, { perms })
+    }
+
     return (
         <Dialog
             classes={{
@@ -134,7 +144,7 @@ export default function Modal(
                     (
                         <Grid direction="row" alignItems="center" justify="center">
                             <GridItem md={4}>
-                                < BasicInformationField user={user} classes={classes} isAdministrator={modalState.isAdministrator}
+                                < BasicInformationField user={user} authUser={authUser} classes={classes} isAdministrator={modalState.isAdministrator}
                                     isCoordinator={modalState.isCoordinator} toggleRole={toggleRole} />
                             </GridItem>
                             <GridItem md={8}>
@@ -190,7 +200,7 @@ export default function Modal(
                 className={classes.modalFooter + " " + classes.modalFooterCenter}
             >
                 <Button onClick={() => closeModal()}>Cancel</Button>
-                <Button onClick={() => { closeModal(); }} color="success">
+                <Button onClick={() => { closeModal(); handleSave() }} color="success">
                     Save
                 </Button>
             </DialogActions>
@@ -198,7 +208,7 @@ export default function Modal(
     );
 }
 
-const BasicInformationField = ({ user, classes, isAdministrator, isCoordinator, toggleRole }) => {
+const BasicInformationField = ({ user, authUser, classes, isAdministrator, isCoordinator, toggleRole }) => {
     return (
         <>
             <img src={user.picture} className={classes.imgRounded + " " + classes.imgFluid} />
@@ -222,24 +232,30 @@ const BasicInformationField = ({ user, classes, isAdministrator, isCoordinator, 
                     disabled: true,
                     value: user.email
                 }} />
+            {/* Cannot change permission of an administrator on itself */}
             <DesignedCheckBox onClick={toggleRole("Administrator")} isChecked={isAdministrator}
-                label={"Administrator"}></DesignedCheckBox>
+                label={"Administrator"} disabled={user._id === authUser._id}></DesignedCheckBox>
             <DesignedCheckBox onClick={toggleRole("Coordinator")} isChecked={isCoordinator}
                 label={"Coordinator (can create more course reviews)"}></DesignedCheckBox>
         </>
     );
 }
-const DesignedCheckBox = ({ onClick, isChecked, label }) => {
+const DesignedCheckBox = ({ onClick, isChecked, label, disabled = false }) => {
     const classes = useStyles()
-    return (<FormControlLabel
-        control={<Checkbox
-            tabIndex={-1}
-            onClick={onClick}
-            checked={isChecked}
-            checkedIcon={<Check className={classes.checkedIcon} />}
-            icon={<Check className={classes.uncheckedIcon} />}
-            classes={{ checked: classes.checked }} />}
-        classes={{ label: classes.label }}
-        label={label} />);
+    return (
+        <FormControlLabel
+            control={
+                <Checkbox
+                    tabIndex={-1}
+                    onClick={onClick}
+                    checked={isChecked}
+                    disabled={disabled}
+                    checkedIcon={<Check className={classes.checkedIcon} />}
+                    icon={<Check className={classes.uncheckedIcon} />}
+                    classes={{ checked: classes.checked, root: classes.checkRoot }
+                    } />}
+            classes={{ label: classes.label, disabled: !disabled || classes.disabledCheckboxAndRadio }}
+            label={label} />
+    );
 }
 
