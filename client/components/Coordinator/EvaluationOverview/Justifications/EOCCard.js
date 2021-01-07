@@ -8,8 +8,9 @@ import Success from "components/MaterialKit/Typography/Success.js";
 import Danger from "components/MaterialKit/Typography/Danger.js";
 import GridContainer from "components/MaterialKit/Grid/GridContainer.js";
 import GridItem from "components/MaterialKit/Grid/GridItem.js";
-import Button from "components/MaterialKit/CustomButtons/Button.js";
-import FindInPageIcon from "@material-ui/icons/FindInPage";
+
+// CUSTOM COMPONENTS
+import ManageEOC from "./ManageEOC.js";
 
 // STYLES
 import { makeStyles } from "@material-ui/core/styles";
@@ -45,10 +46,7 @@ const EOCCard = ({ title, description, rating, justification, eocID }) => {
             <Muted>{description}</Muted>
           </GridItem>
           <GridItem xs={4}>
-            <Button>
-              <FindInPageIcon />
-              View
-            </Button>
+            <ManageEOC />
           </GridItem>
         </GridContainer>
       </CardBody>
