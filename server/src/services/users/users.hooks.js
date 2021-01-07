@@ -1,5 +1,6 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
 const firstUser = require("../../hooks/firstUser")
+const compileGoogleAndSystemPerms = require("../../hooks/compileGoogleAndSystemPerms")
 
 
 module.exports = {
@@ -7,7 +8,7 @@ module.exports = {
     all: [],
     find: [authenticate('jwt')],
     get: [authenticate('jwt')],
-    create: [firstUser()],
+    create: [firstUser(), compileGoogleAndSystemPerms()],
     update: [authenticate('jwt')],
     patch: [authenticate('jwt')],
     remove: [authenticate('jwt')]

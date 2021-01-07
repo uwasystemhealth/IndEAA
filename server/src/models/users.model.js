@@ -14,8 +14,8 @@ module.exports = function (app) {
   const schema = DefaultSchema(app);
 
   schema.add({
-    googleId: { type: String, required: true },
-    name: NameType(),
+    googleId: { type: String },
+    name: NameType(required = false),
     picture: { type: String },
     email: EmailType(),
     perms: [
