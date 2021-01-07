@@ -150,7 +150,7 @@ const EOCAccordion = () => {
       const title = `EOC ${eocSet.setNum}.${eoc.EOCNum}`;
 
       return (
-        <GridItem xs={4}>
+        <GridItem key={eoc_.id} xs={4}>
           <EOCCard
             key={title}
             eocID={eoc._id}
