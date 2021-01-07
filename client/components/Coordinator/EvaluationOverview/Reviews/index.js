@@ -1,5 +1,12 @@
+// CUSTOM COMPONENTS
+import ReviewProgress from "./ReviewProgress";
+
 const Reviews = () => {
-  return <p>I r8 10/10</p>;
+  return (
+    <div>
+      <ReviewProgress />
+    </div>
+  );
 };
 
 export default Reviews;
