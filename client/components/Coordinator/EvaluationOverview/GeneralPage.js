@@ -12,6 +12,7 @@ import General from "./General";
 import Justifications from "./Justifications";
 import Documents from "./Documents";
 import Reviews from "./Reviews";
+import Error from "components/Utility/Error";
 
 // Styles
 import landingStyles from "assets/jss/nextjs-material-kit/pages/landingPage.js";
@@ -59,14 +60,7 @@ const GeneralPage = ({ courseID }) => {
   }
 
   if (error) {
-    return (
-      <InfoArea
-        title="Oh no! There's been an error!"
-        description={error.message}
-        icon={ErrorIcon}
-        iconColor="danger"
-      />
-    );
+    return <Error msg={error.message} />;
   }
 
   return (
