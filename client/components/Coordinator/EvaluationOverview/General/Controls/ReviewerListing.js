@@ -33,9 +33,9 @@ const ReviewerListing = ({ email, name, inviter, status }) => {
           </GridItem>
 
           <GridItem xs={4}>
-            <h5>
-              Inviter: <b>{inviter}</b>
-            </h5>
+            {/* <h5>
+                  Inviter: <b>{inviter}</b>
+                  </h5> */}
             <h5>
               Status: <b>{status}</b>
             </h5>
