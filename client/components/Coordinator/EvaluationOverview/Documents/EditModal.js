@@ -14,7 +14,7 @@ import CardBody from "components/MaterialKit/Card/CardBody.js";
 import CardHeader from "components/MaterialKit/Card/CardHeader.js";
 
 // CUSTOM COMPONENTS
-import Tags from "./Tags.js";
+import ApplyTo from "./../Justifications/ApplyTo.js";
 
 import React, { useState } from "react";
 
@@ -25,6 +25,19 @@ const EditModal = ({ createModal }) => {
     setModal(false);
     // commit the saved data to database
   };
+
+  const eocs = [
+    {
+      _id: "a",
+      EOCNum: "1.2",
+      desc: "aaha",
+    },
+    {
+      _id: "b",
+      EOCNum: "1.3",
+      desc: "badga",
+    },
+  ];
 
   return (
     <>
@@ -83,7 +96,7 @@ const EditModal = ({ createModal }) => {
               </Card>
             </GridItem>
             <GridItem xs={7}>
-              <Tags />
+              <ApplyTo eocs={eocs} />
             </GridItem>
           </GridContainer>
         </DialogContent>

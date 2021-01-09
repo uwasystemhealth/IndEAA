@@ -28,12 +28,12 @@ import React, { useState } from "react";
 const eocs = [
   {
     _id: "a",
-    EOCNum: 1.2,
+    EOCNum: "1.2",
     desc: "aaha",
   },
   {
     _id: "b",
-    EOCNum: 1.3,
+    EOCNum: "1.3",
     desc: "badga",
   },
 ];
