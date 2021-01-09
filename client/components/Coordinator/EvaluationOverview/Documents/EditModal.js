@@ -20,6 +20,12 @@ import React, { useState } from "react";
 
 const EditModal = () => {
   const [modal, setModal] = useState(false);
+
+  const handleSave = () => {
+    setModal(false);
+    // commit the saved data to database
+  };
+
   return (
     <>
       <Button color="white" onClick={() => setModal(true)}>
@@ -80,7 +86,9 @@ const EditModal = () => {
         </DialogContent>
         <DialogActions>
           <Button>Cancel</Button>
-          <Button color="primary">Save</Button>
+          <Button color="primary" onClick={() => handleSave()}>
+            Save
+          </Button>
         </DialogActions>
       </Dialog>
     </>
