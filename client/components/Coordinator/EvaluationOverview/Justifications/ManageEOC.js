@@ -25,6 +25,19 @@ const useStyles = makeStyles(styles);
 
 import React, { useState } from "react";
 
+const eocs = [
+  {
+    _id: "a",
+    EOCNum: 1.2,
+    desc: "aaha",
+  },
+  {
+    _id: "b",
+    EOCNum: 1.3,
+    desc: "badga",
+  },
+];
+
 const ManageEOC = ({ title, description }) => {
   const classes = useStyles();
   const [modal, setModal] = useState(false);
@@ -63,7 +76,7 @@ const ManageEOC = ({ title, description }) => {
               />
             </GridItem>
             <GridItem xs={6}>
-              <ApplyTo />
+              <ApplyTo eocs={eocs} />
             </GridItem>
             <GridItem xs={6}>
               Justification
