@@ -8,6 +8,8 @@ import CustomInput from "components/MaterialKit/CustomInput/CustomInput.js";
 import SendIcon from "@material-ui/icons/Send";
 import GridContainer from "components/MaterialKit/Grid/GridContainer.js";
 import GridItem from "components/MaterialKit/Grid/GridItem.js";
+import IconButton from "@material-ui/core/IconButton";
+import Close from "@material-ui/icons/Close";
 
 // CUSTOM COMPONENTS
 import ReviewerListing from "./ReviewerListing.js";
@@ -47,9 +49,19 @@ const ManageReviewers = ({ courseTitle, reviewers }) => {
         maxWidth="md"
         fullWidth
       >
-        <DialogTitle id="form-dialog-title">
-          {courseTitle} Reviewers
+        <DialogTitle className={classes.modalHeader}>
+          <IconButton
+            className={classes.modalCloseButton}
+            key="close"
+            aria-label="Close"
+            color="inherit"
+            onClick={() => setModal(false)}
+          >
+            <Close className={classes.modalClose} />
+          </IconButton>
+          <h3>{courseTitle} Reviewers</h3>
         </DialogTitle>
+
         <DialogContent>{reviewerCards}</DialogContent>
         <DialogActions>
           <GridContainer>

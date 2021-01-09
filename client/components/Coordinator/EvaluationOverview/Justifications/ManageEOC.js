@@ -13,6 +13,8 @@ import Card from "components/MaterialKit/Card/Card.js";
 import CardBody from "components/MaterialKit/Card/CardBody.js";
 import CardHeader from "components/MaterialKit/Card/CardHeader.js";
 import HelpIcon from "@material-ui/icons/Help";
+import IconButton from "@material-ui/core/IconButton";
+import Close from "@material-ui/icons/Close";
 
 // CUSTOM COMPONENTS
 import ApplyTo from "./ApplyTo.js";
@@ -20,7 +22,8 @@ import DocumentViewer from "./DocumentViewer.js";
 
 // STYLES
 import { makeStyles } from "@material-ui/core/styles";
-const styles = {};
+import modalStyle from "assets/jss/nextjs-material-kit/modalStyle.js";
+const styles = { ...modalStyle };
 const useStyles = makeStyles(styles);
 
 import React, { useState } from "react";
@@ -56,8 +59,19 @@ const ManageEOC = ({ title, description }) => {
         maxWidth="lg"
         fullWidth
       >
-        <DialogTitle>
-          {title} - {description}
+        <DialogTitle className={classes.modalHeader}>
+          <IconButton
+            className={classes.modalCloseButton}
+            key="close"
+            aria-label="Close"
+            color="inherit"
+            onClick={() => setModal(false)}
+          >
+            <Close className={classes.modalClose} />
+          </IconButton>
+          <h3>
+            {title} - {description}
+          </h3>
         </DialogTitle>
 
         <DialogContent>

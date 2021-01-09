@@ -12,13 +12,23 @@ import SubjectIcon from "@material-ui/icons/Subject";
 import Card from "components/MaterialKit/Card/Card.js";
 import CardBody from "components/MaterialKit/Card/CardBody.js";
 import CardHeader from "components/MaterialKit/Card/CardHeader.js";
+import IconButton from "@material-ui/core/IconButton";
+import Close from "@material-ui/icons/Close";
 
 // CUSTOM COMPONENTS
 import ApplyTo from "./../Justifications/ApplyTo.js";
 
+// STYLES
+import modalStyle from "assets/jss/nextjs-material-kit/modalStyle.js";
+import { makeStyles } from "@material-ui/core/styles";
+const useStyles = makeStyles({
+  ...modalStyle,
+});
+
 import React, { useState } from "react";
 
 const EditModal = ({ createModal }) => {
+  const classes = useStyles();
   const [modal, setModal] = useState(false);
 
   const handleSave = () => {
@@ -55,7 +65,18 @@ const EditModal = ({ createModal }) => {
         maxWidth="lg"
         fullWidth
       >
-        <DialogTitle>Add New</DialogTitle>
+        <DialogTitle className={classes.modalHeader}>
+          <IconButton
+            className={classes.modalCloseButton}
+            key="close"
+            aria-label="Close"
+            color="inherit"
+            onClick={() => setModal(false)}
+          >
+            <Close className={classes.modalClose} />
+          </IconButton>
+          <h3>{createModal ? "Add New" : "Edit Existing"}</h3>
+        </DialogTitle>
         <DialogContent>
           <GridContainer>
             <GridItem xs={5}>
