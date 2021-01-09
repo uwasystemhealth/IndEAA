@@ -7,10 +7,12 @@ import Badge from "components/MaterialKit/Badge/Badge.js";
 import GridContainer from "components/MaterialKit/Grid/GridContainer.js";
 import GridItem from "components/MaterialKit/Grid/GridItem.js";
 import Button from "components/MaterialKit/CustomButtons/Button.js";
-
-import PageViewIcon from "@material-ui/icons/Pageview";
+import PageviewIcon from "@material-ui/icons/Pageview";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
+
+// CUSTOM COMPONENTS
+import EditModal from "./EditModal.js";
 
 // STYLES
 import { makeStyles } from "@material-ui/core/styles";
@@ -55,13 +57,12 @@ const DocumentCard = ({ documentID, title, createdDate, uri, eocs }) => {
           <GridItem xs={3}>
             <GridContainer direction="column">
               <Button color="white">
-                <PageViewIcon />
+                <PageviewIcon />
                 View
               </Button>
-              <Button color="white">
-                <EditIcon />
-                Edit
-              </Button>
+
+              <EditModal />
+
               <Button color="white">
                 <DeleteIcon />
                 Delete
