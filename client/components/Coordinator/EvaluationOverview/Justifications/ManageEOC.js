@@ -66,12 +66,8 @@ const ManageEOC = ({ title, description }) => {
               <ApplyTo />
             </GridItem>
             <GridItem xs={6}>
-              <Card>
-                <CardHeader color="success">Justification</CardHeader>
-                <CardBody>
-                  <TextField multiline fullWidth />
-                </CardBody>
-              </Card>
+              Justification
+              <TextField multiline fullWidth rows={4} variant="filled" />
             </GridItem>
             <GridItem xs={6}>
               <DocumentViewer />
