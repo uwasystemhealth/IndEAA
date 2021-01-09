@@ -18,7 +18,7 @@ import Tags from "./Tags.js";
 
 import React, { useState } from "react";
 
-const EditModal = () => {
+const EditModal = ({ createModal }) => {
   const [modal, setModal] = useState(false);
 
   const handleSave = () => {
@@ -28,9 +28,12 @@ const EditModal = () => {
 
   return (
     <>
-      <Button color="white" onClick={() => setModal(true)}>
+      <Button
+        color={createModal ? "primary" : "white"}
+        onClick={() => setModal(true)}
+      >
         <EditIcon />
-        Edit
+        {createModal ? "Add New Document" : "Edit"}
       </Button>
       <Dialog
         open={modal}
@@ -39,7 +42,7 @@ const EditModal = () => {
         maxWidth="lg"
         fullWidth
       >
-        <DialogTitle>Add New Document</DialogTitle>
+        <DialogTitle>Add New</DialogTitle>
         <DialogContent>
           <GridContainer>
             <GridItem xs={5}>
@@ -85,9 +88,9 @@ const EditModal = () => {
           </GridContainer>
         </DialogContent>
         <DialogActions>
-          <Button>Cancel</Button>
+          <Button onClick={() => setModal(false)}>Cancel</Button>
           <Button color="primary" onClick={() => handleSave()}>
-            Save
+            {createModal ? "Create" : "Save"}
           </Button>
         </DialogActions>
       </Dialog>

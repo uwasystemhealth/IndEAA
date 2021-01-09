@@ -4,6 +4,7 @@ import GridItem from "components/MaterialKit/Grid/GridItem.js";
 
 // CUSTOM COMPONENTS
 import DocumentCard from "components/Coordinator/EvaluationOverview/Documents/DocumentCard.js";
+import EditModal from "./EditModal.js";
 
 import { useState, useEffect } from "react";
 
@@ -59,7 +60,12 @@ const Documents = () => {
     </GridItem>
   ));
 
-  return <GridContainer>{documentComps}</GridContainer>;
+  return (
+    <>
+      <GridContainer>{documentComps}</GridContainer>;
+      <EditModal createModal />
+    </>
+  );
 };
 
 export default Documents;
