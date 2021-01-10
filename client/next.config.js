@@ -3,8 +3,14 @@ const withImages = require("next-images");
 const withSass = require("@zeit/next-sass");
 const webpack = require("webpack");
 const path = require("path");
+const nextEnv = require('next-env');
+const dotenvLoad = require('dotenv-load');
+ 
+dotenvLoad();
 
-module.exports = withPlugins([[withSass], [withImages]], {
+const withNextEnv = nextEnv();
+
+module.exports = withPlugins([[withSass], [withImages], [withNextEnv]], {
   webpack(config, options) {
     config.resolve.modules.push(path.resolve("./"));
     config.watchOptions = {
@@ -13,4 +19,6 @@ module.exports = withPlugins([[withSass], [withImages]], {
     };
     return config;
   }
-});
+})
+
+

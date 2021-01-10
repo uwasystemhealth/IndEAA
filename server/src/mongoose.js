@@ -8,6 +8,7 @@ module.exports = function (app) {
       useCreateIndex: true,
       useNewUrlParser: true,
       useUnifiedTopology: true, // Connection retry on first startup
+      poolSize: 10, // Maintain up to 10 socket connections
     }
 
   ).catch(err => {
