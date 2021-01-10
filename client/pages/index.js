@@ -40,7 +40,6 @@ export default function LoginPage(props) {
 
   // Get User Details
   const user = useSelector((state) => state.auth.user)
-  console.log(user)
 
   return (
     <div

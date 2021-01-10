@@ -11,7 +11,6 @@ module.exports = function (options = {}) {
         // Try to find if the email already exist in the system
         const { app } = context
         const queryResult = await app.service("users").find({ query: { $limit: 1, email } })
-        console.log(queryResult)
 
         if (queryResult.total > 0) {
             const existingUser = queryResult.data[0]

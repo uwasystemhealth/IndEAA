@@ -25,7 +25,6 @@ export const addNotificationMessageParams = (notification) => {
             notification.variant = "info"
         }
     }
-    console.log(notification)
     return ({
         type: "ADD_NOTIFICATION_MESSAGE",
         notification

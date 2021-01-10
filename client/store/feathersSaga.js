@@ -18,8 +18,6 @@ function* feathersSaga() {``
     });
     yield takeEvery(services.users.types.SERVICES_USERS_CREATE_REJECTED, function* (action) {
         const { payload } = action
-        console.log(payload)
-        console.log(action)
         // Payload is the dispatch action items
         yield put(addNotificationMessageParams({
             message: payload.message

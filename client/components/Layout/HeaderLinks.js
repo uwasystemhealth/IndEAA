@@ -49,7 +49,6 @@ export default function HeaderLinks(props) {
             </Link>)
         }
     )
-    console.log(user)
     return (
         <List className={classes.list}>
             {user && rolesOfUser.length != 0 &&

@@ -77,7 +77,6 @@ const AuthGuard = ({ children, isProtected }) => {
 
         }
 
-        console.log(allowed)
         return (
             <>{allowed ? children : null}</>
         )
