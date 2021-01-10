@@ -11,12 +11,27 @@ const styles = {
 };
 const useStyles = makeStyles(styles);
 
-import { useState, useEffect } from "react";
+// Store Actions and Redux
+import { useDispatch, useSelector } from "react-redux";
+import { services } from "store/feathersClient";
 
-const Information = ({ reviewID, dueDate, description }) => {
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+
+const Information = ({ evaluationID }) => {
   const classes = useStyles();
 
-  const dateString = dueDate.toLocaleDateString("en-gb", {
+  useEffect(() => {
+    services["course-evaluation"].get({
+      _id: evaluationID,
+    });
+  }, []);
+
+  const courseEval = useSelector((state) => state["course-evaluation"]);
+  const evalData = courseEval?.data;
+
+  const date = new Date(evalData?.dueDate);
+  const dateString = date.toLocaleDateString("en-gb", {
     year: "numeric",
     month: "short",
     day: "numeric",
@@ -27,9 +42,9 @@ const Information = ({ reviewID, dueDate, description }) => {
       <CardHeader color="success">Information</CardHeader>
       <CardBody>
         <h4 className={cardSubtitle}>Review Target due Date:</h4>
-        <p>{dateString}</p>
+        <p>{dateString || "Not set"}</p>
         <h4 className={cardSubtitle}>Review Description:</h4>
-        <p>{description}</p>
+        <p>{evalData?.reviewDescription || "Not set"}</p>
       </CardBody>
     </Card>
   );

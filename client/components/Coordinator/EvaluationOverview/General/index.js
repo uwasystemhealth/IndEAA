@@ -10,78 +10,31 @@ import Controls from "./Controls";
 import Error from "components/Utility/Error";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
-const getReviewInfo = async (reviewID) => {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+// Redux
+import { useDispatch, useSelector } from "react-redux";
+import { services } from "store/feathersClient";
 
-  return {
-    reviewID,
-    dueDate: new Date(),
-    description: "example description",
-    createdBy: "Frinze Erin Lapuz",
-    createdOn: new Date(),
-    courseTitle: "MECH5551/MECH5552",
-    reviewers: [
-      {
-        name: "Michael Nefiodovas",
-        email: "michael.nefiodovas@uwa.edu.au",
-        status: "Invite pending",
-      },
-      {
-        name: "Frinze Lapuz",
-        email: "frinze.lapuz@uwa.edu.au",
-        status: "Invite pending",
-      },
-      {
-        name: "Melinda Hodkiewicz",
-        email: "melinda.hokiewicz@uwa.edu.au",
-        status: "Accepted",
-      },
-    ],
-  };
-};
-
-const General = ({ reviewID }) => {
-  const [loading, setLoading] = useState(true);
-  const [reviewInfo, setReviewInfo] = useState({});
-  const [error, setError] = useState(false);
-
-  useEffect(async () => {
-    try {
-      const response = await getReviewInfo(reviewID);
-      setReviewInfo(response);
-      setError(false);
-    } catch (e) {
-      console.log(e);
-      setError(e);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
-  if (loading) {
+const General = () => {
+  const router = useRouter();
+  if (router.query.hasOwnProperty("courseID")) {
+    const { courseID } = router.query;
+    console.log(courseID);
     return (
-      <div>
-        <CircularProgress />;
-      </div>
+      <GridContainer>
+        <GridItem xs={6}>
+          <Information evaluationID={courseID} />
+        </GridItem>
+        <GridItem xs={6}>
+          <OtherInformation />
+          <Controls />
+        </GridItem>
+      </GridContainer>
     );
+  } else {
+    return <p>invalid</p>;
   }
-
-  if (error) {
-    return <Error msg={error.message} />;
-  }
-
-  return (
-    <GridContainer>
-      <GridItem xs={6}>
-        <Information {...reviewInfo} />
-      </GridItem>
-      <GridItem xs={6}>
-        <OtherInformation {...reviewInfo} />
-        <Controls {...reviewInfo} />
-      </GridItem>
-    </GridContainer>
-  );
 };
 
 export default General;

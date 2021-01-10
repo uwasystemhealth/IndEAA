@@ -18,48 +18,13 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles({ ...landingStyles });
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-const getEvaluationDetails = async (courseID) => {
-  await sleep(1000);
-  // throw new Error(
-  //   "ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla"
-  // );
-  return {
-    title: "MECH5551/MECH5552",
-  };
-};
-
-const GeneralPage = ({ courseID }) => {
+const GeneralPage = () => {
   const classes = useStyles();
-  const [loading, setLoading] = useState(true);
-  const [evaluation, setEvaluation] = useState({});
-  const [error, setError] = useState(false);
+  const router = useRouter();
 
-  useEffect(async () => {
-    try {
-      const response = await getEvaluationDetails(courseID);
-      setEvaluation(response);
-      setError(false);
-    } catch (e) {
-      console.log(e);
-      setError(e);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
-  if (loading) {
-    return (
-      <div>
-        <CircularProgress />;
-      </div>
-    );
-  }
-
-  if (error) {
-    return <Error msg={error.message} />;
-  }
+  const { courseID } = router.query;
 
   return (
     <CustomTabs

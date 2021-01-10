@@ -28,7 +28,7 @@ const ManageReviewers = ({ courseTitle, reviewers }) => {
   const classes = useStyles();
   const [modal, setModal] = useState(false);
 
-  const reviewerCards = reviewers.map((reviewer) => (
+  const reviewerCards = reviewers?.map((reviewer) => (
     <ReviewerListing key={reviewer.name} {...reviewer} />
   ));
 
