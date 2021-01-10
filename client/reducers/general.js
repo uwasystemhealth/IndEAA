@@ -2,11 +2,15 @@
 
 const initState = {
     currentRoleSelected: null,
-    notification: {
+    notifications: []
+    /*
+    Notification is of type [{
+        key
         message: "",
         color: "",
-        icon: "",
-    }
+        variant: "", possible values ["success","error","warning","info"]
+    }]
+    */
 }
 
 
@@ -18,13 +22,35 @@ export const generalReducer = (state = initState, action) => {
                 ...state,
                 currentRoleSelected: action.role
             }
-        case "CHANGE_NOTIFICATION_MESSAGE":
+        case "ADD_NOTIFICATION_MESSAGE":
             return {
                 ...state,
-                notification: { ...state.notification, ...action.notification },
+                notifications: [
+                    ...state.notifications,
+                    {
+                        key: 1,//uuidv4(),
+                        ...action.notification
+                    }
+                ]
             }
-
+        case "REMOVE_NOTIFICATION_MESSAGE":
+            return {
+                ...state,
+                notifications: [
+                    ...state.notifications.filter(({ key }) => key != action.key)
+                ]
+            }
         default:
             return state
     }
+}
+
+// Generate Unique ID
+// https://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid
+
+const uuidv4 = () => {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
 }

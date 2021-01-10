@@ -5,15 +5,17 @@ export const setCurrentRoleSelected = (role) => async (dispatch, getState) => {
     })
 }
 
-export const setNotificationMessage = (notification) => async (dispatch, getState) => {
+export const addNotificationMessage = (notification) => async (dispatch, getState) => {
     return dispatch({
-        type: "CHANGE_NOTIFICATION",
+        type: "ADD_NOTIFICATION_MESSAGE",
         notification
     })
 }
 
-export const resetNotificationMessage = () => setNotificationMessage({
-    message: "",
-    color: "",
-    icon: "",
-})
+
+export const removeNotificationMessage = (key) => async (dispatch, getState) => {
+    return dispatch({
+        type: "REMOVE_NOTIFICATION_MESSAGE",
+        key
+    })
+}
