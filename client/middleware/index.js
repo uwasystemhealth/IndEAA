@@ -5,7 +5,7 @@ import createSagaMiddleware from "redux-saga"
 // import { browserHistory } from 'react-router';
 import logger from './logger';
 
-// This needs to be activated after applying it to the storep
+// This needs to be activated after applying it to the store
 export const sagaMiddleware = createSagaMiddleware()
 
 export default [
