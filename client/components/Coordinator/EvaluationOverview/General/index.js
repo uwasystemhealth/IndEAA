@@ -7,14 +7,8 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Information from "./Information.js";
 import OtherInformation from "./OtherInformation.js";
 import Controls from "./Controls";
-import Error from "components/Utility/Error";
 
-import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-
-// Redux
-import { useDispatch, useSelector } from "react-redux";
-import { services } from "store/feathersClient";
 
 const General = () => {
   const router = useRouter();
