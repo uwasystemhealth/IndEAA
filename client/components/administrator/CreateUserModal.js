@@ -36,8 +36,13 @@ export default function Modal(
     const [email, setEmail] = useState("")
 
     const createUser = async (email) => {
-        const response = await services.users.create({ email })
-        setCurrentUserSelected(response.value)
+        try {
+            const response = await services.users.create({ email })
+            closeModal();
+            setCurrentUserSelected(response.value)
+        } catch (error) {
+            // Handled by Redux Saga
+        }
     }
 
     const handleSubmit = () => {
@@ -101,7 +106,7 @@ export default function Modal(
                 className={classes.modalFooter + " " + classes.modalFooterCenter}
             >
                 <Button onClick={() => closeModal()}>Never Mind</Button>
-                <Button onClick={() => { closeModal(); handleSubmit() }} color="success">
+                <Button onClick={() => { handleSubmit() }} color="success">
                     Save user
                 </Button>
             </DialogActions>
