@@ -7,7 +7,6 @@ const initState = {
     Notification is of type [{
         key
         message: "",
-        color: "",
         variant: "", possible values ["success","error","warning","info"]
     }]
     */
@@ -28,7 +27,7 @@ export const generalReducer = (state = initState, action) => {
                 notifications: [
                     ...state.notifications,
                     {
-                        key: 1,//uuidv4(),
+                        key: uuidv4(),
                         ...action.notification
                     }
                 ]

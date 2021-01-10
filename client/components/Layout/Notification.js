@@ -31,17 +31,21 @@ export default function SectionNotifications() {
 
     const notifications = useSelector(state => state.general.notifications)
 
-    notifications.forEach(({ key, message, options = {} }) => {
+    notifications.forEach(({ key, message, variant = "default" }) => {
         enqueueSnackbar(message,
             {
                 key,
-                variant: 'default',
-                autoHideDuration: 3000,
+                variant,
+                autoHideDuration: 5000,
                 action: (key) => (
                     <Button onClick={() => { closeSnackbar(key) }}>
                         Dismiss
                     </Button>
                 ),
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
                 onClose: (event, reason, key) => {
                     // Event that happens after doing a "closeSnackbar action"
                     if (reason === "timeout" || reason === "instructed") {
@@ -49,7 +53,6 @@ export default function SectionNotifications() {
                         dispatch(removeNotificationMessage(key))
                     }
                 },
-                ...options // Custom Actions, overwrites defaults defined here
             }
         );
     });
