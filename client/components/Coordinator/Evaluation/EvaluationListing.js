@@ -23,7 +23,7 @@ const EvaluationListing = ({
 }) => {
   const classes = useStyles();
 
-  const coordinatorNames = coordinators.join(", ");
+  const coordinatorNames = coordinators?.join(", ");
 
   return (
     <Grid className={classes.root} direction="row" alignItems="center">

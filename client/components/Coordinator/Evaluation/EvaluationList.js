@@ -33,46 +33,25 @@ const useStyles = makeStyles(() => ({
 
 import { useEffect, useState } from "react";
 
+// Redux
+import { useDispatch, useSelector } from "react-redux";
+import { services } from "store/feathersClient";
+
 const EvaluationList = () => {
   const classes = useStyles();
 
-  const [courseEvaluations, setCourseEvaluations] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showArchived, setShowArchived] = useState(false);
 
   useEffect(() => {
     // 1. Find all CourseEvaluations where the createdBy key matches the logged in user
-
-    setCourseEvaluations([
-      {
-        _id: "1231",
-        courseid: "MECH5521/MECH5522",
-        documents: [],
-        reviewDescription:
-          "This is a capstone unit for engineering students where they make something cool",
-        reviewTargetDate: "10/10/2021",
-        isArchived: false,
-        createdAt: "1/1/2021",
-        createdBy: {},
-        EOC: [],
-        coordinators: ["Melinda Hodkiewics"],
-      },
-      {
-        _id: "4343",
-        courseid: "CITS2002",
-        documents: [],
-        reviewDescription: "Intro unit for beginner programmers",
-        reviewTargetDate: "9/12/2020",
-        isArchived: true,
-        createdAt: "5/12/2020",
-        createdBy: {},
-        EOC: [],
-        coordinators: ["Chris McDonald", "Melinda Hodkiewics"],
-      },
-    ]);
-
+    services["course-evaluation"].find();
+    // TODO: Find all the coordinators assigned to these evaluations.
     setLoading(false);
   }, []);
+
+  const courseEvaluations = useSelector((state) => state["course-evaluation"])
+    .queryResult.data;
 
   if (loading) {
     return (
@@ -90,12 +69,12 @@ const EvaluationList = () => {
 
   // 3. Render course list elements
   evaluationListings = evaluationListings.map(
-    ({ _id, courseid, reviewDescription, coordinators }) => {
+    ({ _id, courseId, reviewDescription, coordinators }) => {
       return (
         <ListItem key={_id} divider>
           <EvaluationListing
             evalId={_id}
-            courseCode={courseid}
+            courseCode={courseId}
             coordinators={coordinators}
             evaluationDescription={reviewDescription}
           />
