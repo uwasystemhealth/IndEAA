@@ -68,3 +68,4 @@ nav:
   - Introduction: developer/index.md
   - Data Engineering: developer/data_engineering.md
   - Transport/Integration Layer (Feathers-redux): developer/feathers_redux.md
+  - Database Support Scripts: developer/database_support_scripts.md
