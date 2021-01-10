@@ -62,7 +62,7 @@ const AuthGuard = ({ children, isProtected }) => {
           if (router.query.hasOwnProperty("courseID")) {
             const { courseID } = router.query;
             const currentCourse = services["course-evaluation"].get({
-              courseId: courseID,
+              _id: courseID,
             });
             const courseSpecificPermissions = user.perms.filter(
               (permission) => currentCourse._id == permission.course_id
