@@ -15,11 +15,12 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
-import App from "next/app";
 import Head from "next/head";
 import Router from "next/router";
+import { Provider } from "react-redux";
+import store from "store/feathersClient"
 
 import PageChange from "components/MaterialKit/PageChange/PageChange.js";
 
@@ -28,6 +29,7 @@ import "assets/scss/nextjs-material-kit.scss?v=1.1.0";
 // Own Components
 import Navbar from "components/Layout/Navbar"
 import ContentWrapper from "components/Layout/ContentWrapper"
+import AuthGuard from "components/Layout/AuthGuard"
 
 Router.events.on("routeChangeStart", url => {
   console.log(`Loading: ${url}`);
@@ -46,8 +48,20 @@ Router.events.on("routeChangeError", () => {
   document.body.classList.remove("body-page-transition");
 });
 
-export default class MyApp extends App {
-  componentDidMount() {
+const MyApp = ({ Component, pageProps }) => {
+
+  // Use this custom layout if it exist
+  const CustomLayout = Component.customLayout
+
+  // AuthGuard Enabled Unless Specified
+  const isProtected = typeof (Component.isProtected) === "undefined" ? true : Component.isProtected
+  // The AuthGuard to be rendered will either be the AuthGuard or a Fragment depending on Presence
+
+  // Title with Default
+  const pageTitle = Component.pageTitle || "IndEAA Page"
+
+  useEffect(() => {
+    // Template Licenses
     let comment = document.createComment(`
 
 =========================================================
@@ -66,48 +80,44 @@ export default class MyApp extends App {
 
 `);
     document.insertBefore(comment, document.documentElement);
+
   }
-  static async getInitialProps({ Component, router, ctx }) {
-    let pageProps = {};
+    , [])
 
-    if (Component.getInitialProps) {
-      pageProps = await Component.getInitialProps(ctx);
-    }
-
-    return { pageProps };
-  }
-  render() {
-    const { Component, pageProps } = this.props;
-
-    // Use this custom layout if it exist
-    const CustomLayout = Component.customLayout
-
-    // Title with Default
-    const pageTitle = Component.pageTitle || "IndEAA Page"
-
-    return (
-      <React.Fragment>
-        {CustomLayout == null ?
-          (
-            <React.Fragment>
-              <Head>
-                <title>IndEAA - System Health Lab</title>
-              </Head>
-              <Navbar></Navbar>
-              <ContentWrapper>
-                <Component {...pageProps} />
-              </ContentWrapper>
-            </React.Fragment>
-          )
-          :
-          (
-            <CustomLayout>
+  return (
+    <Provider store={store}>
+      <AuthGuard isProtected={isProtected}>{CustomLayout == null ?
+        (
+          <React.Fragment>
+            <Head>
+              <title>IndEAA - System Health Lab</title>
+            </Head>
+            <Navbar></Navbar>
+            <ContentWrapper>
               <Component {...pageProps} />
-            </CustomLayout>
-          )
-        }
+            </ContentWrapper>
+          </React.Fragment>
+        )
+        :
+        (
+          <CustomLayout>
+            <Component {...pageProps} />
+          </CustomLayout>
+        )
+      }</AuthGuard>
 
-      </React.Fragment>
-    );
-  }
+    </Provider>
+  );
 }
+
+MyApp.getInitialProps = async ({ Component, router, ctx }) => {
+  let pageProps = {};
+
+  if (Component.getInitialProps) {
+    pageProps = await Component.getInitialProps(ctx);
+  }
+
+  return { pageProps };
+}
+
+export default MyApp;

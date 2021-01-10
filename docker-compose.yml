@@ -8,13 +8,13 @@ services:
     env_file:
       - .env
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_ROOT_USERNAME: $MONGO_INITDB_ROOT_USERNAME
+      MONGO_INITDB_ROOT_PASSWORD: $MONGO_INITDB_ROOT_PASSWORD
     volumes: 
       # - ./mongo/data:/data/db  - use this for windows
       - ~/docker/mongo/data/db:/data/db # use this for mac and linux
     ports:
-      - 27017:27017 # Host:Container
+      - 27018:27017 # Host:Container
     stdin_open: true # docker run -i
     tty: true        # docker run -t
 

@@ -14,6 +14,14 @@ import { Apps, CloudDownload } from "@material-ui/icons";
 import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
 
+// redux
+import { useSelector, useDispatch } from "react-redux"
+import { signOut } from "actions/auth"
+
+// Utils
+import { getAvailablePermissionsOfUser, roleIcons } from "utils"
+
+
 // core components
 import CustomDropdown from "components/MaterialKit/CustomDropdown/CustomDropdown.js";
 import Button from "components/MaterialKit/CustomButtons/Button.js";
@@ -22,33 +30,42 @@ import styles from "assets/jss/nextjs-material-kit/components/headerLinksStyle.j
 
 const useStyles = makeStyles(styles);
 
+
 export default function HeaderLinks(props) {
+    const user = useSelector(state => state.auth.user)
+    const currentRoleSelected = useSelector(state => state.general.currentRoleSelected)
+
+    const dispatch = useDispatch()
     const classes = useStyles();
+
+    // Get All the Unique permissions of the user by the role
+    // Turn it into JSX Links
+    const rolesOfUser = user && Array.from(getAvailablePermissionsOfUser(user.perms))
+    const rolesLinksToUsers = user && rolesOfUser.map(
+        permission => {
+            const RoleIcon = roleIcons[permission]
+            return (<Link href={`/${permission.toLowerCase()}`}>
+                <a className={classes.dropdownLink}><RoleIcon></RoleIcon>{permission}</a>
+            </Link>)
+        }
+    )
     return (
         <List className={classes.list}>
-            <ListItem className={classes.listItem}>
-                <CustomDropdown
-                    noLiPadding
-                    navDropdown
-                    buttonText="[Role Name]"
-                    buttonProps={{
-                        className: classes.navLink,
-                        color: "transparent"
-                    }}
-                    buttonIcon={Apps}
-                    dropdownList={[
-                        <Link href="/admin/">
-                            <a className={classes.dropdownLink}>Administrator</a>
-                        </Link>,
-                        <Link href="/coordinator/">
-                            <a className={classes.dropdownLink}>Coordinator</a>
-                        </Link>,
-                        <Link href="/reviewer/">
-                            <a className={classes.dropdownLink}>Reviewer</a>
-                        </Link>,
-                    ]}
-                />
-            </ListItem>
+            {user && rolesOfUser.length != 0 &&
+                <ListItem className={classes.listItem}>
+                    <CustomDropdown
+                        noLiPadding
+                        navDropdown
+                        buttonText={currentRoleSelected || "Choose Your Role"}
+                        buttonProps={{
+                            className: classes.navLink,
+                            color: "transparent"
+                        }}
+                        buttonIcon={currentRoleSelected ? roleIcons[currentRoleSelected] : Apps}
+                        dropdownList={rolesLinksToUsers}
+                    />
+                </ListItem>
+            }
             <ListItem className={classes.listItem}>
                 <Button
                     href="https://indeaa-docs.systemhealthlab.com/"
@@ -60,22 +77,26 @@ export default function HeaderLinks(props) {
                     <Icon className={classes.icons}>unarchive</Icon> Documentation
         </Button>
             </ListItem>
-            <ListItem className={classes.listItem}>
-                <Tooltip
-                    id="instagram-tooltip"
-                    title="Login"
-                    placement={"top"}
-                    classes={{ tooltip: classes.tooltip }}
-                >
-                    <Button
+
+            {user &&
+                (<ListItem className={classes.listItem}>
+                    <Tooltip
+                        title={`You are login as ${user.name}`}
+                        placement={"top"}
+                        classes={{ tooltip: classes.tooltip }}
+                    ><Button
                         color="info"
-                        href="/login"
-                        target="_blank"
+                        onClick={(e) => dispatch(signOut())}
                     >
-                        Login
-                    </Button>
-                </Tooltip>
-            </ListItem>
+                            Signout
+                        </Button>
+                    </Tooltip>
+                </ListItem>
+
+                )
+
+            }
+
         </List>
     );
 }
