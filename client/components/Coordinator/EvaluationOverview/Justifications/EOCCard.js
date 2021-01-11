@@ -22,6 +22,7 @@ const styles = {
 };
 const useStyles = makeStyles(styles);
 
+import { services } from "store/feathersClient";
 import React, { useState, useEffect } from "react";
 
 import { developmentLevelToString } from "utils.js";
@@ -32,9 +33,11 @@ const EOCCard = (props) => {
     description,
     rating,
     justification,
+    eocs,
     eocID,
     developmentLevel,
     evaluationID,
+    save,
   } = props;
   const classes = useStyles();
 
@@ -54,7 +57,7 @@ const EOCCard = (props) => {
       <Danger>Your Justification: None</Danger>
     );
 
-  const saveFields = (developmentLevel, justification) => {};
+  const saveFields = (dl, just) => save(dl, just);
 
   return (
     <Card>

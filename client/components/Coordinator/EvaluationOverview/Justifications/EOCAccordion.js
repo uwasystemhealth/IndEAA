@@ -32,18 +32,40 @@ const EOCAccordion = ({ evaluationID }) => {
   const courseEvaluation = useSelector((state) => state["course-evaluation"]);
   const eocReviews = courseEvaluation?.data?.eoc;
 
+  if (eocReviews === null) {
+    return <p>loading</p>;
+  }
+
   const accordions = eocs.map((eocSet) => {
     const eocCards = eocSet.EOCS.map((eoc) => {
       const title = `EOC ${eocSet.setNum}.${eoc.EOCNum}`;
 
-      const matchedReviews = eocReviews.filter(
-        (rev) => rev.eocNumber == `${eocSet.setNum}.${eoc.EOCNum}`
+      const matchedIndex = eocReviews.findIndex((rev) =>
+        rev.eocNumber.includes(`${eocSet.setNum}.${eoc.EOCNum}`)
       );
 
+      const saveFields = (developmentLevel, justification) => {
+        let eocReviewsCopy = eocReviews;
+        if (matchedIndex === -1) {
+          eocReviewsCopy.append({
+            eocNumber: [`${eocSet.setNum}.${eoc.EOCNum}`],
+            justification,
+            developmentLevel,
+          });
+        } else {
+          eocReviewsCopy[matchedIndex].justification = justification;
+          eocReviewsCopy[matchedIndex].developmentLevel = developmentLevel;
+        }
+
+        services["course-evaluation"].patch(evaluationID, {
+          eoc: eocReviewsCopy,
+        });
+      };
+
       const rating =
-        matchedReviews.length === 0 ? 0 : matchedReviews[0].developmentLevel;
+        matchedIndex === -1 ? 0 : eocReviews[matchedIndex].developmentLevel;
       const justification =
-        matchedReviews.length === 0 ? null : matchedReviews[0].justification;
+        matchedIndex === -1 ? null : eocReviews[matchedIndex].justification;
 
       return (
         <GridItem key={eoc.title} xs={4}>
@@ -54,6 +76,7 @@ const EOCAccordion = ({ evaluationID }) => {
             description={eoc.desc}
             rating={rating}
             justification={justification}
+            save={saveFields}
           />
         </GridItem>
       );
