@@ -6,6 +6,10 @@ import CardBody from "components/MaterialKit/Card/CardBody.js";
 import Button from "components/MaterialKit/CustomButtons/Button.js";
 import DeleteIcon from "@material-ui/icons/Delete";
 
+// Store Actions and Redux
+import { useDispatch, useSelector } from "react-redux";
+import { services } from "store/feathersClient";
+
 // STYLES
 import modalStyle from "assets/jss/nextjs-material-kit/modalStyle.js";
 import { cardTitle, cardSubtitle } from "assets/jss/nextjs-material-kit.js";
