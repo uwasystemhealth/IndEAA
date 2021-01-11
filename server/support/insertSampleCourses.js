@@ -37,9 +37,9 @@ const insertSampleCourses = async () => {
                     added: new Date("2019-12-19"),
                     description:
                         "a great project, llorenm ipsum dolar sit ametlorenm ipsum dolar sit ametlorenm ipsum dolar sit amet orenm ipsum dolar sit amet",
-                    uri:
+                    link:
                         "https://docs.google.com/document/d/1rdLcaVBP_z-vE_5-gbaOevRbd6e_vkRjTQpuXyRF_FU/",
-                    eocs: ["1", "2", "3"],
+                    tags: ["1", "2", "3"],
                 },
                 {
                     name: "RTIO Project - J Slack Something blah blah",
@@ -47,18 +47,18 @@ const insertSampleCourses = async () => {
                     added: new Date("2019-12-19"),
                     description:
                         "a great project, llorenm ipsum dolar sit ametlorenm ipsum dolar sit ametlorenm ipsum dolar sit amet orenm ipsum dolar sit amet",
-                    uri:
+                    link:
                         "https://docs.google.com/document/d/1rdLcaVBP_z-vE_5-gbaOevRbd6e_vkRjTQpuXyRF_FU/",
-                    eocs: ["1.1"],
+                    tags: ["1.1"],
                 },
                 {
                     name: "Design Project Outline",
                     added: new Date("2019-12-19"),
                     description:
                         "a great project, llorenm ipsum dolar sit ametlorenm ipsum dolar sit ametlorenm ipsum dolar sit amet orenm ipsum dolar sit amet",
-                    uri:
+                    link:
                         "https://docs.google.com/document/d/1rdLcaVBP_z-vE_5-gbaOevRbd6e_vkRjTQpuXyRF_FU/",
-                    eocs: ["1", "2", "3"],
+                    tags: ["1", "2", "3"],
                 },
             ],
         },
@@ -91,9 +91,9 @@ const insertSampleCourses = async () => {
                     added: new Date("2019-12-19"),
                     description:
                         "a great project, llorenm ipsum dolar sit ametlorenm ipsum dolar sit ametlorenm ipsum dolar sit amet orenm ipsum dolar sit amet",
-                    uri:
+                    link:
                         "https://docs.google.com/document/d/1rdLcaVBP_z-vE_5-gbaOevRbd6e_vkRjTQpuXyRF_FU/",
-                    eocs: ["1", "2", "3"],
+                    tags: ["1", "2", "3"],
                 },
                 {
                     name: "RTIO Project - J Slack Something blah blah",
@@ -101,9 +101,9 @@ const insertSampleCourses = async () => {
                     added: new Date("2019-12-19"),
                     description:
                         "a great project, llorenm ipsum dolar sit ametlorenm ipsum dolar sit ametlorenm ipsum dolar sit amet orenm ipsum dolar sit amet",
-                    uri:
+                    link:
                         "https://docs.google.com/document/d/1rdLcaVBP_z-vE_5-gbaOevRbd6e_vkRjTQpuXyRF_FU/",
-                    eocs: ["1.1"],
+                    tags: ["1.1"],
                 },
                 {
                     name: "Design Project Outline",
@@ -111,9 +111,9 @@ const insertSampleCourses = async () => {
                     added: new Date("2019-12-19"),
                     description:
                         "a great project, llorenm ipsum dolar sit ametlorenm ipsum dolar sit ametlorenm ipsum dolar sit amet orenm ipsum dolar sit amet",
-                    uri:
+                    link:
                         "https://docs.google.com/document/d/1rdLcaVBP_z-vE_5-gbaOevRbd6e_vkRjTQpuXyRF_FU/",
-                    eocs: ["1", "2", "3"],
+                    tags: ["1", "2", "3"],
                 },
             ],
         },
@@ -146,9 +146,9 @@ const insertSampleCourses = async () => {
                     added: new Date("2019-12-19"),
                     description:
                         "a great project, llorenm ipsum dolar sit ametlorenm ipsum dolar sit ametlorenm ipsum dolar sit amet orenm ipsum dolar sit amet",
-                    uri:
+                    link:
                         "https://docs.google.com/document/d/1rdLcaVBP_z-vE_5-gbaOevRbd6e_vkRjTQpuXyRF_FU/",
-                    eocs: ["1", "2", "3"],
+                    tags: ["1", "2", "3"],
                 },
                 {
                     name: "RTIO Project - J Slack Something blah blah",
@@ -156,9 +156,9 @@ const insertSampleCourses = async () => {
                     added: new Date("2019-12-19"),
                     description:
                         "a great project, llorenm ipsum dolar sit ametlorenm ipsum dolar sit ametlorenm ipsum dolar sit amet orenm ipsum dolar sit amet",
-                    uri:
+                    link:
                         "https://docs.google.com/document/d/1rdLcaVBP_z-vE_5-gbaOevRbd6e_vkRjTQpuXyRF_FU/",
-                    eocs: ["1.1"],
+                    tags: ["1.1"],
                 },
                 {
                     name: "Design Project Outline",
@@ -166,9 +166,9 @@ const insertSampleCourses = async () => {
                     added: new Date("2019-12-19"),
                     description:
                         "a great project, llorenm ipsum dolar sit ametlorenm ipsum dolar sit ametlorenm ipsum dolar sit amet orenm ipsum dolar sit amet",
-                    uri:
+                    link:
                         "https://docs.google.com/document/d/1rdLcaVBP_z-vE_5-gbaOevRbd6e_vkRjTQpuXyRF_FU/",
-                    eocs: ["1", "2", "3"],
+                    tags: ["1", "2", "3"],
                 },
             ],
         },
