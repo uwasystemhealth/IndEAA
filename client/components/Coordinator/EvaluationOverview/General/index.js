@@ -14,14 +14,13 @@ const General = () => {
   const router = useRouter();
   if (router.query.hasOwnProperty("courseID")) {
     const { courseID } = router.query;
-    console.log(courseID);
     return (
       <GridContainer>
         <GridItem xs={6}>
           <Information evaluationID={courseID} />
         </GridItem>
         <GridItem xs={6}>
-          <OtherInformation />
+          <OtherInformation evaluationID={courseID} />
           <Controls />
         </GridItem>
       </GridContainer>
