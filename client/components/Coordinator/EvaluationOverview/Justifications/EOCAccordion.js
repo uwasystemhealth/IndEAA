@@ -14,23 +14,46 @@ import EOCCard from "./EOCCard.js";
 
 import { useState, useEffect } from "react";
 
+// Store Actions and Redux
+import { useDispatch, useSelector } from "react-redux";
+import { services } from "store/feathersClient";
+
 import { getEOCInfo } from "utils.js";
 
 const EOCAccordion = ({ evaluationID }) => {
   const [eocs, setEcos] = useState(() => getEOCInfo());
+
+  useEffect(() => {
+    services["course-evaluation"].get({
+      _id: evaluationID,
+    });
+  }, []);
+
+  const courseEvaluation = useSelector((state) => state["course-evaluation"]);
+  const eocReviews = courseEvaluation?.data?.eoc;
+
   const accordions = eocs.map((eocSet) => {
     const eocCards = eocSet.EOCS.map((eoc) => {
       const title = `EOC ${eocSet.setNum}.${eoc.EOCNum}`;
 
+      const matchedReviews = eocReviews.filter(
+        (rev) => rev.eocNumber == `${eocSet.setNum}.${eoc.EOCNum}`
+      );
+
+      const rating =
+        matchedReviews.length === 0 ? 0 : matchedReviews[0].developmentLevel;
+      const justification =
+        matchedReviews.length === 0 ? null : matchedReviews[0].justification;
+
       return (
-        <GridItem key={eoc._id} xs={4}>
+        <GridItem key={eoc.title} xs={4}>
           <EOCCard
-            key={title}
+            evaluationID={evaluationID}
             eocID={eoc._id}
             title={title}
             description={eoc.desc}
-            rating={null}
-            justification={null}
+            rating={rating}
+            justification={justification}
           />
         </GridItem>
       );

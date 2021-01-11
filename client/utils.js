@@ -120,6 +120,21 @@ export const getEOCInfo = (evaluationID) => {
   ];
 };
 
+export const developmentLevelToString = {
+  0: "Select a level",
+  1: "Level 1 - Foundational",
+  2: "Level 2 - Broad and Coherent",
+  3: "Level 3 - Advanced",
+  4: "Level 4 - Specialist",
+};
+export const stringToDevelopmentLevel = {
+  "Select a level": 0,
+  "Level 1 - Foundational": 1,
+  "Level 2 - Broad and Coherent": 2,
+  "Level 3 - Advanced": 3,
+  "Level 4 - Specialist": 4,
+};
+
 export const permissions = ["Administrator", "Coordinator", "Reviewer"];
 
 // Icons for Each Different User

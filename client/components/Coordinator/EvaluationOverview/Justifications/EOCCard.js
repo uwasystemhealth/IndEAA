@@ -8,9 +8,11 @@ import Success from "components/MaterialKit/Typography/Success.js";
 import Danger from "components/MaterialKit/Typography/Danger.js";
 import GridContainer from "components/MaterialKit/Grid/GridContainer.js";
 import GridItem from "components/MaterialKit/Grid/GridItem.js";
+import Button from "components/MaterialKit/CustomButtons/Button.js";
+import FindInPageIcon from "@material-ui/icons/FindInPage";
 
 // CUSTOM COMPONENTS
-import ManageEOC from "./ManageEOC.js";
+import ViewModal from "./ViewModal.js";
 
 // STYLES
 import { makeStyles } from "@material-ui/core/styles";
@@ -20,13 +22,27 @@ const styles = {
 };
 const useStyles = makeStyles(styles);
 
+import React, { useState, useEffect } from "react";
+
+import { developmentLevelToString } from "utils.js";
+
 const EOCCard = (props) => {
-  const { title, description, rating, justification, eocID } = props;
+  const {
+    title,
+    description,
+    rating,
+    justification,
+    eocID,
+    developmentLevel,
+    evaluationID,
+  } = props;
   const classes = useStyles();
 
+  const [modal, setModal] = useState(false);
+
   const ratingMsg =
-    rating != null ? (
-      <Success>Your Rating: {rating}</Success>
+    rating != 0 ? (
+      <Success>Your Rating: {developmentLevelToString[rating]}</Success>
     ) : (
       <Danger>Your Rating: None</Danger>
     );
@@ -38,6 +54,8 @@ const EOCCard = (props) => {
       <Danger>Your Justification: None</Danger>
     );
 
+  const saveFields = (developmentLevel, justification) => {};
+
   return (
     <Card>
       <CardBody>
@@ -47,7 +65,17 @@ const EOCCard = (props) => {
             <Muted>{description}</Muted>
           </GridItem>
           <GridItem xs={4}>
-            <ManageEOC {...props} />
+            <Button color="white" onClick={() => setModal(true)}>
+              <FindInPageIcon />
+              View
+            </Button>
+            <ViewModal
+              {...props}
+              eocs={[]}
+              isOpen={modal}
+              closeModal={() => setModal(false)}
+              saveFields={saveFields}
+            />
           </GridItem>
         </GridContainer>
       </CardBody>
