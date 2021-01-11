@@ -56,7 +56,7 @@ const DocumentCard = ({ documentID, title, createdDate, uri, eocs }) => {
                     </GridItem>
                     <GridItem xs={3}>
                         <GridContainer direction="column">
-                            <Button color="white">
+                            <Button color="white" onClick={() => window.open(uri)}>
                                 <PageviewIcon />
                 View
               </Button>
