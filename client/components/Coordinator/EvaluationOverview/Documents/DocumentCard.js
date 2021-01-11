@@ -25,7 +25,14 @@ import {
 const styles = { cardTitle, cardLink, cardSubtitle };
 const useStyles = makeStyles(styles);
 
-const DocumentCard = ({ documentID, title, createdDate, uri, eocs }) => {
+const DocumentCard = ({
+    handleDelete,
+    documentID,
+    title,
+    createdDate,
+    uri,
+    eocs,
+}) => {
     const classes = useStyles();
 
     const dateString = createdDate?.toLocaleDateString("en-gb", {
@@ -63,7 +70,7 @@ const DocumentCard = ({ documentID, title, createdDate, uri, eocs }) => {
 
                             <EditModal />
 
-                            <Button color="white">
+                            <Button color="white" onClick={() => handleDelete()}>
                                 <DeleteIcon />
                 Delete
               </Button>
