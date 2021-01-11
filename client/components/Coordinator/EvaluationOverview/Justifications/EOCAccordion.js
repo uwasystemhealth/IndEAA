@@ -14,7 +14,10 @@ import EOCCard from "./EOCCard.js";
 
 import { useState, useEffect } from "react";
 
-const EOCAccordion = ({ eocs }) => {
+import { getEOCInfo } from "utils.js";
+
+const EOCAccordion = ({ evaluationID }) => {
+  const [eocs, setEcos] = useState(() => getEOCInfo());
   const accordions = eocs.map((eocSet) => {
     const eocCards = eocSet.EOCS.map((eoc) => {
       const title = `EOC ${eocSet.setNum}.${eoc.EOCNum}`;
