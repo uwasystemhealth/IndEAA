@@ -20,7 +20,7 @@ const useStyles = makeStyles({
   },
 });
 
-const ReviewerListing = ({ email, name, inviter, status }) => {
+const ReviewerListing = ({ email, name, inviter, googleId }) => {
   const classes = useStyles();
 
   return (
@@ -37,7 +37,7 @@ const ReviewerListing = ({ email, name, inviter, status }) => {
                   Inviter: <b>{inviter}</b>
                   </h5> */}
             <h5>
-              Status: <b>{status}</b>
+              Status: <b>{googleId ? "Has logged in" : "Not logged in yet"}</b>
             </h5>
           </GridItem>
           <GridItem xs={4} className={classes.center}>

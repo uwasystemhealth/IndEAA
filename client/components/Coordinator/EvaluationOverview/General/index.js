@@ -21,7 +21,7 @@ const General = () => {
         </GridItem>
         <GridItem xs={6}>
           <OtherInformation evaluationID={courseID} />
-          <Controls />
+          <Controls evaluationID={courseID} />
         </GridItem>
       </GridContainer>
     );
