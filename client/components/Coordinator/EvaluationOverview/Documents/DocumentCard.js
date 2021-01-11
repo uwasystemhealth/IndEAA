@@ -17,63 +17,63 @@ import EditModal from "./EditModal.js";
 // STYLES
 import { makeStyles } from "@material-ui/core/styles";
 import {
-  cardTitle,
-  cardLink,
-  cardSubtitle,
+    cardTitle,
+    cardLink,
+    cardSubtitle,
 } from "assets/jss/nextjs-material-kit.js";
 
 const styles = { cardTitle, cardLink, cardSubtitle };
 const useStyles = makeStyles(styles);
 
 const DocumentCard = ({ documentID, title, createdDate, uri, eocs }) => {
-  const classes = useStyles();
+    const classes = useStyles();
 
-  const dateString = createdDate.toLocaleDateString("en-gb", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
+    const dateString = createdDate?.toLocaleDateString("en-gb", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+    });
 
-  const badges = eocs.map((eoc) => (
-    <Badge key={eoc} color="info">
-      EOC: {eoc}
-    </Badge>
-  ));
+    const badges = eocs.map((eoc) => (
+        <Badge key={eoc} color="info">
+            EOC: {eoc}
+        </Badge>
+    ));
 
-  return (
-    <Card>
-      <CardBody>
-        <GridContainer>
-          <GridItem xs={8}>
-            <h4 className={classes.cardTitle}>{title}</h4>
-            <h5 className={classes.cardSubtitle}>Added on {dateString}</h5>
-            <p>
-              URI:{" "}
-              <a href={uri} className={cardLink}>
-                {uri}
-              </a>
-            </p>
-          </GridItem>
-          <GridItem xs={3}>
-            <GridContainer direction="column">
-              <Button color="white">
-                <PageviewIcon />
+    return (
+        <Card>
+            <CardBody>
+                <GridContainer>
+                    <GridItem xs={8}>
+                        <h4 className={classes.cardTitle}>{title}</h4>
+                        <h5 className={classes.cardSubtitle}>Added on {dateString}</h5>
+                        <p>
+                            URI:{" "}
+                            <a href={uri} className={cardLink}>
+                                {uri}
+                            </a>
+                        </p>
+                    </GridItem>
+                    <GridItem xs={3}>
+                        <GridContainer direction="column">
+                            <Button color="white">
+                                <PageviewIcon />
                 View
               </Button>
 
-              <EditModal />
+                            <EditModal />
 
-              <Button color="white">
-                <DeleteIcon />
+                            <Button color="white">
+                                <DeleteIcon />
                 Delete
               </Button>
-            </GridContainer>
-          </GridItem>
-        </GridContainer>
-      </CardBody>
-      <CardFooter>{badges}</CardFooter>
-    </Card>
-  );
+                        </GridContainer>
+                    </GridItem>
+                </GridContainer>
+            </CardBody>
+            <CardFooter>{badges}</CardFooter>
+        </Card>
+    );
 };
 
 export default DocumentCard;

@@ -43,7 +43,7 @@ const GeneralPage = () => {
         {
           tabName: "Documents",
           tabIcon: Chat,
-          tabContent: <Documents />,
+          tabContent: <Documents evaluationID={courseID} />,
         },
         {
           tabName: "Reviews",
