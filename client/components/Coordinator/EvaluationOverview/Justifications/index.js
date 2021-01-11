@@ -7,8 +7,8 @@ import Error from "components/Utility/Error";
 
 import { useState, useEffect } from "react";
 
-const Justifications = ({ courseID }) => {
-  return <EOCAccordion evaluationID={courseID} />;
+const Justifications = ({ evaluationID }) => {
+  return <EOCAccordion evaluationID={evaluationID} />;
 };
 
 export default Justifications;
