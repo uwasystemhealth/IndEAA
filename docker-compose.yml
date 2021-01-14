@@ -30,6 +30,7 @@ services:
       - db
     ports:
       - 10006:3030 # Host:Container
+      - 9229:9229 # debug port
     volumes:
       # File syncing
       - ./server:/app_code
