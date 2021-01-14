@@ -3,13 +3,13 @@ const { AuthenticationService, JWTStrategy } = require('@feathersjs/authenticati
 const { expressOauth, OAuthStrategy } = require('@feathersjs/authentication-oauth');
 
 class GoogleStrategy extends OAuthStrategy {
-  // EXTENDS FUNCTIONALITY OF THE GET ENTITY
-  async getEntityData(profile) {
-    const baseData = await super.getEntityData(profile);
-    return {
-      ...baseData,
-      ...profile
-    };
+    // EXTENDS FUNCTIONALITY OF THE GET ENTITY
+    async getEntityData(profile) {
+        const baseData = await super.getEntityData(profile);
+        return {
+            ...baseData,
+            ...profile
+        };
     /*
     Sample Data from profile:
     {
@@ -25,15 +25,15 @@ class GoogleStrategy extends OAuthStrategy {
 
       }
   */
-  }
+    }
 }
 
 module.exports = app => {
-  const authentication = new AuthenticationService(app);
+    const authentication = new AuthenticationService(app);
 
-  authentication.register('jwt', new JWTStrategy());
-  authentication.register("google", new GoogleStrategy());
+    authentication.register('jwt', new JWTStrategy());
+    authentication.register('google', new GoogleStrategy());
 
-  app.use('/authentication', authentication);
-  app.configure(expressOauth());
+    app.use('/authentication', authentication);
+    app.configure(expressOauth());
 };

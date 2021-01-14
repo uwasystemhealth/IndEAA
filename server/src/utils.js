@@ -3,9 +3,13 @@ Some functions may duplicate in the frontend, but this are utilities functions u
 */
 
 // Get all available roles permissions of a user
-export const getAvailablePermissionsOfUser = (permissions) => {
-    return new Set(permissions.map(permission => permission.role).sort())
-}
+const getAvailablePermissionsOfUser = (permissions) => {
+    return new Set(permissions.map(permission => permission.role).sort());
+};
 
 
-export const permissions = ["Administrator", "Coordinator", "Reviewer"]
+const permissions = ['Administrator', 'Coordinator', 'Reviewer'];
+
+module.exports = {
+    getAvailablePermissionsOfUser, permissions
+};

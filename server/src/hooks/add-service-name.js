@@ -6,17 +6,17 @@
 
 // eslint-disable-next-line no-unused-vars
 module.exports = function (options = {}) {
-  return async context => {
+    return async context => {
 
-    const { service, app } = context;
+        const { service, app } = context;
 
-    for (let serviceName in app.services) {
-      if (app.services[serviceName] === service) {
-        context.serviceName = serviceName;
-        break;
-      }
-    }
+        for (let serviceName in app.services) {
+            if (app.services[serviceName] === service) {
+                context.serviceName = serviceName;
+                break;
+            }
+        }
 
-    return context;
-  };
+        return context;
+    };
 };
