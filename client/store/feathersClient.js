@@ -30,7 +30,8 @@ feathersClient.configure(feathers.authentication())
 // Configure Redux with Feathers
 export const serviceNames = [
     'users',
-    'course-evaluation'
+    'course-evaluation',
+    "review"
 ]
 export const rawServices = reduxifyServices(feathersClient, serviceNames);
 const store = configureStore(rawServices);
