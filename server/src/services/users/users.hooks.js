@@ -1,12 +1,17 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
 const firstUser = require('../../hooks/firstUser');
-const { alterItems, iff, disallow } = require('feathers-hooks-common');
+const attachUser = require('../../hooks/attach-user');
+const roleBasedRestrictions = require('../../hooks/role-based-restrictions');
 const compileGoogleAndSystemPerms = require('../../hooks/compileGoogleAndSystemPerms');
+
 
 module.exports = {
     before: {
         all: [],
-        find: [authenticate('jwt')],
+        find: [authenticate('jwt'),
+            attachUser(),
+            roleBasedRestrictions(['Coordinator'])
+        ],
         get: [authenticate('jwt')],
         create: [firstUser(), compileGoogleAndSystemPerms()],
         update: [authenticate('jwt')],
