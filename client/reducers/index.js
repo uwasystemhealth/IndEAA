@@ -10,7 +10,6 @@ export default function rootReducer(reduxifiedServices) {
     general: generalReducer,
     users: reduxifiedServices.users.reducer,
     "course-evaluation": reduxifiedServices["course-evaluation"].reducer,
-    review: reduxifiedServices.review.reducer,
     auth: authenticateReducer
   });
 }
