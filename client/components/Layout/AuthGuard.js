@@ -55,8 +55,7 @@ const AuthGuard = ({ children, isProtected }) => {
                     // and permission should be found
                     if (router.query.hasOwnProperty("courseID")) {
                         const { courseID } = router.query
-                        const currentCourse = services.courseEvaluation.get({ courseId: courseID })
-                        const courseSpecificPermissions = user.perms.filter(permission => currentCourse._id == permission.course_id)
+                        const courseSpecificPermissions = user.perms.filter(permission => courseID == permission.course_id)
                         if (!getAvailablePermissionsOfUser(courseSpecificPermissions).has(currentRoleBeingChecked)) {
                             router.push("/404")
                             allowed = false
