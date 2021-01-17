@@ -26,24 +26,14 @@ const Documents = ({ evaluationID }) => {
   const evalData = courseEval?.data;
 
   const documentComps = evalData?.documents.map((doc) => {
-    const handleDelete = () => {
-      const withRemoved = evalData.documents.filter(
-        (document) => document._id != doc._id
-      );
-      services["course-evaluation"].patch(evaluationID, {
-        documents: withRemoved,
-      });
-    };
+
 
     return (
       <GridItem key={doc._id} xs={4}>
         <DocumentCard
-          handleDelete={handleDelete}
-          documentID={doc._id}
-          title={doc.name}
-          createdDate={doc.added}
-          uri={doc.link}
-          eocs={doc.tags}
+          // handleDelete={handleDelete}
+          course_id={evaluationID}
+          document={doc}
         />
       </GridItem>
     );
@@ -52,7 +42,7 @@ const Documents = ({ evaluationID }) => {
   return (
     <>
       <GridContainer>{documentComps}</GridContainer>;
-      <EditModal createModal />
+      <EditModal createModal course_id={evaluationID}/>
     </>
   );
 };

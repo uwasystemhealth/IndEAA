@@ -13,74 +13,82 @@ import DeleteIcon from "@material-ui/icons/Delete";
 
 // CUSTOM COMPONENTS
 import EditModal from "./EditModal.js";
+import AreYouSureButton from "components/Other/AreYouSureButton"
 
 // STYLES
 import { makeStyles } from "@material-ui/core/styles";
 import {
-    cardTitle,
-    cardLink,
-    cardSubtitle,
+  cardTitle,
+  cardLink,
+  cardSubtitle,
 } from "assets/jss/nextjs-material-kit.js";
+
+// Store Actions and Redux
+import { useDispatch, useSelector } from "react-redux";
+import { services } from "store/feathersClient";
 
 const styles = { cardTitle, cardLink, cardSubtitle };
 const useStyles = makeStyles(styles);
 
-const DocumentCard = ({
-    handleDelete,
-    documentID,
-    title,
-    createdDate,
-    uri,
-    eocs,
-}) => {
-    const classes = useStyles();
+const DocumentCard = ({ document, course_id }) => {
 
-    const dateString = createdDate?.toLocaleDateString("en-gb", {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
+  const {_id,name,description, link,tags} = document
+  const classes = useStyles();
+
+//   const dateString = createdDate?.toLocaleDateString("en-gb", {
+//     year: "numeric",
+//     month: "short",
+//     day: "numeric",
+//   });
+
+  const handleDelete = () => {
+    services["course-evaluation"].patch(course_id, {
+      $pull : {documents: {_id: document._id}}
     });
+  };
 
-    const badges = eocs.map((eoc) => (
-        <Badge key={eoc} color="info">
-            EOC: {eoc}
-        </Badge>
-    ));
+  const badges = tags.map((eoc) => (
+    <Badge key={eoc} color={eoc.includes(".") ? "info" : "primary"}>
+      EOC: {eoc}
+    </Badge>
+  ));
 
-    return (
-        <Card>
-            <CardBody>
-                <GridContainer>
-                    <GridItem xs={8}>
-                        <h4 className={classes.cardTitle}>{title}</h4>
-                        <h5 className={classes.cardSubtitle}>Added on {dateString}</h5>
-                        <p>
-                            URI:{" "}
-                            <a href={uri} className={cardLink}>
-                                {uri}
-                            </a>
-                        </p>
-                    </GridItem>
-                    <GridItem xs={3}>
-                        <GridContainer direction="column">
-                            <Button color="white" onClick={() => window.open(uri)}>
-                                <PageviewIcon />
+  return (
+    <Card>
+      <CardBody>
+        <GridContainer>
+          <GridItem xs={8}>
+            <h4 className={classes.cardTitle}>{name}</h4>
+            <p>
+              {description}
+            </p>
+            <p>
+              URI:{" "}
+              <a href={link} className={cardLink}>
+                {link}
+              </a>
+            </p>
+          </GridItem>
+          <GridItem xs={3}>
+            <GridContainer direction="column">
+              <Button color="white" onClick={() => window.open(link)}>
+                <PageviewIcon />
                 View
               </Button>
 
-                            <EditModal />
+              <EditModal document={document} course_id={course_id} />
 
-                            <Button color="white" onClick={() => handleDelete()}>
-                                <DeleteIcon />
+              <AreYouSureButton buttonProps={{color:"white"}} action={handleDelete}>
+                <DeleteIcon />
                 Delete
-              </Button>
-                        </GridContainer>
-                    </GridItem>
-                </GridContainer>
-            </CardBody>
-            <CardFooter>{badges}</CardFooter>
-        </Card>
-    );
+              </AreYouSureButton>
+            </GridContainer>
+          </GridItem>
+        </GridContainer>
+      </CardBody>
+      <CardFooter>{badges}</CardFooter>
+    </Card>
+  );
 };
 
 export default DocumentCard;

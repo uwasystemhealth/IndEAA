@@ -8,12 +8,19 @@ import GridItem from "components/MaterialKit/Grid/GridItem.js";
 import CustomInput from "components/MaterialKit/CustomInput/CustomInput.js";
 import TextField from "@material-ui/core/TextField";
 import EditIcon from "@material-ui/icons/Edit";
-import SubjectIcon from "@material-ui/icons/Subject";
+import Placeholder from "@material-ui/icons/Subject";
 import Card from "components/MaterialKit/Card/Card.js";
 import CardBody from "components/MaterialKit/Card/CardBody.js";
 import CardHeader from "components/MaterialKit/Card/CardHeader.js";
 import IconButton from "@material-ui/core/IconButton";
 import Close from "@material-ui/icons/Close";
+
+// FORM Material UI
+import InputAdornment from '@material-ui/core/InputAdornment';
+
+// Redux
+import { useDispatch, useSelector } from "react-redux"
+import { services } from "store/feathersClient"
 
 // CUSTOM COMPONENTS
 import ApplyTo from "./../Justifications/ApplyTo.js";
@@ -27,13 +34,63 @@ const useStyles = makeStyles({
 
 import React, { useState } from "react";
 
-const EditModal = ({ createModal }) => {
+
+const CustomFormField = ({ label, fieldName, handleChange, icon, required = false, value = '', error = ''
+,inputProps,formControlProps}) => (
+    <CustomInput
+      success={!error && !!value}
+      error={!!error}
+      required={required}
+      labelText={label}
+      key={fieldName}
+      id={fieldName}
+      helperText={error}
+      formControlProps={{
+        fullWidth: true,
+        ...formControlProps
+      }}
+      inputProps={{
+        endAdornment: <InputAdornment position='end'>{icon}</InputAdornment>,
+        onChange: handleChange,
+        value,
+        ...inputProps,
+      }}
+    />
+  );
+
+
+const EditModal = ({ document, course_id }) => {
+  const isCreateModal = typeof document === "undefined"
   const classes = useStyles();
   const [modal, setModal] = useState(false);
+  const [state,setState] = useState({
+    name: document && document.name || "",
+    description: document && document.description || "",
+    link: document && document.link || "",
+    tags: document && document.tags || []
+  })
 
-  const handleSave = () => {
+  const handleChange = (event)=>{
+    const { id, value } = event.target;
+    const newState = { ...state, [id]: value };
+    setState(newState)
+    console.log(state)
+  }
+
+  const handleSave = (event) => {
     setModal(false);
     // commit the saved data to database
+
+    if(isCreateModal){
+      services["course-evaluation"].patch(course_id,{
+        $push: {documents: state}
+      })
+    }
+    else{
+      services["course-evaluation"].patch(course_id,{
+        "documents.$": state
+      }, {query: {"documents._id":document._id}})
+    }
   };
 
   const eocs = [
@@ -49,14 +106,15 @@ const EditModal = ({ createModal }) => {
     },
   ];
 
+
   return (
     <>
       <Button
-        color={createModal ? "primary" : "white"}
+        color={isCreateModal ? "primary" : "white"}
         onClick={() => setModal(true)}
       >
         <EditIcon />
-        {createModal ? "Add New Document" : "Edit"}
+        {isCreateModal ? "Add New Document" : "Edit"}
       </Button>
       <Dialog
         open={modal}
@@ -75,7 +133,7 @@ const EditModal = ({ createModal }) => {
           >
             <Close className={classes.modalClose} />
           </IconButton>
-          <h3>{createModal ? "Add New" : "Edit Existing"}</h3>
+          <h3>{isCreateModal ? "Add New" : "Edit Existing"}</h3>
         </DialogTitle>
         <DialogContent>
           <GridContainer>
@@ -85,32 +143,38 @@ const EditModal = ({ createModal }) => {
                 <CardBody>
                   <GridContainer justify="center">
                     <GridItem xs={12}>
-                      <CustomInput
-                        labelText="Name"
-                        formControlProps={{
-                          fullWidth: true,
-                        }}
-                      />
+                      <CustomFormField
+                        required
+                        label = "Document Name"
+                        fieldName="name"
+                        handleChange={handleChange}
+                        value = {state["name"]}
+                        icon={<Placeholder></Placeholder>}
+                      >
+                      </CustomFormField>
                     </GridItem>
                     <GridItem xs={12}>
-                      <CustomInput
-                        labelText="Description"
+                      <CustomFormField
+                      required
+                        label="Description"
+                        fieldName="description"
+                        handleChange={handleChange}
+                        value={state["description"]}
                         inputProps={{
                           multiline: true,
                           rows: 4,
                         }}
-                        formControlProps={{
-                          fullWidth: true,
-                        }}
                       />
                     </GridItem>
                     <GridItem xs={12}>
-                      <CustomInput
-                        labelText="Link"
-                        formControlProps={{
-                          fullWidth: true,
-                        }}
-                      />
+                      <CustomFormField
+                          required
+                          label = "Document Link"
+                          fieldName="link"
+                          handleChange={handleChange}
+                          value = {state["link"]}
+                          icon={<Placeholder></Placeholder>}
+                        />
                     </GridItem>
                   </GridContainer>
                 </CardBody>
@@ -124,7 +188,7 @@ const EditModal = ({ createModal }) => {
         <DialogActions>
           <Button onClick={() => setModal(false)}>Cancel</Button>
           <Button color="primary" onClick={() => handleSave()}>
-            {createModal ? "Create" : "Save"}
+            {isCreateModal ? "Create" : "Save"}
           </Button>
         </DialogActions>
       </Dialog>
