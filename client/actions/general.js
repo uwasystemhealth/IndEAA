@@ -46,10 +46,3 @@ export const removeNotificationMessage = (key) => async (dispatch, getState) => 
         key
     })
 }
-
-export const setPageMiddleTitle = (pageMiddleTitle) => async (dispatch, getState) => {
-    return dispatch({
-        type: "SET_PAGE_MIDDLE_TITLE",
-        pageMiddleTitle
-    })
-}

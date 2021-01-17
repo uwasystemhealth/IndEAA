@@ -4,7 +4,7 @@ import { useRouter } from "next/router"
 // Store Actions and Redux
 import { useDispatch, useSelector } from "react-redux"
 import { signIn } from "actions/auth"
-import { setCurrentRoleSelected, setPageMiddleTitle } from "actions/general"
+import { setCurrentRoleSelected } from "actions/general"
 import { services } from "store/feathersClient"
 
 // Utils
@@ -62,20 +62,6 @@ const AuthGuard = ({ children, isProtected }) => {
                             allowed = false
                             return (null)
                         }
-                        const getAndSetPageTitle = async() =>{
-                            // Get Course ID Review To Display Title
-                            const currentCourse = await services["course-evaluation"].get(courseID,{
-                                query: {
-                                    $select: ["courseId"]
-                                }
-                            })
-                            dispatch(setPageMiddleTitle(currentCourse.value.courseId))
-                        }
-                        getAndSetPageTitle()
-                    }
-                    else{
-                        // Does not have router query
-                        dispatch(setPageMiddleTitle(""))
                     }
                     // Set the Current Role Being Viewed in the State
                     dispatch(setCurrentRoleSelected(currentRoleBeingChecked))

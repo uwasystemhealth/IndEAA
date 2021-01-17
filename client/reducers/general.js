@@ -2,7 +2,7 @@
 
 const initState = {
     currentRoleSelected: null,
-    notifications: [],
+    notifications: []
     /*
     Notification is of type [{
         key
@@ -10,7 +10,6 @@ const initState = {
         variant: "", possible values ["success","error","warning","info"]
     }]
     */
-   pageMiddleTitle:"",
 }
 
 
@@ -39,11 +38,6 @@ export const generalReducer = (state = initState, action) => {
                 notifications: [
                     ...state.notifications.filter(({ key }) => key != action.key)
                 ]
-            }
-        case "SET_PAGE_MIDDLE_TITLE":
-            return{
-                ...state,
-                pageMiddleTitle:action.pageMiddleTitle
             }
         default:
             return state
