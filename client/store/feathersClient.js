@@ -32,7 +32,9 @@ export const serviceNames = [
     'users',
     'course-evaluation'
 ]
-export const rawServices = reduxifyServices(feathersClient, serviceNames);
+export const rawServices = reduxifyServices(feathersClient, serviceNames,{
+    idField: "_id", // This is to ensure that realtime update matching uses that attribute
+});
 const store = configureStore(rawServices);
 export default store;
 
@@ -43,7 +45,23 @@ sagaMiddleware.run(feathersSaga)
 export const services = bindWithDispatch(store.dispatch, rawServices)
 
 
+// Realtime Feathers Update Confguration
+serviceNames.forEach(serviceName=>{
+    const currentSelectedService = feathersClient.service(`/${serviceName}`)
 
+    currentSelectedService.on('created', (data) => {
+        store.dispatch(rawServices[serviceName].onCreated(data));
+    })
+    currentSelectedService.on('updated', (data) => {
+        store.dispatch(rawServices[serviceName].onUpdated(data));
+    })
+    currentSelectedService.on('patched', (data) => {
+        store.dispatch(rawServices[serviceName].onPatched(data));
+    })
+    currentSelectedService.on('removed', (data) => {
+        store.dispatch(rawServices[serviceName].onRemoved(data));
+    })
+})
 
 // Configure realtime & connect it to services
 
