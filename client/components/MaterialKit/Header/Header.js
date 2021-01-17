@@ -54,16 +54,28 @@ export default function Header(props) {
         .classList.remove(classes[changeColorOnScroll.color]);
     }
   };
-  const { color, rightLinks, leftLinks, brand, brandImage, fixed, absolute } = props;
+  const {
+    color,
+    rightLinks,
+    leftLinks,
+    brand,
+    brandImage,
+    fixed,
+    absolute,
+    pageMiddleTitle,
+  } = props;
   const appBarClasses = classNames({
     [classes.appBar]: true,
     [classes[color]]: color,
     [classes.absolute]: absolute,
-    [classes.fixed]: fixed
+    [classes.fixed]: fixed,
   });
   const brandComponent = (
-    <Link href='/' as='/'>
-      <Button className={classes.title}>{brandImage}{' '}{brand}</Button>
+    <Link href="/" as="/">
+      <Button className={classes.title}>
+        {brandImage}
+        <strong>{brand}</strong>
+      </Button>
     </Link>
   );
   return (
@@ -76,9 +88,11 @@ export default function Header(props) {
               {leftLinks}
             </Hidden>
           ) : (
-              brandComponent
-            )}
+            brandComponent
+          )}
         </div>
+        {pageMiddleTitle && <h3 className={classes.flex}>{pageMiddleTitle}</h3>}
+
         <Hidden smDown implementation="css">
           {rightLinks}
         </Hidden>
@@ -98,7 +112,7 @@ export default function Header(props) {
           anchor={"right"}
           open={mobileOpen}
           classes={{
-            paper: classes.drawerPaper
+            paper: classes.drawerPaper,
           }}
           onClose={handleDrawerToggle}
         >
@@ -113,7 +127,7 @@ export default function Header(props) {
 }
 
 Header.defaultProp = {
-  color: "white"
+  color: "white",
 };
 
 Header.propTypes = {
@@ -126,7 +140,7 @@ Header.propTypes = {
     "transparent",
     "white",
     "rose",
-    "dark"
+    "dark",
   ]),
   rightLinks: PropTypes.node,
   leftLinks: PropTypes.node,
@@ -151,7 +165,7 @@ Header.propTypes = {
       "transparent",
       "white",
       "rose",
-      "dark"
-    ]).isRequired
-  })
+      "dark",
+    ]).isRequired,
+  }),
 };
