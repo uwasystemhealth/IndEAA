@@ -3,7 +3,9 @@
 // See http://mongoosejs.com/docs/models.html
 // for more of what you can do here.
 const DefaultSchema = require('../types/default.schema');
+const NameType = require('../types/name.type');
 const DescType = require('../types/desc.type');
+const EmailType = require('../types/email.type');
 const ObjectIdType = require('../types/objectId.type');
 
 
@@ -14,9 +16,9 @@ module.exports = function (app) {
     const schema = DefaultSchema(app);
 
     schema.add({
-        user_id: ObjectIdType('users',app) ,
-        course_id: ObjectIdType('course-evaluation', app),
-        step1DevelopmentLevels: {type: Boolean, default:false},
+        user_id: ObjectIdType('users',app,required= true) ,
+        course_id: ObjectIdType('course-evaluation', app, required = false),
+        step1DevelopmentLevels: {type: Boolean},
         step2Documents: [
             {
                 document_id:Schema.Types.ObjectId,
