@@ -33,7 +33,7 @@ const EOCCard = (props) => {
     description,
     rating,
     justification,
-    eocs,
+    eocsInSameJustification,
     eocID,
     developmentLevel,
     evaluationID,
@@ -57,7 +57,7 @@ const EOCCard = (props) => {
       <Danger>Your Justification: None</Danger>
     );
 
-  const saveFields = (dl, just) => save(dl, just);
+  const saveFields = (dl, just,eocsInSameJustification) => save(dl, just,eocsInSameJustification);
 
   return (
     <Card>

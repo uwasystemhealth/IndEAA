@@ -44,17 +44,21 @@ const EOCAccordion = ({ evaluationID }) => {
         rev.eocNumber.includes(`${eocSet.setNum}.${eoc.EOCNum}`)
       );
 
-      const saveFields = (developmentLevel, justification) => {
+      const saveFields = (developmentLevel, justification,eocsInSameJustification) => {
         let eocReviewsCopy = eocReviews;
+        console.log(eocReviews)
+        // Determine if there exist an entry with the same justification
         if (matchedIndex === -1) {
-          eocReviewsCopy.append({
+          eocReviewsCopy.push({
             eocNumber: [`${eocSet.setNum}.${eoc.EOCNum}`],
             justification,
             developmentLevel,
+            eocsInSameJustification
           });
         } else {
           eocReviewsCopy[matchedIndex].justification = justification;
           eocReviewsCopy[matchedIndex].developmentLevel = developmentLevel;
+          eocReviewsCopy[matchedIndex].eocNumber = eocsInSameJustification;
         }
 
         services["course-evaluation"].patch(evaluationID, {
@@ -67,6 +71,9 @@ const EOCAccordion = ({ evaluationID }) => {
       const justification =
         matchedIndex === -1 ? null : eocReviews[matchedIndex].justification;
 
+      const eocsInSameJustification =
+      matchedIndex === -1 ? [eoc._id] : eocReviews[matchedIndex].eocNumber;
+
       return (
         <GridItem key={eoc.title} xs={4}>
           <EOCCard
@@ -74,9 +81,10 @@ const EOCAccordion = ({ evaluationID }) => {
             eocID={eoc._id}
             title={title}
             description={eoc.desc}
+            eocsInSameJustification={eocsInSameJustification}
+            save={saveFields}
             rating={rating}
             justification={justification}
-            save={saveFields}
           />
         </GridItem>
       );

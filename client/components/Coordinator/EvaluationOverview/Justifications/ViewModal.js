@@ -16,6 +16,9 @@ import HelpIcon from "@material-ui/icons/Help";
 import IconButton from "@material-ui/core/IconButton";
 import Close from "@material-ui/icons/Close";
 
+// redux
+import { useSelector } from "react-redux"
+
 // CUSTOM COMPONENTS
 import ApplyTo from "./ApplyTo.js";
 import DocumentViewer from "./DocumentViewer.js";
@@ -28,23 +31,53 @@ import modalStyle from "assets/jss/nextjs-material-kit/modalStyle.js";
 const styles = { ...modalStyle };
 const useStyles = makeStyles(styles);
 
-import { developmentLevelToString, stringToDevelopmentLevel } from "utils.js";
+import { developmentLevelToString, stringToDevelopmentLevel, getEOCInfo} from "utils.js";
+
 
 const ViewModal = ({
   isOpen,
   closeModal,
   saveFields,
   title,
+  eocID,
   description,
   rating,
   justification,
-  eocs,
+  eocsInSameJustification,
 }) => {
   const classes = useStyles();
 
+  // TODO: Will be used later
+  const [state,setState] = useState({
+    justification,
+    developmentLevel: rating,
+    eocsInSameJustification
+  })
+
+  // TODO: This variable needs to be change for formalisation
+  // See editModal handleChange and form state
   const [just, setJust] = useState(justification);
   const [dl, setDl] = useState(rating);
+  const [eocInSame,setEocInSame] = useState(eocsInSameJustification)
 
+  // fix this or use this for props passing
+  // I dont want to do prop drillings
+  // I will just get course_id here
+  const course = useSelector(state => state["course-evaluation"]).data
+
+  const handleCheck = (eoc) =>{
+    const eocIndex = eocInSame.findIndex(eocInState => eocInState === eoc)
+    const eocs = eocInSame
+    if(eocIndex==-1){ // eoc not in the state
+      eocs.push(eoc)
+    }
+    else{
+      eocs.splice(eocIndex,1) // Pops specific index
+    }
+    //const newState = eocInSame
+    setEocInSame(eocInSame)
+  }
+  
   const handleSave = () => {
     saveFields(dl, just);
     closeModal();
@@ -53,6 +86,15 @@ const ViewModal = ({
   const dropdownChange = (e) => {
     setDl(stringToDevelopmentLevel[e]);
   };
+
+  // TODO: get Display EOCS (borrowed from EditModal.js) - needs to be transferred to utils.js
+  const eocs = getEOCInfo(course._id);
+  const specificNumbers = eocs.reduce((accumulator, current) => {
+    const currentSetEocNumbers = current.EOCS.map(
+      (eoc) => `${current.setNum}.${eoc.EOCNum}`
+    );
+    return [...accumulator, ...currentSetEocNumbers];
+  }, []);
 
   return (
     <Dialog
@@ -94,7 +136,8 @@ const ViewModal = ({
             />
           </GridItem>
           <GridItem xs={6}>
-            <ApplyTo eocs={eocs} />
+            <ApplyTo eocs={specificNumbers}
+            eocInSame={eocInSame} handleCheck={handleCheck} />
           </GridItem>
           <GridItem xs={6}>
             Justification
@@ -108,7 +151,9 @@ const ViewModal = ({
             />
           </GridItem>
           <GridItem xs={6}>
-            <DocumentViewer />
+            <DocumentViewer course_id={course._id} documents={course.documents} 
+            eocBeingViewed={title}
+            />
           </GridItem>
         </GridContainer>
       </DialogContent>
