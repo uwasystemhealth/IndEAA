@@ -40,7 +40,7 @@ export default function HeaderLinks(props) {
 
     // Get All the Unique permissions of the user by the role
     // Turn it into JSX Links
-    const rolesOfUser = user && Array.from(getAvailablePermissionsOfUser(user.perms))
+    const rolesOfUser = user && Array.from(getAvailablePermissionsOfUser(user.perms))//.filter(role => role!==currentRoleSelected)
     const rolesLinksToUsers = user && rolesOfUser.map(
         permission => {
             const RoleIcon = roleIcons[permission]
@@ -51,7 +51,7 @@ export default function HeaderLinks(props) {
     )
     return (
         <List className={classes.list}>
-            {user && rolesOfUser.length != 0 &&
+            {user && (rolesOfUser.length != 0 || currentRoleSelected!="") &&
                 <ListItem className={classes.listItem}>
                     <CustomDropdown
                         noLiPadding

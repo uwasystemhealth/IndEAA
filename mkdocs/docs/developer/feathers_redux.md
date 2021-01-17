@@ -111,6 +111,46 @@ messagesRealtime.connect()
     .then(() => console.log('Realtime replication started'));
 ```
 
+## Realtime Feathers Update Configuration
+With Feathers, it could connect with various methods such as sockets. With sockets, it enables the update of the store in realtime.
+See below for the configuration. More information can be seen in the [feathers-redux documentation](https://github.com/feathersjs-ecosystem/feathers-redux).
+
+???+ info "Feathers Realtime Update Configuration"
+    ```js
+
+    // feathersClient.js
+    // Configure Redux with Feathers
+    export const serviceNames = [
+        'users',
+        'course-evaluation'
+    ]
+    export const rawServices = reduxifyServices(feathersClient, serviceNames,{
+        idField: "_id", // This is to ensure that realtime update matching uses that attribute
+    });
+
+    // Realtime Feathers Update Confguration
+    serviceNames.forEach(serviceName=>{
+        const currentSelectedService = feathersClient.service(`/${serviceName}`)
+
+        currentSelectedService.on('created', (data) => {
+            store.dispatch(rawServices[serviceName].onCreated(data));
+        })
+        currentSelectedService.on('updated', (data) => {
+            store.dispatch(rawServices[serviceName].onUpdated(data));
+        })
+        currentSelectedService.on('patched', (data) => {
+            store.dispatch(rawServices[serviceName].onPatched(data));
+        })
+        currentSelectedService.on('removed', (data) => {
+            store.dispatch(rawServices[serviceName].onRemoved(data));
+        })
+    })
+
+    ```
+    Pay attention, that this configuration allows realtime update for each of the services. If you don't need for each services, you can change `serviceNames` to a list of services that you would want to receive update.
+
+    
+
 ## Using Feathers Query and Actions
 There are two types of services that can be fetched from `feathersClient.js`:
  - `rawServices` this are services that are not binded to the state which means that calls made from here will not affect the state
