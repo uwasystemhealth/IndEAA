@@ -14,16 +14,21 @@ import CardBody from "components/MaterialKit/Card/CardBody.js";
 import CardHeader from "components/MaterialKit/Card/CardHeader.js";
 import IconButton from "@material-ui/core/IconButton";
 import Close from "@material-ui/icons/Close";
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Check from "@material-ui/icons/Check";
 
 // FORM Material UI
-import InputAdornment from '@material-ui/core/InputAdornment';
+import InputAdornment from "@material-ui/core/InputAdornment";
 
 // Redux
-import { useDispatch, useSelector } from "react-redux"
-import { services } from "store/feathersClient"
+import { useDispatch, useSelector } from "react-redux";
+import { services } from "store/feathersClient";
 
 // CUSTOM COMPONENTS
 import ApplyTo from "./../Justifications/ApplyTo.js";
+import DesignedCheckBox from "components/administrator/DesignedCheckBox";
 
 // STYLES
 import modalStyle from "assets/jss/nextjs-material-kit/modalStyle.js";
@@ -34,78 +39,117 @@ const useStyles = makeStyles({
 
 import React, { useState } from "react";
 
+import { getEOCInfo } from "utils";
 
-const CustomFormField = ({ label, fieldName, handleChange, icon, required = false, value = '', error = ''
-,inputProps,formControlProps}) => (
-    <CustomInput
-      success={!error && !!value}
-      error={!!error}
-      required={required}
-      labelText={label}
-      key={fieldName}
-      id={fieldName}
-      helperText={error}
-      formControlProps={{
-        fullWidth: true,
-        ...formControlProps
-      }}
-      inputProps={{
-        endAdornment: <InputAdornment position='end'>{icon}</InputAdornment>,
-        onChange: handleChange,
-        value,
-        ...inputProps,
-      }}
-    />
+const CustomFormField = ({
+  label,
+  fieldName,
+  handleChange,
+  icon,
+  required = false,
+  value = "",
+  error = "",
+  inputProps,
+  formControlProps,
+}) => (
+  <CustomInput
+    success={!error && !!value}
+    error={!!error}
+    required={required}
+    labelText={label}
+    key={fieldName}
+    id={fieldName}
+    helperText={error}
+    formControlProps={{
+      fullWidth: true,
+      ...formControlProps,
+    }}
+    inputProps={{
+      endAdornment: <InputAdornment position="end">{icon}</InputAdornment>,
+      onChange: handleChange,
+      value,
+      ...inputProps,
+    }}
+  />
+);
+
+const ApplyTags = ({ eocs,tags,handleCheck }) => {
+  const classes = useStyles();
+
+  return (
+    <Card>
+      <CardHeader color="success">Tags</CardHeader>
+      <CardBody>
+        <List>
+          {eocs.map((numberLabel) => (
+              <DesignedCheckBox
+                onClick={() =>handleCheck(numberLabel)}
+                isChecked={ tags.includes(numberLabel)}
+                label={`EOC ${numberLabel}`}
+              ></DesignedCheckBox>
+          ))}
+        </List>
+      </CardBody>
+    </Card>
   );
-
+};
 
 const EditModal = ({ document, course_id }) => {
-  const isCreateModal = typeof document === "undefined"
+  const isCreateModal = typeof document === "undefined";
   const classes = useStyles();
   const [modal, setModal] = useState(false);
-  const [state,setState] = useState({
-    name: document && document.name || "",
-    description: document && document.description || "",
-    link: document && document.link || "",
-    tags: document && document.tags || []
-  })
+  const [state, setState] = useState({
+    name: (document && document.name) || "",
+    description: (document && document.description) || "",
+    link: (document && document.link) || "",
+    tags: (document && document.tags) || [],
+  });
 
-  const handleChange = (event)=>{
+  const handleChange = (event) => {
     const { id, value } = event.target;
     const newState = { ...state, [id]: value };
-    setState(newState)
-    console.log(state)
-  }
+    setState(newState);
+  };
 
   const handleSave = (event) => {
     setModal(false);
     // commit the saved data to database
 
-    if(isCreateModal){
-      services["course-evaluation"].patch(course_id,{
-        $push: {documents: state}
-      })
-    }
-    else{
-      services["course-evaluation"].patch(course_id,{
-        "documents.$": state
-      }, {query: {"documents._id":document._id}})
+    if (isCreateModal) {
+      services["course-evaluation"].patch(course_id, {
+        $push: { documents: state },
+      });
+    } else {
+      services["course-evaluation"].patch(
+        course_id,
+        {
+          "documents.$": state,
+        },
+        { query: { "documents._id": document._id } }
+      );
     }
   };
 
-  const eocs = [
-    {
-      _id: "a",
-      EOCNum: "1.2",
-      desc: "aaha",
-    },
-    {
-      _id: "b",
-      EOCNum: "1.3",
-      desc: "badga",
-    },
-  ];
+  const handleCheck = (tag) =>{
+    const tagIndex = state.tags.findIndex(tagInState => tagInState === tag)
+    const tags = state.tags
+    if(tagIndex==-1){ // Tag not in the state
+      tags.push(tag)
+    }
+    else{
+      tags.splice(tagIndex,1) // Pops specific index
+    }
+    const newState = {...state, tags}
+    setState(newState)
+  }
 
+  const eocs = getEOCInfo(course_id);
+  const generalAndSpecificNumbers = eocs.reduce((accumulator, current) => {
+    const currentSetEocNumbers = current.EOCS.map(
+      (eoc) => `${current.setNum}.${eoc.EOCNum}`
+    );
+    return [...accumulator, String(current.setNum), ...currentSetEocNumbers];
+  }, []);
 
   return (
     <>
@@ -145,17 +189,16 @@ const EditModal = ({ document, course_id }) => {
                     <GridItem xs={12}>
                       <CustomFormField
                         required
-                        label = "Document Name"
+                        label="Document Name"
                         fieldName="name"
                         handleChange={handleChange}
-                        value = {state["name"]}
+                        value={state["name"]}
                         icon={<Placeholder></Placeholder>}
-                      >
-                      </CustomFormField>
+                      ></CustomFormField>
                     </GridItem>
                     <GridItem xs={12}>
                       <CustomFormField
-                      required
+                        required
                         label="Description"
                         fieldName="description"
                         handleChange={handleChange}
@@ -168,20 +211,23 @@ const EditModal = ({ document, course_id }) => {
                     </GridItem>
                     <GridItem xs={12}>
                       <CustomFormField
-                          required
-                          label = "Document Link"
-                          fieldName="link"
-                          handleChange={handleChange}
-                          value = {state["link"]}
-                          icon={<Placeholder></Placeholder>}
-                        />
+                        required
+                        label="Document Link"
+                        fieldName="link"
+                        handleChange={handleChange}
+                        value={state["link"]}
+                        icon={<Placeholder></Placeholder>}
+                      />
                     </GridItem>
                   </GridContainer>
                 </CardBody>
               </Card>
             </GridItem>
             <GridItem xs={7}>
-              <ApplyTo eocs={eocs} />
+              <ApplyTags eocs={generalAndSpecificNumbers} 
+              tags={state.tags}
+              handleCheck={handleCheck}
+              />
             </GridItem>
           </GridContainer>
         </DialogContent>
