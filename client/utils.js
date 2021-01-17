@@ -6,11 +6,13 @@ export const getAvailablePermissionsOfUser = (permissions) => {
 export const permissions = ["Administrator", "Coordinator", "Reviewer"]
 
 // Icons for Each Different User
-import Placeholder from "@material-ui/icons/Mood";
+import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import RateReviewIcon from '@material-ui/icons/RateReview';
 
 // Consistent Casing to different Permissions
 export const roleIcons = {
-    Administrator: Placeholder,
-    Reviewer: Placeholder,
-    Coordinator: Placeholder
+    Administrator: SupervisorAccountIcon,
+    Reviewer: RateReviewIcon,
+    Coordinator: AccountCircleIcon
 }
