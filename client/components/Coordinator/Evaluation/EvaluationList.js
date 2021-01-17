@@ -17,6 +17,8 @@ import { spacing } from "@material-ui/system";
 import EvaluationListing from "./EvaluationListing.js";
 
 //Styles
+import { useTheme } from "@material-ui/core/styles";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { makeStyles } from "@material-ui/core/styles";
 import styles from "assets/jss/nextjs-material-kit/pages/landingPage.js";
 import checkboxStyles from "assets/jss/nextjs-material-kit/customCheckboxRadioSwitch.js";
@@ -26,9 +28,10 @@ const useStyles = makeStyles(() => ({
   footer: {
     flexDirection: "row-reverse",
   },
-  checkbox: {
-    marginLeft: "1rem",
-  },
+  list:{ 
+    maxHeight: "60vh",
+     overflow: 'auto'
+    }
 }));
 
 import { useEffect, useState } from "react";
@@ -39,6 +42,8 @@ import { services } from "store/feathersClient";
 
 const EvaluationList = () => {
   const classes = useStyles();
+  const theme = useTheme();
+  const isBiggerThanMd = useMediaQuery(theme.breakpoints.up("md"));
 
   const [loading, setLoading] = useState(true);
   const [showArchived, setShowArchived] = useState(false);
@@ -85,30 +90,24 @@ const EvaluationList = () => {
 
   return (
     <Card>
-      <CardHeader color="success">
-        <GridContainer>
-          <GridItem xs={9}>
-            <h2>Manage Course Evaluations</h2>
+      <CardHeader
+        color="primary"
+        style={{ width: isBiggerThanMd ? "50%" : "90%" }}
+      >
+      <GridContainer alignItems="center" justify="center">
+          <GridItem md={9}>
+            <h3 className={classes.cardTitle}>Manage Course Evaluations</h3>
           </GridItem>
-          <GridItem xs={2}>
-            <Card ml={10}>
-              <FormGroup row>
-                <FormControlLabel
-                  control={
-                    <Switch
-                      className={classes.checkbox}
-                      checked={showArchived}
-                      onChange={(e) => {
-                        setShowArchived(e.target.checked);
-                      }}
-                      name="checkedA"
-                      color="primary"
-                    />
-                  }
-                  label="Show Archived"
-                />
-              </FormGroup>
-            </Card>
+          <GridItem md={3}>
+            {showArchived ? (
+              <Button color="primary" onClick={() => setShowArchived(false)}>
+                Hide Archived
+              </Button>
+            ) : (
+              <Button color="rose" onClick={() => setShowArchived(true)}>
+                Show Archived
+              </Button>
+            )}
           </GridItem>
         </GridContainer>
       </CardHeader>
