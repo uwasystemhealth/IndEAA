@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Router from "next/router";
+import {useRouter} from "next/router";
 import classnames from "classnames";
 // @material-ui/core components
 import { makeStyles, styled } from "@material-ui/core/styles";
@@ -46,6 +46,8 @@ export const StepIcon = (props) => {
 
 const StepperPathway = ({ evalId }) => {
   const stepperClasses = useStepperStyles();
+  const router = useRouter()
+
   // const StepButtonCustom = whiteFont ? StyledStepButton : StepButton; // OVERWRITE BY WHITEFONT
   const authUser = useSelector((state) => state.auth.user);
   const [currentReview, setCurrentReview] = useState({});
@@ -74,7 +76,7 @@ const StepperPathway = ({ evalId }) => {
     {
       stepName: "Overview & Eoc",
       done: currentReview.step1DevelopmentLevels || false,
-      stepLink: "overview-&-eoc",
+      stepLink: "overview-and-eoc",
     },
     {
       stepName: "Read Documents",
@@ -101,7 +103,7 @@ const StepperPathway = ({ evalId }) => {
           <StepButton
             icon={StepIcon({ done })}
             onClick={() =>
-              Router.push(`/reviewer/${evalId}/${index + 1}-${stepLink}`)
+              router.push(`/reviewer/${evalId}/${index + 1}-${stepLink}`)
             }
           >
             {stepName}
