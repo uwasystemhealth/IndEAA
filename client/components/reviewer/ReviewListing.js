@@ -18,8 +18,9 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const EvaluationListing = ({
+const ReviewListing = ({
   evalId,
+  review ,
   courseCode,
   coordinators,
   evaluationDescription,
@@ -38,10 +39,10 @@ const EvaluationListing = ({
         </Link>
       </GridItem>
       <GridItem md={5}>
-        <ReviewProgress evalId={evalId}></ReviewProgress>
+        <ReviewProgress review={review}></ReviewProgress>
       </GridItem>
     </Grid>
   );
 };
 
-export default EvaluationListing;
+export default ReviewListing;

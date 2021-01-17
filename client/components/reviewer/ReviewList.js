@@ -12,8 +12,8 @@ import FormGroup from "@material-ui/core/FormGroup";
 import Switch from "@material-ui/core/Switch";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { spacing } from "@material-ui/system";
-import { useTheme } from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from "@material-ui/core/styles";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 // CUSTOM COMPONENTS
 import ReviewListing from "./ReviewListing";
@@ -42,7 +42,7 @@ import { services } from "store/feathersClient";
 const EvaluationList = () => {
   const classes = useStyles();
   const theme = useTheme();
-  const isBiggerThanMd = useMediaQuery(theme.breakpoints.up("md"))
+  const isBiggerThanMd = useMediaQuery(theme.breakpoints.up("md"));
 
   const [loading, setLoading] = useState(true);
   const [showArchived, setShowArchived] = useState(false);
@@ -52,12 +52,24 @@ const EvaluationList = () => {
   useEffect(() => {
     // 1. Find all CourseEvaluations where the createdBy key matches the logged in user
     services["course-evaluation"].find();
-    // TODO: Find all the coordinators assigned to these evaluations.
-    setLoading(false);
   }, []);
+
+  // Executes on Component Remount (after auth user is fetched)
+  useEffect(() => {
+    if (authUser) {
+      // Only Call when authUser is now defined
+      services.review.find({
+        query: {
+          user_id: authUser._id,
+        },
+      });
+      setLoading(false);
+    }
+  }, [authUser]);
 
   const courseEvaluations = useSelector((state) => state["course-evaluation"])
     .queryResult.data;
+  const reviews = useSelector((state) => state.review.queryResult.data);
 
   if (loading) {
     return (
@@ -80,6 +92,7 @@ const EvaluationList = () => {
         <ListItem key={_id} divider>
           <ReviewListing
             evalId={_id}
+            review={reviews.find((review) => review.course_id === _id) || {course_id:_id}}
             courseCode={courseId}
             coordinators={coordinators}
             evaluationDescription={reviewDescription}
@@ -91,7 +104,10 @@ const EvaluationList = () => {
 
   return (
     <Card>
-      <CardHeader color="primary" style={{width: isBiggerThanMd ? "50%" : "100%"}}>
+      <CardHeader
+        color="primary"
+        style={{ width: isBiggerThanMd ? "50%" : "100%" }}
+      >
         <GridContainer alignItems="center" justify="center">
           <GridItem md={9}>
             <h3 className={classes.cardTitle}>Review Courses</h3>
