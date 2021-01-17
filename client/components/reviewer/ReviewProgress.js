@@ -44,66 +44,47 @@ export const StepIcon = (props) => {
   );
 };
 
-const StepperPathway = ({ evalId }) => {
+const StepperPathway = ({ review }) => {
   const stepperClasses = useStepperStyles();
   const router = useRouter()
 
   // const StepButtonCustom = whiteFont ? StyledStepButton : StepButton; // OVERWRITE BY WHITEFONT
-  const authUser = useSelector((state) => state.auth.user);
-  const [currentReview, setCurrentReview] = useState({});
 
-  // Done Once onload
-  useEffect(() => {
-      // This needs to be moved somewhere else
-    const fetchCurrentReview = async () => {
-      const response = await services.review.find({
-        query: {
-          course_id: evalId,
-          user_id: authUser._id,
-        },
-      });
-      const reviewOfAuthUser =
-        response.value.total > 0 ? response.value.data[0] : {};
-        // If there is no review that exist, then just an empty object
-      setCurrentReview(reviewOfAuthUser);
-    };
-    fetchCurrentReview();
-  }, []);
 
   // Done calculation is determined to be completed or ready for next step
   // if there is an entry atleast once
   const steps = [
     {
       stepName: "Overview & Eoc",
-      done: currentReview.step1DevelopmentLevels || false,
+      done: review.step1DevelopmentLevels || false,
       stepLink: "overview-and-eoc",
     },
     {
       stepName: "Read Documents",
-      done: currentReview.step2Documents && currentReview.step2Documents.length>0 || false,
+      done: review.step2Documents && review.step2Documents.length>0 || false,
       stepLink: "documents",
     },
 
     {
       stepName: "Review Course",
-      done: currentReview.step3Evaluation  && currentReview.step3Evaluation.length>0|| false,
+      done: review.step3Evaluation  && review.step3Evaluation.length>0|| false,
       stepLink: "assessment",
     },
 
     {
       stepName: "Review & Submit",
-      done: currentReview.step4ReviewComment && currentReview.step4ReviewComment.length>0 || false,
+      done: review.step4ReviewComment && review.step4ReviewComment.length>0 || false,
       stepLink: "review",
     },
   ];
   return (
-    <Stepper alternativeLabel className={stepperClasses.stepper}>
+    <Stepper alternativeLabel nonLinear className={stepperClasses.stepper}>
       {steps.map(({ stepName, done = false, stepLink }, index) => (
         <Step key={stepName} active={done} connector={<StepperConnector />}>
           <StepButton
             icon={StepIcon({ done })}
             onClick={() =>
-              router.push(`/reviewer/${evalId}/${index + 1}-${stepLink}`)
+              router.push(`/reviewer/${review.course_id}/${index + 1}-${stepLink}`)
             }
           >
             {stepName}
