@@ -25,9 +25,7 @@ const Documents = ({ evaluationID }) => {
   const courseEval = useSelector((state) => state["course-evaluation"]);
   const evalData = courseEval?.data;
 
-  const documentComps = evalData?.documents.map((doc) => {
-
-
+  const documentComponents = evalData?.documents.map((doc) => {
     return (
       <GridItem key={doc._id} xs={4}>
         <DocumentCard
@@ -42,7 +40,7 @@ const Documents = ({ evaluationID }) => {
   return (
     <>
       <GridContainer>{documentComps}</GridContainer>;
-      <EditModal createModal course_id={evaluationID}/>
+      <EditModal createModal course_id={evaluationID} />
     </>
   );
 };
