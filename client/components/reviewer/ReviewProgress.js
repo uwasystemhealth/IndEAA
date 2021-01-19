@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
 import classnames from "classnames";
 // @material-ui/core components
 import { makeStyles, styled } from "@material-ui/core/styles";
@@ -46,10 +46,9 @@ export const StepIcon = (props) => {
 
 const StepperPathway = ({ review }) => {
   const stepperClasses = useStepperStyles();
-  const router = useRouter()
+  const router = useRouter();
 
   // const StepButtonCustom = whiteFont ? StyledStepButton : StepButton; // OVERWRITE BY WHITEFONT
-
 
   // Done calculation is determined to be completed or ready for next step
   // if there is an entry atleast once
@@ -61,19 +60,23 @@ const StepperPathway = ({ review }) => {
     },
     {
       stepName: "Read Documents",
-      done: review.step2Documents && review.step2Documents.length>0 || false,
+      done:
+        (review.step2Documents && review.step2Documents.length > 0) || false,
       stepLink: "documents",
     },
 
     {
       stepName: "Review Course",
-      done: review.step3Evaluation  && review.step3Evaluation.length>0|| false,
+      done:
+        (review.step3Evaluation && review.step3Evaluation.length > 0) || false,
       stepLink: "assessment",
     },
 
     {
       stepName: "Review & Submit",
-      done: review.step4ReviewComment && review.step4ReviewComment.length>0 || false,
+      done:
+        (review.step4ReviewComment && review.step4ReviewComment.length > 0) ||
+        false,
       stepLink: "review",
     },
   ];
@@ -84,7 +87,9 @@ const StepperPathway = ({ review }) => {
           <StepButton
             icon={StepIcon({ done })}
             onClick={() =>
-              router.push(`/reviewer/${review.course_id}/${index + 1}-${stepLink}`)
+              router.push(
+                `/reviewer/${review.course_id}/${index + 1}-${stepLink}`
+              )
             }
           >
             {stepName}
