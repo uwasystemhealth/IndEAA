@@ -71,13 +71,15 @@ const EOCAccordion = ({ evaluationID }) => {
         });
       };
 
-      const rating =
-        matchedIndex === -1 ? 0 : eocReviews[matchedIndex].developmentLevel;
-      const justification =
-        matchedIndex === -1 ? null : eocReviews[matchedIndex].justification;
-
-      const eocsInSameJustification =
-        matchedIndex === -1 ? [eoc._id] : eocReviews[matchedIndex].eocNumber;
+      const rating = noReviewFound
+        ? 0
+        : eocReviews[matchedIndex].developmentLevel;
+      const justification = noReviewFound
+        ? null
+        : eocReviews[matchedIndex].justification;
+      const eocsInSameJustification = noReviewFound
+        ? [eoc._id]
+        : eocReviews[matchedIndex].eocNumber;
 
       return (
         <GridItem key={eoc.title} xs={4}>
