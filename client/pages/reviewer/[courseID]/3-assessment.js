@@ -29,7 +29,7 @@ const ReviewerCourseReviewPage3 = () => {
   // Executes on Component Remount (after auth user is fetched)
   useEffect(() => {
     // Only Call when authUser is now defined
-    if (authUser && review && review.course_id !== courseID) {
+    if (authUser && (!reviewState.data || review.course_id !== courseID)) {
       getOrCreateReview(courseID, authUser._id);
     }
   }, [authUser]);
