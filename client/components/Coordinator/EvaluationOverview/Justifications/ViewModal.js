@@ -17,7 +17,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Close from "@material-ui/icons/Close";
 
 // redux
-import { useSelector } from "react-redux"
+import { useSelector } from "react-redux";
 
 // CUSTOM COMPONENTS
 import ApplyTo from "./ApplyTo.js";
@@ -31,8 +31,11 @@ import modalStyle from "assets/jss/nextjs-material-kit/modalStyle.js";
 const styles = { ...modalStyle };
 const useStyles = makeStyles(styles);
 
-import { developmentLevelToString, stringToDevelopmentLevel, getEOCInfo} from "utils.js";
-
+import {
+  developmentLevelToString,
+  stringToDevelopmentLevel,
+  getEOCInfo,
+} from "utils.js";
 
 const ViewModal = ({
   isOpen,
@@ -48,38 +51,38 @@ const ViewModal = ({
   const classes = useStyles();
 
   // TODO: Will be used later
-  const [state,setState] = useState({
+  const [state, setState] = useState({
     justification,
     developmentLevel: rating,
-    eocsInSameJustification
-  })
+    eocsInSameJustification,
+  });
 
   // TODO: This variable needs to be change for formalisation
   // See editModal handleChange and form state
   const [just, setJust] = useState(justification);
   const [dl, setDl] = useState(rating);
-  const [eocInSame,setEocInSame] = useState(eocsInSameJustification)
+  const [eocInSame, setEocInSame] = useState(eocsInSameJustification);
 
   // fix this or use this for props passing
   // I dont want to do prop drillings
   // I will just get course_id here
-  const course = useSelector(state => state["course-evaluation"]).data
+  const course = useSelector((state) => state["course-evaluation"]).data;
 
-  const handleCheck = (eoc) =>{
-    const eocIndex = eocInSame.findIndex(eocInState => eocInState === eoc)
-    const eocs = eocInSame
-    if(eocIndex==-1){ // eoc not in the state
-      eocs.push(eoc)
-    }
-    else{
-      eocs.splice(eocIndex,1) // Pops specific index
+  const handleCheck = (eoc) => {
+    const eocIndex = eocInSame.findIndex((eocInState) => eocInState === eoc);
+    const eocs = eocInSame;
+    if (eocIndex == -1) {
+      // eoc not in the state
+      eocs.push(eoc);
+    } else {
+      eocs.splice(eocIndex, 1); // Pops specific index
     }
     //const newState = eocInSame
-    setEocInSame(eocInSame)
-  }
-  
+    setEocInSame(eocInSame);
+  };
+
   const handleSave = () => {
-    saveFields(dl, just);
+    saveFields(dl, just, eocsInSameJustification);
     closeModal();
   };
 
@@ -136,8 +139,11 @@ const ViewModal = ({
             />
           </GridItem>
           <GridItem xs={6}>
-            <ApplyTo eocs={specificNumbers}
-            eocInSame={eocInSame} handleCheck={handleCheck} />
+            <ApplyTo
+              eocs={specificNumbers}
+              eocInSame={eocInSame}
+              handleCheck={handleCheck}
+            />
           </GridItem>
           <GridItem xs={6}>
             Justification
@@ -151,8 +157,10 @@ const ViewModal = ({
             />
           </GridItem>
           <GridItem xs={6}>
-            <DocumentViewer course_id={course._id} documents={course.documents} 
-            eocBeingViewed={title}
+            <DocumentViewer
+              course_id={course._id}
+              documents={course.documents}
+              eocBeingViewed={title}
             />
           </GridItem>
         </GridContainer>
