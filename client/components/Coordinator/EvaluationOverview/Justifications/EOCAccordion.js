@@ -43,7 +43,7 @@ const EOCAccordion = ({ evaluationID }) => {
       const matchedIndex = eocReviews.findIndex((rev) =>
         rev.eocNumber.includes(`${eocSet.setNum}.${eoc.EOCNum}`)
       );
-      const noReviewFound = matchedIndex !== -1;
+      const noReviewFound = matchedIndex === -1;
 
       const saveFields = (
         developmentLevel,
