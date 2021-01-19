@@ -21,8 +21,9 @@ import { services } from "store/feathersClient";
 import { getEOCInfo } from "utils.js";
 
 const EOCAccordion = ({ evaluationID }) => {
+  // https://stackoverflow.com/questions/58539813/lazy-initial-state-what-is-and-where-to-use-it
+  // https://github.com/uwasystemhealth/IndEAA/pull/27#discussion_r559902548
   const [eocs, setEocs] = useState(() => getEOCInfo());
-
   useEffect(() => {
     services["course-evaluation"].get({
       _id: evaluationID,
