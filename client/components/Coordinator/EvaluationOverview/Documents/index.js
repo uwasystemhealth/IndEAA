@@ -39,7 +39,7 @@ const Documents = ({ evaluationID }) => {
 
   return (
     <>
-      <GridContainer>{documentComps}</GridContainer>;
+      <GridContainer>{documentComponents}</GridContainer>;
       <EditModal createModal course_id={evaluationID} />
     </>
   );
