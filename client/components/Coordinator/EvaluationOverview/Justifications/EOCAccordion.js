@@ -43,17 +43,22 @@ const EOCAccordion = ({ evaluationID }) => {
       const matchedIndex = eocReviews.findIndex((rev) =>
         rev.eocNumber.includes(`${eocSet.setNum}.${eoc.EOCNum}`)
       );
+      const noReviewFound = matchedIndex !== -1;
 
-      const saveFields = (developmentLevel, justification,eocsInSameJustification) => {
+      const saveFields = (
+        developmentLevel,
+        justification,
+        eocsInSameJustification
+      ) => {
         let eocReviewsCopy = eocReviews;
-        console.log(eocReviews)
+        console.log(eocReviews);
         // Determine if there exist an entry with the same justification
-        if (matchedIndex === -1) {
+        if (noReviewFound) {
           eocReviewsCopy.push({
             eocNumber: [`${eocSet.setNum}.${eoc.EOCNum}`],
             justification,
             developmentLevel,
-            eocsInSameJustification
+            eocsInSameJustification,
           });
         } else {
           eocReviewsCopy[matchedIndex].justification = justification;
@@ -72,7 +77,7 @@ const EOCAccordion = ({ evaluationID }) => {
         matchedIndex === -1 ? null : eocReviews[matchedIndex].justification;
 
       const eocsInSameJustification =
-      matchedIndex === -1 ? [eoc._id] : eocReviews[matchedIndex].eocNumber;
+        matchedIndex === -1 ? [eoc._id] : eocReviews[matchedIndex].eocNumber;
 
       return (
         <GridItem key={eoc.title} xs={4}>
