@@ -21,7 +21,7 @@ import { services } from "store/feathersClient";
 import { getEOCInfo } from "utils.js";
 
 const EOCAccordion = ({ evaluationID }) => {
-  const [eocs, setEcos] = useState(() => getEOCInfo());
+  const [eocs, setEocs] = useState(() => getEOCInfo());
 
   useEffect(() => {
     services["course-evaluation"].get({
@@ -32,84 +32,83 @@ const EOCAccordion = ({ evaluationID }) => {
   const courseEvaluation = useSelector((state) => state["course-evaluation"]);
   const eocReviews = courseEvaluation?.data?.eoc;
 
-  if (eocReviews === null) {
-    return <p>loading</p>;
-  }
+  let accordions = null;
+  if (eocReviews !== null) {
+    accordions = eocs.map((eocSet) => {
+      const eocCards = eocSet.EOCS.map((eoc) => {
+        const title = `EOC ${eocSet.setNum}.${eoc.EOCNum}`;
 
-  const accordions = eocs.map((eocSet) => {
-    const eocCards = eocSet.EOCS.map((eoc) => {
-      const title = `EOC ${eocSet.setNum}.${eoc.EOCNum}`;
+        const matchedIndex = eocReviews.findIndex((rev) =>
+          rev.eocNumber.includes(`${eocSet.setNum}.${eoc.EOCNum}`)
+        );
+        const noReviewFound = matchedIndex === -1;
 
-      const matchedIndex = eocReviews.findIndex((rev) =>
-        rev.eocNumber.includes(`${eocSet.setNum}.${eoc.EOCNum}`)
-      );
-      const noReviewFound = matchedIndex === -1;
+        const saveFields = (
+          developmentLevel,
+          justification,
+          eocsInSameJustification
+        ) => {
+          let eocReviewsCopy = eocReviews;
+          console.log(eocReviews);
+          // Determine if there exist an entry with the same justification
+          if (noReviewFound) {
+            eocReviewsCopy.push({
+              eocNumber: [`${eocSet.setNum}.${eoc.EOCNum}`],
+              justification,
+              developmentLevel,
+              eocsInSameJustification,
+            });
+          } else {
+            eocReviewsCopy[matchedIndex].justification = justification;
+            eocReviewsCopy[matchedIndex].developmentLevel = developmentLevel;
+            eocReviewsCopy[matchedIndex].eocNumber = eocsInSameJustification;
+          }
 
-      const saveFields = (
-        developmentLevel,
-        justification,
-        eocsInSameJustification
-      ) => {
-        let eocReviewsCopy = eocReviews;
-        console.log(eocReviews);
-        // Determine if there exist an entry with the same justification
-        if (noReviewFound) {
-          eocReviewsCopy.push({
-            eocNumber: [`${eocSet.setNum}.${eoc.EOCNum}`],
-            justification,
-            developmentLevel,
-            eocsInSameJustification,
+          services["course-evaluation"].patch(evaluationID, {
+            eoc: eocReviewsCopy,
           });
-        } else {
-          eocReviewsCopy[matchedIndex].justification = justification;
-          eocReviewsCopy[matchedIndex].developmentLevel = developmentLevel;
-          eocReviewsCopy[matchedIndex].eocNumber = eocsInSameJustification;
-        }
+        };
 
-        services["course-evaluation"].patch(evaluationID, {
-          eoc: eocReviewsCopy,
-        });
-      };
+        const rating = noReviewFound
+          ? 0
+          : eocReviews[matchedIndex].developmentLevel;
+        const justification = noReviewFound
+          ? null
+          : eocReviews[matchedIndex].justification;
+        const eocsInSameJustification = noReviewFound
+          ? [eoc._id]
+          : eocReviews[matchedIndex].eocNumber;
 
-      const rating = noReviewFound
-        ? 0
-        : eocReviews[matchedIndex].developmentLevel;
-      const justification = noReviewFound
-        ? null
-        : eocReviews[matchedIndex].justification;
-      const eocsInSameJustification = noReviewFound
-        ? [eoc._id]
-        : eocReviews[matchedIndex].eocNumber;
+        return (
+          <GridItem key={eoc.title} xs={4}>
+            <EOCCard
+              evaluationID={evaluationID}
+              eocID={eoc._id}
+              title={title}
+              description={eoc.desc}
+              eocsInSameJustification={eocsInSameJustification}
+              save={saveFields}
+              rating={rating}
+              justification={justification}
+            />
+          </GridItem>
+        );
+      });
 
       return (
-        <GridItem key={eoc.title} xs={4}>
-          <EOCCard
-            evaluationID={evaluationID}
-            eocID={eoc._id}
-            title={title}
-            description={eoc.desc}
-            eocsInSameJustification={eocsInSameJustification}
-            save={saveFields}
-            rating={rating}
-            justification={justification}
-          />
-        </GridItem>
+        <Accordion key={eocSet.setNum}>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            EOC {eocSet.setNum}: {eocSet.setName}
+          </AccordionSummary>
+          <AccordionDetails>
+            <GridContainer>{eocCards}</GridContainer>
+          </AccordionDetails>
+        </Accordion>
       );
     });
+  }
 
-    return (
-      <Accordion key={eocSet.setNum}>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          EOC {eocSet.setNum}: {eocSet.setName}
-        </AccordionSummary>
-        <AccordionDetails>
-          <GridContainer>{eocCards}</GridContainer>
-        </AccordionDetails>
-      </Accordion>
-    );
-  });
-
-  return <Card>{accordions}</Card>;
+  return <Card>{accordions ?? <p>loading...</p>}</Card>;
 };
 
 export default EOCAccordion;
