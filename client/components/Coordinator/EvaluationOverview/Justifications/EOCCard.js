@@ -57,8 +57,6 @@ const EOCCard = (props) => {
       <Danger>Your Justification: None</Danger>
     );
 
-  const saveFields = (dl, just,eocsInSameJustification) => save(dl, just,eocsInSameJustification);
-
   return (
     <Card>
       <CardBody>
@@ -77,7 +75,7 @@ const EOCCard = (props) => {
               eocs={[]}
               isOpen={modal}
               closeModal={() => setModal(false)}
-              saveFields={saveFields}
+              saveFields={save}
             />
           </GridItem>
         </GridContainer>
