@@ -44,6 +44,15 @@ const ReviewerCourseReviewPage1 = () => {
   }, [authUser]);
 
   const classes = useStyles();
+  const handleSubmit = () => {
+    // Update the Review Process when has been read
+    if (!review.step1DevelopmentLevels) {
+      services.review.patch(review._id, {
+        step1DevelopmentLevels: true,
+      });
+    }
+  };
+
   return (
     <div>
       <ReviewProgress review={review}></ReviewProgress>
@@ -51,6 +60,7 @@ const ReviewerCourseReviewPage1 = () => {
       <ReviewerPageBottomNavigation
         pageNumber={1}
         course_id={courseID}
+        handleSubmit={handleSubmit}
       ></ReviewerPageBottomNavigation>
     </div>
   );
@@ -75,12 +85,14 @@ const EOCDescriptionAccordions = () => {
           <AccordionDetails>
             <CustomTabs
               headerColor="primary"
-              tabs={eocSet.EOCS.map(eoc=>({
-                  tabName: `EOC ${eocSet.setNum}.${eoc.EOCNum}`,
-                  tabContent: <div>
-                      <h4 className={classes.title}>{eocSet.setName}</h4>
-                      {eoc.desc}
+              tabs={eocSet.EOCS.map((eoc) => ({
+                tabName: `EOC ${eocSet.setNum}.${eoc.EOCNum}`,
+                tabContent: (
+                  <div>
+                    <h4 className={classes.title}>{eocSet.setName}</h4>
+                    {eoc.desc}
                   </div>
+                ),
               }))}
             />
           </AccordionDetails>

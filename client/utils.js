@@ -1,3 +1,5 @@
+import { services } from "store/feathersClient";
+
 // Get all available roles permissions of a user
 export const getAvailablePermissionsOfUser = (permissions) => {
     return new Set(permissions.map(permission => permission.role).sort())
