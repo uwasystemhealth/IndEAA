@@ -29,6 +29,7 @@ const ApplyTo = ({ eocs ,eocInSame,handleCheck}) => {
             <List>
               {eocs.map((numberLabel) => (
                   <DesignedCheckBox
+                    key={numberLabel}
                     onClick={() =>handleCheck(numberLabel)}
                     isChecked={ eocInSame.includes(numberLabel)}
                     label={`EOC ${numberLabel}`}
