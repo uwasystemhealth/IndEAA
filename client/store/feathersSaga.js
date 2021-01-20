@@ -38,6 +38,10 @@ function* feathersSaga() {
     yield takeEvery(services.users.types.SERVICES_USERS_CREATE_REJECTED, handleRejected());
     yield takeEvery(services.users.types.SERVICES_USERS_PATCH_FULFILLED, handleFulfilled("User", "email", "updated"));
     yield takeEvery(services.users.types.SERVICES_USERS_PATCH_REJECTED, handleRejected());
+    yield takeEvery(services["course-evaluation"].types["SERVICES_COURSE-EVALUATION_CREATE_FULFILLED"], handleFulfilled("Course Evaluation", "courseId", "created"));
+    yield takeEvery(services["course-evaluation"].types["SERVICES_COURSE-EVALUATION_CREATE_REJECTED"], handleRejected());
+    yield takeEvery(services["course-evaluation"].types["SERVICES_COURSE-EVALUATION_PATCH_FULFILLED"], handleFulfilled("Course Evaluation", "courseId", "updated"));
+    yield takeEvery(services["course-evaluation"].types["SERVICES_COURSE-EVALUATION_PATCH_REJECTED"], handleRejected());
 
 }
 

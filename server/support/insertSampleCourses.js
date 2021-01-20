@@ -9,7 +9,7 @@ const insertSampleCourses = async () => {
     console.log("Starting: insertSampleCourses");
     data = [
         {
-            courseId: "CITS1001",
+            courseId: 'CITS1001',
             documents: [
                 {
                     name: "Sample Document",
@@ -17,8 +17,8 @@ const insertSampleCourses = async () => {
                     tags: ["1", "1.1"],
                 },
             ],
-            reviewDescription: "Sample Description",
-            reviewTargetDate: "10/10/2021",
+            reviewDescription: 'Sample Description',
+            reviewTargetDate: '10/10/2021',
             isArchived: false,
             dueDate: "3/3/2021",
             createdAt: "1/1/2021",
@@ -63,7 +63,7 @@ const insertSampleCourses = async () => {
             ],
         },
         {
-            courseId: "MECH1001",
+            courseId: 'MECH1001',
             documents: [
                 {
                     name: "Sample Document",
@@ -71,8 +71,8 @@ const insertSampleCourses = async () => {
                     tags: ["1", "1.1"],
                 },
             ],
-            reviewDescription: "Sample Description",
-            reviewTargetDate: "10/10/2021",
+            reviewDescription: 'Sample Description',
+            reviewTargetDate: '10/10/2021',
             isArchived: false,
             createdAt: "1/1/2021",
             dueDate: "3/3/2021",
@@ -118,7 +118,7 @@ const insertSampleCourses = async () => {
             ],
         },
         {
-            courseId: "ELEC1001",
+            courseId: 'ELEC1001',
             documents: [
                 {
                     name: "Sample Document",
@@ -126,8 +126,8 @@ const insertSampleCourses = async () => {
                     tags: ["1", "1.1"],
                 },
             ],
-            reviewDescription: "Sample Description",
-            reviewTargetDate: "10/10/2021",
+            reviewDescription: 'Sample Description',
+            reviewTargetDate: '10/10/2021',
             isArchived: false,
             dueDate: "3/3/2021",
             createdAt: "1/1/2021",
