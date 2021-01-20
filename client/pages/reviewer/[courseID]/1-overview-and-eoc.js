@@ -12,6 +12,7 @@ import CustomTabs from "components/MaterialKit/CustomTabs/CustomTabs.js";
 
 // Use own components
 import ReviewProgress from "components/reviewer/ReviewProgress";
+import ReviewerPageCardDescription from "components/reviewer/ReviewerPageCardDescription";
 import ReviewerPageBottomNavigation from "components/reviewer/ReviewerPageBottomNavigation";
 
 // Redux
@@ -23,7 +24,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import styles from "assets/jss/nextjs-material-kit/pages/loginPage.js";
 const useStyles = makeStyles(styles);
 
-import { getOrCreateReview } from "utils";
+import { getOrCreateReview, updateCurrentlyBeingViewedCourse} from "utils";
 
 const ReviewerCourseReviewPage1 = () => {
   const router = useRouter();
@@ -38,8 +39,9 @@ const ReviewerCourseReviewPage1 = () => {
   // Executes on Component Remount (after auth user is fetched)
   useEffect(() => {
     // Only Call when authUser is now defined
-    if (authUser && (!reviewState.data || review.course_id !== courseID)) {
+    if (authUser && (reviewState.queryResult.total<=0 || review.course_id !== courseID)) {
       getOrCreateReview(courseID, authUser._id);
+      updateCurrentlyBeingViewedCourse(courseID)
     }
   }, [authUser]);
 
@@ -53,12 +55,15 @@ const ReviewerCourseReviewPage1 = () => {
     }
   };
 
+  const pageNumber = 1
+
   return (
     <div>
       <ReviewProgress review={review}></ReviewProgress>
+      <ReviewerPageCardDescription pageNumber={pageNumber}></ReviewerPageCardDescription>
       <EOCDescriptionAccordions></EOCDescriptionAccordions>
       <ReviewerPageBottomNavigation
-        pageNumber={1}
+        pageNumber={pageNumber}
         course_id={courseID}
         handleSubmit={handleSubmit}
       ></ReviewerPageBottomNavigation>
