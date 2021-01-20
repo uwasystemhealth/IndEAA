@@ -7,33 +7,33 @@ const existingContext = require('./hooks/existing-context');
 
 
 module.exports = {
-  before: {
-    all: [log(), addServiceName()],
-    find: [],
-    get: [],
-    create: [modifiedBy()],
-    update: [existingContext(), modifiedBy()],
-    patch: [existingContext(), modifiedBy()],
-    remove: [existingContext()]
-  },
+    before: {
+        all: [log(), addServiceName()],
+        find: [],
+        get: [],
+        create: [modifiedBy()],
+        update: [existingContext(), modifiedBy()],
+        patch: [existingContext(), modifiedBy()],
+        remove: [existingContext()]
+    },
 
-  after: {
-    all: [log()],
-    find: [],
-    get: [],
-    create: [],
-    update: [],
-    patch: [],
-    remove: []
-  },
+    after: {
+        all: [log()],
+        find: [],
+        get: [],
+        create: [],
+        update: [],
+        patch: [],
+        remove: []
+    },
 
-  error: {
-    all: [log()],
-    find: [],
-    get: [],
-    create: [],
-    update: [],
-    patch: [],
-    remove: []
-  }
+    error: {
+        all: [log()],
+        find: [],
+        get: [],
+        create: [],
+        update: [],
+        patch: [],
+        remove: []
+    }
 };

@@ -26,7 +26,7 @@
   "scripts": {
     "test": "yarn run lint && yarn run jest",
     "lint": "eslint src/. test/. --config .eslintrc.json --fix",
-    "dev": "nodemon -L src/",
+    "dev": "nodemon --inspect=0.0.0.0 src/",
     "start": "node src/",
     "jest": "jest  --forceExit"
   },
@@ -49,6 +49,7 @@
     "compression": "^1.7.4",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
+    "feathers-hooks-common": "^5.0.4",
     "feathers-mongoose": "^8.3.1",
     "helmet": "^4.2.0",
     "lodash": "^4.17.20",
@@ -58,7 +59,7 @@
     "winston": "^3.0.0"
   },
   "devDependencies": {
-    "axios": "^0.21.0",
+    "axios": "^0.21.1",
     "eslint": "^7.13.0",
     "jest": "^26.6.3",
     "nodemon": "^2.0.6"

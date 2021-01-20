@@ -8,21 +8,37 @@ import { call, put, takeEvery, takeLatest, take } from 'redux-saga/effects'
 
 import { addNotificationMessageParams } from "actions/general"
 
-function* feathersSaga() {``
-    yield takeEvery(services.users.types.SERVICES_USERS_CREATE_FULFILLED, function* (action) {
+// Add notification
+const handleFulfilled = (serviceType, identifierField, method = "created") => {
+    function* handlerFunction(action) {
         const { payload } = action
         // Payload is the dispatch action items
         yield put(addNotificationMessageParams({
-            message: `User (${payload.email}) has been successfully created`
+            message: `${serviceType} (${payload[identifierField]}) has been successfully ${method}`
         }))
-    });
-    yield takeEvery(services.users.types.SERVICES_USERS_CREATE_REJECTED, function* (action) {
+    }
+    return handlerFunction
+}
+
+const handleRejected = () => {
+    function* handlerFunction(action) {
         const { payload } = action
         // Payload is the dispatch action items
         yield put(addNotificationMessageParams({
             message: payload.message
         }))
-    });
+    }
+    return handlerFunction
+}
+
+function* feathersSaga() {
+
+    // USERS services
+    yield takeEvery(services.users.types.SERVICES_USERS_CREATE_FULFILLED, handleFulfilled("User", "email", "created"));
+    yield takeEvery(services.users.types.SERVICES_USERS_CREATE_REJECTED, handleRejected());
+    yield takeEvery(services.users.types.SERVICES_USERS_PATCH_FULFILLED, handleFulfilled("User", "email", "updated"));
+    yield takeEvery(services.users.types.SERVICES_USERS_PATCH_REJECTED, handleRejected());
+
 }
 
 export default feathersSaga
