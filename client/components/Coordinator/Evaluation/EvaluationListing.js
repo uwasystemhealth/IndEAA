@@ -23,10 +23,15 @@ const EvaluationListing = ({
 }) => {
   const classes = useStyles();
 
-  const coordinatorNames = coordinators?.join(", ");
+  const coordinatorNames = coordinators.map(({ name }) => name)?.join(", ");
 
   return (
-    <Grid className={classes.root} direction="row" alignItems="center" justify="center">
+    <Grid
+      className={classes.root}
+      direction="row"
+      alignItems="center"
+      justify="center"
+    >
       <GridItem md={7}>
         <h3 className={classes.title}>{courseCode}</h3>
         <h4 className={classes.description}>{coordinatorNames}.</h4>

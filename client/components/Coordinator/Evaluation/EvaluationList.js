@@ -28,10 +28,10 @@ const useStyles = makeStyles(() => ({
   footer: {
     flexDirection: "row-reverse",
   },
-  list:{ 
+  list: {
     maxHeight: "60vh",
-     overflow: 'auto'
-    }
+    overflow: "auto",
+  },
 }));
 
 import { useEffect, useState } from "react";
@@ -51,14 +51,15 @@ const EvaluationList = () => {
   useEffect(() => {
     // 1. Find all CourseEvaluations where the createdBy key matches the logged in user
     services["course-evaluation"].find();
-    // TODO: Find all the coordinators assigned to these evaluations.
+    services["users"].find();
     setLoading(false);
   }, []);
 
   const courseEvaluations = useSelector((state) => state["course-evaluation"])
-    .queryResult.data;
+    ?.queryResult?.data;
+  const users = useSelector((state) => state["users"])?.queryResult?.data;
 
-  if (loading) {
+  if (loading || !users || !courseEvaluations) {
     return (
       <Card>
         <CardBody>Loading...</CardBody>
@@ -72,9 +73,20 @@ const EvaluationList = () => {
     evaluationListings = courseEvaluations.filter((val) => !val.isArchived);
   }
 
-  // 3. Render course list elements
+  console.log("evals:", evaluationListings);
+  // 3. Render course list elemnts
   evaluationListings = evaluationListings.map(
-    ({ _id, courseId, reviewDescription, coordinators }) => {
+    ({ _id, courseId, reviewDescription }) => {
+      // select out the coordinators with the permission for this evaluation
+
+      console.log("users", users);
+      console.log("_id", _id);
+      const coordinators = users.filter(({ perms }) =>
+        perms.some(
+          ({ course_id, role }) => course_id === _id && role === "Coordinator"
+        )
+      );
+
       return (
         <ListItem key={_id} divider>
           <EvaluationListing
@@ -94,7 +106,7 @@ const EvaluationList = () => {
         color="primary"
         style={{ width: isBiggerThanMd ? "50%" : "90%" }}
       >
-      <GridContainer alignItems="center" justify="center">
+        <GridContainer alignItems="center" justify="center">
           <GridItem md={9}>
             <h3 className={classes.cardTitle}>Manage Course Evaluations</h3>
           </GridItem>
