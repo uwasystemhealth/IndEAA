@@ -65,7 +65,7 @@ const AuthGuard = ({ children, isProtected }) => {
               _id: courseID,
             });
             const courseSpecificPermissions = user.perms.filter(
-              (permission) => currentCourse._id == permission.course_id
+              (permission) => courseID == permission.course_id
             );
             if (
               !getAvailablePermissionsOfUser(courseSpecificPermissions).has(
