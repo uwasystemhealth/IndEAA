@@ -10,25 +10,40 @@ import { useRouter } from "next/router";
 // Store actions and Redux
 import { services } from "store/feathersClient";
 
-const setArchived = (evaluation_id, router) => {
+const makeArchived = (evaluation_id, router) =>
+  setArchived(evaluation_id, router, true);
+const makeUnarchived = (evaluation_id, router) =>
+  setArchived(evaluation_id, router, false);
+const setArchived = (evaluation_id, router, value) => {
   services["course-evaluation"].patch(evaluation_id, {
-    isArchived: true,
+    isArchived: value,
   });
   router.push("/coordinator");
 };
 
-const Controls = ({ evaluationID }) => {
+const Controls = ({ evaluationID, archived }) => {
   const router = useRouter();
+  console.log(archived);
 
   return (
     <Card>
       <CardBody>
-        <Button
-          color="warning"
-          onClick={() => setArchived(evaluationID, router)}
-        >
-          Archive
-        </Button>
+        {!archived ? (
+          <Button
+            color="warning"
+            onClick={() => makeArchived(evaluationID, router)}
+          >
+            Archive
+          </Button>
+        ) : (
+          <Button
+            color="warning"
+            onClick={() => makeUnarchived(evaluationID, router)}
+          >
+            Unarchive
+          </Button>
+        )}
+
         <Button color="warning">Force Completion</Button>
         <ManageReviewers evaluationID={evaluationID} />
       </CardBody>

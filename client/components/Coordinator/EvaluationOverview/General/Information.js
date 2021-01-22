@@ -29,7 +29,6 @@ const Information = ({ evaluationID }) => {
 
   const courseEval = useSelector((state) => state["course-evaluation"]);
   const evalData = courseEval?.data;
-
   const date = new Date(evalData?.dueDate);
   const dateString = date.toLocaleDateString("en-gb", {
     year: "numeric",

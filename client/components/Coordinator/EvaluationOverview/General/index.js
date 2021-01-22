@@ -10,10 +10,11 @@ import Controls from "./Controls";
 
 import { useRouter } from "next/router";
 
-const General = () => {
+const General = ({ evaluationData }) => {
   const router = useRouter();
-  if (router.query.hasOwnProperty("courseID")) {
+  if (evaluationData?._id) {
     const { courseID } = router.query;
+
     return (
       <GridContainer>
         <GridItem xs={6}>
@@ -21,7 +22,10 @@ const General = () => {
         </GridItem>
         <GridItem xs={6}>
           <OtherInformation evaluationID={courseID} />
-          <Controls evaluationID={courseID} />
+          <Controls
+            evaluationID={courseID}
+            archived={evaluationData?.isArchived}
+          />
         </GridItem>
       </GridContainer>
     );
