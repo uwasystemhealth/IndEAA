@@ -57,6 +57,22 @@ const CreateEvaluationModal = ({ closeModal, isOpen }) => {
   const [description, setDescription] = useState("");
   const [dueDate, setDueDate] = useState("");
 
+  const createEvaluation = async (code, description, dueDate) => {
+    // TODO: add dueDate to db schema
+    try {
+      const response = await services["course-evaluation"].create({
+        courseId: code,
+        reviewDescription: description,
+      });
+      closeModal();
+    } catch (error) {
+      console.error(error);
+      // Handled by Redux Saga
+    }
+  };
+
+  const handleSubmit = () => createEvaluation(code, description, dueDate);
+
   return (
     <Dialog
       classes={{
@@ -134,6 +150,19 @@ const CreateEvaluationModal = ({ closeModal, isOpen }) => {
           />
         </FormControl>
       </DialogContent>
+      <DialogActions
+        className={classes.modalFooter + " " + classes.modalFooterCenter}
+      >
+        <Button onClick={() => closeModal()}>Never Mind</Button>
+        <Button
+          onClick={() => {
+            handleSubmit();
+          }}
+          color="success"
+        >
+          Create evaluation
+        </Button>
+      </DialogActions>
     </Dialog>
   );
 };
