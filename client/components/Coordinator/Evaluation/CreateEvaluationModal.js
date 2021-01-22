@@ -47,7 +47,28 @@ const CreateEvaluationModal = ({ closeModal, isOpen }) => {
       onClose={() => closeModal()}
       aria-labelledby="modal-slide-title"
       aria-describedby="modal-slide-description"
-    ></Dialog>
+    >
+      <DialogTitle
+        id="classic-modal-slide-title"
+        disableTypography
+        className={classes.modalHeader}
+      >
+        <IconButton
+          className={classes.modalCloseButton}
+          key="close"
+          aria-label="Close"
+          color="inherit"
+          onClick={() => closeModal()}
+        >
+          <Close className={classes.modalClose} />
+        </IconButton>
+        <h4 className={classes.modalTitle}>Creating a new evaluation</h4>
+      </DialogTitle>
+      <DialogContent
+        id="modal-slide-description"
+        className={classes.modalBody}
+      ></DialogContent>
+    </Dialog>
   );
 };
 
