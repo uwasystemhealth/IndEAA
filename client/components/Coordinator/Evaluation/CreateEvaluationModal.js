@@ -28,8 +28,27 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
 
-const CreateEvaluationModal = () => {
-  return <p></p>;
+const CreateEvaluationModal = ({ closeModal, isOpen }) => {
+  const classes = useStyles();
+
+  return (
+    <Dialog
+      classes={{
+        root: classes.center,
+        paper: classes.modal,
+      }}
+      open={isOpen}
+      TransitionComponent={Transition}
+      keepMounted
+      disableBackdropClick
+      fullWidth
+      maxWidth="md"
+      scroll="body"
+      onClose={() => closeModal()}
+      aria-labelledby="modal-slide-title"
+      aria-describedby="modal-slide-description"
+    ></Dialog>
+  );
 };
 
 export default CreateEvaluationModal;

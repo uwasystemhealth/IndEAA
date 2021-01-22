@@ -15,6 +15,7 @@ import { spacing } from "@material-ui/system";
 
 // CUSTOM COMPONENTS
 import EvaluationListing from "./EvaluationListing.js";
+import CreateEvaluationModal from "./CreateEvaluationModal.js";
 
 //Styles
 import { useTheme } from "@material-ui/core/styles";
@@ -47,6 +48,10 @@ const EvaluationList = () => {
 
   const [loading, setLoading] = useState(true);
   const [showArchived, setShowArchived] = useState(false);
+  const [isNewEvaluationModalOpen, setNewEvaluationModalOpen] = useState(false);
+
+  const closeNewEvaluationModal = () => setNewEvaluationModalOpen(false);
+  const openNewEvaluationModal = () => setNewEvaluationModalOpen(true);
 
   useEffect(() => {
     // 1. Find all CourseEvaluations where the createdBy key matches the logged in user
@@ -127,7 +132,13 @@ const EvaluationList = () => {
         <List className={classes.list}>{evaluationListings}</List>
       </CardBody>
       <CardFooter className={classes.footer}>
-        <Button color="secondary">Create New Evaluation</Button>
+        <Button color="secondary" onClick={openNewEvaluationModal}>
+          Create New Evaluation
+        </Button>
+        <CreateEvaluationModal
+          isOpen={isNewEvaluationModalOpen}
+          closeModal={closeNewEvaluationModal}
+        />
       </CardFooter>
     </Card>
   );
