@@ -49,6 +49,7 @@ const ManageReviewers = ({ evaluationID }) => {
   const userData = users?.queryResult?.data;
 
   // selects out all reviewers with correct permission
+  console.log(userData);
   const reviewers = userData.filter((user) =>
     user.perms.reduce(
       (acc, permission) =>
@@ -58,9 +59,35 @@ const ManageReviewers = ({ evaluationID }) => {
     )
   );
 
+  const removePermission = async (userId, permissionId) => {
+    const oldPermissions = reviewers.find((user) => user._id == userId).perms;
+    const newPerms = oldPerms.filter(
+      (permission) =>
+        !(permission.course_id == permissionId && permission.role == "Reviewer")
+    );
+    const response = await services["users"].update(reviewerId, {
+      perms: newPerms,
+    });
+  };
+
+  const deleteReviewer = async (reviewerId) => {
+    console.log("a");
+    try {
+      console.log(response);
+      setModal(false);
+    } catch (error) {
+      console.error(error);
+      // Handled by Redux Saga
+    }
+  };
+
   const courseTitle = evalData?.courseId;
   const reviewerCards = reviewers?.map((reviewer) => (
-    <ReviewerListing key={reviewer._id} {...reviewer} />
+    <ReviewerListing
+      key={reviewer._id}
+      {...reviewer}
+      removeReviewer={() => deleteReviewer(reviewer._id)}
+    />
   ));
 
   return (

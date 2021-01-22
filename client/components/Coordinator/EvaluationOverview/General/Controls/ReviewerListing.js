@@ -24,7 +24,13 @@ const useStyles = makeStyles({
   },
 });
 
-const ReviewerListing = ({ email, name, inviter, googleId }) => {
+const ReviewerListing = ({
+  email,
+  name,
+  inviter,
+  googleId,
+  removeReviewer,
+}) => {
   const classes = useStyles();
 
   return (
@@ -45,7 +51,7 @@ const ReviewerListing = ({ email, name, inviter, googleId }) => {
             </h5>
           </GridItem>
           <GridItem xs={4} className={classes.center}>
-            <Button color="danger">
+            <Button onClick={removeReviewer} color="danger">
               <DeleteIcon />
               Delete
             </Button>
