@@ -13,6 +13,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 
 // CUSTOM COMPONENTS
 import EditModal from "./EditModal.js";
+import AreYouSureButton from "components/Other/AreYouSureButton";
 
 // STYLES
 import { makeStyles } from "@material-ui/core/styles";
@@ -22,20 +23,34 @@ import {
   cardSubtitle,
 } from "assets/jss/nextjs-material-kit.js";
 
+// Store Actions and Redux
+import { useDispatch, useSelector } from "react-redux";
+import { services } from "store/feathersClient";
+
 const styles = { cardTitle, cardLink, cardSubtitle };
 const useStyles = makeStyles(styles);
 
-const DocumentCard = ({ documentID, title, createdDate, uri, eocs }) => {
+const DocumentCard = ({ document, course_id, setCurrentSelectedDocument }) => {
+  const { _id, name, description, link, tags } = document;
   const classes = useStyles();
 
-  const dateString = createdDate.toLocaleDateString("en-gb", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
+  //   const dateString = createdDate?.toLocaleDateString("en-gb", {
+  //     year: "numeric",
+  //     month: "short",
+  //     day: "numeric",
+  //   });
 
-  const badges = eocs.map((eoc) => (
-    <Badge key={eoc} color="info">
+  // This is a reviewer view if there is no need for modal interaction
+  const isReviewer = typeof setCurrentSelectedDocument === "undefined";
+
+  const handleDelete = () => {
+    services["course-evaluation"].patch(course_id, {
+      $pull: { documents: { _id: document._id } },
+    });
+  };
+
+  const badges = tags.map((eoc) => (
+    <Badge key={eoc} color={eoc.includes(".") ? "info" : "primary"}>
       EOC: {eoc}
     </Badge>
   ));
@@ -45,28 +60,40 @@ const DocumentCard = ({ documentID, title, createdDate, uri, eocs }) => {
       <CardBody>
         <GridContainer>
           <GridItem xs={8}>
-            <h4 className={classes.cardTitle}>{title}</h4>
-            <h5 className={classes.cardSubtitle}>Added on {dateString}</h5>
+            <h4 className={classes.cardTitle}>{name}</h4>
+            <p>{description}</p>
             <p>
               URI:{" "}
-              <a href={uri} className={cardLink}>
-                {uri}
+              <a href={link} className={cardLink}>
+                {link}
               </a>
             </p>
           </GridItem>
           <GridItem xs={3}>
             <GridContainer direction="column">
-              <Button color="white">
+              <Button color="white" onClick={() => window.open(link)}>
                 <PageviewIcon />
                 View
               </Button>
 
-              <EditModal />
-
-              <Button color="white">
-                <DeleteIcon />
-                Delete
-              </Button>
+              {!isReviewer && (
+                <>
+                  <Button
+                    color="white"
+                    onClick={() => setCurrentSelectedDocument(document)}
+                  >
+                    <EditIcon />
+                    Edit
+                  </Button>
+                  <AreYouSureButton
+                    buttonProps={{ color: "white" }}
+                    action={handleDelete}
+                  >
+                    <DeleteIcon />
+                    Delete
+                  </AreYouSureButton>
+                </>
+              )}
             </GridContainer>
           </GridItem>
         </GridContainer>

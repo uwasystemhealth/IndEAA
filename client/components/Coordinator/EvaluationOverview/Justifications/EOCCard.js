@@ -8,9 +8,9 @@ import Success from "components/MaterialKit/Typography/Success.js";
 import Danger from "components/MaterialKit/Typography/Danger.js";
 import GridContainer from "components/MaterialKit/Grid/GridContainer.js";
 import GridItem from "components/MaterialKit/Grid/GridItem.js";
+import Button from "components/MaterialKit/CustomButtons/Button.js";
+import FindInPageIcon from "@material-ui/icons/FindInPage";
 
-// CUSTOM COMPONENTS
-import ManageEOC from "./ManageEOC.js";
 
 // STYLES
 import { makeStyles } from "@material-ui/core/styles";
@@ -20,13 +20,25 @@ const styles = {
 };
 const useStyles = makeStyles(styles);
 
+import { services } from "store/feathersClient";
+import React, { useState, useEffect } from "react";
+
+import { developmentLevelToString } from "utils.js";
+
 const EOCCard = (props) => {
-  const { title, description, rating, justification, eocID } = props;
+  const {
+    eocGeneralAndSpecific,
+    description,
+    rating,
+    justification,
+    comment,
+    handleView,
+  } = props;
   const classes = useStyles();
 
   const ratingMsg =
-    rating != null ? (
-      <Success>Your Rating: {rating}</Success>
+    rating != 0 ? (
+      <Success>Your Rating: {developmentLevelToString[rating]}</Success>
     ) : (
       <Danger>Your Rating: None</Danger>
     );
@@ -38,16 +50,26 @@ const EOCCard = (props) => {
       <Danger>Your Justification: None</Danger>
     );
 
+  const commentMsg =
+    comment != null ? (
+      <Success>Your Comment: {comment}</Success>
+    ) : (
+      <Danger>Your Comment: None</Danger>
+    );
+
   return (
     <Card>
       <CardBody>
-        <h4 className={classes.cardTitle}>{title}</h4>
+        <h4 className={classes.cardTitle}>{`EOC ${eocGeneralAndSpecific}`}</h4>
         <GridContainer>
           <GridItem xs={8}>
             <Muted>{description}</Muted>
           </GridItem>
           <GridItem xs={4}>
-            <ManageEOC {...props} />
+            <Button color="white" onClick={() => handleView()}>
+              <FindInPageIcon />
+              View
+            </Button>
           </GridItem>
         </GridContainer>
       </CardBody>
@@ -55,6 +77,7 @@ const EOCCard = (props) => {
         <GridContainer direction="column" alignItems="flex-start">
           <GridItem>{ratingMsg}</GridItem>
           <GridItem>{justMsg}</GridItem>
+          <GridItem>{commentMsg}</GridItem>
         </GridContainer>
       </CardFooter>
     </Card>

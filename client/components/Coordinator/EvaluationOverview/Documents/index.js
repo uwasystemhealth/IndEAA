@@ -1,69 +1,70 @@
+import EditIcon from "@material-ui/icons/Edit";
 // CORE COMPONENTS
 import GridContainer from "components/MaterialKit/Grid/GridContainer.js";
 import GridItem from "components/MaterialKit/Grid/GridItem.js";
+import Button from "components/MaterialKit/CustomButtons/Button.js";
 
 // CUSTOM COMPONENTS
 import DocumentCard from "components/Coordinator/EvaluationOverview/Documents/DocumentCard.js";
 import EditModal from "./EditModal.js";
 
+// Store Actions and Redux
+import { useDispatch, useSelector } from "react-redux";
+import { services } from "store/feathersClient";
+
 import { useState, useEffect } from "react";
 
-const Documents = () => {
+const Documents = ({ evaluationID }) => {
   const [documents, setDocuments] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isNewDocumentModalOpen, setIsNewDocumentModalOpen] = useState(false);
+  const [currentSelectedDocument, setCurrentSelectedDocument] = useState(null);
 
   useEffect(() => {
-    // Load documents from database
-    const docs = [
-      {
-        _id: "asdfasd",
-        name: "Design Project Outline",
-        added: new Date("2019-12-19"),
-        uri:
-          "https://docs.google.com/document/d/1rdLcaVBP_z-vE_5-gbaOevRbd6e_vkRjTQpuXyRF_FU/",
-        eocs: [1, 2, 3],
-      },
-      {
-        _id: "asdfasd2",
-        name: "RTIO Project - J Slack Something blah blah",
-        added: new Date("2019-12-19"),
-        uri:
-          "https://docs.google.com/document/d/1rdLcaVBP_z-vE_5-gbaOevRbd6e_vkRjTQpuXyRF_FU/",
-        eocs: [1.1],
-      },
-      {
-        _id: "asdfasd3",
-        name: "Design Project Outline",
-        added: new Date("2019-12-19"),
-        uri:
-          "https://docs.google.com/document/d/1rdLcaVBP_z-vE_5-gbaOevRbd6e_vkRjTQpuXyRF_FU/",
-        eocs: [1, 2, 3],
-      },
-    ];
-    setDocuments(docs);
-    setLoading(false);
+    services["course-evaluation"].get({
+      _id: evaluationID,
+    });
   }, []);
 
-  if (loading) {
-    return <div>Loading....</div>;
-  }
+  const courseEval = useSelector((state) => state["course-evaluation"]);
+  const evalData = courseEval?.data;
 
-  const documentComps = documents.map((doc) => (
-    <GridItem key={doc._id} xs={4}>
-      <DocumentCard
-        documentID={doc._id}
-        title={doc.name}
-        createdDate={doc.added}
-        uri={doc.uri}
-        eocs={doc.eocs}
-      />
-    </GridItem>
-  ));
+  const deselectCurrentSelectedDocument = () =>
+    setCurrentSelectedDocument(null);
+  const closeNewDocumentModal = () => setIsNewDocumentModalOpen(false);
+const openNewDocumentModal = () => setIsNewDocumentModalOpen(true);
+
+  const documentComponents = evalData?.documents.map((doc) => {
+    return (
+      <GridItem key={doc._id} xs={4}>
+        <DocumentCard
+          // handleDelete={handleDelete}
+          course_id={evaluationID}
+          document={doc}
+          setCurrentSelectedDocument={setCurrentSelectedDocument}
+        />
+      </GridItem>
+    );
+  });
 
   return (
     <>
-      <GridContainer>{documentComps}</GridContainer>;
-      <EditModal createModal />
+      <EditModal
+        course_id={evaluationID}
+        isOpen={isNewDocumentModalOpen}
+        setClose={closeNewDocumentModal}
+      />
+      <EditModal
+        course_id={evaluationID}
+        document={currentSelectedDocument}
+        isOpen={Boolean(currentSelectedDocument)}
+        setClose={deselectCurrentSelectedDocument}
+      />
+      <GridContainer>{documentComponents}</GridContainer>;
+      <Button color="primary" onClick={() => openNewDocumentModal()}>
+        <EditIcon />
+        Add New Document
+      </Button>
     </>
   );
 };

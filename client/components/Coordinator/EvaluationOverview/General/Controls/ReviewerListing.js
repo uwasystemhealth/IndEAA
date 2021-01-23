@@ -6,6 +6,10 @@ import CardBody from "components/MaterialKit/Card/CardBody.js";
 import Button from "components/MaterialKit/CustomButtons/Button.js";
 import DeleteIcon from "@material-ui/icons/Delete";
 
+// Store Actions and Redux
+import { useDispatch, useSelector } from "react-redux";
+import { services } from "store/feathersClient";
+
 // STYLES
 import modalStyle from "assets/jss/nextjs-material-kit/modalStyle.js";
 import { cardTitle, cardSubtitle } from "assets/jss/nextjs-material-kit.js";
@@ -20,7 +24,13 @@ const useStyles = makeStyles({
   },
 });
 
-const ReviewerListing = ({ email, name, inviter, status }) => {
+const ReviewerListing = ({
+  email,
+  name,
+  inviter,
+  googleId,
+  removeReviewer,
+}) => {
   const classes = useStyles();
 
   return (
@@ -37,11 +47,11 @@ const ReviewerListing = ({ email, name, inviter, status }) => {
                   Inviter: <b>{inviter}</b>
                   </h5> */}
             <h5>
-              Status: <b>{status}</b>
+              Status: <b>{googleId ? "Has logged in" : "Not logged in yet"}</b>
             </h5>
           </GridItem>
           <GridItem xs={4} className={classes.center}>
-            <Button color="danger">
+            <Button onClick={removeReviewer} color="danger">
               <DeleteIcon />
               Delete
             </Button>

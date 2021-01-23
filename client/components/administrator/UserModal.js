@@ -6,8 +6,6 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import IconButton from "@material-ui/core/IconButton";
-import Checkbox from "@material-ui/core/Checkbox";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
@@ -15,7 +13,6 @@ import Divider from '@material-ui/core/Divider';
 // @material-ui/icons
 import Close from "@material-ui/icons/Close";
 import Placeholder from "@material-ui/icons/Mood";
-import Check from "@material-ui/icons/Check";
 
 // core components
 import Card from "components/MaterialKit/Card/Card.js";
@@ -39,8 +36,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import checkboxStyles from "assets/jss/nextjs-material-kit/customCheckboxRadioSwitch.js";
 import modalStyle from "assets/jss/nextjs-material-kit/modalStyle.js";
 import typographyStyles from "assets/jss/nextjs-material-kit/pages/componentsSections/typographyStyle.js";
+import DesignedCheckBox  from 'components/administrator/DesignedCheckBox';
 
-const useStyles = makeStyles({ ...modalStyle, ...typographyStyles, ...checkboxStyles });
+export const useStyles = makeStyles({ ...modalStyle, ...typographyStyles, ...checkboxStyles });
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="down" ref={ref} {...props} />;
@@ -238,24 +236,6 @@ const BasicInformationField = ({ user, authUser, classes, isAdministrator, isCoo
             <DesignedCheckBox onClick={toggleRole("Coordinator")} isChecked={isCoordinator}
                 label={"Coordinator (can create more course reviews)"}></DesignedCheckBox>
         </>
-    );
-}
-const DesignedCheckBox = ({ onClick, isChecked, label, disabled = false }) => {
-    const classes = useStyles()
-    return (
-        <FormControlLabel
-            control={
-                <Checkbox
-                    tabIndex={-1}
-                    onClick={onClick}
-                    checked={isChecked}
-                    disabled={disabled}
-                    checkedIcon={<Check className={classes.checkedIcon} />}
-                    icon={<Check className={classes.uncheckedIcon} />}
-                    classes={{ checked: classes.checked, root: classes.checkRoot }
-                    } />}
-            classes={{ label: classes.label, disabled: !disabled || classes.disabledCheckboxAndRadio }}
-            label={label} />
     );
 }
 

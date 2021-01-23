@@ -8,15 +8,27 @@ import GridItem from "components/MaterialKit/Grid/GridItem.js";
 import CustomInput from "components/MaterialKit/CustomInput/CustomInput.js";
 import TextField from "@material-ui/core/TextField";
 import EditIcon from "@material-ui/icons/Edit";
-import SubjectIcon from "@material-ui/icons/Subject";
+import Placeholder from "@material-ui/icons/Subject";
 import Card from "components/MaterialKit/Card/Card.js";
 import CardBody from "components/MaterialKit/Card/CardBody.js";
 import CardHeader from "components/MaterialKit/Card/CardHeader.js";
 import IconButton from "@material-ui/core/IconButton";
 import Close from "@material-ui/icons/Close";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Check from "@material-ui/icons/Check";
+
+// FORM Material UI
+import InputAdornment from "@material-ui/core/InputAdornment";
+
+// Redux
+import { useDispatch, useSelector } from "react-redux";
+import { services } from "store/feathersClient";
 
 // CUSTOM COMPONENTS
 import ApplyTo from "./../Justifications/ApplyTo.js";
+import DesignedCheckBox from "components/administrator/DesignedCheckBox";
 
 // STYLES
 import modalStyle from "assets/jss/nextjs-material-kit/modalStyle.js";
@@ -25,43 +37,133 @@ const useStyles = makeStyles({
   ...modalStyle,
 });
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const EditModal = ({ createModal }) => {
+import { getEOCInfo } from "utils";
+
+const CustomFormField = ({
+  label,
+  fieldName,
+  handleChange,
+  icon,
+  required = false,
+  value = "",
+  error = "",
+  inputProps,
+  formControlProps,
+}) => (
+  <CustomInput
+    success={!error && !!value}
+    error={!!error}
+    required={required}
+    labelText={label}
+    key={fieldName}
+    id={fieldName}
+    helperText={error}
+    formControlProps={{
+      fullWidth: true,
+      ...formControlProps,
+    }}
+    inputProps={{
+      endAdornment: <InputAdornment position="end">{icon}</InputAdornment>,
+      onChange: handleChange,
+      value,
+      ...inputProps,
+    }}
+  />
+);
+
+const ApplyTags = ({ eocs, tags, handleCheck }) => {
   const classes = useStyles();
-  const [modal, setModal] = useState(false);
 
-  const handleSave = () => {
-    setModal(false);
-    // commit the saved data to database
+  return (
+    <Card>
+      <CardHeader color="success">Tags</CardHeader>
+      <CardBody>
+        <List>
+          {eocs.map((numberLabel) => (
+            <DesignedCheckBox
+              onClick={() => handleCheck(numberLabel)}
+              isChecked={tags.includes(numberLabel)}
+              label={`EOC ${numberLabel}`}
+            ></DesignedCheckBox>
+          ))}
+        </List>
+      </CardBody>
+    </Card>
+  );
+};
+
+const EditModal = ({ document, course_id, isOpen, setClose }) => {
+  const isCreateModal = typeof document === "undefined";
+  const classes = useStyles();
+  console.log(document);
+  const initialStateModal = {
+    name: document?.name || "",
+    description: document?.description || "",
+    link: document?.link || "",
+    tags: document?.tags || [],
   };
 
-  const eocs = [
-    {
-      _id: "a",
-      EOCNum: "1.2",
-      desc: "aaha",
-    },
-    {
-      _id: "b",
-      EOCNum: "1.3",
-      desc: "badga",
-    },
-  ];
+  const [state, setModalState] = useState(initialStateModal);
+
+    // Rerenders on everytime the document changes
+    useEffect(() => {
+        setModalState(initialStateModal)
+    }, [document])
+
+  const handleChange = (event) => {
+    const { id, value } = event.target;
+    const newState = { ...state, [id]: value };
+    setModalState(newState);
+  };
+
+  const handleSave = (event) => {
+    setClose();
+    // commit the saved data to database
+
+    if (isCreateModal) {
+      services["course-evaluation"].patch(course_id, {
+        $push: { documents: state },
+      });
+    } else {
+      services["course-evaluation"].patch(
+        course_id,
+        {
+          "documents.$": state,
+        },
+        { query: { "documents._id": document._id } }
+      );
+    }
+  };
+
+  const handleCheck = (tag) => {
+    const tagIndex = state.tags.findIndex((tagInState) => tagInState === tag);
+    const tags = state.tags;
+    if (tagIndex == -1) {
+      // Tag not in the state
+      tags.push(tag);
+    } else {
+      tags.splice(tagIndex, 1); // Pops specific index
+    }
+    const newState = { ...state, tags };
+    setModalState(newState);
+  };
+
+  const eocs = getEOCInfo(course_id);
+  const generalAndSpecificNumbers = eocs.reduce((accumulator, current) => {
+    const currentSetEocNumbers = current.EOCS.map(
+      (eoc) => `${current.setNum}.${eoc.EOCNum}`
+    );
+    return [...accumulator, String(current.setNum), ...currentSetEocNumbers];
+  }, []);
 
   return (
     <>
-      <Button
-        color={createModal ? "primary" : "white"}
-        onClick={() => setModal(true)}
-      >
-        <EditIcon />
-        {createModal ? "Add New Document" : "Edit"}
-      </Button>
       <Dialog
-        open={modal}
+        open={isOpen}
         keepMounted
-        onClose={() => setModal(false)}
+        onClose={() => setClose()}
         maxWidth="lg"
         fullWidth
       >
@@ -71,11 +173,11 @@ const EditModal = ({ createModal }) => {
             key="close"
             aria-label="Close"
             color="inherit"
-            onClick={() => setModal(false)}
+            onClick={() => setClose()}
           >
             <Close className={classes.modalClose} />
           </IconButton>
-          <h3>{createModal ? "Add New" : "Edit Existing"}</h3>
+          <h3>{isCreateModal ? "Add New" : "Edit Existing"}</h3>
         </DialogTitle>
         <DialogContent>
           <GridContainer>
@@ -85,31 +187,36 @@ const EditModal = ({ createModal }) => {
                 <CardBody>
                   <GridContainer justify="center">
                     <GridItem xs={12}>
-                      <CustomInput
-                        labelText="Name"
-                        formControlProps={{
-                          fullWidth: true,
-                        }}
-                      />
+                      <CustomFormField
+                        required
+                        label="Document Name"
+                        fieldName="name"
+                        handleChange={handleChange}
+                        value={state["name"]}
+                        icon={<Placeholder></Placeholder>}
+                      ></CustomFormField>
                     </GridItem>
                     <GridItem xs={12}>
-                      <CustomInput
-                        labelText="Description"
+                      <CustomFormField
+                        required
+                        label="Description"
+                        fieldName="description"
+                        handleChange={handleChange}
+                        value={state["description"]}
                         inputProps={{
                           multiline: true,
                           rows: 4,
                         }}
-                        formControlProps={{
-                          fullWidth: true,
-                        }}
                       />
                     </GridItem>
                     <GridItem xs={12}>
-                      <CustomInput
-                        labelText="Link"
-                        formControlProps={{
-                          fullWidth: true,
-                        }}
+                      <CustomFormField
+                        required
+                        label="Document Link"
+                        fieldName="link"
+                        handleChange={handleChange}
+                        value={state["link"]}
+                        icon={<Placeholder></Placeholder>}
                       />
                     </GridItem>
                   </GridContainer>
@@ -117,14 +224,18 @@ const EditModal = ({ createModal }) => {
               </Card>
             </GridItem>
             <GridItem xs={7}>
-              <ApplyTo eocs={eocs} />
+              <ApplyTags
+                eocs={generalAndSpecificNumbers}
+                tags={state.tags}
+                handleCheck={handleCheck}
+              />
             </GridItem>
           </GridContainer>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setModal(false)}>Cancel</Button>
+          <Button onClick={() => setClose()}>Cancel</Button>
           <Button color="primary" onClick={() => handleSave()}>
-            {createModal ? "Create" : "Save"}
+            {isCreateModal ? "Create" : "Save"}
           </Button>
         </DialogActions>
       </Dialog>

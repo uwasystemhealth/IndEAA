@@ -22,14 +22,72 @@ const useStyles = makeStyles({
   ...modalStyle,
 });
 
-import React, { useState } from "react";
+// Store Actions and Redux
+import { useDispatch, useSelector } from "react-redux";
+import { services } from "store/feathersClient";
 
-const ManageReviewers = ({ courseTitle, reviewers }) => {
+import { useState, useEffect } from "react";
+
+const ManageReviewers = ({ evaluationID }) => {
   const classes = useStyles();
   const [modal, setModal] = useState(false);
 
-  const reviewerCards = reviewers.map((reviewer) => (
-    <ReviewerListing key={reviewer.name} {...reviewer} />
+  useEffect(() => {
+    services["course-evaluation"].get({
+      _id: evaluationID,
+    });
+    services["users"].find({
+      perms: {
+        $in: [{ course_id: evaluationID, role: "Reviewer" }],
+      },
+    });
+  }, []);
+
+  const courseEval = useSelector((state) => state["course-evaluation"]);
+  const evalData = courseEval?.data;
+  const users = useSelector((state) => state["users"]);
+  const userData = users?.queryResult?.data;
+
+  // selects out all reviewers with correct permission
+  console.log(userData);
+  const reviewers = userData.filter((user) =>
+    user.perms.reduce(
+      (acc, permission) =>
+        acc ||
+        (permission.course_id == evaluationID && permission.role == "Reviewer"),
+      false
+    )
+  );
+
+  const removePermission = async (userId, permissionId) => {
+    const oldPermissions = reviewers.find((user) => user._id == userId).perms;
+    const newPerms = oldPerms.filter(
+      (permission) =>
+        !(permission.course_id == permissionId && permission.role == "Reviewer")
+    );
+    const response = await services["users"].update(reviewerId, {
+      perms: newPerms,
+    });
+  };
+
+  const deleteReviewer = async (reviewerId) => {
+    console.log("a");
+    try {
+      console.log(response);
+      setModal(false);
+    } catch (error) {
+      console.error(error);
+      // Handled by Redux Saga
+    }
+  };
+
+  const courseTitle = evalData?.courseId;
+  const reviewerCards = reviewers?.map((reviewer) => (
+    <ReviewerListing
+      key={reviewer._id}
+      {...reviewer}
+      removeReviewer={() => deleteReviewer(reviewer._id)}
+    />
   ));
 
   return (

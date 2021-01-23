@@ -1,6 +1,8 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
 const filterBasedPermission = require('../../hooks/filter-based-permission');
 
+const addPermissionToUser = require('../../hooks/add-permission-to-user');
+
 module.exports = {
     before: {
         all: [ authenticate('jwt') ],
@@ -16,7 +18,7 @@ module.exports = {
         all: [],
         find: [],
         get: [],
-        create: [],
+        create: [addPermissionToUser()],
         update: [],
         patch: [],
         remove: []

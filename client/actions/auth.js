@@ -1,9 +1,12 @@
 import { feathersClient } from "store/feathersClient"
 
 // Returns a function that has access to dispatch and getState
-export const signIn = () => async (dispatch, getState) => {
+export const signIn = (isUserUpdate) => async (dispatch, getState) => {
     try {
-        const loginDetails = await feathersClient.reAuthenticate()
+        // Force Update on User update
+        const forceUpdate = isUserUpdate || false
+        const loginDetails = await feathersClient.reAuthenticate(forceUpdate)
+        console.log(loginDetails)
         return dispatch({
             type: "SIGNIN_SUCCESS",
             ...loginDetails

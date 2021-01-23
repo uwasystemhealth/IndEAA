@@ -5,6 +5,10 @@ import CardHeader from "components/MaterialKit/Card/CardHeader.js";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Check from "@material-ui/icons/Check";
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import DesignedCheckBox  from 'components/administrator/DesignedCheckBox';
+
 
 // STYLES
 import { makeStyles } from "@material-ui/core/styles";
@@ -14,33 +18,26 @@ const styles = {
 };
 const useStyles = makeStyles(styles);
 
-const ApplyTo = ({ eocs }) => {
+const ApplyTo = ({ eocs ,eocInSame,handleCheck}) => {
     const classes = useStyles();
 
-    const checkboxes = eocs.map((eoc) => {
-        return (
-            <FormControlLabel
-                control={
-                    <Checkbox
-                        key={eoc._id}
-                        checkedIcon={<Check className={classes.checkedIcon} />}
-                        icon={<Check className={classes.uncheckedIcon} />}
-                        classes={{ checked: classes.checked }}
-                    />
-                }
-                classes={{ label: classes.label }}
-                label={`EOC ${eoc.EOCNum}`}
-            />
-        );
-    });
-
-    /* eocs should be loaded from redux store */
     return (
         <Card>
-            <CardHeader color="success">Appy to</CardHeader>
-            <CardBody>{checkboxes}</CardBody>
+          <CardHeader color="success">Tags</CardHeader>
+          <CardBody>
+            <List>
+              {eocs.map((numberLabel) => (
+                  <DesignedCheckBox
+                    key={numberLabel}
+                    onClick={() =>handleCheck(numberLabel)}
+                    isChecked={ eocInSame.includes(numberLabel)}
+                    label={`EOC ${numberLabel}`}
+                  ></DesignedCheckBox>
+              ))}
+            </List>
+          </CardBody>
         </Card>
-    );
+      );
 };
 
 export default ApplyTo;
