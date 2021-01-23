@@ -63,6 +63,7 @@ const CreateEvaluationModal = ({ closeModal, isOpen }) => {
       const response = await services["course-evaluation"].create({
         courseId: code,
         reviewDescription: description,
+        dueDate,
       });
       closeModal();
     } catch (error) {
