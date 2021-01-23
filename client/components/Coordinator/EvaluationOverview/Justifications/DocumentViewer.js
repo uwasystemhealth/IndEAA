@@ -9,69 +9,54 @@ import Chat from "@material-ui/icons/Chat";
 // CUSTOM COMPONENTS
 import DocumentCard from "./../Documents/DocumentCard.js";
 
-const DocumentViewer = ({ documents }) => {
-    const generalDocs = [
-        {
-            documentID: "asdfasd",
-            title: "Design Project Outline",
-            createdDate: new Date("2019-12-19"),
-            uri:
-                "https://docs.google.com/document/d/1rdLcaVBP_z-vE_5-gbaOevRbd6e_vkRjTQpuXyRF_FU/",
-            eocs: [1, 2, 3],
-        },
-        {
-            documentID: "asdfasd2",
-            title: "RTIO Project - J Slack Something blah blah",
-            createdDate: new Date("2019-12-19"),
-            uri:
-                "https://docs.google.com/document/d/1rdLcaVBP_z-vE_5-gbaOevRbd6e_vkRjTQpuXyRF_FU/",
-            eocs: [1.1],
-        },
-    ];
+const DocumentViewer = ({
+  documents,
+  course_id,
+  eocBeingViewed,
+}) => {
+  // Format of EOC is [Set No].[EOC Number]
+  // Eg. 1.2
+  // specific = 1.2
+  // general = 1
+  const specificEocNumber = eocBeingViewed;
+  const generalEocNumber = eocBeingViewed?.substring(0,1);
+  const generalDocs = documents.filter((document) =>
+    document.tags.includes(generalEocNumber)
+  );
+  const specificDocs = documents.filter((document) =>
+    document.tags.includes(specificEocNumber)
+  );
 
-    const specificDocs = [
+  const generalCards = generalDocs.map((doc) => (
+    <DocumentCard
+      course_id={course_id}
+      document={doc}
+    />
+  ));
+  const specificCards = specificDocs.map((doc) => (
+    <DocumentCard
+      course_id={course_id}
+      document={doc}
+    />
+  ));
+
+  return (
+    <CustomTabs
+      headerColor="success"
+      tabs={[
         {
-            documentID: "asdfasd",
-            title: "specific Design Project Outline",
-            createdDate: new Date("2019-12-19"),
-            uri:
-                "https://docs.google.com/document/d/1rdLcaVBP_z-vE_5-gbaOevRbd6e_vkRjTQpuXyRF_FU/",
-            eocs: [1, 2, 3],
+          tabName: "General Documents",
+          tabIcon: Face,
+          tabContent: <>{generalCards}</>,
         },
         {
-            _id: "asdfasd2",
-            title: "specific !! fdsafRTIO Project - J Slack Something blah blah",
-            createdDate: new Date("2019-12-19"),
-            uri:
-                "https://docs.google.com/document/d/1rdLcaVBP_z-vE_5-gbaOevRbd6e_vkRjTQpuXyRF_FU/",
-            eocs: [1.1],
+          tabName: "Specific Documents",
+          tabIcon: Chat,
+          tabContent: <>{specificCards}</>,
         },
-    ];
-
-    const generalCards = generalDocs.map((doc) => (
-        <DocumentCard key={doc._id} {...doc} />
-    ));
-    const specificCards = specificDocs.map((doc) => (
-        <DocumentCard key={doc._id} {...doc} />
-    ));
-
-    return (
-        <CustomTabs
-            headerColor="success"
-            tabs={[
-                {
-                    tabName: "General Documents",
-                    tabIcon: Face,
-                    tabContent: <>{generalCards}</>,
-                },
-                {
-                    tabName: "Specific Documents",
-                    tabIcon: Chat,
-                    tabContent: <>{specificCards}</>,
-                },
-            ]}
-        />
-    );
+      ]}
+    />
+  );
 };
 
 export default DocumentViewer;

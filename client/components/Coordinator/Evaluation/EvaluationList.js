@@ -15,8 +15,11 @@ import { spacing } from "@material-ui/system";
 
 // CUSTOM COMPONENTS
 import EvaluationListing from "./EvaluationListing.js";
+import CreateEvaluationModal from "./CreateEvaluationModal.js";
 
 //Styles
+import { useTheme } from "@material-ui/core/styles";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { makeStyles } from "@material-ui/core/styles";
 import styles from "assets/jss/nextjs-material-kit/pages/landingPage.js";
 import checkboxStyles from "assets/jss/nextjs-material-kit/customCheckboxRadioSwitch.js";
@@ -26,55 +29,42 @@ const useStyles = makeStyles(() => ({
   footer: {
     flexDirection: "row-reverse",
   },
-  checkbox: {
-    marginLeft: "1rem",
+  list: {
+    maxHeight: "60vh",
+    overflow: "auto",
   },
 }));
 
 import { useEffect, useState } from "react";
 
+// Redux
+import { useDispatch, useSelector } from "react-redux";
+import { services } from "store/feathersClient";
+
 const EvaluationList = () => {
   const classes = useStyles();
+  const theme = useTheme();
+  const isBiggerThanMd = useMediaQuery(theme.breakpoints.up("md"));
 
-  const [courseEvaluations, setCourseEvaluations] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showArchived, setShowArchived] = useState(false);
+  const [isNewEvaluationModalOpen, setNewEvaluationModalOpen] = useState(false);
+
+  const closeNewEvaluationModal = () => setNewEvaluationModalOpen(false);
+  const openNewEvaluationModal = () => setNewEvaluationModalOpen(true);
 
   useEffect(() => {
     // 1. Find all CourseEvaluations where the createdBy key matches the logged in user
-
-    setCourseEvaluations([
-      {
-        _id: "1231",
-        courseid: "MECH5521/MECH5522",
-        documents: [],
-        reviewDescription:
-          "This is a capstone unit for engineering students where they make something cool",
-        reviewTargetDate: "10/10/2021",
-        isArchived: false,
-        createdAt: "1/1/2021",
-        createdBy: {},
-        EOC: [],
-        coordinators: ["Melinda Hodkiewics"],
-      },
-      {
-        _id: "4343",
-        courseid: "CITS2002",
-        documents: [],
-        reviewDescription: "Intro unit for beginner programmers",
-        reviewTargetDate: "9/12/2020",
-        isArchived: true,
-        createdAt: "5/12/2020",
-        createdBy: {},
-        EOC: [],
-        coordinators: ["Chris McDonald", "Melinda Hodkiewics"],
-      },
-    ]);
-
+    services["course-evaluation"].find();
+    services["users"].find();
     setLoading(false);
   }, []);
 
-  if (loading) {
+  const courseEvaluations = useSelector((state) => state["course-evaluation"])
+    ?.queryResult?.data;
+  const users = useSelector((state) => state["users"])?.queryResult?.data;
+
+  if (loading || !users || !courseEvaluations) {
     return (
       <Card>
         <CardBody>Loading...</CardBody>
@@ -88,14 +78,25 @@ const EvaluationList = () => {
     evaluationListings = courseEvaluations.filter((val) => !val.isArchived);
   }
 
-  // 3. Render course list elements
+  console.log("evals:", evaluationListings);
+  // 3. Render course list elemnts
   evaluationListings = evaluationListings.map(
-    ({ _id, courseid, reviewDescription, coordinators }) => {
+    ({ _id, courseId, reviewDescription }) => {
+      // select out the coordinators with the permission for this evaluation
+
+      console.log("users", users);
+      console.log("_id", _id);
+      const coordinators = users.filter(({ perms }) =>
+        perms.some(
+          ({ course_id, role }) => course_id === _id && role === "Coordinator"
+        )
+      );
+
       return (
         <ListItem key={_id} divider>
           <EvaluationListing
             evalId={_id}
-            courseCode={courseid}
+            courseCode={courseId}
             coordinators={coordinators}
             evaluationDescription={reviewDescription}
           />
@@ -106,30 +107,24 @@ const EvaluationList = () => {
 
   return (
     <Card>
-      <CardHeader color="success">
-        <GridContainer>
-          <GridItem xs={9}>
-            <h2>Manage Course Evaluations</h2>
+      <CardHeader
+        color="primary"
+        style={{ width: isBiggerThanMd ? "50%" : "90%" }}
+      >
+        <GridContainer alignItems="center" justify="center">
+          <GridItem md={9}>
+            <h3 className={classes.cardTitle}>Manage Course Evaluations</h3>
           </GridItem>
-          <GridItem xs={2}>
-            <Card ml={10}>
-              <FormGroup row>
-                <FormControlLabel
-                  control={
-                    <Switch
-                      className={classes.checkbox}
-                      checked={showArchived}
-                      onChange={(e) => {
-                        setShowArchived(e.target.checked);
-                      }}
-                      name="checkedA"
-                      color="primary"
-                    />
-                  }
-                  label="Show Archived"
-                />
-              </FormGroup>
-            </Card>
+          <GridItem md={3}>
+            {showArchived ? (
+              <Button color="primary" onClick={() => setShowArchived(false)}>
+                Hide Archived
+              </Button>
+            ) : (
+              <Button color="rose" onClick={() => setShowArchived(true)}>
+                Show Archived
+              </Button>
+            )}
           </GridItem>
         </GridContainer>
       </CardHeader>
@@ -137,7 +132,13 @@ const EvaluationList = () => {
         <List className={classes.list}>{evaluationListings}</List>
       </CardBody>
       <CardFooter className={classes.footer}>
-        <Button color="secondary">Create New Evaluation</Button>
+        <Button color="secondary" onClick={openNewEvaluationModal}>
+          Create New Evaluation
+        </Button>
+        <CreateEvaluationModal
+          isOpen={isNewEvaluationModalOpen}
+          closeModal={closeNewEvaluationModal}
+        />
       </CardFooter>
     </Card>
   );

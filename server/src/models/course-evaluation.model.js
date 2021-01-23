@@ -27,8 +27,10 @@ module.exports = function (app) {
         reviewDescription: DescType(),
         isArchived: Boolean,
         completedDate: Date,
+        dueDate: Date,
         eoc: [{
             eocNumber: [String],
+            developmentLevel: {type: Number},
             justification: DescType()
         }]
     });

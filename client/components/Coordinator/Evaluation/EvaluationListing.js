@@ -23,16 +23,21 @@ const EvaluationListing = ({
 }) => {
   const classes = useStyles();
 
-  const coordinatorNames = coordinators.join(", ");
+  const coordinatorNames = coordinators.map(({ name }) => name)?.join(", ");
 
   return (
-    <Grid className={classes.root} direction="row" alignItems="center">
-      <GridItem xs={8}>
-        <h2>{courseCode}</h2>
-        <h3>{coordinatorNames}.</h3>
-        <p>{evaluationDescription}</p>
+    <Grid
+      className={classes.root}
+      direction="row"
+      alignItems="center"
+      justify="center"
+    >
+      <GridItem md={7}>
+        <h3 className={classes.title}>{courseCode}</h3>
+        <h4 className={classes.description}>{coordinatorNames}.</h4>
+        <h5 className={classes.description}>{evaluationDescription}</h5>
       </GridItem>
-      <GridItem xs={2}>
+      <GridItem md={2}>
         <Button
           color="primary"
           type="button"
@@ -42,7 +47,7 @@ const EvaluationListing = ({
           Export
         </Button>
       </GridItem>
-      <GridItem xs={2}>
+      <GridItem md={2}>
         <Link href={`/coordinator/${evalId}`}>
           <Button
             color="primary"
