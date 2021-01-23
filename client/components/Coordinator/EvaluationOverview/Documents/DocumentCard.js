@@ -40,6 +40,9 @@ const DocumentCard = ({ document, course_id, setCurrentSelectedDocument }) => {
   //     day: "numeric",
   //   });
 
+  // This is a reviewer view if there is no need for modal interaction
+  const isReviewer = typeof setCurrentSelectedDocument === "undefined";
+
   const handleDelete = () => {
     services["course-evaluation"].patch(course_id, {
       $pull: { documents: { _id: document._id } },
@@ -73,20 +76,24 @@ const DocumentCard = ({ document, course_id, setCurrentSelectedDocument }) => {
                 View
               </Button>
 
-              <Button
-                color="white"
-                onClick={() => setCurrentSelectedDocument(document)}
-              >
-                <EditIcon />
-                Edit
-              </Button>
-              <AreYouSureButton
-                buttonProps={{ color: "white" }}
-                action={handleDelete}
-              >
-                <DeleteIcon />
-                Delete
-              </AreYouSureButton>
+              {!isReviewer && (
+                <>
+                  <Button
+                    color="white"
+                    onClick={() => setCurrentSelectedDocument(document)}
+                  >
+                    <EditIcon />
+                    Edit
+                  </Button>
+                  <AreYouSureButton
+                    buttonProps={{ color: "white" }}
+                    action={handleDelete}
+                  >
+                    <DeleteIcon />
+                    Delete
+                  </AreYouSureButton>
+                </>
+              )}
             </GridContainer>
           </GridItem>
         </GridContainer>

@@ -11,8 +11,6 @@ import GridItem from "components/MaterialKit/Grid/GridItem.js";
 import Button from "components/MaterialKit/CustomButtons/Button.js";
 import FindInPageIcon from "@material-ui/icons/FindInPage";
 
-// CUSTOM COMPONENTS
-import ViewModal from "./ViewModal.js";
 
 // STYLES
 import { makeStyles } from "@material-ui/core/styles";
@@ -29,19 +27,14 @@ import { developmentLevelToString } from "utils.js";
 
 const EOCCard = (props) => {
   const {
-    title,
+    eocGeneralAndSpecific,
     description,
     rating,
     justification,
-    eocsInSameJustification,
-    eocID,
-    developmentLevel,
-    evaluationID,
-    save,
+    comment,
+    handleView,
   } = props;
   const classes = useStyles();
-
-  const [modal, setModal] = useState(false);
 
   const ratingMsg =
     rating != 0 ? (
@@ -57,26 +50,26 @@ const EOCCard = (props) => {
       <Danger>Your Justification: None</Danger>
     );
 
+  const commentMsg =
+    comment != null ? (
+      <Success>Your Comment: {comment}</Success>
+    ) : (
+      <Danger>Your Comment: None</Danger>
+    );
+
   return (
     <Card>
       <CardBody>
-        <h4 className={classes.cardTitle}>{title}</h4>
+        <h4 className={classes.cardTitle}>{`EOC ${eocGeneralAndSpecific}`}</h4>
         <GridContainer>
           <GridItem xs={8}>
             <Muted>{description}</Muted>
           </GridItem>
           <GridItem xs={4}>
-            <Button color="white" onClick={() => setModal(true)}>
+            <Button color="white" onClick={() => handleView()}>
               <FindInPageIcon />
               View
             </Button>
-            <ViewModal
-              {...props}
-              eocs={[]}
-              isOpen={modal}
-              closeModal={() => setModal(false)}
-              saveFields={save}
-            />
           </GridItem>
         </GridContainer>
       </CardBody>
@@ -84,6 +77,7 @@ const EOCCard = (props) => {
         <GridContainer direction="column" alignItems="flex-start">
           <GridItem>{ratingMsg}</GridItem>
           <GridItem>{justMsg}</GridItem>
+          <GridItem>{commentMsg}</GridItem>
         </GridContainer>
       </CardFooter>
     </Card>
