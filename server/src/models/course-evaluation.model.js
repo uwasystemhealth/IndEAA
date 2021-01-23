@@ -15,24 +15,25 @@ module.exports = function (app) {
     const mongooseClient = app.get('mongooseClient');
     const schema = DefaultSchema(app);
 
-  schema.add({
-    courseId: NameType(),
-    documents: [{
-      name: NameType(),
-      description: DescType(),
-      // TODO UPLOADED FILES - Stage 2
-      link: LinkType(),
-      tags: [{ type: 'String' }]
-    }],
-    reviewDescription: DescType(),
-    isArchived: Boolean,
-    completedDate: Date,
-    eoc: [{
-      eocNumber: [String],
-      developmentLevel: {type: Number},
-      justification: DescType()
-    }]
-  });
+    schema.add({
+        courseId: NameType(),
+        documents: [{
+            name: NameType(),
+            description: DescType(),
+            // TODO UPLOADED FILES - Stage 2
+            link: LinkType(),
+            tags: [{ type: 'String' }]
+        }],
+        reviewDescription: DescType(),
+        isArchived: Boolean,
+        completedDate: Date,
+        dueDate: Date,
+        eoc: [{
+            eocNumber: [String],
+            developmentLevel: {type: Number},
+            justification: DescType()
+        }]
+    });
 
     // This is necessary to avoid model compilation errors in watch mode
     // see https://mongoosejs.com/docs/api/connection.html#connection_Connection-deleteModel
