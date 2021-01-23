@@ -14,8 +14,8 @@ import CardBody from "components/MaterialKit/Card/CardBody.js";
 import CardHeader from "components/MaterialKit/Card/CardHeader.js";
 import IconButton from "@material-ui/core/IconButton";
 import Close from "@material-ui/icons/Close";
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Check from "@material-ui/icons/Check";
 
@@ -37,7 +37,7 @@ const useStyles = makeStyles({
   ...modalStyle,
 });
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { getEOCInfo } from "utils";
 
@@ -73,7 +73,7 @@ const CustomFormField = ({
   />
 );
 
-const ApplyTags = ({ eocs,tags,handleCheck }) => {
+const ApplyTags = ({ eocs, tags, handleCheck }) => {
   const classes = useStyles();
 
   return (
@@ -82,11 +82,11 @@ const ApplyTags = ({ eocs,tags,handleCheck }) => {
       <CardBody>
         <List>
           {eocs.map((numberLabel) => (
-              <DesignedCheckBox
-                onClick={() =>handleCheck(numberLabel)}
-                isChecked={ tags.includes(numberLabel)}
-                label={`EOC ${numberLabel}`}
-              ></DesignedCheckBox>
+            <DesignedCheckBox
+              onClick={() => handleCheck(numberLabel)}
+              isChecked={tags.includes(numberLabel)}
+              label={`EOC ${numberLabel}`}
+            ></DesignedCheckBox>
           ))}
         </List>
       </CardBody>
@@ -94,25 +94,32 @@ const ApplyTags = ({ eocs,tags,handleCheck }) => {
   );
 };
 
-const EditModal = ({ document, course_id }) => {
+const EditModal = ({ document, course_id, isOpen, setClose }) => {
   const isCreateModal = typeof document === "undefined";
   const classes = useStyles();
-  const [modal, setModal] = useState(false);
-  const [state, setState] = useState({
-    name: (document && document.name) || "",
-    description: (document && document.description) || "",
-    link: (document && document.link) || "",
-    tags: (document && document.tags) || [],
-  });
+  console.log(document);
+  const initialStateModal = {
+    name: document?.name || "",
+    description: document?.description || "",
+    link: document?.link || "",
+    tags: document?.tags || [],
+  };
+
+  const [state, setModalState] = useState(initialStateModal);
+
+    // Rerenders on everytime the document changes
+    useEffect(() => {
+        setModalState(initialStateModal)
+    }, [document])
 
   const handleChange = (event) => {
     const { id, value } = event.target;
     const newState = { ...state, [id]: value };
-    setState(newState);
+    setModalState(newState);
   };
 
   const handleSave = (event) => {
-    setModal(false);
+    setClose();
     // commit the saved data to database
 
     if (isCreateModal) {
@@ -130,18 +137,18 @@ const EditModal = ({ document, course_id }) => {
     }
   };
 
-  const handleCheck = (tag) =>{
-    const tagIndex = state.tags.findIndex(tagInState => tagInState === tag)
-    const tags = state.tags
-    if(tagIndex==-1){ // Tag not in the state
-      tags.push(tag)
+  const handleCheck = (tag) => {
+    const tagIndex = state.tags.findIndex((tagInState) => tagInState === tag);
+    const tags = state.tags;
+    if (tagIndex == -1) {
+      // Tag not in the state
+      tags.push(tag);
+    } else {
+      tags.splice(tagIndex, 1); // Pops specific index
     }
-    else{
-      tags.splice(tagIndex,1) // Pops specific index
-    }
-    const newState = {...state, tags}
-    setState(newState)
-  }
+    const newState = { ...state, tags };
+    setModalState(newState);
+  };
 
   const eocs = getEOCInfo(course_id);
   const generalAndSpecificNumbers = eocs.reduce((accumulator, current) => {
@@ -153,17 +160,10 @@ const EditModal = ({ document, course_id }) => {
 
   return (
     <>
-      <Button
-        color={isCreateModal ? "primary" : "white"}
-        onClick={() => setModal(true)}
-      >
-        <EditIcon />
-        {isCreateModal ? "Add New Document" : "Edit"}
-      </Button>
       <Dialog
-        open={modal}
+        open={isOpen}
         keepMounted
-        onClose={() => setModal(false)}
+        onClose={() => setClose()}
         maxWidth="lg"
         fullWidth
       >
@@ -173,7 +173,7 @@ const EditModal = ({ document, course_id }) => {
             key="close"
             aria-label="Close"
             color="inherit"
-            onClick={() => setModal(false)}
+            onClick={() => setClose()}
           >
             <Close className={classes.modalClose} />
           </IconButton>
@@ -224,15 +224,16 @@ const EditModal = ({ document, course_id }) => {
               </Card>
             </GridItem>
             <GridItem xs={7}>
-              <ApplyTags eocs={generalAndSpecificNumbers} 
-              tags={state.tags}
-              handleCheck={handleCheck}
+              <ApplyTags
+                eocs={generalAndSpecificNumbers}
+                tags={state.tags}
+                handleCheck={handleCheck}
               />
             </GridItem>
           </GridContainer>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setModal(false)}>Cancel</Button>
+          <Button onClick={() => setClose()}>Cancel</Button>
           <Button color="primary" onClick={() => handleSave()}>
             {isCreateModal ? "Create" : "Save"}
           </Button>

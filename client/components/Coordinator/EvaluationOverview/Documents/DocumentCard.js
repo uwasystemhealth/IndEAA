@@ -13,7 +13,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 
 // CUSTOM COMPONENTS
 import EditModal from "./EditModal.js";
-import AreYouSureButton from "components/Other/AreYouSureButton"
+import AreYouSureButton from "components/Other/AreYouSureButton";
 
 // STYLES
 import { makeStyles } from "@material-ui/core/styles";
@@ -30,20 +30,19 @@ import { services } from "store/feathersClient";
 const styles = { cardTitle, cardLink, cardSubtitle };
 const useStyles = makeStyles(styles);
 
-const DocumentCard = ({ document, course_id }) => {
-
-  const {_id,name,description, link,tags} = document
+const DocumentCard = ({ document, course_id, setCurrentSelectedDocument }) => {
+  const { _id, name, description, link, tags } = document;
   const classes = useStyles();
 
-//   const dateString = createdDate?.toLocaleDateString("en-gb", {
-//     year: "numeric",
-//     month: "short",
-//     day: "numeric",
-//   });
+  //   const dateString = createdDate?.toLocaleDateString("en-gb", {
+  //     year: "numeric",
+  //     month: "short",
+  //     day: "numeric",
+  //   });
 
   const handleDelete = () => {
     services["course-evaluation"].patch(course_id, {
-      $pull : {documents: {_id: document._id}}
+      $pull: { documents: { _id: document._id } },
     });
   };
 
@@ -59,9 +58,7 @@ const DocumentCard = ({ document, course_id }) => {
         <GridContainer>
           <GridItem xs={8}>
             <h4 className={classes.cardTitle}>{name}</h4>
-            <p>
-              {description}
-            </p>
+            <p>{description}</p>
             <p>
               URI:{" "}
               <a href={link} className={cardLink}>
@@ -76,9 +73,17 @@ const DocumentCard = ({ document, course_id }) => {
                 View
               </Button>
 
-              <EditModal document={document} course_id={course_id} />
-
-              <AreYouSureButton buttonProps={{color:"white"}} action={handleDelete}>
+              <Button
+                color="white"
+                onClick={() => setCurrentSelectedDocument(document)}
+              >
+                <EditIcon />
+                Edit
+              </Button>
+              <AreYouSureButton
+                buttonProps={{ color: "white" }}
+                action={handleDelete}
+              >
                 <DeleteIcon />
                 Delete
               </AreYouSureButton>
