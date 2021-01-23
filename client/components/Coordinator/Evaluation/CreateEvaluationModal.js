@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 
 // material-ui components
 import Slide from "@material-ui/core/Slide";
@@ -20,6 +21,8 @@ import Button from "components/MaterialKit/CustomButtons/Button.js";
 import CustomInput from "components/MaterialKit/CustomInput/CustomInput.js";
 
 // Redux
+import { signIn } from "actions/auth";
+import { useDispatch, useSelector } from "react-redux";
 import { services } from "store/feathersClient";
 
 // Styles
@@ -52,6 +55,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 const CreateEvaluationModal = ({ closeModal, isOpen }) => {
   const classes = useStyles();
+  const router = useRouter();
+  const dispatch = useDispatch();
 
   const [code, setCode] = useState("");
   const [description, setDescription] = useState("");
@@ -65,7 +70,11 @@ const CreateEvaluationModal = ({ closeModal, isOpen }) => {
         reviewDescription: description,
         dueDate,
       });
-      closeModal();
+
+      // Update User Permission in interface
+     await dispatch(signIn(true))
+
+      router.push(`coordinator/${response.value._id}`);
     } catch (error) {
       console.error(error);
       // Handled by Redux Saga
