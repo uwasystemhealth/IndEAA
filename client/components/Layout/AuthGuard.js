@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 
 // Store Actions and Redux
-import { useDispatch, useSelector } from "react-redux"
-import { signIn } from "actions/auth"
-import { setCurrentRoleSelected, setPageMiddleTitle } from "actions/general"
-import { services } from "store/feathersClient"
+import { useDispatch, useSelector } from "react-redux";
+import { signIn } from "actions/auth";
+import { setCurrentRoleSelected, setPageMiddleTitle } from "actions/general";
+import { services } from "store/feathersClient";
 
 // Utils
 import { permissions, getAvailablePermissionsOfUser } from "utils";
@@ -57,41 +57,34 @@ const AuthGuard = ({ children, isProtected }) => {
             return null;
           }
 
-                    // If the router has the courseId, then a combination of both the courseId
-                    // and permission should be found
-                    if (router.query.hasOwnProperty("courseID")) {
-                        const { courseID } = router.query
-                        const courseSpecificPermissions = user.perms.filter(permission => courseID == permission.course_id)
-                        if (!getAvailablePermissionsOfUser(courseSpecificPermissions).has(currentRoleBeingChecked)) {
-                            router.push("/404")
-                            allowed = false
-                            return (null)
-                        }
-                        const getAndSetPageTitle = async() =>{
-                            // Get Course ID Review To Display Title
-                            const currentCourse = await services["course-evaluation"].get(courseID,{
-                                query: {
-                                    $select: ["courseId"]
-                                }
-                            })
-                            dispatch(setPageMiddleTitle(currentCourse.value.courseId))
-                        }
-                        getAndSetPageTitle()
-                    }
-                    else{
-                        // Does not have router query
-                        dispatch(setPageMiddleTitle(""))
-                    }
-                    // Set the Current Role Being Viewed in the State
-                    dispatch(setCurrentRoleSelected(currentRoleBeingChecked))
-                }
-                else {
-                    // Set the Current Role Being Viewed in the State
-                    dispatch(setCurrentRoleSelected(null))
-
-                }
-
+          // If the router has the courseId, then a combination of both the courseId
+          // and permission should be found
+          if (router.query.hasOwnProperty("courseID")) {
+            const { courseID } = router.query;
+            const courseSpecificPermissions = user.perms.filter(
+              (permission) => courseID == permission.course_id
+            );
+            if (!getAvailablePermissionsOfUser(courseSpecificPermissions).has(currentRoleBeingChecked)) {
+              router.push("/404");
+              allowed = false;
+              return null;
             }
+            const getAndSetPageTitle = async () => {
+              // Get Course ID Review To Display Title
+              const currentCourse = await services["course-evaluation"].get(
+                courseID,
+                {
+                  query: {
+                    $select: ["courseId"],
+                  },
+                }
+              );
+              dispatch(setPageMiddleTitle(currentCourse.value.courseId));
+            };
+            getAndSetPageTitle();
+          } else {
+            // Does not have router query
+            dispatch(setPageMiddleTitle(""));
           }
           // Set the Current Role Being Viewed in the State
           dispatch(setCurrentRoleSelected(currentRoleBeingChecked));
