@@ -36,7 +36,7 @@ export default function SectionNotifications() {
             {
                 key,
                 variant,
-                autoHideDuration: 5000,
+                autoHideDuration: 3000,
                 action: (key) => (
                     <Button onClick={() => { closeSnackbar(key) }} simple>
                         Dismiss
