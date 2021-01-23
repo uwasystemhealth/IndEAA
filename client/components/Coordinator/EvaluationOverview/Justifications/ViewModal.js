@@ -23,7 +23,7 @@ import { useSelector } from "react-redux";
 import ApplyTo from "./ApplyTo.js";
 import DocumentViewer from "./DocumentViewer.js";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // STYLES
 import { makeStyles } from "@material-ui/core/styles";
@@ -38,56 +38,76 @@ import {
 } from "utils.js";
 
 const ViewModal = ({
+  eocGeneralAndSpecific,
+  detailsOfEOC,
+  description,
   isOpen,
   closeModal,
-  saveFields,
-  title,
-  eocID,
-  description,
-  rating,
-  justification,
-  eocsInSameJustification,
+  saveFields
 }) => {
   const classes = useStyles();
 
-  // TODO: Will be used later
-  const [state, setState] = useState({
+  const { rating, justification, eocsInSameJustification } = detailsOfEOC;
+
+  const initialStateModal = {
     justification,
     developmentLevel: rating,
     eocsInSameJustification,
-  });
+  };
 
-  // TODO: This variable needs to be change for formalisation
-  // See editModal handleChange and form state
-  const [just, setJust] = useState(justification);
-  const [dl, setDl] = useState(rating);
-  const [eocInSame, setEocInSame] = useState(eocsInSameJustification);
+  const [state, setModalState] = useState(initialStateModal);
+
+  // Rerenders on everytime the EOC changes
+  useEffect(() => {
+    setModalState(initialStateModal);
+  }, [eocGeneralAndSpecific]);
 
   // fix this or use this for props passing
   // I dont want to do prop drillings
   // I will just get course_id here
   const course = useSelector((state) => state["course-evaluation"]).data;
 
+  const handleChange = (event) => {
+    const { id, value } = event.target;
+    const newState = { ...state, [id]: value };
+    setModalState(newState);
+  };
+
+  const handleDropdownChange = (e) => {
+    const newState = {
+      ...state,
+      developmentLevel: stringToDevelopmentLevel[e],
+    };
+    setModalState(newState);
+  };
+
   const handleCheck = (eoc) => {
-    const eocIndex = eocInSame.findIndex((eocInState) => eocInState === eoc);
-    const eocs = eocInSame;
+    const eocIndex = state.eocsInSameJustification.findIndex(
+      (eocInState) => eocInState === eoc
+    );
+    const eocs = state.eocsInSameJustification;
     if (eocIndex == -1) {
       // eoc not in the state
       eocs.push(eoc);
     } else {
       eocs.splice(eocIndex, 1); // Pops specific index
     }
-    //const newState = eocInSame
-    setEocInSame(eocInSame);
+    const newState = {...state, eocsInSameJustification: eocs}
+    setModalState(newState);
   };
+
+
 
   const handleSave = () => {
-    saveFields(dl, just, eocsInSameJustification);
+    console.log(state)
+    console.log(saveFields)
+    saveFields(
+      eocGeneralAndSpecific,
+      state.developmentLevel,
+      state.justification,
+      state.eocsInSameJustification
+    );
     closeModal();
-  };
-
-  const dropdownChange = (e) => {
-    setDl(stringToDevelopmentLevel[e]);
   };
 
   // TODO: get Display EOCS (borrowed from EditModal.js) - needs to be transferred to utils.js
@@ -118,7 +138,7 @@ const ViewModal = ({
           <Close className={classes.modalClose} />
         </IconButton>
         <h3>
-          {title} - {description}
+          {eocGeneralAndSpecific} - {description}
         </h3>
       </DialogTitle>
 
@@ -128,20 +148,21 @@ const ViewModal = ({
             Development Level
             <HelpIcon />
             <CustomDropdown
-              buttonText={developmentLevelToString[dl]}
+              buttonText={developmentLevelToString[state.developmentLevel]}
               dropdownList={[
                 developmentLevelToString[1],
                 developmentLevelToString[2],
                 developmentLevelToString[3],
                 developmentLevelToString[4],
               ]}
-              onClick={dropdownChange}
+              id="developmentLevel"
+              onClick={handleDropdownChange}
             />
           </GridItem>
           <GridItem xs={6}>
             <ApplyTo
               eocs={specificNumbers}
-              eocInSame={eocInSame}
+              eocInSame={state.eocsInSameJustification}
               handleCheck={handleCheck}
             />
           </GridItem>
@@ -152,15 +173,16 @@ const ViewModal = ({
               fullWidth
               rows={4}
               variant="filled"
-              value={just}
-              onChange={(e) => setJust(e.target.value)}
+              value={state.justification}
+              id="justification"
+              onChange={handleChange}
             />
           </GridItem>
           <GridItem xs={6}>
             <DocumentViewer
               course_id={course._id}
               documents={course.documents}
-              eocBeingViewed={title}
+              eocBeingViewed={eocGeneralAndSpecific}
             />
           </GridItem>
         </GridContainer>

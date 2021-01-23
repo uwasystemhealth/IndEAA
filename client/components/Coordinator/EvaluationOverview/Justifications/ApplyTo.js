@@ -19,7 +19,6 @@ const styles = {
 const useStyles = makeStyles(styles);
 
 const ApplyTo = ({ eocs ,eocInSame,handleCheck}) => {
-    console.log(eocs)
     const classes = useStyles();
 
     return (

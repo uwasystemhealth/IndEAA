@@ -11,6 +11,7 @@ import GridItem from "components/MaterialKit/Grid/GridItem.js";
 
 // CUSTOM COMPONENTS
 import EOCCard from "./EOCCard.js";
+import ViewModal from "./ViewModal.js";
 
 import { useState, useEffect } from "react";
 
@@ -18,12 +19,12 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { services } from "store/feathersClient";
 
-import { getEOCInfo } from "utils.js";
+import { getEOCInfo, getIndexOfEOCMatch } from "utils.js";
 
 const EOCAccordion = ({ evaluationID }) => {
   // https://stackoverflow.com/questions/58539813/lazy-initial-state-what-is-and-where-to-use-it
-  // https://github.com/uwasystemhealth/IndEAA/pull/27#discussion_r559902548
   const [eocs, setEocs] = useState(() => getEOCInfo());
+  const [selectedEOC, setSelectedEOC] = useState(null);
   useEffect(() => {
     services["course-evaluation"].get({
       _id: evaluationID,
@@ -33,64 +34,82 @@ const EOCAccordion = ({ evaluationID }) => {
   const courseEvaluation = useSelector((state) => state["course-evaluation"]);
   const eocReviews = courseEvaluation?.data?.eoc;
 
+  const getDetailsOfEntireEOC = (eocGeneralAndSpecific) => {
+    const matchedIndex = getIndexOfEOCMatch(eocGeneralAndSpecific, eocReviews);
+    const noReviewFound = matchedIndex === -1;
+
+    // Setting Initial Value for no entry in database
+    const rating = noReviewFound
+      ? 0
+      : eocReviews[matchedIndex].developmentLevel;
+    const justification = noReviewFound
+      ? null
+      : eocReviews[matchedIndex].justification;
+    const eocsInSameJustification = noReviewFound
+      ? [eocGeneralAndSpecific]
+      : eocReviews[matchedIndex].eocNumber;
+
+    return { rating, justification, eocsInSameJustification };
+  };
+
+  const saveFields = (
+    eocGeneralAndSpecific,
+    developmentLevel,
+    justification,
+    eocsInSameJustification
+  ) => {
+    console.log("WTYFF");
+   
+    const eocReviewsCopy = JSON.parse(JSON.stringify(eocReviews));  // Clone
+    const matchedIndex = getIndexOfEOCMatch(eocGeneralAndSpecific, eocReviewsCopy);
+    console.log(eocGeneralAndSpecific, "is it included in ", eocReviewsCopy)
+    console.log(matchedIndex)
+    const noReviewFound = matchedIndex === -1;
+    // Determine if there exist an entry with the same justification
+    if (noReviewFound) {
+      eocReviewsCopy.push({
+        eocNumber: [eocGeneralAndSpecific],
+        justification,
+        developmentLevel,
+      });
+    } else if (eocsInSameJustification.length === 0){ 
+      // If the eocNumber is empty, it means the justification is being deleted
+      eocReviewsCopy.splice(matchedIndex,1)
+    } 
+    else {
+      eocReviewsCopy[matchedIndex].justification = justification;
+      eocReviewsCopy[matchedIndex].developmentLevel = developmentLevel;
+      eocReviewsCopy[matchedIndex].eocNumber = eocsInSameJustification;
+    }
+
+    services["course-evaluation"].patch(evaluationID, {
+      eoc: eocReviewsCopy,
+    });
+  };
+
+  const deselectEOC = () => setSelectedEOC(null);
+
+  // Create EOC Card Component Sets per Accordion
   let accordions = null;
   if (eocReviews !== null) {
     accordions = eocs.map((eocSet) => {
       const eocCards = eocSet.EOCS.map((eoc) => {
-        const title = `EOC ${eocSet.setNum}.${eoc.EOCNum}`;
-
-        const matchedIndex = eocReviews.findIndex((rev) =>
-          rev.eocNumber.includes(`${eocSet.setNum}.${eoc.EOCNum}`)
-        );
-        const noReviewFound = matchedIndex === -1;
-
-        const saveFields = (
-          developmentLevel,
+        const eocGeneralAndSpecific = `${eocSet.setNum}.${eoc.EOCNum}`;
+        const {
+          rating,
           justification,
-          eocsInSameJustification
-        ) => {
-          let eocReviewsCopy = eocReviews;
-          console.log(eocReviews);
-          // Determine if there exist an entry with the same justification
-          if (noReviewFound) {
-            eocReviewsCopy.push({
-              eocNumber: [`${eocSet.setNum}.${eoc.EOCNum}`],
-              justification,
-              developmentLevel,
-              eocsInSameJustification,
-            });
-          } else {
-            eocReviewsCopy[matchedIndex].justification = justification;
-            eocReviewsCopy[matchedIndex].developmentLevel = developmentLevel;
-            eocReviewsCopy[matchedIndex].eocNumber = eocsInSameJustification;
-          }
-
-          services["course-evaluation"].patch(evaluationID, {
-            eoc: eocReviewsCopy,
-          });
-        };
-
-        const rating = noReviewFound
-          ? 0
-          : eocReviews[matchedIndex].developmentLevel;
-        const justification = noReviewFound
-          ? null
-          : eocReviews[matchedIndex].justification;
-        const eocsInSameJustification = noReviewFound
-          ? [eoc._id]
-          : eocReviews[matchedIndex].eocNumber;
+          eocsInSameJustification,
+        } = getDetailsOfEntireEOC(eocGeneralAndSpecific);
 
         return (
-          <GridItem key={eoc.title} xs={4}>
+          <GridItem key={eocGeneralAndSpecific} xs={4}>
             <EOCCard
-              evaluationID={evaluationID}
-              eocID={eoc._id}
-              title={title}
+              eocGeneralAndSpecific={eocGeneralAndSpecific}
               description={eoc.desc}
               eocsInSameJustification={eocsInSameJustification}
-              save={saveFields}
               rating={rating}
               justification={justification}
+              handleView={() => setSelectedEOC(eocGeneralAndSpecific)}
             />
           </GridItem>
         );
@@ -109,7 +128,20 @@ const EOCAccordion = ({ evaluationID }) => {
     });
   }
 
-  return <Card>{accordions ?? <p>loading...</p>}</Card>;
+  return (
+    <>
+      <Card>
+        <ViewModal
+          eocGeneralAndSpecific={selectedEOC}
+          detailsOfEOC={getDetailsOfEntireEOC(selectedEOC)}
+          isOpen={Boolean(selectedEOC)}
+          closeModal={deselectEOC}
+          saveFields={saveFields}
+        />
+        {accordions ?? <p>loading...</p>}
+      </Card>
+    </>
+  );
 };
 
 export default EOCAccordion;
