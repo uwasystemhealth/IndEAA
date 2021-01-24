@@ -31,8 +31,9 @@ const EOCCard = (props) => {
     description,
     rating,
     justification,
-    comment,
+    reason,
     handleView,
+    isReviewer
   } = props;
   const classes = useStyles();
 
@@ -50,11 +51,11 @@ const EOCCard = (props) => {
       <Danger>Your Justification: None</Danger>
     );
 
-  const commentMsg =
-    comment != null ? (
-      <Success>Your Comment: {comment}</Success>
+  const ReasonMsg =
+    reason != null ? (
+      <Success>Your Reason: {reason}</Success>
     ) : (
-      <Danger>Your Comment: None</Danger>
+      <Danger>Your Reason: None</Danger>
     );
 
   return (
@@ -76,8 +77,7 @@ const EOCCard = (props) => {
       <CardFooter>
         <GridContainer direction="column" alignItems="flex-start">
           <GridItem>{ratingMsg}</GridItem>
-          <GridItem>{justMsg}</GridItem>
-          <GridItem>{commentMsg}</GridItem>
+          <GridItem>{!isReviewer ? justMsg : ReasonMsg}</GridItem>
         </GridContainer>
       </CardFooter>
     </Card>

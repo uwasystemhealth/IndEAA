@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 
 // Use own components
 import ReviewProgress from "components/reviewer/ReviewProgress";
+import ReviewerEOCListing from "components/reviewer/ReviewerEOCListing";
 import ReviewerPageCardDescription from "components/reviewer/ReviewerPageCardDescription";
 import ReviewerPageBottomNavigation from "components/reviewer/ReviewerPageBottomNavigation";
 
@@ -34,6 +35,7 @@ const ReviewerCourseReviewPage3 = () => {
       getOrCreateReview(courseID, authUser._id);
       updateCurrentlyBeingViewedCourse(courseID)
     }
+    services["course-evaluation"].get(courseID)
   }, [authUser]);
 
   const classes = useStyles();
@@ -42,6 +44,7 @@ const ReviewerCourseReviewPage3 = () => {
     <div>
       <ReviewProgress review={review}></ReviewProgress>{" "}
       <ReviewerPageCardDescription pageNumber={pageNumber}></ReviewerPageCardDescription>
+      <ReviewerEOCListing></ReviewerEOCListing>
       <ReviewerPageBottomNavigation
         pageNumber={pageNumber}
         course_id={courseID}
