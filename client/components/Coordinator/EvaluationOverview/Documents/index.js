@@ -6,7 +6,7 @@ import Button from "components/MaterialKit/CustomButtons/Button.js";
 
 // CUSTOM COMPONENTS
 import DocumentCard from "components/Coordinator/EvaluationOverview/Documents/DocumentCard.js";
-import EditModal from "./EditModal.js";
+import EditModal from "components/Coordinator/EvaluationOverview/Documents/EditModal.js";
 
 // Store Actions and Redux
 import { useDispatch, useSelector } from "react-redux";
