@@ -41,7 +41,7 @@ import {
 const styles = { cardTitle, cardLink, cardSubtitle };
 const useStyles = makeStyles(styles);
 
-const ReviewerPagePreSubmissionContent = () => {
+const ReviewerPagePreSubmissionContent = ({isReadOnly}) => {
   const classes = useStyles();
   const reviewState = useSelector((state) => state.review);
   const review = reviewState.queryResult.data[0] || { course_id: courseID };
@@ -141,7 +141,7 @@ const ReviewerPagePreSubmissionContent = () => {
             4. Review
           </AccordionSummary>
           <AccordionDetails>
-            <ReviewerGeneralComment></ReviewerGeneralComment>
+            <ReviewerGeneralComment isReadOnly={isReadOnly}></ReviewerGeneralComment>
           </AccordionDetails>
         </Accordion>
     </>

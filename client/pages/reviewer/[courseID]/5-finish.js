@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
 
+//Use Own Components
+import ReviewerPageCardDescription from "components/reviewer/ReviewerPageCardDescription";
+import ReviewerPagePreSubmissionContent from "components/reviewer/ReviewerPagePreSubmissionContent";
+
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { services } from "store/feathersClient";
@@ -33,10 +37,13 @@ const ReviewerCourseReviewPage5 = () => {
     }, [authUser]);
 
     const classes = useStyles();
+    const pageNumber = 5
     return (
         <div >
-            {courseID}
-            ReviewerCourseReviewPage5
+        <ReviewerPageCardDescription
+            pageNumber={pageNumber}
+          ></ReviewerPageCardDescription>
+            <ReviewerPagePreSubmissionContent isReadOnly></ReviewerPagePreSubmissionContent>
         </div>
     )
 }
