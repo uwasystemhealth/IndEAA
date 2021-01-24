@@ -19,7 +19,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { services } from "store/feathersClient";
 
-import { getEOCInfo, getIndexOfEOCMatch } from "utils.js";
+import { getEOCInfo, getIndexOfEOCMatch, getDetailsOfEntireEOC} from "utils.js";
 
 const EOCAccordion = ({ evaluationID }) => {
   // https://stackoverflow.com/questions/58539813/lazy-initial-state-what-is-and-where-to-use-it
@@ -33,24 +33,6 @@ const EOCAccordion = ({ evaluationID }) => {
 
   const courseEvaluation = useSelector((state) => state["course-evaluation"]);
   const eocReviews = courseEvaluation?.data?.eoc;
-
-  const getDetailsOfEntireEOC = (eocGeneralAndSpecific) => {
-    const matchedIndex = getIndexOfEOCMatch(eocGeneralAndSpecific, eocReviews);
-    const noReviewFound = matchedIndex === -1;
-
-    // Setting Initial Value for no entry in database
-    const rating = noReviewFound
-      ? 0
-      : eocReviews[matchedIndex].developmentLevel;
-    const justification = noReviewFound
-      ? null
-      : eocReviews[matchedIndex].justification;
-    const eocsInSameJustification = noReviewFound
-      ? [eocGeneralAndSpecific]
-      : eocReviews[matchedIndex].eocNumber;
-
-    return { rating, justification, eocsInSameJustification };
-  };
 
   const saveFields = (
     eocGeneralAndSpecific,
@@ -99,7 +81,7 @@ const EOCAccordion = ({ evaluationID }) => {
           rating,
           justification,
           eocsInSameJustification,
-        } = getDetailsOfEntireEOC(eocGeneralAndSpecific);
+        } = getDetailsOfEntireEOC(eocGeneralAndSpecific,eocReviews);
 
         return (
           <GridItem key={eocGeneralAndSpecific} xs={4}>
@@ -133,7 +115,7 @@ const EOCAccordion = ({ evaluationID }) => {
       <Card>
         <ViewModal
           eocGeneralAndSpecific={selectedEOC}
-          detailsOfEOC={getDetailsOfEntireEOC(selectedEOC)}
+          detailsOfEOC={getDetailsOfEntireEOC(selectedEOC,eocReviews)}
           isOpen={Boolean(selectedEOC)}
           closeModal={deselectEOC}
           saveFields={saveFields}

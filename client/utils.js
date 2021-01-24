@@ -205,3 +205,21 @@ export const getIndexOfEOCMatch = (eocGeneralAndSpecific, eocReviews) =>
   eocReviews.findIndex((review) =>
     review.eocNumber.includes(eocGeneralAndSpecific)
   );
+
+ export const getDetailsOfEntireEOC = (eocGeneralAndSpecific,eocReviews) => {
+    const matchedIndex = getIndexOfEOCMatch(eocGeneralAndSpecific, eocReviews);
+    const noReviewFound = matchedIndex === -1;
+
+    // Setting Initial Value for no entry in database
+    const rating = noReviewFound
+      ? 0
+      : eocReviews[matchedIndex].developmentLevel;
+    const justification = noReviewFound
+      ? null
+      : eocReviews[matchedIndex].justification;
+    const eocsInSameJustification = noReviewFound
+      ? [eocGeneralAndSpecific]
+      : eocReviews[matchedIndex].eocNumber;
+
+    return { rating, justification, eocsInSameJustification };
+  };

@@ -19,7 +19,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { services } from "store/feathersClient";
 
-import { getEOCInfo, getIndexOfEOCMatch } from "utils.js";
+import { getEOCInfo, getIndexOfEOCMatch, getDetailsOfEntireEOC} from "utils.js";
 
 const EOCAccordion = () => {
   // https://stackoverflow.com/questions/58539813/lazy-initial-state-what-is-and-where-to-use-it
@@ -30,24 +30,6 @@ const EOCAccordion = () => {
   const reviewState = useSelector((state) => state.review);
   const review = reviewState?.queryResult.data[0];
   const eocReviews = courseEvaluation?.data?.eoc;
-
-  const getDetailsOfEntireEOC = (eocGeneralAndSpecific) => {
-    const matchedIndex = getIndexOfEOCMatch(eocGeneralAndSpecific, eocReviews);
-    const noReviewFound = matchedIndex === -1;
-
-    // Setting Initial Value for no entry in database
-    const rating = noReviewFound
-      ? 0
-      : eocReviews[matchedIndex].developmentLevel;
-    const justification = noReviewFound
-      ? null
-      : eocReviews[matchedIndex].justification;
-    const eocsInSameJustification = noReviewFound
-      ? [eocGeneralAndSpecific]
-      : eocReviews[matchedIndex].eocNumber;
-
-    return { rating, justification, eocsInSameJustification };
-  };
 
   const deselectEOC = () => setSelectedEOC(null);
   const getReviewEOCObject = (eocGeneralAndSpecific) =>
@@ -97,6 +79,7 @@ const EOCAccordion = () => {
         <ReviewerEOCModal
           eocGeneralAndSpecific={selectedEOC}
           reviewEOC = {getReviewEOCObject(selectedEOC)}
+          justification ={getDetailsOfEntireEOC(selectedEOC,eocReviews)?.justification}
           isOpen={Boolean(selectedEOC)}
           closeModal={deselectEOC}
         />

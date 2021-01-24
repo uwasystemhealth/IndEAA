@@ -40,6 +40,7 @@ import {
 const ViewModal = ({
   eocGeneralAndSpecific,
   reviewEOC,
+  justification,
   isOpen,
   description,
   closeModal,
@@ -79,28 +80,27 @@ const ViewModal = ({
     setModalState(newState);
   };
 
-  const handleSave = (event) =>{
-      closeModal()
+  const handleSave = (event) => {
+    closeModal();
 
-      if(reviewEOC){
-          // If the review assessment exist, then update it
-          services.review.patch(
-            review._id,
-            {
-              "step3Evaluation.$": {
-                ...state
-              },
-            },
-            { query: { "step3Evaluation.eoc": eocGeneralAndSpecific } }
-          );
-      }
-      else{
-          // If the review assessment does not exist, create a new one
-          services.review.patch(review._id, {
-            $push: {  step3Evaluation: {...state, eoc: eocGeneralAndSpecific} },
-          });
-      }
-  }
+    if (reviewEOC) {
+      // If the review assessment exist, then update it
+      services.review.patch(
+        review._id,
+        {
+          "step3Evaluation.$": {
+            ...state,
+          },
+        },
+        { query: { "step3Evaluation.eoc": eocGeneralAndSpecific } }
+      );
+    } else {
+      // If the review assessment does not exist, create a new one
+      services.review.patch(review._id, {
+        $push: { step3Evaluation: { ...state, eoc: eocGeneralAndSpecific } },
+      });
+    }
+  };
 
   // TODO: get Display EOCS (borrowed from EditModal.js) - needs to be transferred to utils.js
   const eocs = getEOCInfo(course._id);
@@ -137,7 +137,15 @@ const ViewModal = ({
       <DialogContent>
         <GridContainer>
           <GridItem md={6}>
-            <GridItem >
+            <GridItem>
+              <Card>
+                <CardBody>
+                  <h4 className={classes.cardTitle}>Justification of Coordinators</h4>
+                  <p>{justification}</p>
+                </CardBody>
+              </Card>
+            </GridItem>
+            <GridItem>
               Development Level
               <HelpIcon />
               <CustomDropdown
@@ -152,8 +160,8 @@ const ViewModal = ({
                 onClick={handleDropdownChange}
               />
             </GridItem>
-            <GridItem ></GridItem>
-            <GridItem >
+
+            <GridItem>
               reason
               <TextField
                 multiline
@@ -165,7 +173,7 @@ const ViewModal = ({
                 onChange={handleChange}
               />
             </GridItem>
-            <GridItem >
+            <GridItem>
               ideaForImprovement
               <TextField
                 multiline
@@ -179,7 +187,7 @@ const ViewModal = ({
             </GridItem>
           </GridItem>
           <GridItem md={6}>
-            <GridItem >
+            <GridItem>
               <DocumentViewer
                 course_id={course._id}
                 review_id={review._id}
