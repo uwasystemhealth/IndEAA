@@ -29,7 +29,7 @@ module.exports = function (app) {
                 rating: Number,
                 reason: DescType(),
                 ideaForImprovement: DescType(),
-                eoc: {type: Number}
+                eoc: {type: String}
             }
         ],
         step4ReviewComment: DescType(),
