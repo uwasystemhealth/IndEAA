@@ -59,17 +59,15 @@ const DocumentCard = ({
   // Only for reviewers
   const reviewState = useSelector((state) => state.review);
   const review = reviewState?.queryResult.data[0];
-  
 
   const getReviewDocumentObject = (documentId) =>
     review?.step2Documents.find(
       (currentDocument) => currentDocument.document_id === documentId
     );
 
-  const currentDocumentReview = getReviewDocumentObject(document._id)
+  const currentDocumentReview = getReviewDocumentObject(document._id);
 
   const handleMarkAsViewed = (documentId) => {
-
     if (currentDocumentReview) {
       // Document exist
 
@@ -78,10 +76,6 @@ const DocumentCard = ({
         ? null
         : new Date();
 
-        console.log(dateReviewed)
-        console.log(document._id )
-        console.log(review._id)
-        console.log(currentDocumentReview._id)
       services.review.patch(
         review._id,
         {
@@ -152,7 +146,12 @@ const DocumentCard = ({
                   {currentDocumentReview?.comment ? (
                     <Button
                       color="primary"
-                      onClick={() => setCurrentSelectedDocumentReview({document,reviewComment: currentDocumentReview})}
+                      onClick={() =>
+                        setCurrentSelectedDocumentReview({
+                          document,
+                          reviewComment: currentDocumentReview,
+                        })
+                      }
                     >
                       <EditIcon />
                       Edit Comment
@@ -160,7 +159,12 @@ const DocumentCard = ({
                   ) : (
                     <Button
                       color="white"
-                      onClick={() => setCurrentSelectedDocumentReview({document,reviewComment: currentDocumentReview})}
+                      onClick={() =>
+                        setCurrentSelectedDocumentReview({
+                          document,
+                          reviewComment: currentDocumentReview,
+                        })
+                      }
                     >
                       <EditIcon />
                       Add Comment

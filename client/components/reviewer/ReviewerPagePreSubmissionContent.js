@@ -7,6 +7,7 @@ import { services } from "store/feathersClient";
 
 // Own Components
 import ReviewerEOCListing from "components/reviewer/ReviewerEOCListing";
+import ReviewerGeneralComment from "components/reviewer/ReviewerGeneralComment";
 
 // CORE COMPONENTS
 import Accordion from "@material-ui/core/Accordion";
@@ -132,6 +133,15 @@ const ReviewerPagePreSubmissionContent = () => {
           </AccordionSummary>
           <AccordionDetails>
           <ReviewerEOCListing></ReviewerEOCListing>
+          </AccordionDetails>
+        </Accordion>
+
+        <Accordion defaultExpanded>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            4. Review
+          </AccordionSummary>
+          <AccordionDetails>
+            <ReviewerGeneralComment></ReviewerGeneralComment>
           </AccordionDetails>
         </Accordion>
     </>
