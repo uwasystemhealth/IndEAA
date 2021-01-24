@@ -26,13 +26,22 @@ import {
 // Store Actions and Redux
 import { useDispatch, useSelector } from "react-redux";
 import { services } from "store/feathersClient";
+import { addNotificationMessage } from "actions/general";
 
 const styles = { cardTitle, cardLink, cardSubtitle };
 const useStyles = makeStyles(styles);
 
-const DocumentCard = ({ document, course_id, setCurrentSelectedDocument }) => {
+const DocumentCard = ({
+  document,
+  course_id,
+  review_id,
+  setCurrentSelectedDocument,
+  setCurrentSelectedDocumentReview, // contains both document and review details (for reviewer)
+  isReviewer,
+}) => {
   const { _id, name, description, link, tags } = document;
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   //   const dateString = createdDate?.toLocaleDateString("en-gb", {
   //     year: "numeric",
@@ -40,13 +49,58 @@ const DocumentCard = ({ document, course_id, setCurrentSelectedDocument }) => {
   //     day: "numeric",
   //   });
 
-  // This is a reviewer view if there is no need for modal interaction
-  const isReviewer = typeof setCurrentSelectedDocument === "undefined";
-
+  // Only for Coordinators
   const handleDelete = () => {
     services["course-evaluation"].patch(course_id, {
       $pull: { documents: { _id: document._id } },
     });
+  };
+
+  // Only for reviewers
+  const reviewState = useSelector((state) => state.review);
+  const review = reviewState?.queryResult.data[0];
+  
+
+  const getReviewDocumentObject = (documentId) =>
+    review?.step2Documents.find(
+      (currentDocument) => currentDocument.document_id === documentId
+    );
+
+  const currentDocumentReview = getReviewDocumentObject(document._id)
+
+  const handleMarkAsViewed = (documentId) => {
+
+    if (currentDocumentReview) {
+      // Document exist
+
+      // If the document has already been reviewed, then mark it as null (to unmark)
+      const dateReviewed = currentDocumentReview.finishedReviewedOn
+        ? null
+        : new Date();
+
+        console.log(dateReviewed)
+        console.log(document._id )
+        console.log(review._id)
+        console.log(currentDocumentReview._id)
+      services.review.patch(
+        review._id,
+        {
+          "step2Documents.$": {
+            ...currentDocumentReview,
+            finishedReviewedOn: dateReviewed,
+          },
+        },
+        { query: { "step2Documents.document_id": document._id } }
+      );
+    } else {
+      // Document Does not exist yet
+      dispatch(
+        addNotificationMessage({
+          message:
+            "Marking as finished reviews has failed due to no comments on documents.",
+        })
+      );
+    }
   };
 
   const badges = tags.map((eoc) => (
@@ -76,7 +130,44 @@ const DocumentCard = ({ document, course_id, setCurrentSelectedDocument }) => {
                 View
               </Button>
 
-              {!isReviewer && (
+              {isReviewer ? (
+                <>
+                  {currentDocumentReview?.finishedReviewedOn ? (
+                    <Button
+                      color="primary"
+                      onClick={() => handleMarkAsViewed(document._id)}
+                    >
+                      <EditIcon />
+                      Mark as unread
+                    </Button>
+                  ) : (
+                    <Button
+                      color="white"
+                      onClick={() => handleMarkAsViewed(document._id)}
+                    >
+                      <EditIcon />
+                      Mark as Viewed
+                    </Button>
+                  )}
+                  {currentDocumentReview?.comment ? (
+                    <Button
+                      color="primary"
+                      onClick={() => setCurrentSelectedDocumentReview({document,reviewComment: currentDocumentReview})}
+                    >
+                      <EditIcon />
+                      Edit Comment
+                    </Button>
+                  ) : (
+                    <Button
+                      color="white"
+                      onClick={() => setCurrentSelectedDocumentReview({document,reviewComment: currentDocumentReview})}
+                    >
+                      <EditIcon />
+                      Add Comment
+                    </Button>
+                  )}
+                </>
+              ) : (
                 <>
                   <Button
                     color="white"

@@ -3,8 +3,10 @@ import { useRouter } from "next/router";
 
 // Use own components
 import ReviewProgress from "components/reviewer/ReviewProgress";
+import ReviewerDocumentsListing from "components/reviewer/ReviewerDocumentsListing";
 import ReviewerPageCardDescription from "components/reviewer/ReviewerPageCardDescription";
 import ReviewerPageBottomNavigation from "components/reviewer/ReviewerPageBottomNavigation";
+
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { services } from "store/feathersClient";
@@ -23,6 +25,8 @@ const ReviewerCourseReviewPage2 = () => {
   const reviewState = useSelector((state) => state.review);
   const review = reviewState.queryResult.data[0] || { course_id: courseID };
   const authUser = useSelector((state) => state.auth.user);
+  const courseState = useSelector(state => state["course-evaluation"])
+  const course = courseState?.data
 
   // Fetch Review dependent on AuthUser and when the Review fetched matches the course route
   // If it cannot find it, then create it
@@ -33,6 +37,7 @@ const ReviewerCourseReviewPage2 = () => {
       getOrCreateReview(courseID, authUser._id);
       updateCurrentlyBeingViewedCourse(courseID)
     }
+    services["course-evaluation"].get(courseID)
   }, [authUser]);
 
   const classes = useStyles();
@@ -42,6 +47,7 @@ const ReviewerCourseReviewPage2 = () => {
     <div>
       <ReviewProgress review={review}></ReviewProgress>
       <ReviewerPageCardDescription pageNumber={pageNumber}></ReviewerPageCardDescription>
+      <ReviewerDocumentsListing></ReviewerDocumentsListing>
       <ReviewerPageBottomNavigation
         pageNumber={pageNumber}
         course_id={courseID}
