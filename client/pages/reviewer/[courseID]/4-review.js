@@ -6,10 +6,17 @@ import ReviewProgress from "components/reviewer/ReviewProgress";
 import ReviewerPagePreSubmissionContent from "components/reviewer/ReviewerPagePreSubmissionContent";
 import ReviewerPageCardDescription from "components/reviewer/ReviewerPageCardDescription";
 import ReviewerPageBottomNavigation from "components/reviewer/ReviewerPageBottomNavigation";
+import AreYouSureButton from "components/Other/AreYouSureButton";
+
+// MaterialKit
+import Button from "components/MaterialKit/CustomButtons/Button.js";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { services } from "store/feathersClient";
+
+// Utils
+import { reviewSteps } from "utils";
 
 //Styles
 import { makeStyles } from "@material-ui/core/styles";
@@ -22,10 +29,11 @@ const ReviewerCourseReviewPage4 = () => {
   const router = useRouter();
   const { courseID } = router.query;
 
+
   const reviewState = useSelector((state) => state.review);
   const review = reviewState.queryResult.data[0] || { course_id: courseID };
   // Uses query result
-  
+
   const authUser = useSelector((state) => state.auth.user);
   const courseState = useSelector((state) => state["course-evaluation"]);
   const course = courseState.data;
@@ -35,25 +43,33 @@ const ReviewerCourseReviewPage4 = () => {
   // Executes on Component Remount (after auth user is fetched)
   useEffect(() => {
     // Only Call when authUser is now defined
-    if (authUser ) {
-      if(reviewState.queryResult.total<=0 || review.course_id !== courseID){
-        getOrCreateReview(courseID, authUser._id)
+    if (authUser) {
+      if (reviewState.queryResult.total <= 0 || review.course_id !== courseID) {
+        getOrCreateReview(courseID, authUser._id);
       }
-      if(!course || courseID !== course._id)
-      {updateCurrentlyBeingViewedCourse(courseID);
+      if (!course || courseID !== course._id) {
+        updateCurrentlyBeingViewedCourse(courseID);
       }
     }
   }, [authUser]);
-
-  const handleSubmit = () =>{
+  
+  const pageNumber = 4;
+  const handleSubmit = () => {
     // Do validation to check the previous filled things or find in the page for any danger
-  }
+    services.review.patch(review._id, {
+      isSubmitted: true,
+    });
+    router.push(
+      `/reviewer/${courseID}/${pageNumber + 1}-${
+        reviewSteps[pageNumber].stepLink
+      }`
+    );
+  };
 
   const classes = useStyles();
-  const pageNumber = 4;
   return (
     <div>
-      {reviewState.isFinished && courseState.isFinished ?(
+      {reviewState.isFinished && courseState.isFinished ? (
         <>
           <ReviewProgress review={review}></ReviewProgress>
           <ReviewerPageCardDescription
@@ -63,12 +79,22 @@ const ReviewerCourseReviewPage4 = () => {
           <ReviewerPageBottomNavigation
             pageNumber={pageNumber}
             course_id={courseID}
-            overwriteNextButton ={<>ABC</>}
+            overwriteNextButton={
+              <AreYouSureButton
+                buttonProps={{}}
+                description={
+                  "You are about to submit a review. Upon submission of a review, you will lose the ability to edit your review. If you have to edit a review, you will have to contact the coordinator of this unit."
+                }
+                action={handleSubmit}
+              >
+                Submit
+              </AreYouSureButton>
+            }
           ></ReviewerPageBottomNavigation>
         </>
-      ):
+      ) : (
         <></>
-      }
+      )}
     </div>
   );
 };
