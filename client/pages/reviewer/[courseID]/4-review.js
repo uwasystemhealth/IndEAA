@@ -57,7 +57,7 @@ const ReviewerCourseReviewPage4 = () => {
   const handleSubmit = () => {
     // Do validation to check the previous filled things or find in the page for any danger
     services.review.patch(review._id, {
-      isSubmitted: true,
+      submittedDate: new Date(),
     });
     router.push(
       `/reviewer/${courseID}/${pageNumber + 1}-${

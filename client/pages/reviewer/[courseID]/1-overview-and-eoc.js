@@ -50,7 +50,7 @@ const ReviewerCourseReviewPage1 = () => {
     // Update the Review Process when has been read
     if (!review.step1DevelopmentLevels) {
       services.review.patch(review._id, {
-        step1DevelopmentLevels: true,
+        step1DevelopmentLevels: new Date(),
       });
     }
   };

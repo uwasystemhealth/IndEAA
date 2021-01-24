@@ -16,7 +16,7 @@ module.exports = function (app) {
     schema.add({
         user_id: ObjectIdType('users',app) ,
         course_id: ObjectIdType('course-evaluation', app),
-        step1DevelopmentLevels: {type: Boolean, default:false},
+        step1DevelopmentLevels: {type: Date, default:null},
         step2Documents: [
             {
                 document_id:Schema.Types.ObjectId,
@@ -33,7 +33,7 @@ module.exports = function (app) {
             }
         ],
         step4ReviewComment: DescType(),
-        isSubmitted: {type: Boolean, default: false}
+        submittedDate: {type: Date, default: null}
     });
 
     // This is necessary to avoid model compilation errors in watch mode

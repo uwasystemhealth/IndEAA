@@ -74,9 +74,7 @@ const StepperPathway = ({ review }) => {
 
     {
       stepName: "Review & Submit",
-      done:
-        (review.step4ReviewComment && review.step4ReviewComment.length > 0) ||
-        false,
+      done: review.submittedDate || false,
       stepLink: "review",
     },
   ];
