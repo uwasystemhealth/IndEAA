@@ -21,7 +21,7 @@ module.exports = function (app) {
             {
                 document_id:Schema.Types.ObjectId,
                 comment: DescType(),
-                finishedReviewedOn: Date
+                finishedReviewedOn: {type: Date, default: null}
             }
         ],
         step3Evaluation:[
@@ -33,7 +33,7 @@ module.exports = function (app) {
             }
         ],
         step4ReviewComment: DescType(),
-        isSubmitted: {type: Boolean}
+        isSubmitted: {type: Boolean, default: false}
     });
 
     // This is necessary to avoid model compilation errors in watch mode
