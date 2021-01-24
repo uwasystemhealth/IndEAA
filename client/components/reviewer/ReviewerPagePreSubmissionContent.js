@@ -5,6 +5,9 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { services } from "store/feathersClient";
 
+// Own Components
+import ReviewerEOCListing from "components/reviewer/ReviewerEOCListing";
+
 // CORE COMPONENTS
 import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
@@ -19,6 +22,13 @@ import Danger from "components/MaterialKit/Typography/Danger.js";
 import GridContainer from "components/MaterialKit/Grid/GridContainer.js";
 import GridItem from "components/MaterialKit/Grid/GridItem.js";
 import CustomTabs from "components/MaterialKit/CustomTabs/CustomTabs.js";
+
+// Utils
+import {
+  getEOCInfo,
+  getIndexOfEOCMatch,
+  getDetailsOfEntireEOC,
+} from "utils.js";
 
 // Styles
 import { makeStyles } from "@material-ui/core/styles";
@@ -116,6 +126,14 @@ const ReviewerPagePreSubmissionContent = () => {
           </GridContainer>
         </AccordionDetails>
       </Accordion>
+        <Accordion defaultExpanded>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            3. Review Course
+          </AccordionSummary>
+          <AccordionDetails>
+          <ReviewerEOCListing></ReviewerEOCListing>
+          </AccordionDetails>
+        </Accordion>
     </>
   );
 };

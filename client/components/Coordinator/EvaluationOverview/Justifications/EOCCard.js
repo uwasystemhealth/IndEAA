@@ -11,7 +11,6 @@ import GridItem from "components/MaterialKit/Grid/GridItem.js";
 import Button from "components/MaterialKit/CustomButtons/Button.js";
 import FindInPageIcon from "@material-ui/icons/FindInPage";
 
-
 // STYLES
 import { makeStyles } from "@material-ui/core/styles";
 import { cardTitle } from "assets/jss/nextjs-material-kit.js";
@@ -32,8 +31,9 @@ const EOCCard = (props) => {
     rating,
     justification,
     reason,
+    ideaForImprovement,
     handleView,
-    isReviewer
+    isReviewer,
   } = props;
   const classes = useStyles();
 
@@ -51,12 +51,19 @@ const EOCCard = (props) => {
       <Danger>Your Justification: None</Danger>
     );
 
-  const ReasonMsg =
+  const reasonMsg =
     reason != null ? (
       <Success>Your Reason: {reason}</Success>
     ) : (
       <Danger>Your Reason: None</Danger>
     );
+
+  const ideaForImprovementMsg =
+  ideaForImprovement != null ? (
+    <Success>Your Idea For Improvement: {ideaForImprovement}</Success>
+  ) : (
+    <Danger>Your Idea For Improvement: None</Danger>
+  );
 
   return (
     <Card>
@@ -77,7 +84,15 @@ const EOCCard = (props) => {
       <CardFooter>
         <GridContainer direction="column" alignItems="flex-start">
           <GridItem>{ratingMsg}</GridItem>
-          <GridItem>{!isReviewer ? justMsg : ReasonMsg}</GridItem>
+          {!isReviewer ? (
+            <GridItem>{justMsg}</GridItem>
+          ) : (
+            <>
+            <GridItem>{reasonMsg}</GridItem>
+            <GridItem>{ideaForImprovementMsg}</GridItem>
+            
+            </>
+          )}
         </GridContainer>
       </CardFooter>
     </Card>

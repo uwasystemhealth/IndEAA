@@ -44,6 +44,7 @@ const EOCAccordion = () => {
         const {
           rating =0,
           reason = null,
+          ideaForImprovement
         } = getReviewEOCObject(eocGeneralAndSpecific) || {};
 
         return (
@@ -54,6 +55,7 @@ const EOCAccordion = () => {
               description={eoc.desc}
               rating={rating}
               reason={reason}
+              ideaForImprovement= {ideaForImprovement}
               handleView={() => setSelectedEOC(eocGeneralAndSpecific)}
             />
           </GridItem>
