@@ -20,6 +20,8 @@ const AuthGuard = ({ children, isProtected }) => {
 
   // Hooks
   const user = useSelector((state) => state.auth.user);
+  const courseState = useSelector((state) => state["course-evaluation"]);
+  const course = courseState.data;
   const router = useRouter();
 
   if (isProtected) {
@@ -64,22 +66,19 @@ const AuthGuard = ({ children, isProtected }) => {
             const courseSpecificPermissions = user.perms.filter(
               (permission) => courseID == permission.course_id
             );
-            if (!getAvailablePermissionsOfUser(courseSpecificPermissions).has(currentRoleBeingChecked)) {
+            if (
+              !getAvailablePermissionsOfUser(courseSpecificPermissions).has(
+                currentRoleBeingChecked
+              )
+            ) {
               router.push("/404");
               allowed = false;
               return null;
             }
             const getAndSetPageTitle = async () => {
               // Get Course ID Review To Display Title
-              const currentCourse = await services["course-evaluation"].get(
-                courseID,
-                {
-                  query: {
-                    $select: ["courseId"],
-                  },
-                }
-              );
-              dispatch(setPageMiddleTitle(currentCourse.value.courseId));
+              const currentCourseId =course?.courseId
+              dispatch(setPageMiddleTitle(currentCourseId));
             };
             getAndSetPageTitle();
           } else {
