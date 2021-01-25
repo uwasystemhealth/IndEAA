@@ -15,9 +15,6 @@ import { services } from "store/feathersClient";
 import { useState, useEffect } from "react";
 
 const Documents = () => {
-  const [documents, setDocuments] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [isNewDocumentModalOpen, setIsNewDocumentModalOpen] = useState(false);
   const [currentSelectedDocumentReview, setCurrentSelectedDocumentReview] = useState(null);
 
   const courseEval = useSelector((state) => state["course-evaluation"]);
@@ -44,7 +41,7 @@ const Documents = () => {
   return (
     <>
       <ReviewerDocumentModal
-        review_id={review._id}
+        review_id={review?._id}
         documentReview={currentSelectedDocumentReview}
         isOpen={Boolean(currentSelectedDocumentReview)}
         setClose={deselectCurrentSelectedDocumentReview}

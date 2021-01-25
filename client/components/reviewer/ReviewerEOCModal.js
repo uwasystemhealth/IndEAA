@@ -103,7 +103,7 @@ const ViewModal = ({
   };
 
   // TODO: get Display EOCS (borrowed from EditModal.js) - needs to be transferred to utils.js
-  const eocs = getEOCInfo(course._id);
+  const eocs = getEOCInfo(course?._id);
   const specificNumbers = eocs.reduce((accumulator, current) => {
     const currentSetEocNumbers = current.EOCS.map(
       (eoc) => `${current.setNum}.${eoc.EOCNum}`
@@ -189,9 +189,9 @@ const ViewModal = ({
           <GridItem md={6}>
             <GridItem>
               <DocumentViewer
-                course_id={course._id}
-                review_id={review._id}
-                documents={course.documents}
+                course_id={course?._id}
+                review_id={review?._id}
+                documents={course?.documents}
                 eocBeingViewed={eocGeneralAndSpecific}
                 isReviewer
               />

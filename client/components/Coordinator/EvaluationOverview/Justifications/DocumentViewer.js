@@ -14,11 +14,11 @@ import ReviewerDocumentModal from "components/reviewer/ReviewerDocumentModal";
 import { useState, useEffect } from "react";
 
 const DocumentViewer = ({
-  documents,
-  course_id,
-  review_id,
-  eocBeingViewed,
-  isReviewer,
+  documents = [],
+  course_id = null,
+  review_id = null,
+  eocBeingViewed = null,
+  isReviewer = false,
 }) => {
   const [
     currentSelectedDocumentReview,

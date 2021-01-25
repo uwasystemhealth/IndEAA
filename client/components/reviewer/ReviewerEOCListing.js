@@ -81,7 +81,7 @@ const EOCAccordion = () => {
         <ReviewerEOCModal
           eocGeneralAndSpecific={selectedEOC}
           reviewEOC = {getReviewEOCObject(selectedEOC)}
-          justification ={getDetailsOfEntireEOC(selectedEOC,eocReviews)?.justification}
+          justification ={selectedEOC && getDetailsOfEntireEOC(selectedEOC,eocReviews)?.justification}
           isOpen={Boolean(selectedEOC)}
           closeModal={deselectEOC}
         />

@@ -9,15 +9,13 @@ import ReviewerPageCardDescription from "components/reviewer/ReviewerPageCardDes
 import ReviewerPageBottomNavigation from "components/reviewer/ReviewerPageBottomNavigation";
 
 // Redux
-import { useDispatch, useSelector } from "react-redux";
-import { services } from "store/feathersClient";
+import { useSelector } from "react-redux";
 
 //Styles
 import { makeStyles } from "@material-ui/core/styles";
 import styles from "assets/jss/nextjs-material-kit/pages/landingPage.js";
 const useStyles = makeStyles(styles);
 
-import { getOrCreateReview, updateCurrentlyBeingViewedCourse } from "utils";
 
 const ReviewerCourseReviewPage2 = () => {
   const router = useRouter();
@@ -26,8 +24,6 @@ const ReviewerCourseReviewPage2 = () => {
   const reviewState = useSelector((state) => state.review);
   const review = reviewState.queryResult.data[0] || { course_id: courseID };
   const authUser = useSelector((state) => state.auth.user);
-  const courseState = useSelector(state => state["course-evaluation"])
-  const course = courseState?.data
 
   // Load the Reviewer using custom useEffect Hook
   useCurrentReviewOfUser(authUser,reviewState,courseID)
