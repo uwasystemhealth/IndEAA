@@ -1,0 +1,59 @@
+version: '3.3'
+
+services:
+  server:
+    build:
+      context: .
+      dockerfile: docker/server/Dockerfile
+    container_name: indeaa_server
+    restart: unless-stopped
+    env_file:
+      - .env-production
+    depends_on: 
+      - db
+    ports:
+      - 10006:3030 # Host:Container
+      - 9229:9229 # debug port
+    volumes:
+      # File syncing
+      - ./server:/app_code
+      # Barrier for OS node modules specific
+      - /app_code/node_modules
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+
+  client:
+    build:
+      context: .
+      dockerfile: docker/client/Dockerfile
+    container_name: indeaa_client
+    restart: unless-stopped
+    env_file:
+      - .env-production
+    ports:
+      - 10004:3000 # Host:Container
+    volumes:
+      # File syncing
+      - ./client:/app_code
+      # Barrier for OS node modules specific
+      - /app_code/node_modules
+      # Nextjs specific build
+      - /app_code/.next
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+
+  docs:
+    build:
+      context: .
+      dockerfile: docker/mkdocs/Dockerfile
+    container_name: indeaa_docs
+    restart: unless-stopped
+    env_file:
+      - .env-production
+    ports:
+      - 10005:8000
+    volumes:
+      - ./mkdocs:/docs
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    
