@@ -31,9 +31,9 @@
       "error",
       "always"
     ],
-    "no-undef": "warn",
+    "no-undef": "warn", // Browser interaction does not need definition
     "react/display-name": "warn",
-    "no-prototype-builtins": "warn",
+    "no-prototype-builtins": "warn", // Object interaction are usual
     "no-unused-vars": "off",
     "unused-imports/no-unused-imports": "error",
     "unused-imports/no-unused-vars": [
