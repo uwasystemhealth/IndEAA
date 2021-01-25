@@ -9,8 +9,6 @@ services:
     restart: unless-stopped
     env_file:
       - .env-production
-    depends_on: 
-      - db
     ports:
       - 10006:3030 # Host:Container
       - 9229:9229 # debug port
