@@ -9,7 +9,7 @@ module.exports = {
     before: {
         all: [],
         find: [authenticate('jwt'),
-            attachUser(),
+            // attachUser(),
             roleBasedRestrictions(['Coordinator'])
         ],
         get: [authenticate('jwt')],
