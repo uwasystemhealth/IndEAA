@@ -10,6 +10,8 @@ import GridContainer from "components/MaterialKit/Grid/GridContainer.js";
 import GridItem from "components/MaterialKit/Grid/GridItem.js";
 import CustomTabs from "components/MaterialKit/CustomTabs/CustomTabs.js";
 
+// Custom Hooks
+import {useCurrentReviewOfUser} from "components/customHooks/ReviewerReviewLoad"
 // Use own components
 import ReviewProgress from "components/reviewer/ReviewProgress";
 import ReviewerPageCardDescription from "components/reviewer/ReviewerPageCardDescription";
@@ -37,19 +39,9 @@ const ReviewerCourseReviewPage1 = () => {
   const review = reviewState.queryResult.data[0] || { course_id: courseID };
   const authUser = useSelector((state) => state.auth.user);
 
-  // Fetch Review dependent on AuthUser and when the Review fetched matches the course route
-  // If it cannot find it, then create it
-  // Executes on Component Remount (after auth user is fetched)
-  useEffect(() => {
-    // Only Call when authUser is now defined
-    if (
-      authUser &&
-      (reviewState.queryResult.total <= 0 || review.course_id !== courseID)
-    ) {
-      getOrCreateReview(courseID, authUser._id);
-      updateCurrentlyBeingViewedCourse(courseID);
-    }
-  }, [authUser]);
+
+  // Load the Reviewer using custom useEffect Hook
+  useCurrentReviewOfUser(authUser,reviewState,courseID)
 
   const classes = useStyles();
   const handleSubmit = () => {

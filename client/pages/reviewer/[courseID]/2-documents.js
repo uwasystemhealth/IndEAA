@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-
+// Custom Hooks
+import {useCurrentReviewOfUser} from "components/customHooks/ReviewerReviewLoad"
 // Use own components
 import ReviewProgress from "components/reviewer/ReviewProgress";
 import ReviewerDocumentsListing from "components/reviewer/ReviewerDocumentsListing";
@@ -28,17 +29,8 @@ const ReviewerCourseReviewPage2 = () => {
   const courseState = useSelector(state => state["course-evaluation"])
   const course = courseState?.data
 
-  // Fetch Review dependent on AuthUser and when the Review fetched matches the course route
-  // If it cannot find it, then create it
-  // Executes on Component Remount (after auth user is fetched)
-  useEffect(() => {
-    // Only Call when authUser is now defined
-    if (authUser && (reviewState.queryResult.total<=0 || review.course_id !== courseID)) {
-      getOrCreateReview(courseID, authUser._id);
-      updateCurrentlyBeingViewedCourse(courseID)
-    }
-    services["course-evaluation"].get(courseID)
-  }, [authUser]);
+  // Load the Reviewer using custom useEffect Hook
+  useCurrentReviewOfUser(authUser,reviewState,courseID)
 
   const classes = useStyles();
   const pageNumber = 2
