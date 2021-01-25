@@ -1,54 +1,54 @@
-import EditIcon from "@material-ui/icons/Edit";
+import EditIcon from '@material-ui/icons/Edit';
 // CORE COMPONENTS
-import GridContainer from "components/MaterialKit/Grid/GridContainer.js";
-import GridItem from "components/MaterialKit/Grid/GridItem.js";
-import Button from "components/MaterialKit/CustomButtons/Button.js";
+import GridContainer from 'components/MaterialKit/Grid/GridContainer.js';
+import GridItem from 'components/MaterialKit/Grid/GridItem.js';
+import Button from 'components/MaterialKit/CustomButtons/Button.js';
 
 // CUSTOM COMPONENTS
-import DocumentCard from "components/Coordinator/EvaluationOverview/Documents/DocumentCard.js";
-import ReviewerDocumentModal from "components/reviewer/ReviewerDocumentModal";
+import DocumentCard from 'components/Coordinator/EvaluationOverview/Documents/DocumentCard.js';
+import ReviewerDocumentModal from 'components/reviewer/ReviewerDocumentModal';
 
 // Store Actions and Redux
-import { useDispatch, useSelector } from "react-redux";
-import { services } from "store/feathersClient";
+import { useDispatch, useSelector } from 'react-redux';
+import { services } from 'store/feathersClient';
 
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
 const Documents = () => {
-  const [currentSelectedDocumentReview, setCurrentSelectedDocumentReview] = useState(null);
+    const [currentSelectedDocumentReview, setCurrentSelectedDocumentReview] = useState(null);
 
-  const courseEval = useSelector((state) => state["course-evaluation"]);
-  const reviewState = useSelector((state) => state.review);
-  const review = reviewState?.queryResult.data[0];
-  const evalData = courseEval?.data;
+    const courseEval = useSelector((state) => state['course-evaluation']);
+    const reviewState = useSelector((state) => state.review);
+    const review = reviewState?.queryResult.data[0];
+    const evalData = courseEval?.data;
 
-  const deselectCurrentSelectedDocumentReview = () =>
-    setCurrentSelectedDocumentReview(null);
+    const deselectCurrentSelectedDocumentReview = () =>
+        setCurrentSelectedDocumentReview(null);
 
-  const documentComponents = evalData?.documents.map((doc) => {
+    const documentComponents = evalData?.documents.map((doc) => {
+        return (
+            <GridItem key={doc._id} xs={4}>
+                <DocumentCard
+                    course_id={evalData?._id}
+                    document={doc}
+                    isReviewer
+                    setCurrentSelectedDocumentReview={setCurrentSelectedDocumentReview}
+                />
+            </GridItem>
+        );
+    });
+
     return (
-      <GridItem key={doc._id} xs={4}>
-        <DocumentCard
-          course_id={evalData?._id}
-          document={doc}
-          isReviewer
-          setCurrentSelectedDocumentReview={setCurrentSelectedDocumentReview}
-        />
-      </GridItem>
+        <>
+            <ReviewerDocumentModal
+                review_id={review?._id}
+                documentReview={currentSelectedDocumentReview}
+                isOpen={Boolean(currentSelectedDocumentReview)}
+                setClose={deselectCurrentSelectedDocumentReview}
+            />
+            <GridContainer>{documentComponents}</GridContainer>;
+        </>
     );
-  });
-
-  return (
-    <>
-      <ReviewerDocumentModal
-        review_id={review?._id}
-        documentReview={currentSelectedDocumentReview}
-        isOpen={Boolean(currentSelectedDocumentReview)}
-        setClose={deselectCurrentSelectedDocumentReview}
-      ></ReviewerDocumentModal>
-      <GridContainer>{documentComponents}</GridContainer>;
-    </>
-  );
 };
 
 export default Documents;

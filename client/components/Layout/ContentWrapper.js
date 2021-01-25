@@ -1,23 +1,23 @@
-import React from 'react'
+import React from 'react';
 import { SnackbarProvider} from 'notistack';
 
 // CORE COMPONENTS
-import Card from "components/MaterialKit/Card/Card.js";
-import CardBody from "components/MaterialKit/Card/CardBody.js";
+import Card from 'components/MaterialKit/Card/Card.js';
+import CardBody from 'components/MaterialKit/Card/CardBody.js';
 import GridContainer from 'components/MaterialKit/Grid/GridContainer.js';
 import GridItem from 'components/MaterialKit/Grid/GridItem.js';
 import Parallax from 'components/MaterialKit/Parallax/Parallax.js';
 
 // OWN COMPONENTS
 import Footer from 'components/Layout/Footer';
-import Notification from "components/Layout/Notification"
+import Notification from 'components/Layout/Notification';
 
 // STYLES
 import classNames from 'classnames';
 import { makeStyles } from '@material-ui/core/styles';
-import styles from "assets/jss/nextjs-material-kit/pages/loginPage.js";
+import styles from 'assets/jss/nextjs-material-kit/pages/loginPage.js';
 const useStyles = makeStyles(styles);
-import image from "assets/img/bg7.jpg";
+import image from 'assets/img/bg7.jpg';
 
 const ContentWrapper = ({ children }) => {
     const classes = useStyles();
@@ -26,17 +26,17 @@ const ContentWrapper = ({ children }) => {
             <SnackbarProvider maxSnack={5}
                 preventDuplicate={true}
                 anchorOrigin={{
-                    vertical: "bottom",
-                    horizontal: "left"
+                    vertical: 'bottom',
+                    horizontal: 'left'
                 }}
             >
-                <Notification></Notification>
+                <Notification />
                 <div
                     className={classes.pageHeader}
                     style={{
-                        backgroundImage: "url(" + image + ")",
-                        backgroundSize: "cover",
-                        backgroundPosition: "top center"
+                        backgroundImage: 'url(' + image + ')',
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'top center'
                     }}
                 >
                     <div className={classes.container}>
@@ -49,11 +49,11 @@ const ContentWrapper = ({ children }) => {
 
                         </GridContainer>
                     </div>
-                    <Footer whiteFont></Footer>
+                    <Footer whiteFont />
                 </div>
             </SnackbarProvider>
         </>
-    )
-}
+    );
+};
 
-export default ContentWrapper
+export default ContentWrapper;

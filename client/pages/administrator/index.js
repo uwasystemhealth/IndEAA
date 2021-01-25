@@ -1,110 +1,110 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from 'react';
 
 // MUI Icons
-import Placeholder from "@material-ui/icons/Mood";
+import Placeholder from '@material-ui/icons/Mood';
 
 // Core Components
-import Card from "components/MaterialKit/Card/Card.js";
-import CardBody from "components/MaterialKit/Card/CardBody.js";
-import CardHeader from "components/MaterialKit/Card/CardHeader.js";
-import Button from "components/MaterialKit/CustomButtons/Button.js";
-import Grid from "components/MaterialKit/Grid/GridContainer.js";
-import GridItem from "components/MaterialKit/Grid/GridItem.js";
-import Tooltip from "@material-ui/core/Tooltip";
+import Card from 'components/MaterialKit/Card/Card.js';
+import CardBody from 'components/MaterialKit/Card/CardBody.js';
+import CardHeader from 'components/MaterialKit/Card/CardHeader.js';
+import Button from 'components/MaterialKit/CustomButtons/Button.js';
+import Grid from 'components/MaterialKit/Grid/GridContainer.js';
+import GridItem from 'components/MaterialKit/Grid/GridItem.js';
+import Tooltip from '@material-ui/core/Tooltip';
 
 // Own Components
-import UserModal from "components/administrator/UserModal"
-import CreateUserModal from "components/administrator/CreateUserModal"
+import UserModal from 'components/administrator/UserModal';
+import CreateUserModal from 'components/administrator/CreateUserModal';
 
 //Styles
-import { makeStyles } from "@material-ui/core/styles";
-import styles from "assets/jss/nextjs-material-kit/pages/landingPage";
+import { makeStyles } from '@material-ui/core/styles';
+import styles from 'assets/jss/nextjs-material-kit/pages/landingPage';
 
 // Redux
-import { useDispatch, useSelector } from "react-redux"
-import { services } from "store/feathersClient"
+import { useDispatch, useSelector } from 'react-redux';
+import { services } from 'store/feathersClient';
 
 // Helper
-import { getAvailablePermissionsOfUser, roleIcons } from "utils"
+import { getAvailablePermissionsOfUser, roleIcons } from 'utils';
 
 const useStyles = makeStyles(styles);
 
 const AdminstratorMainPage = () => {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
     // Update state with all users
     useEffect(() => {
-        services.users.find()
-        services["course-evaluation"].find({
+        services.users.find();
+        services['course-evaluation'].find({
             query: {
-                $select: ["_id", "courseId"]
+                $select: ['_id', 'courseId']
             }
-        })
-    }, [])
+        });
+    }, []);
 
-    const userState = useSelector(state => state.users)
-    const courseEvaluation = useSelector(state => state["course-evaluation"])
-    const authUserState = useSelector(state => state.auth.user)
+    const userState = useSelector(state => state.users);
+    const courseEvaluation = useSelector(state => state['course-evaluation']);
+    const authUserState = useSelector(state => state.auth.user);
 
     // Current User Selected
-    const [currentUserSelected, setCurrentUserSelected] = useState(null)
-    const [isNewUserModalOpen, setIsNewUserModalOpen] = useState(false)
+    const [currentUserSelected, setCurrentUserSelected] = useState(null);
+    const [isNewUserModalOpen, setIsNewUserModalOpen] = useState(false);
 
-    const openNewUserModal = () => setIsNewUserModalOpen(true)
-    const closeNewUserModal = () => setIsNewUserModalOpen(false)
+    const openNewUserModal = () => setIsNewUserModalOpen(true);
+    const closeNewUserModal = () => setIsNewUserModalOpen(false);
 
     const selectUser = async (user_id) => {
         // Make life easier by doing a direct query
-        const userSelectedDetails = await services.users.get(user_id)
-        console.log(userSelectedDetails)
-        setCurrentUserSelected(userSelectedDetails.value)
-    }
+        const userSelectedDetails = await services.users.get(user_id);
+        console.log(userSelectedDetails);
+        setCurrentUserSelected(userSelectedDetails.value);
+    };
 
     const deselectUser = () => {
-        setCurrentUserSelected(null)
-    }
+        setCurrentUserSelected(null);
+    };
 
     const classes = useStyles();
     return (
         <Card>
-            <UserModal user={currentUserSelected} courseEvaluation={courseEvaluation} closeModal={deselectUser}></UserModal>
+            <UserModal user={currentUserSelected} courseEvaluation={courseEvaluation} closeModal={deselectUser} />
             <CreateUserModal isOpen={isNewUserModalOpen} setCurrentUserSelected={setCurrentUserSelected}
-            closeModal={closeNewUserModal}></CreateUserModal>
+                closeModal={closeNewUserModal} />
             <CardHeader color="primary">Manage Users</CardHeader>
             <CardBody>
                 <Grid direction="row" alignItems="center" justify="center">
                     {userState && userState.queryResult != null ?
                         <>
                             {userState.queryResult.data.map(user => {
-                                const rolesOfUser = Array.from(getAvailablePermissionsOfUser(user.perms))
+                                const rolesOfUser = Array.from(getAvailablePermissionsOfUser(user.perms));
                                 return (
                                     <GridItem key={user._id} md={6}><Card>
                                         <CardBody>
                                             <Grid direction="row" alignItems="center" justify="center">
                                                 <GridItem xs={9}>
                                                     {rolesOfUser.map(role => {
-                                                        const RoleIcon = roleIcons[role]
+                                                        const RoleIcon = roleIcons[role];
                                                         return (
                                                             <Tooltip
                                                                 title={`${user.name || user.email} has ${role} role`}
-                                                                placement={"top"}
+                                                                placement={'top'}
                                                                 classes={{ tooltip: classes.tooltip }}
-                                                            ><RoleIcon></RoleIcon>
+                                                            ><RoleIcon />
                                                             </Tooltip>
-                                                        )
+                                                        );
                                                     })}
                                                     <h4>{user.name || user.email}</h4>
-                                                    <p>{user.name ? user.email : "Has Not Yet Logged In"}</p>
+                                                    <p>{user.name ? user.email : 'Has Not Yet Logged In'}</p>
                                                 </GridItem>
                                                 <GridItem xs={1}>
                                                     <Button color="primary" justIcon round
                                                         onClick={(e) => selectUser(user._id)}
-                                                    ><Placeholder></Placeholder></Button>
+                                                    ><Placeholder /></Button>
                                                 </GridItem>
                                             </Grid>
                                         </CardBody>
                                     </Card></GridItem>
-                                )
+                                );
                             })}
                             <GridItem>
                                 <Button color="primary" onClick={() => openNewUserModal()}>Add New User</Button>
@@ -116,7 +116,7 @@ const AdminstratorMainPage = () => {
                 </Grid>
             </CardBody>
         </Card >
-    )
-}
+    );
+};
 
-export default AdminstratorMainPage
+export default AdminstratorMainPage;

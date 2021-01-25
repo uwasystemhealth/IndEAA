@@ -10,7 +10,8 @@
     "sourceType": "module"
   },
   "extends": [
-    "eslint:recommended"
+    "eslint:recommended",
+    "plugin:react/recommended"
   ],
   "rules": {
     "indent": [
@@ -28,6 +29,10 @@
     "semi": [
       "error",
       "always"
-    ]
+    ],
+    "react/self-closing-comp": ["error", {
+      "component": true,
+      "html": true
+    }]
   }
 }
