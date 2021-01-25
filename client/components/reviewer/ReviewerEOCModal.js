@@ -33,7 +33,7 @@ import {
     developmentLevelToString,
     stringToDevelopmentLevel,
     getEOCInfo,
-} from 'utils.js';
+} from 'utils/eocs';
 
 const ViewModal = ({
     eocGeneralAndSpecific,

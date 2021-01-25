@@ -21,7 +21,7 @@ import GridItem from 'components/MaterialKit/Grid/GridItem.js';
 import CustomTabs from 'components/MaterialKit/CustomTabs/CustomTabs.js';
 
 // Utils
-import { getAvailablePermissionsOfUser } from 'utils';
+import { getAvailablePermissionsOfUser } from 'utils/permissions';
 
 // Redux
 import { useSelector } from 'react-redux';

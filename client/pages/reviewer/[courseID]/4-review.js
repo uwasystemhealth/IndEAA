@@ -16,7 +16,7 @@ import { useSelector } from 'react-redux';
 import { services } from 'store/feathersClient';
 
 // Utils
-import { reviewSteps } from 'utils';
+import { reviewSteps } from 'utils/review';
 
 //Styles
 import { makeStyles } from '@material-ui/core/styles';

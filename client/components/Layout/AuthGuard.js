@@ -7,7 +7,7 @@ import { signIn } from 'actions/auth';
 import { setCurrentRoleSelected, setPageMiddleTitle } from 'actions/general';
 
 
-import { permissions, getAvailablePermissionsOfUser } from 'utils';
+import { permissions, getAvailablePermissionsOfUser } from 'utils/permissions';
 
 const AuthGuard = ({ children, isProtected }) => {
     const dispatch = useDispatch();

@@ -1,5 +1,5 @@
 import {useEffect} from 'react';
-import { getOrCreateReview, updateCurrentlyBeingViewedCourse } from 'utils';
+import { getOrCreateReview, updateCurrentlyBeingViewedCourse } from 'utils/feathersUpdate';
 
 export const useCurrentReviewOfUser = (authUser, reviewState, course_id) => {
     // Fetch Review dependent on AuthUser and when the Review fetched matches the course route

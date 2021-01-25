@@ -22,7 +22,7 @@ const styles = {
 
 const useStyles = makeStyles(styles);
 
-import { reviewSteps } from 'utils';
+import { reviewSteps } from 'utils/review';
 
 const ReviewerPageCardDescription = ({ pageNumber }) => {
     const classes = useStyles();

@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "lint": "eslint actions/. assets/. components/. middleware/. pages/. store/. reducers/. --config .eslintrc.json --fix",
+    "lint": "eslint actions/. assets/. components/. middleware/. pages/. store/. reducers/. utils/. --config .eslintrc.json --fix",
     "start": "next start"
   },
   "dependencies": {
