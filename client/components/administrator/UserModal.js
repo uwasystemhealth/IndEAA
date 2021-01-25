@@ -1,41 +1,37 @@
 import React, { useState, useEffect } from 'react';
 // material-ui components
-import Slide from "@material-ui/core/Slide";
-import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogActions from "@material-ui/core/DialogActions";
-import IconButton from "@material-ui/core/IconButton";
+import Slide from '@material-ui/core/Slide';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
+import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import Divider from '@material-ui/core/Divider';
 
-// @material-ui/icons
-import Close from "@material-ui/icons/Close";
-import Placeholder from "@material-ui/icons/Mood";
+
+import Close from '@material-ui/icons/Close';
+import Placeholder from '@material-ui/icons/Mood';
 
 // core components
-import Card from "components/MaterialKit/Card/Card.js";
-import CardBody from "components/MaterialKit/Card/CardBody.js";
-import CardHeader from "components/MaterialKit/Card/CardHeader.js";
 import CustomInput from 'components/MaterialKit/CustomInput/CustomInput.js';
-import Button from "components/MaterialKit/CustomButtons/Button.js";
-import Grid from "components/MaterialKit/Grid/GridContainer.js";
-import GridItem from "components/MaterialKit/Grid/GridItem.js";
-import CustomTabs from "components/MaterialKit/CustomTabs/CustomTabs.js";
+import Button from 'components/MaterialKit/CustomButtons/Button.js';
+import Grid from 'components/MaterialKit/Grid/GridContainer.js';
+import GridItem from 'components/MaterialKit/Grid/GridItem.js';
+import CustomTabs from 'components/MaterialKit/CustomTabs/CustomTabs.js';
 
 // Utils
-import { getAvailablePermissionsOfUser } from "utils"
+import { getAvailablePermissionsOfUser } from 'utils';
 
 // Redux
-import { useSelector } from "react-redux"
-import { services } from "store/feathersClient"
+import { useSelector } from 'react-redux';
+import { services } from 'store/feathersClient';
 
 // Styles
-import { makeStyles } from "@material-ui/core/styles";
-import checkboxStyles from "assets/jss/nextjs-material-kit/customCheckboxRadioSwitch.js";
-import modalStyle from "assets/jss/nextjs-material-kit/modalStyle.js";
-import typographyStyles from "assets/jss/nextjs-material-kit/pages/componentsSections/typographyStyle.js";
+import { makeStyles } from '@material-ui/core/styles';
+import checkboxStyles from 'assets/jss/nextjs-material-kit/customCheckboxRadioSwitch.js';
+import modalStyle from 'assets/jss/nextjs-material-kit/modalStyle.js';
+import typographyStyles from 'assets/jss/nextjs-material-kit/pages/componentsSections/typographyStyle.js';
 import DesignedCheckBox  from 'components/administrator/DesignedCheckBox';
 
 export const useStyles = makeStyles({ ...modalStyle, ...typographyStyles, ...checkboxStyles });
@@ -47,60 +43,60 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function Modal(
     { user, courseEvaluation, closeModal }
 ) {
-    const authUser = useSelector(state => state.auth.user)
+    const authUser = useSelector(state => state.auth.user);
     const classes = useStyles();
     const initialStateModal = {
-        isAdministrator: user && getAvailablePermissionsOfUser(user.perms).has("Administrator"),
-        isCoordinator: user && getAvailablePermissionsOfUser(user.perms).has("Coordinator"),
+        isAdministrator: user && getAvailablePermissionsOfUser(user.perms).has('Administrator'),
+        isCoordinator: user && getAvailablePermissionsOfUser(user.perms).has('Coordinator'),
         perms: user && user.perms
-    }
-    const [modalState, setModalState] = useState(initialStateModal)
+    };
+    const [modalState, setModalState] = useState(initialStateModal);
 
     // Rerenders on everytime the user changes
     useEffect(() => {
-        setModalState(initialStateModal)
-    }, [user])
+        setModalState(initialStateModal);
+    }, [user]);
 
     // Creates a function that toggles a specific role
     const toggleRole = (role) => () => {
-        togglePerms(null, role)
-    }
+        togglePerms(null, role);
+    };
 
     const getIndexOfPermission = (allPerms, course_id, role) => {
         // This checks done are comparison by the course Mongo Object ID
         // Returns undefined if permisions is undefineed
-        return allPerms && allPerms.findIndex(perm => perm.course_id === course_id && perm.role === role)
-    }
+        return allPerms && allPerms.findIndex(perm => perm.course_id === course_id && perm.role === role);
+    };
 
     const togglePerms = (course_id, role) => {
-        const { isAdministrator, isCoordinator, perms } = modalState
-        const index = getIndexOfPermission(perms, course_id, role)
+        const { isAdministrator, isCoordinator, perms } = modalState;
+        const index = getIndexOfPermission(perms, course_id, role);
 
-        if (index == -1 || typeof index === "undefined") { // Permission Does not exist
-            perms.push({ course_id, role })
+        if (index == -1 || typeof index === 'undefined') { // Permission Does not exist
+            perms.push({ course_id, role });
         }
         else { // Permission Exists
-            perms.splice(index, 1) // Pop a specific index
+            perms.splice(index, 1); // Pop a specific index
         }
 
-        const changedAdminPerm = role === "Administrator" ? !isAdministrator : isAdministrator
+        const changedAdminPerm = role === 'Administrator' ? !isAdministrator : isAdministrator;
 
         // Null Course Id Coordinator
-        const changedCoordinatorPerm = role === "Coordinator" && course_id === null ? !isCoordinator : isCoordinator
+        const changedCoordinatorPerm = role === 'Coordinator' && course_id === null ? !isCoordinator : isCoordinator;
 
         setModalState(
             {
                 isAdministrator: changedAdminPerm,
                 isCoordinator: changedCoordinatorPerm,
                 perms
-            })
+            });
 
-    }
+    };
 
     const handleSave = () => {
-        const { perms } = modalState
-        services.users.patch(user._id, { perms })
-    }
+        const { perms } = modalState;
+        services.users.patch(user._id, { perms });
+    };
 
     return (
         <Dialog
@@ -150,18 +146,17 @@ export default function Modal(
                                     headerColor="primary"
                                     tabs={[
                                         {
-                                            tabName: "Coordinator",
+                                            tabName: 'Coordinator',
                                             tabIcon: Placeholder,
                                             tabContent: (
                                                 <List>
                                                     {courseEvaluation.queryResult.data.map(
                                                         course => (
-                                                            <ListItem>
+                                                            <ListItem key={`coordinator_perms_${course._id}`}>
                                                                 <DesignedCheckBox
-                                                                    onClick={() => togglePerms(course._id, "Coordinator")}
-                                                                    isChecked={getIndexOfPermission(modalState.perms, course._id, "Coordinator") >= 0}
-                                                                    label={course.courseId}>
-                                                                </DesignedCheckBox>
+                                                                    onClick={() => togglePerms(course._id, 'Coordinator')}
+                                                                    isChecked={getIndexOfPermission(modalState.perms, course._id, 'Coordinator') >= 0}
+                                                                    label={course.courseId} />
                                                             </ListItem>
                                                         )
                                                     )}
@@ -169,18 +164,17 @@ export default function Modal(
                                             )
                                         },
                                         {
-                                            tabName: "Reviewer",
+                                            tabName: 'Reviewer',
                                             tabIcon: Placeholder,
                                             tabContent: (
                                                 <List>
                                                     {courseEvaluation.queryResult.data.map(
                                                         course => (
-                                                            <ListItem>
+                                                            <ListItem key={`reviewer_perms_${course._id}`}>
                                                                 <DesignedCheckBox
-                                                                    onClick={() => togglePerms(course._id, "Reviewer")}
-                                                                    isChecked={getIndexOfPermission(modalState.perms, course._id, "Reviewer") >= 0}
-                                                                    label={course.courseId}>
-                                                                </DesignedCheckBox>
+                                                                    onClick={() => togglePerms(course._id, 'Reviewer')}
+                                                                    isChecked={getIndexOfPermission(modalState.perms, course._id, 'Reviewer') >= 0}
+                                                                    label={course.courseId} />
                                                             </ListItem>
                                                         )
                                                     )}
@@ -195,10 +189,10 @@ export default function Modal(
                 }
             </DialogContent>
             <DialogActions
-                className={classes.modalFooter + " " + classes.modalFooterCenter}
+                className={classes.modalFooter + ' ' + classes.modalFooterCenter}
             >
                 <Button onClick={() => closeModal()}>Cancel</Button>
-                <Button onClick={() => { closeModal(); handleSave() }} color="success">
+                <Button onClick={() => { closeModal(); handleSave(); }} color="success">
                     Save
                 </Button>
             </DialogActions>
@@ -209,7 +203,7 @@ export default function Modal(
 const BasicInformationField = ({ user, authUser, classes, isAdministrator, isCoordinator, toggleRole }) => {
     return (
         <>
-            <img src={user.picture} className={classes.imgRounded + " " + classes.imgFluid} />
+            <img src={user.picture} className={classes.imgRounded + ' ' + classes.imgFluid} />
             <CustomInput
                 labelText="Name (Cannot be editted)"
                 id="disabled"
@@ -231,11 +225,11 @@ const BasicInformationField = ({ user, authUser, classes, isAdministrator, isCoo
                     value: user.email
                 }} />
             {/* Cannot change permission of an administrator on itself */}
-            <DesignedCheckBox onClick={toggleRole("Administrator")} isChecked={isAdministrator}
-                label={"Administrator"} disabled={user._id === authUser._id}></DesignedCheckBox>
-            <DesignedCheckBox onClick={toggleRole("Coordinator")} isChecked={isCoordinator}
-                label={"Coordinator (can create more course reviews)"}></DesignedCheckBox>
+            <DesignedCheckBox onClick={toggleRole('Administrator')} isChecked={isAdministrator}
+                label={'Administrator'} disabled={user._id === authUser._id} />
+            <DesignedCheckBox onClick={toggleRole('Coordinator')} isChecked={isCoordinator}
+                label={'Coordinator (can create more course reviews)'} />
         </>
     );
-}
+};
 

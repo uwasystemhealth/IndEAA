@@ -15,12 +15,12 @@ module.exports = function (app) {
 
     schema.add({
         googleId: { type: String },
-        name: NameType(required = false),
+        name: NameType(false),
         picture: { type: String },
         email: EmailType({ unique: true }),
         perms: [
             {
-                course_id: ObjectIdType('course-evaluation', app, required = false),
+                course_id: ObjectIdType('course-evaluation', app, false),
                 role: { type: String, enum: ['Administrator', 'Coordinator', 'Reviewer'], required: true },
             }
         ]

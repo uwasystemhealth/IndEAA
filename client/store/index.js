@@ -12,7 +12,7 @@ export default function configureStore(reduxifiedServices, initialState) {
     // https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?utm_source=chrome-app-launcher-info-dialog
     const createStoreWithDevTools = (typeof window !== 'undefined' && window.devToolsExtension)
         ? window.devToolsExtension()(createStore) 
-        : createStore
+        : createStore;
 
     const createStoreWithMiddlewares = applyMiddleware(...middlewares)(createStoreWithDevTools);
 

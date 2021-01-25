@@ -1,7 +1,7 @@
 import React from 'react';
-import Checkbox from "@material-ui/core/Checkbox";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Check from "@material-ui/icons/Check";
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Check from '@material-ui/icons/Check';
 import { useStyles } from './UserModal';
 
 const DesignedCheckBox = ({ onClick, isChecked, label, disabled = false }) => {
@@ -21,4 +21,4 @@ const DesignedCheckBox = ({ onClick, isChecked, label, disabled = false }) => {
     );
 };
 
-export default DesignedCheckBox 
+export default DesignedCheckBox; 
