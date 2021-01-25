@@ -86,6 +86,7 @@ const AdminstratorMainPage = () => {
                                                         const RoleIcon = roleIcons[role];
                                                         return (
                                                             <Tooltip
+                                                                key={`${user._id}-${role}`}
                                                                 title={`${user.name || user.email} has ${role} role`}
                                                                 placement={'top'}
                                                                 classes={{ tooltip: classes.tooltip }}

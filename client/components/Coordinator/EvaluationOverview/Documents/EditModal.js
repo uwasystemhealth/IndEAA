@@ -76,6 +76,7 @@ const ApplyTags = ({ eocs, tags, handleCheck }) => {
                 <List>
                     {eocs.map((numberLabel) => (
                         <DesignedCheckBox
+                            key={numberLabel}
                             onClick={() => handleCheck(numberLabel)}
                             isChecked={tags.includes(numberLabel)}
                             label={`EOC ${numberLabel}`}

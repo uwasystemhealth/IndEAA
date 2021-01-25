@@ -43,6 +43,7 @@ const DocumentViewer = ({
 
     const generalCards = generalDocs.map((doc) => (
         <DocumentCard
+            key={doc}
             course_id={course_id}
             document={doc}
             isReviewer={isReviewer}
@@ -52,6 +53,7 @@ const DocumentViewer = ({
     ));
     const specificCards = specificDocs.map((doc) => (
         <DocumentCard
+            key={doc}
             course_id={course_id}
             document={doc}
             isReviewer={isReviewer}

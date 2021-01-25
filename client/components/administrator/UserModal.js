@@ -152,7 +152,7 @@ export default function Modal(
                                                 <List>
                                                     {courseEvaluation.queryResult.data.map(
                                                         course => (
-                                                            <ListItem>
+                                                            <ListItem key={`coordinator_perms_${course._id}`}>
                                                                 <DesignedCheckBox
                                                                     onClick={() => togglePerms(course._id, 'Coordinator')}
                                                                     isChecked={getIndexOfPermission(modalState.perms, course._id, 'Coordinator') >= 0}
@@ -170,7 +170,7 @@ export default function Modal(
                                                 <List>
                                                     {courseEvaluation.queryResult.data.map(
                                                         course => (
-                                                            <ListItem>
+                                                            <ListItem key={`reviewer_perms_${course._id}`}>
                                                                 <DesignedCheckBox
                                                                     onClick={() => togglePerms(course._id, 'Reviewer')}
                                                                     isChecked={getIndexOfPermission(modalState.perms, course._id, 'Reviewer') >= 0}

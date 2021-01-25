@@ -82,7 +82,7 @@ const ReviewerPagePreSubmissionContent = ({isReadOnly}) => {
                   );
 
                   return (
-                      <GridItem xs={4}>
+                      <GridItem xs={4} key={document._id}>
                           <Card>
                               <CardBody>
                                   <h4 className={classes.cardTitle}>{document.name}</h4>
