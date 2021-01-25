@@ -1,7 +1,5 @@
 // CORE COMPONENTS
 import Card from 'components/MaterialKit/Card/Card.js';
-import CardBody from 'components/MaterialKit/Card/CardBody.js';
-import CardHeader from 'components/MaterialKit/Card/CardHeader.js';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
@@ -16,7 +14,7 @@ import ViewModal from './ViewModal.js';
 import { useState, useEffect } from 'react';
 
 // Store Actions and Redux
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { services } from 'store/feathersClient';
 
 import { getEOCInfo, getIndexOfEOCMatch, getDetailsOfEntireEOC} from 'utils.js';

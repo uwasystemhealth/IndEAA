@@ -1,10 +1,8 @@
 import Card from 'components/MaterialKit/Card/Card.js';
 import CardBody from 'components/MaterialKit/Card/CardBody.js';
-import CardHeader from 'components/MaterialKit/Card/CardHeader.js';
 import Button from 'components/MaterialKit/CustomButtons/Button.js';
 import ManageReviewers from './ManageReviewers.js';
 
-import { useState } from 'react';
 import { useRouter } from 'next/router';
 
 // Store actions and Redux

@@ -5,15 +5,12 @@ import { SnackbarProvider} from 'notistack';
 import Card from 'components/MaterialKit/Card/Card.js';
 import CardBody from 'components/MaterialKit/Card/CardBody.js';
 import GridContainer from 'components/MaterialKit/Grid/GridContainer.js';
-import GridItem from 'components/MaterialKit/Grid/GridItem.js';
-import Parallax from 'components/MaterialKit/Parallax/Parallax.js';
 
-// OWN COMPONENTS
+
 import Footer from 'components/Layout/Footer';
 import Notification from 'components/Layout/Notification';
 
 // STYLES
-import classNames from 'classnames';
 import { makeStyles } from '@material-ui/core/styles';
 import styles from 'assets/jss/nextjs-material-kit/pages/loginPage.js';
 const useStyles = makeStyles(styles);

@@ -1,7 +1,4 @@
 // CORE COMPONENTS
-import Card from 'components/MaterialKit/Card/Card.js';
-import CardBody from 'components/MaterialKit/Card/CardBody.js';
-import CardHeader from 'components/MaterialKit/Card/CardHeader.js';
 import CustomTabs from 'components/MaterialKit/CustomTabs/CustomTabs.js';
 import Face from '@material-ui/icons/Face';
 import Chat from '@material-ui/icons/Chat';
@@ -11,7 +8,7 @@ import DocumentCard from './../Documents/DocumentCard.js';
 import EditModal from 'components/Coordinator/EvaluationOverview/Documents/EditModal.js';
 import ReviewerDocumentModal from 'components/reviewer/ReviewerDocumentModal';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 const DocumentViewer = ({
     documents = [],

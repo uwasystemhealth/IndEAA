@@ -1,9 +1,6 @@
 // CORE
-import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf';
-import HowToVoteIcon from '@material-ui/icons/HowToVote';
 import Grid from 'components/MaterialKit/Grid/GridContainer.js';
 import GridItem from 'components/MaterialKit/Grid/GridItem.js';
-import Button from 'components/MaterialKit/CustomButtons/Button.js';
 import Link from '@material-ui/core/Link';
 
 // Own Components
@@ -11,7 +8,6 @@ import ReviewProgress from 'components/reviewer/ReviewProgress';
 
 //Styles
 import { makeStyles } from '@material-ui/core/styles';
-import styles from 'assets/jss/nextjs-material-kit/pages/landingPage.js';
 const useStyles = makeStyles(() => ({
     root: {
         width: 'inherit',

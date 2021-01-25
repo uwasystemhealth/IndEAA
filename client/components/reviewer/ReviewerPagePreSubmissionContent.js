@@ -1,11 +1,8 @@
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 
-// Redux
-import { useDispatch, useSelector } from 'react-redux';
-import { services } from 'store/feathersClient';
 
-// Own Components
+import { useSelector } from 'react-redux';
+
+
 import ReviewerEOCListing from 'components/reviewer/ReviewerEOCListing';
 import ReviewerGeneralComment from 'components/reviewer/ReviewerGeneralComment';
 
@@ -15,23 +12,17 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Card from 'components/MaterialKit/Card/Card.js';
 import CardBody from 'components/MaterialKit/Card/CardBody.js';
-import CardHeader from 'components/MaterialKit/Card/CardHeader.js';
-import CardFooter from 'components/MaterialKit/Card/CardFooter.js';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Success from 'components/MaterialKit/Typography/Success.js';
 import Danger from 'components/MaterialKit/Typography/Danger.js';
 import GridContainer from 'components/MaterialKit/Grid/GridContainer.js';
 import GridItem from 'components/MaterialKit/Grid/GridItem.js';
-import CustomTabs from 'components/MaterialKit/CustomTabs/CustomTabs.js';
 
-// Utils
-import {
-    getEOCInfo,
-    getIndexOfEOCMatch,
-    getDetailsOfEntireEOC,
-} from 'utils.js';
 
-// Styles
+
+
+
+
 import { makeStyles } from '@material-ui/core/styles';
 import {
     cardTitle,

@@ -2,11 +2,7 @@
 import Card from 'components/MaterialKit/Card/Card.js';
 import CardBody from 'components/MaterialKit/Card/CardBody.js';
 import CardHeader from 'components/MaterialKit/Card/CardHeader.js';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Check from '@material-ui/icons/Check';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
 import DesignedCheckBox  from 'components/administrator/DesignedCheckBox';
 
 

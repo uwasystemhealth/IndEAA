@@ -8,16 +8,12 @@ import DialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import Divider from '@material-ui/core/Divider';
 
-// @material-ui/icons
+
 import Close from '@material-ui/icons/Close';
 import Placeholder from '@material-ui/icons/Mood';
 
 // core components
-import Card from 'components/MaterialKit/Card/Card.js';
-import CardBody from 'components/MaterialKit/Card/CardBody.js';
-import CardHeader from 'components/MaterialKit/Card/CardHeader.js';
 import CustomInput from 'components/MaterialKit/CustomInput/CustomInput.js';
 import Button from 'components/MaterialKit/CustomButtons/Button.js';
 import Grid from 'components/MaterialKit/Grid/GridContainer.js';

@@ -2,16 +2,11 @@
 import Card from 'components/MaterialKit/Card/Card.js';
 import CardBody from 'components/MaterialKit/Card/CardBody.js';
 import CardHeader from 'components/MaterialKit/Card/CardHeader.js';
-import CardFooter from 'components/MaterialKit/Card/CardFooter.js';
 import Button from 'components/MaterialKit/CustomButtons/Button.js';
 import GridContainer from 'components/MaterialKit/Grid/GridContainer.js';
 import GridItem from 'components/MaterialKit/Grid/GridItem.js';
 import ListItem from '@material-ui/core/ListItem';
 import List from '@material-ui/core/List';
-import FormGroup from '@material-ui/core/FormGroup';
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { spacing } from '@material-ui/system';
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
@@ -36,7 +31,7 @@ const useStyles = makeStyles(() => ({
 import { useEffect, useState } from 'react';
 
 // Redux
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { services } from 'store/feathersClient';
 
 const EvaluationList = () => {

@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 // Custom Hooks
@@ -11,10 +10,9 @@ import ReviewerPageBottomNavigation from 'components/reviewer/ReviewerPageBottom
 import AreYouSureButton from 'components/Other/AreYouSureButton';
 
 // MaterialKit
-import Button from 'components/MaterialKit/CustomButtons/Button.js';
 
-// Redux
-import { useDispatch, useSelector } from 'react-redux';
+
+import { useSelector } from 'react-redux';
 import { services } from 'store/feathersClient';
 
 // Utils
@@ -25,7 +23,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import styles from 'assets/jss/nextjs-material-kit/pages/landingPage.js';
 const useStyles = makeStyles(styles);
 
-import { getOrCreateReview, updateCurrentlyBeingViewedCourse } from 'utils';
 
 const ReviewerCourseReviewPage4 = () => {
     const router = useRouter();

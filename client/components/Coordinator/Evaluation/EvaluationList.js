@@ -8,12 +8,8 @@ import GridContainer from 'components/MaterialKit/Grid/GridContainer.js';
 import GridItem from 'components/MaterialKit/Grid/GridItem.js';
 import ListItem from '@material-ui/core/ListItem';
 import List from '@material-ui/core/List';
-import FormGroup from '@material-ui/core/FormGroup';
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { spacing } from '@material-ui/system';
 
-// CUSTOM COMPONENTS
+
 import EvaluationListing from './EvaluationListing.js';
 import CreateEvaluationModal from './CreateEvaluationModal.js';
 
@@ -38,7 +34,7 @@ const useStyles = makeStyles(() => ({
 import { useEffect, useState } from 'react';
 
 // Redux
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { services } from 'store/feathersClient';
 
 const EvaluationList = () => {

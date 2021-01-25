@@ -22,7 +22,7 @@ import CustomInput from 'components/MaterialKit/CustomInput/CustomInput.js';
 
 // Redux
 import { signIn } from 'actions/auth';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { services } from 'store/feathersClient';
 
 // Styles

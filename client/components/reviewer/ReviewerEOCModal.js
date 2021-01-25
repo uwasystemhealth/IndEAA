@@ -1,6 +1,5 @@
 // CORE COMPONENTS
 import Button from 'components/MaterialKit/CustomButtons/Button.js';
-import FindInPageIcon from '@material-ui/icons/FindInPage';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -11,13 +10,12 @@ import CustomDropdown from 'components/MaterialKit/CustomDropdown/CustomDropdown
 import TextField from '@material-ui/core/TextField';
 import Card from 'components/MaterialKit/Card/Card.js';
 import CardBody from 'components/MaterialKit/Card/CardBody.js';
-import CardHeader from 'components/MaterialKit/Card/CardHeader.js';
 import HelpIcon from '@material-ui/icons/Help';
 import IconButton from '@material-ui/core/IconButton';
 import Close from '@material-ui/icons/Close';
 
 // Redux
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { services } from 'store/feathersClient';
 
 // CUSTOM COMPONENTS

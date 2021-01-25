@@ -6,24 +6,15 @@ import DialogActions from '@material-ui/core/DialogActions';
 import GridContainer from 'components/MaterialKit/Grid/GridContainer.js';
 import GridItem from 'components/MaterialKit/Grid/GridItem.js';
 import CustomInput from 'components/MaterialKit/CustomInput/CustomInput.js';
-import TextField from '@material-ui/core/TextField';
-import EditIcon from '@material-ui/icons/Edit';
-import Placeholder from '@material-ui/icons/Subject';
 import Card from 'components/MaterialKit/Card/Card.js';
 import CardBody from 'components/MaterialKit/Card/CardBody.js';
-import CardHeader from 'components/MaterialKit/Card/CardHeader.js';
 import IconButton from '@material-ui/core/IconButton';
 import Close from '@material-ui/icons/Close';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Check from '@material-ui/icons/Check';
 
-// FORM Material UI
+
 import InputAdornment from '@material-ui/core/InputAdornment';
 
 // Redux
-import { useDispatch, useSelector } from 'react-redux';
 import { services } from 'store/feathersClient';
 
 // STYLES

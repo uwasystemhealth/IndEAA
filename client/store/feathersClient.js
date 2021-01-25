@@ -4,9 +4,8 @@ import feathersSaga from './feathersSaga';
 import io from 'socket.io-client';
 import feathers from '@feathersjs/client';
 import socketio from '@feathersjs/socketio-client';
-import Realtime from 'feathers-offline-realtime';
 
-import reduxifyServices, { getServicesStatus, bindWithDispatch } from 'feathers-redux';
+import reduxifyServices, { bindWithDispatch } from 'feathers-redux';
 
 // Configure Socket Configuration
 

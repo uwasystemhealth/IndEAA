@@ -1,24 +1,16 @@
 import React from 'react';
 // @material-ui/core components
 import { makeStyles } from '@material-ui/core/styles';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import Icon from '@material-ui/core/Icon';
-// @material-ui/icons
-import Email from '@material-ui/icons/Email';
-import People from '@material-ui/icons/People';
-// core components
-import Header from 'components/MaterialKit/Header/Header.js';
-import HeaderLinks from 'components/MaterialKit/Header/HeaderLinks.js';
+
+
 import GridContainer from 'components/MaterialKit/Grid/GridContainer.js';
 import GridItem from 'components/MaterialKit/Grid/GridItem.js';
 import Button from 'components/MaterialKit/CustomButtons/Button.js';
 import Card from 'components/MaterialKit/Card/Card.js';
-import CardBody from 'components/MaterialKit/Card/CardBody.js';
 import CardHeader from 'components/MaterialKit/Card/CardHeader.js';
 import CardFooter from 'components/MaterialKit/Card/CardFooter.js';
-import CustomInput from 'components/MaterialKit/CustomInput/CustomInput.js';
 
-// Own Components
+
 import Navbar from 'components/Layout/Navbar';
 import Footer from 'components/Layout/Footer';
 
@@ -31,7 +23,7 @@ import image from 'assets/img/bg7.jpg';
 
 const useStyles = makeStyles(styles);
 
-export default function LoginPage(props) {
+const LoginPage = (props) => {
     const [cardAnimaton, setCardAnimation] = React.useState('cardHidden');
     setTimeout(function () {
         setCardAnimation('');
@@ -91,6 +83,9 @@ export default function LoginPage(props) {
             <Footer whiteFont />
         </div>
     );
-}
+};
 
+// eslint-disable-next-line no-unused-vars
 LoginPage.customLayout = ({ children }) => <div>{children}</div>;
+
+export default LoginPage;

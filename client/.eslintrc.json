@@ -9,6 +9,7 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
+  "plugins": ["unused-imports"],
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended"
@@ -30,6 +31,17 @@
       "error",
       "always"
     ],
+    "no-undef": "warn",
+    "react/display-name": "warn",
+    "no-prototype-builtins": "warn",
+    "no-unused-vars": "off",
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+     "warn",
+     { "vars": "all", "varsIgnorePattern": "^_", "args": "after-used", "argsIgnorePattern": "^_" }
+    ],
+    "react/react-in-jsx-scope": "off", // using nextjs does not need react in scope
+    "react/prop-types": "warn", // not using proptypes for Material Kit
     "react/self-closing-comp": ["error", {
       "component": true,
       "html": true

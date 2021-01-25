@@ -5,9 +5,8 @@ import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { signIn } from 'actions/auth';
 import { setCurrentRoleSelected, setPageMiddleTitle } from 'actions/general';
-import { services } from 'store/feathersClient';
 
-// Utils
+
 import { permissions, getAvailablePermissionsOfUser } from 'utils';
 
 const AuthGuard = ({ children, isProtected }) => {

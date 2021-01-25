@@ -4,10 +4,10 @@ import CardBody from 'components/MaterialKit/Card/CardBody.js';
 import CardHeader from 'components/MaterialKit/Card/CardHeader.js';
 
 // Store Actions and Redux
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { services } from 'store/feathersClient';
 
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 
 const OtherInformation = ({ evaluationID }) => {
     useEffect(() => {

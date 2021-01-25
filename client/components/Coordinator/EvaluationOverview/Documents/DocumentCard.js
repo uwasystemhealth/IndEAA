@@ -1,7 +1,6 @@
 // CORE COMPONENTS
 import Card from 'components/MaterialKit/Card/Card.js';
 import CardBody from 'components/MaterialKit/Card/CardBody.js';
-import CardHeader from 'components/MaterialKit/Card/CardHeader.js';
 import CardFooter from 'components/MaterialKit/Card/CardFooter.js';
 import Badge from 'components/MaterialKit/Badge/Badge.js';
 import GridContainer from 'components/MaterialKit/Grid/GridContainer.js';
@@ -12,7 +11,6 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 // CUSTOM COMPONENTS
-import EditModal from './EditModal.js';
 import AreYouSureButton from 'components/Other/AreYouSureButton';
 
 // STYLES

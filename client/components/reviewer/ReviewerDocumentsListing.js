@@ -1,18 +1,15 @@
-import EditIcon from '@material-ui/icons/Edit';
-// CORE COMPONENTS
+
 import GridContainer from 'components/MaterialKit/Grid/GridContainer.js';
 import GridItem from 'components/MaterialKit/Grid/GridItem.js';
-import Button from 'components/MaterialKit/CustomButtons/Button.js';
 
-// CUSTOM COMPONENTS
+
 import DocumentCard from 'components/Coordinator/EvaluationOverview/Documents/DocumentCard.js';
 import ReviewerDocumentModal from 'components/reviewer/ReviewerDocumentModal';
 
 // Store Actions and Redux
-import { useDispatch, useSelector } from 'react-redux';
-import { services } from 'store/feathersClient';
+import { useSelector } from 'react-redux';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 const Documents = () => {
     const [currentSelectedDocumentReview, setCurrentSelectedDocumentReview] = useState(null);

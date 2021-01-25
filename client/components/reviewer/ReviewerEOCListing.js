@@ -1,7 +1,5 @@
 // CORE COMPONENTS
 import Card from 'components/MaterialKit/Card/Card.js';
-import CardBody from 'components/MaterialKit/Card/CardBody.js';
-import CardHeader from 'components/MaterialKit/Card/CardHeader.js';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
@@ -13,13 +11,12 @@ import GridItem from 'components/MaterialKit/Grid/GridItem.js';
 import EOCCard from 'components/Coordinator/EvaluationOverview/Justifications/EOCCard';
 import ReviewerEOCModal from 'components/reviewer/ReviewerEOCModal';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 // Store Actions and Redux
-import { useDispatch, useSelector } from 'react-redux';
-import { services } from 'store/feathersClient';
+import { useSelector } from 'react-redux';
 
-import { getEOCInfo, getIndexOfEOCMatch, getDetailsOfEntireEOC} from 'utils.js';
+import { getEOCInfo, getDetailsOfEntireEOC} from 'utils.js';
 
 const EOCAccordion = () => {
     // https://stackoverflow.com/questions/58539813/lazy-initial-state-what-is-and-where-to-use-it

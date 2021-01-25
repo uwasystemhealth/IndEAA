@@ -12,11 +12,10 @@ const styles = {
 const useStyles = makeStyles(styles);
 
 // Store Actions and Redux
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { services } from 'store/feathersClient';
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 const Information = ({ evaluationID }) => {
     const classes = useStyles();

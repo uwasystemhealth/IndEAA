@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 // Use own components// Custom Hooks
@@ -9,15 +8,13 @@ import ReviewerPageCardDescription from 'components/reviewer/ReviewerPageCardDes
 import ReviewerPageBottomNavigation from 'components/reviewer/ReviewerPageBottomNavigation';
 
 // Redux
-import { useDispatch, useSelector } from 'react-redux';
-import { services } from 'store/feathersClient';
+import { useSelector } from 'react-redux';
 
-//Styles
+
 import { makeStyles } from '@material-ui/core/styles';
 import styles from 'assets/jss/nextjs-material-kit/pages/landingPage.js';
 const useStyles = makeStyles(styles);
 
-import { getOrCreateReview, updateCurrentlyBeingViewedCourse } from 'utils';
 
 const ReviewerCourseReviewPage3 = () => {
     const router = useRouter();

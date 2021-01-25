@@ -9,7 +9,7 @@ import DocumentCard from 'components/Coordinator/EvaluationOverview/Documents/Do
 import EditModal from 'components/Coordinator/EvaluationOverview/Documents/EditModal.js';
 
 // Store Actions and Redux
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { services } from 'store/feathersClient';
 
 import { useState, useEffect } from 'react';

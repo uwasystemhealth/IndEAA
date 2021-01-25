@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useRouter } from 'next/router';
 import classnames from 'classnames';
 // @material-ui/core components
@@ -16,14 +16,11 @@ import StepButton from '@material-ui/core/StepButton';
 // STYLES
 import stepperStyle from 'assets/jss/custom/stepper.js';
 import { StepperConnector } from 'assets/jss/custom/stepper';
-import { TextareaAutosize } from '@material-ui/core';
 const useStepperStyles = makeStyles(stepperStyle);
 
 // Redux
-import { useSelector } from 'react-redux';
-import { services } from 'store/feathersClient';
 
-// WORKAROUND CHANGE COLOR OF STEP LABEL
+
 const StyledStepButton = styled(StepButton)({
     '& .MuiStepLabel-active': {
         color: '#FFFF',
