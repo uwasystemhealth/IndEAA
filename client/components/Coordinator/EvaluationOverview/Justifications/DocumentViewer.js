@@ -36,7 +36,7 @@ const DocumentViewer = ({
   // specific = 1.2
   // general = 1
   const specificEocNumber = eocBeingViewed;
-  const generalEocNumber = eocBeingViewed?.substring(0, 1);
+  const generalEocNumber = eocBeingViewed?.split(".")[0];
   const generalDocs = documents.filter((document) =>
     document.tags.includes(generalEocNumber)
   );
