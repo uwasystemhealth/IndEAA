@@ -30,7 +30,8 @@ feathersClient.configure(feathers.authentication())
 // Configure Redux with Feathers
 export const serviceNames = [
     'users',
-    'course-evaluation'
+    'course-evaluation',
+    "review"
 ]
 export const rawServices = reduxifyServices(feathersClient, serviceNames,{
     idField: "_id", // This is to ensure that realtime update matching uses that attribute

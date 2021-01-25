@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 // Store Actions and Redux
 import { useDispatch, useSelector } from "react-redux";
 import { signIn } from "actions/auth";
-import { setCurrentRoleSelected } from "actions/general";
+import { setCurrentRoleSelected, setPageMiddleTitle } from "actions/general";
 import { services } from "store/feathersClient";
 
 // Utils
@@ -20,6 +20,8 @@ const AuthGuard = ({ children, isProtected }) => {
 
   // Hooks
   const user = useSelector((state) => state.auth.user);
+  const courseState = useSelector((state) => state["course-evaluation"]);
+  const course = courseState.data;
   const router = useRouter();
 
   if (isProtected) {
@@ -61,9 +63,6 @@ const AuthGuard = ({ children, isProtected }) => {
           // and permission should be found
           if (router.query.hasOwnProperty("courseID")) {
             const { courseID } = router.query;
-            const currentCourse = services["course-evaluation"].get({
-              _id: courseID,
-            });
             const courseSpecificPermissions = user.perms.filter(
               (permission) => courseID == permission.course_id
             );
@@ -76,6 +75,15 @@ const AuthGuard = ({ children, isProtected }) => {
               allowed = false;
               return null;
             }
+            const getAndSetPageTitle = async () => {
+              // Get Course ID Review To Display Title
+              const currentCourseId =course?.courseId
+              dispatch(setPageMiddleTitle(currentCourseId));
+            };
+            getAndSetPageTitle();
+          } else {
+            // Does not have router query
+            dispatch(setPageMiddleTitle(""));
           }
           // Set the Current Role Being Viewed in the State
           dispatch(setCurrentRoleSelected(currentRoleBeingChecked));

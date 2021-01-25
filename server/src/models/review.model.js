@@ -3,9 +3,7 @@
 // See http://mongoosejs.com/docs/models.html
 // for more of what you can do here.
 const DefaultSchema = require('../types/default.schema');
-const NameType = require('../types/name.type');
 const DescType = require('../types/desc.type');
-const EmailType = require('../types/email.type');
 const ObjectIdType = require('../types/objectId.type');
 
 
@@ -16,14 +14,14 @@ module.exports = function (app) {
     const schema = DefaultSchema(app);
 
     schema.add({
-        user_id: ObjectIdType('users',app,required= true) ,
-        course_id: ObjectIdType('course-evaluation', app, required = false),
-        step1DevelopmentLevels: {type: Boolean},
+        user_id: ObjectIdType('users',app) ,
+        course_id: ObjectIdType('course-evaluation', app),
+        step1DevelopmentLevels: {type: Date, default:null},
         step2Documents: [
             {
                 document_id:Schema.Types.ObjectId,
                 comment: DescType(),
-                finishedReviewedOn: Date
+                finishedReviewedOn: {type: Date, default: null}
             }
         ],
         step3Evaluation:[
@@ -31,11 +29,11 @@ module.exports = function (app) {
                 rating: Number,
                 reason: DescType(),
                 ideaForImprovement: DescType(),
-                eoc: {type: Number, unique: true}
+                eoc: {type: String}
             }
         ],
         step4ReviewComment: DescType(),
-        isSubmitted: {type: Boolean}
+        submittedDate: {type: Date, default: null}
     });
 
     // This is necessary to avoid model compilation errors in watch mode
