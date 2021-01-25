@@ -55,26 +55,26 @@ const StepperPathway = ({ review }) => {
   const steps = [
     {
       stepName: "Overview & Eoc",
-      done: review.step1DevelopmentLevels || false,
+      done: Boolean(review.step1DevelopmentLevels),
       stepLink: "overview-and-eoc",
     },
     {
       stepName: "Read Documents",
       done:
-        (review.step2Documents && review.step2Documents.length > 0) || false,
+        Boolean((review.step2Documents && review.step2Documents.length > 0)),
       stepLink: "documents",
     },
 
     {
       stepName: "Review Course",
       done:
-        (review.step3Evaluation && review.step3Evaluation.length > 0) || false,
+        Boolean((review.step3Evaluation && review.step3Evaluation.length > 0)),
       stepLink: "assessment",
     },
 
     {
       stepName: "Review & Submit",
-      done: review.submittedDate || false,
+      done: Boolean(review.submittedDate),
       stepLink: "review",
     },
   ];
