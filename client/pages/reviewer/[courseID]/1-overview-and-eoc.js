@@ -10,6 +10,8 @@ import CustomTabs from 'components/MaterialKit/CustomTabs/CustomTabs.js';
 
 // Custom Hooks
 import {useCurrentReviewOfUser} from 'components/customHooks/ReviewerReviewLoad';
+import useRedirectIfFinish from 'components/customHooks/ReviewerFinishedGuard';
+
 // Use own components
 import ReviewProgress from 'components/reviewer/ReviewProgress';
 import ReviewerPageCardDescription from 'components/reviewer/ReviewerPageCardDescription';
@@ -39,6 +41,7 @@ const ReviewerCourseReviewPage1 = () => {
 
     // Load the Reviewer using custom useEffect Hook
     useCurrentReviewOfUser(authUser,reviewState,courseID);
+    useRedirectIfFinish(review,courseID);
 
     const handleSubmit = () => {
     // Update the Review Process when has been read

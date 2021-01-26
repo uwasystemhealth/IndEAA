@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 
 // Custom Hooks
 import {useCurrentReviewOfUser} from 'components/customHooks/ReviewerReviewLoad';
+import useRedirectIfFinish from 'components/customHooks/ReviewerFinishedGuard';
 // Use own components
 import ReviewProgress from 'components/reviewer/ReviewProgress';
 import ReviewerPagePreSubmissionContent from 'components/reviewer/ReviewerPagePreSubmissionContent';
@@ -39,7 +40,8 @@ const ReviewerCourseReviewPage4 = () => {
 
     // Load the Reviewer using custom useEffect Hook
     useCurrentReviewOfUser(authUser,reviewState,courseID);
-  
+    useRedirectIfFinish(review,courseID);
+    
     const pageNumber = 4;
     const handleSubmit = () => {
     // Do validation to check the previous filled things or find in the page for any danger
