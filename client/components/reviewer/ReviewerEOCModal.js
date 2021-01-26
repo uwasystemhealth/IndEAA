@@ -42,6 +42,7 @@ const ViewModal = ({
     isOpen,
     description,
     closeModal,
+    isReadOnly // For finished Reviews or coordinator viewing
 }) => {
     const classes = useStyles();
 
@@ -146,17 +147,22 @@ const ViewModal = ({
                         <GridItem>
               Development Level
                             <HelpIcon />
-                            <CustomDropdown
-                                buttonText={developmentLevelToString[state.rating]}
-                                dropdownList={[
-                                    developmentLevelToString[1],
-                                    developmentLevelToString[2],
-                                    developmentLevelToString[3],
-                                    developmentLevelToString[4],
-                                ]}
-                                id="developmentLevel"
-                                onClick={handleDropdownChange}
-                            />
+                            {!isReadOnly ? 
+                                <CustomDropdown
+                                    buttonText={developmentLevelToString[state.rating]}
+                                    dropdownList={[
+                                        developmentLevelToString[1],
+                                        developmentLevelToString[2],
+                                        developmentLevelToString[3],
+                                        developmentLevelToString[4],
+                                    ]}
+                                    id="developmentLevel"
+                                    onClick={handleDropdownChange}
+                                />
+                                :
+                                <Button>{developmentLevelToString[state.rating]}</Button>
+                            }
+                            
                         </GridItem>
 
                         <GridItem>
@@ -169,6 +175,7 @@ const ViewModal = ({
                                 value={state.reason}
                                 id="reason"
                                 onChange={handleChange}
+                                disabled={isReadOnly}
                             />
                         </GridItem>
                         <GridItem>
@@ -181,6 +188,7 @@ const ViewModal = ({
                                 value={state.ideaForImprovement}
                                 id="ideaForImprovement"
                                 onChange={handleChange}
+                                disabled={isReadOnly}
                             />
                         </GridItem>
                     </GridItem>
@@ -192,6 +200,7 @@ const ViewModal = ({
                                 documents={course?.documents}
                                 eocBeingViewed={eocGeneralAndSpecific}
                                 isReviewer
+                                isReadOnly
                             />
                         </GridItem>
                     </GridItem>
@@ -199,9 +208,11 @@ const ViewModal = ({
             </DialogContent>
             <DialogActions>
                 <Button onClick={() => closeModal()}>Cancel</Button>
-                <Button color="primary" onClick={() => handleSave()}>
-          Save
-                </Button>
+                {!isReadOnly &&
+                    <Button color="primary" onClick={() => handleSave()}>
+                    Save
+                    </Button>
+                }
             </DialogActions>
         </Dialog>
     );

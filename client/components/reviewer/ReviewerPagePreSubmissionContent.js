@@ -123,7 +123,7 @@ const ReviewerPagePreSubmissionContent = ({isReadOnly}) => {
             3. Review Course
                 </AccordionSummary>
                 <AccordionDetails>
-                    <ReviewerEOCListing />
+                    <ReviewerEOCListing isReadOnly={isReadOnly}/>
                 </AccordionDetails>
             </Accordion>
 
