@@ -10,6 +10,8 @@ import GridContainer from "components/MaterialKit/Grid/GridContainer.js";
 import GridItem from "components/MaterialKit/Grid/GridItem.js";
 import IconButton from "@material-ui/core/IconButton";
 import Close from "@material-ui/icons/Close";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import People from "@material-ui/icons/People";
 
 // CUSTOM COMPONENTS
 import ReviewerListing from "./ReviewerListing.js";
@@ -31,6 +33,7 @@ import { useState, useEffect } from "react";
 const ManageReviewers = ({ evaluationID }) => {
   const classes = useStyles();
   const [modal, setModal] = useState(false);
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
     services["course-evaluation"].get({
@@ -77,6 +80,17 @@ const ManageReviewers = ({ evaluationID }) => {
     }
   };
 
+  // TODO: refactor (copied from administrator code)
+  const createUser = async (email) => {
+    try {
+      const response = await services.users.create({ email });
+      closeModal();
+      setCurrentUserSelected(response.value);
+    } catch (error) {
+      // Handled by Redux Saga
+    }
+  };
+
   const courseTitle = evalData?.courseId;
   const reviewerCards = reviewers?.map((reviewer) => (
     <ReviewerListing
@@ -85,6 +99,11 @@ const ManageReviewers = ({ evaluationID }) => {
       removeReviewer={() => removePermission(reviewer._id, evalData._id)}
     />
   ));
+
+  const handleSubmit = () => {
+    createUser(email);
+    setEmail("");
+  };
 
   return (
     <>
@@ -129,10 +148,19 @@ const ManageReviewers = ({ evaluationID }) => {
                 formControlProps={{
                   fullWidth: true,
                 }}
+                inputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <People />
+                    </InputAdornment>
+                  ),
+                  value: email,
+                  onChange: (e) => setEmail(e.target.value),
+                }}
               />
             </GridItem>
             <GridItem xs={6}>
-              <Button color="white">
+              <Button onClick={() => handleSubmit(email)} color="white">
                 <SendIcon />
                 Invite
               </Button>
