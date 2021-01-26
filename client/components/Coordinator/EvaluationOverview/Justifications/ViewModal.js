@@ -30,6 +30,7 @@ const styles = { ...modalStyle, ...typographyStyle };
 const useStyles = makeStyles(styles);
 
 import {
+    getStaticDetailsOfEOC,
     developmentLevel,
     developmentLevelToString,
     stringToDevelopmentLevel,
@@ -39,7 +40,6 @@ import {
 const ViewModal = ({
     eocGeneralAndSpecific,
     detailsOfEOC,
-    description,
     isOpen,
     closeModal,
     saveFields
@@ -47,6 +47,7 @@ const ViewModal = ({
     const classes = useStyles();
 
     const { rating, justification, eocsInSameJustification } = detailsOfEOC;
+    const {desc:description = ''} = getStaticDetailsOfEOC(eocGeneralAndSpecific) || {};
 
     const initialStateModal = {
         justification,
@@ -138,14 +139,14 @@ const ViewModal = ({
                 >
                     <Close className={classes.modalClose} />
                 </IconButton>
-                <h3>
+                <h5 className={classes.title}>
                     {eocGeneralAndSpecific} - {description}
-                </h3>
+                </h5>
             </DialogTitle>
 
             <DialogContent>
                 <GridContainer>
-                    <GridItem xs={6}>
+                    <GridItem md={6}>
             Development Level
                         <CustomDropdown
                             buttonText={developmentLevelToString[state.developmentLevel]}
@@ -161,14 +162,14 @@ const ViewModal = ({
                             onClick={handleDropdownChange}
                         />
                     </GridItem>
-                    <GridItem xs={6}>
+                    <GridItem md={6}>
                         <ApplyTo
                             eocs={specificNumbers}
                             eocInSame={state.eocsInSameJustification}
                             handleCheck={handleCheck}
                         />
                     </GridItem>
-                    <GridItem xs={6}>
+                    <GridItem md={6}>
             Justification
                         <TextField
                             multiline
@@ -180,7 +181,7 @@ const ViewModal = ({
                             onChange={handleChange}
                         />
                     </GridItem>
-                    <GridItem xs={6}>
+                    <GridItem md={6}>
                         <DocumentViewer
                             course_id={course._id}
                             documents={course.documents}

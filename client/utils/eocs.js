@@ -21,6 +21,17 @@ export const getDetailsOfEntireEOC = (eocGeneralAndSpecific,eocReviews) => {
     return { rating, justification, eocsInSameJustification };
 };
 
+export const getStaticDetailsOfEOC = (eocGeneralAndSpecific,evaluationID) => {
+    if(eocGeneralAndSpecific)
+    {
+        const eocs = getEOCInfo(evaluationID);
+        const [eocSetNum,eocNum] = eocGeneralAndSpecific?.split('.');
+        const set = eocs?.find(({setNum})=> setNum==eocSetNum);
+        return set?.EOCS.find(({EOCNum})=> EOCNum==eocNum);
+    }
+    return null;
+};
+
 export const getEOCInfo = (evaluationID) => {
     return [
         {

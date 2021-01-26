@@ -31,6 +31,7 @@ const styles = { ...modalStyle };
 const useStyles = makeStyles(styles);
 
 import {
+    getStaticDetailsOfEOC,
     developmentLevel,
     developmentLevelToString,
     stringToDevelopmentLevel,
@@ -42,12 +43,12 @@ const ViewModal = ({
     reviewEOC,
     justification,
     isOpen,
-    description,
     closeModal,
 }) => {
     const classes = useStyles();
 
     const { rating = 0, reason = '', ideaForImprovement = '' } = reviewEOC || {};
+    const {desc:description = ''} = getStaticDetailsOfEOC(eocGeneralAndSpecific) || {};
 
     const initialStateModal = {
         rating,
@@ -131,9 +132,9 @@ const ViewModal = ({
                 >
                     <Close className={classes.modalClose} />
                 </IconButton>
-                <h3>
+                <h5 className={classes.title}>
                     {eocGeneralAndSpecific} - {description}
-                </h3>
+                </h5>
             </DialogTitle>
 
             <DialogContent>
