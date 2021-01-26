@@ -95,14 +95,18 @@ const ViewModal = ({
 
 
     const handleSave = () => {
-        console.log(state);
-        console.log(saveFields);
         saveFields(
             eocGeneralAndSpecific,
             state.developmentLevel,
             state.justification,
             state.eocsInSameJustification
         );
+        // Reset to null
+        setModalState({
+            justification:'',
+            developmentLevel: 0,
+            eocsInSameJustification:[],
+        });
         closeModal();
     };
 

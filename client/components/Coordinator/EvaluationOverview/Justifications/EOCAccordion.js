@@ -48,7 +48,7 @@ const EOCAccordion = ({ evaluationID }) => {
         // Determine if there exist an entry with the same justification
         if (noReviewFound) {
             eocReviewsCopy.push({
-                eocNumber: [eocGeneralAndSpecific],
+                eocNumber: eocsInSameJustification,
                 justification,
                 developmentLevel,
             });
