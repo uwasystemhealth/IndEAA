@@ -17,7 +17,7 @@ import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { services } from 'store/feathersClient';
 
-import { getEOCInfo, getIndexOfEOCMatch, getDetailsOfEntireEOC} from 'utils.js';
+import { getEOCInfo, getIndexOfEOCMatch, getDetailsOfEntireEOC} from 'utils/eocs';
 
 const EOCAccordion = ({ evaluationID }) => {
     // https://stackoverflow.com/questions/58539813/lazy-initial-state-what-is-and-where-to-use-it

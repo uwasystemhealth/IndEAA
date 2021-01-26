@@ -19,7 +19,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { signOut } from "actions/auth"
 
 // Utils
-import { getAvailablePermissionsOfUser, roleIcons } from "utils"
+import { getAvailablePermissionsOfUser, roleIcons } from "utils/permissions"
 
 
 // core components

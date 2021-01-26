@@ -25,7 +25,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { services } from 'store/feathersClient';
 
 // Helper
-import { getAvailablePermissionsOfUser, roleIcons } from 'utils';
+import { getAvailablePermissionsOfUser, roleIcons } from 'utils/permissions';
 
 const useStyles = makeStyles(styles);
 

@@ -16,7 +16,7 @@ import { useState } from 'react';
 // Store Actions and Redux
 import { useSelector } from 'react-redux';
 
-import { getEOCInfo, getDetailsOfEntireEOC} from 'utils.js';
+import { getEOCInfo, getDetailsOfEntireEOC} from 'utils/eocs';
 
 const EOCAccordion = () => {
     // https://stackoverflow.com/questions/58539813/lazy-initial-state-what-is-and-where-to-use-it

@@ -20,7 +20,7 @@ import { useSelector } from 'react-redux';
 import { services } from 'store/feathersClient';
 
 // Utils
-import { getEOCInfo } from 'utils';
+import { getEOCInfo } from 'utils/eocs';
 
 //Styles
 import { makeStyles } from '@material-ui/core/styles';

@@ -20,7 +20,7 @@ const useStyles = makeStyles(styles);
 
 import React from 'react';
 
-import { developmentLevelToString } from 'utils.js';
+import { developmentLevelToString } from 'utils/eocs';
 
 const EOCCard = (props) => {
     const {
