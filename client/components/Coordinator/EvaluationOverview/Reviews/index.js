@@ -1,10 +1,10 @@
 // CORE COMPONENTS
-import GridContainer from "components/MaterialKit/Grid/GridContainer.js";
-import GridItem from "components/MaterialKit/Grid/GridItem.js";
+import GridContainer from 'components/MaterialKit/Grid/GridContainer.js';
+import GridItem from 'components/MaterialKit/Grid/GridItem.js';
 
 // CUSTOM COMPONENTS
-import ReviewProgress from "./ReviewProgress";
-import OtherFunctions from "./OtherFunctions";
+import ReviewProgress from './ReviewProgress';
+import OtherFunctions from './OtherFunctions';
 
 const Reviews = () => {
     return (
