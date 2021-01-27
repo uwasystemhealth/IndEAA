@@ -45,7 +45,7 @@ const EOCAccordion = ({isReadOnly}) => {
                 } = getReviewEOCObject(eocGeneralAndSpecific) || {};
 
                 return (
-                    <GridItem key={eocGeneralAndSpecific} xs={4}>
+                    <GridItem key={eocGeneralAndSpecific} md={4}>
                         <EOCCard
                             isReviewer
                             eocGeneralAndSpecific={eocGeneralAndSpecific}
