@@ -42,8 +42,6 @@ const ReviewerPagePreSubmissionContent = ({isReadOnly}) => {
     const courseState = useSelector((state) => state['course-evaluation']);
     const course = courseState.data;
 
-    console.log(courseState);
-    console.log(course);
     return (
         <>
             <Accordion defaultExpanded>
