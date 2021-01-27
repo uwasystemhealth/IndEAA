@@ -81,7 +81,7 @@ const EOCAccordion = ({isReadOnly}) => {
                     justification ={selectedEOC && getDetailsOfEntireEOC(selectedEOC,eocReviews)?.justification}
                     isOpen={Boolean(selectedEOC)}
                     closeModal={deselectEOC}
-                    isReadOnly
+                    isReadOnly={isReadOnly}
                 />
                 {accordions ?? <p>loading...</p>}
             </Card>
