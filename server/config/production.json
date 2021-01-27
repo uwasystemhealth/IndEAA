@@ -21,18 +21,6 @@
     "local": {
       "usernameField": "email",
       "passwordField": "password"
-    },
-    "oauth": {
-      "redirect": "/",
-      "google": {
-        "key": "GOOGLE_OAUTH_KEY",
-        "secret": "GOOGLE_OAUTH_SECRET",
-        "scope": [
-          "email",
-          "profile",
-          "openid"
-        ]
-      }
     }
   }
 }
