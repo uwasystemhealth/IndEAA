@@ -1,27 +1,56 @@
 import React from 'react';
 
+// CORE COMPONENTS
+import Card from 'components/MaterialKit/Card/Card.js';
+import CardBody from 'components/MaterialKit/Card/CardBody.js';
+import CardHeader from 'components/MaterialKit/Card/CardHeader.js';
+import GridContainer from 'components/MaterialKit/Grid/GridContainer.js';
+import GridItem from 'components/MaterialKit/Grid/GridItem.js';
+
+import { makeStyles } from '@material-ui/core/styles';
+import {
+    cardTitle,
+    cardLink,
+    cardSubtitle,
+} from 'assets/jss/nextjs-material-kit.js';
+
+const styles = { cardTitle, cardLink, cardSubtitle };
+const useStyles = makeStyles(styles);
+
+
 const ReviewCommentCards = ({reviewsUserLinked}) => {
     return (
-        <div>
-            {reviewsUserLinked.map(({reviewer, review})=>(
-                <ReviewCommentCard
-                    name={reviewer?.name || reviewer?.email}
-                    comment={review?.step4ReviewComment}
-                />))
-            }
-        </div>
+        <Card>
+            <CardBody>
+                <CardHeader color="success">General Comments</CardHeader>
+                <GridContainer>
+                    {reviewsUserLinked.map(({reviewer, review},index)=>(
+                        <GridItem md={4} key={review}><ReviewCommentCard
+                            reviewerNo={index+1}
+                            name={reviewer?.name || reviewer?.email}
+                            comment={review?.step4ReviewComment}
+                        /></GridItem>)
+                    )
+                    }
+                </GridContainer>
+            </CardBody>
+        </Card>
     );
 };
 
 export default ReviewCommentCards;
 
 
-const ReviewCommentCard = ({name,comment}) => {
+const ReviewCommentCard = ({reviewerNo,name,comment}) => {
+    const classes = useStyles();
     return (
-        <div>
-            name: {name} <br/>
-            comment: {comment}
-        </div>
+        <Card>
+            <CardBody>
+                <h4 className={classes.cardTitle}>R{reviewerNo}: {name}</h4>
+                <h5>Comment</h5>
+                <p>{comment}</p>
+            </CardBody>
+        </Card>
     );
 };
 

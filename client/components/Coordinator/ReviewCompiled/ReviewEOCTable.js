@@ -14,7 +14,12 @@ import Paper from '@material-ui/core/Paper';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 
-// Utils
+// CORE COMPONENTS
+import Card from 'components/MaterialKit/Card/Card.js';
+import CardBody from 'components/MaterialKit/Card/CardBody.js';
+import CardHeader from 'components/MaterialKit/Card/CardHeader.js';
+
+
 import {getEOCInfo, developmentLevelToString} from 'utils/eocs';
 import {getDetailsOfReviewEOC, getRangeOfDevelopmentLevel, getAverageOfDevelopmentLevel} from 'utils/compileResult';
 
@@ -102,29 +107,34 @@ export default function CollapsibleTable({reviewsUserLinked}) {
 
     const eocs  = getEOCInfo();
     return (
-        <TableContainer component={Paper}>
-            <Table aria-label="collapsible table">
-                <TableHead>
-                    <TableRow>
-                        <TableCell>Elements of Competencies</TableCell>
-                        {reviewsUserLinked?.map((_,index)=>(
-                            <TableCell align="right" key={index}>R{index+1}</TableCell>
-                        ))}
-                        <TableCell align="right">Range</TableCell>
-                        <TableCell align="right">Mean</TableCell>
-                        <TableCell align="right"/>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {eocs.map((eocSet) => {
-                        return eocSet.EOCS.map((eoc) => {
-                            const eocGeneralAndSpecific = `${eocSet.setNum}.${eoc.EOCNum}`;
-                            return(<Row key={eocGeneralAndSpecific} eocGeneralAndSpecific={eocGeneralAndSpecific} reviewsUserLinked={reviewsUserLinked} />);
-                        });
-                    })
-                    }
-                </TableBody>
-            </Table>
-        </TableContainer>
+        <Card>
+            <CardBody>
+                <CardHeader color="success">Elements of Competencies Assessment</CardHeader>
+                <TableContainer component={Paper}>
+                    <Table aria-label="collapsible table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>Elements of Competencies</TableCell>
+                                {reviewsUserLinked?.map((_,index)=>(
+                                    <TableCell align="right" key={index}>R{index+1}</TableCell>
+                                ))}
+                                <TableCell align="right">Range</TableCell>
+                                <TableCell align="right">Mean</TableCell>
+                                <TableCell align="right"/>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {eocs.map((eocSet) => {
+                                return eocSet.EOCS.map((eoc) => {
+                                    const eocGeneralAndSpecific = `${eocSet.setNum}.${eoc.EOCNum}`;
+                                    return(<Row key={eocGeneralAndSpecific} eocGeneralAndSpecific={eocGeneralAndSpecific} reviewsUserLinked={reviewsUserLinked} />);
+                                });
+                            })
+                            }
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </CardBody>
+        </Card>
     );
 }

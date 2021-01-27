@@ -45,8 +45,8 @@ const CompiledPage = () => {
     return (
         <div>
             <ReviewDocumentsComments reviewsUserLinked={reviewsUserLinked}/>
-            <ReviewGeneralCommentCards reviewsUserLinked={reviewsUserLinked}/>
             <ReviewEOCTable reviewsUserLinked={reviewsUserLinked} />
+            <ReviewGeneralCommentCards reviewsUserLinked={reviewsUserLinked}/>
         </div>
     );
 };
