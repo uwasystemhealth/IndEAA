@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 // Custom Hooks
 import {useCurrentReviewOfUser} from 'components/customHooks/ReviewerReviewLoad';
+import useRedirectIfFinish from 'components/customHooks/ReviewerFinishedGuard';
 // Use own components
 import ReviewProgress from 'components/reviewer/ReviewProgress';
 import ReviewerDocumentsListing from 'components/reviewer/ReviewerDocumentsListing';
@@ -26,7 +27,7 @@ const ReviewerCourseReviewPage2 = () => {
 
     // Load the Reviewer using custom useEffect Hook
     useCurrentReviewOfUser(authUser,reviewState,courseID);
-
+    useRedirectIfFinish(review,courseID);
     const classes = useStyles();
     const pageNumber = 2;
 

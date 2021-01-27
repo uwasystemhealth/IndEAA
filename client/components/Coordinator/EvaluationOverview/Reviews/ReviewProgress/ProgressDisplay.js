@@ -10,6 +10,8 @@ import PageviewIcon from '@material-ui/icons/Pageview';
 
 // CUSTOM COMPONENTS
 import ReviewProgress from 'components/reviewer/ReviewProgress';
+import AreYouSureButton from 'components/Other/AreYouSureButton';
+
 
 // Redux
 import { useSelector } from 'react-redux';
@@ -58,10 +60,14 @@ const ProgressDisplay = ({ reviewer, review }) => {
               View
                         </Button>
                         {review?.submittedDate && (
-                            <Button display="inline-block" color="white" onClick={handleReopen}>
+                                
+                            <AreYouSureButton
+                                buttonProps={{ color: 'white', display:'inline-block' }}
+                                action={handleReopen}
+                            >
                                 <PageviewIcon />
-                Reopen
-                            </Button>
+                                Reopen
+                            </AreYouSureButton>
                         )}
                     </GridItem>
                     <GridItem xs={8}>
