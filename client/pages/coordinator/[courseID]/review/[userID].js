@@ -47,7 +47,7 @@ const ReviewerCourseReviewPage5 = () => {
             {
                 !(reviewState.isError && reviewState.isFinished) ?(
                     <div >
-                        <Button href={`coordinator/${courseID}`}>Go Back</Button>
+                        <Button href={`/coordinator/${courseID}`}>Go Back</Button>
                         <ReviewerPagePreSubmissionContent isReadOnly />
                     </div>
                 ):
