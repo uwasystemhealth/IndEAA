@@ -1,10 +1,13 @@
 export const getRangeOfDevelopmentLevel = (developmentLevelList) => {
     const filteredList = removeNulls(developmentLevelList);
+    if(filteredList.length===0){
+        return '-';
+    }
     return(`${Math.min(...filteredList)} - ${Math.max(...filteredList)}`);};
-export const averageOfDevelopmentLevel = (developmentLevelList,roundDigit=2) =>{ 
+export const getAverageOfDevelopmentLevel = (developmentLevelList,roundDigit=2) =>{ 
     // https://stackoverflow.com/questions/11832914/round-to-at-most-2-decimal-places-only-if-necessary
     const filteredList = removeNulls(developmentLevelList);
-    return(filteredList.reduce((accumulator,current) => accumulator+current) / filteredList.length).toFixed(roundDigit);
+    return(filteredList.reduce((accumulator,current) => accumulator+current, 0) / filteredList.length).toFixed(roundDigit);
 };
 
 // Removes the Falsy Values on a list - also 0
@@ -12,10 +15,11 @@ export const removeNulls = (list) => list.filter(item => Boolean(item));
 
 // This has an some equivalence to
 // utils/eocs::getDetailsOfEntireEOC
-export const getDetailsOfReviewEOC = (eocGeneralAndSpecific,eocReviews) => {
+// but this one is for reviews not justifications
+export const getDetailsOfReviewEOC = (eocGeneralAndSpecific,review) => {
     // Gets the details of review of EOC
     // If cannnot be found - it will return the default values for all fields
-    const selectedEOCEvaluation = eocReviews?.step3Evaluation.find(currentEvaluation => (
+    const selectedEOCEvaluation = review?.step3Evaluation.find(currentEvaluation => (
         currentEvaluation?.eoc == eocGeneralAndSpecific )) || {rating:0, reason:'', ideaForImprovement:''};
 
     return selectedEOCEvaluation;
