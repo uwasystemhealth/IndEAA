@@ -32,7 +32,7 @@ const useStyles = makeStyles({
 
 import React, { useState, useEffect } from 'react';
 
-import { getEOCInfo } from 'utils';
+import { getEOCInfo } from 'utils/eocs';
 
 const CustomFormField = ({
     label,

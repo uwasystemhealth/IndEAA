@@ -1,5 +1,5 @@
 
-
+import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 
 
@@ -33,6 +33,8 @@ const styles = { cardTitle, cardLink, cardSubtitle };
 const useStyles = makeStyles(styles);
 
 const ReviewerPagePreSubmissionContent = ({isReadOnly}) => {
+    const router = useRouter();
+    const { courseID } = router.query;
     const classes = useStyles();
     const reviewState = useSelector((state) => state.review);
     const review = reviewState.queryResult.data[0] || { course_id: courseID };
@@ -40,8 +42,6 @@ const ReviewerPagePreSubmissionContent = ({isReadOnly}) => {
     const courseState = useSelector((state) => state['course-evaluation']);
     const course = courseState.data;
 
-    console.log(courseState);
-    console.log(course);
     return (
         <>
             <Accordion defaultExpanded>
@@ -76,7 +76,7 @@ const ReviewerPagePreSubmissionContent = ({isReadOnly}) => {
               course.documents.map((document) => {
                   // Filter the review documents with the currently
                   // selected course document
-                  const reviewOfDocument = review.step2Documents.find(
+                  const reviewOfDocument = review?.step2Documents?.find(
                       (reviewDoc) =>
                           reviewDoc && reviewDoc.document_id === document._id
                   );
@@ -123,7 +123,7 @@ const ReviewerPagePreSubmissionContent = ({isReadOnly}) => {
             3. Review Course
                 </AccordionSummary>
                 <AccordionDetails>
-                    <ReviewerEOCListing />
+                    <ReviewerEOCListing isReadOnly={isReadOnly}/>
                 </AccordionDetails>
             </Accordion>
 

@@ -36,6 +36,7 @@ const DocumentCard = ({
     setCurrentSelectedDocument,
     setCurrentSelectedDocumentReview, // contains both document and review details (for reviewer)
     isReviewer,
+    isReadOnly,
 }) => {
     const { _id, name, description, link, tags } = document;
     const classes = useStyles();
@@ -121,72 +122,73 @@ const DocumentCard = ({
                                 <PageviewIcon />
                 View
                             </Button>
-
-                            {isReviewer ? (
-                                <>
-                                    {currentDocumentReview?.finishedReviewedOn ? (
-                                        <Button
-                                            color="primary"
-                                            onClick={() => handleMarkAsViewed(document._id)}
-                                        >
-                                            <EditIcon />
-                      Mark as unread
-                                        </Button>
-                                    ) : (
+                            {!isReadOnly &&
+                                <>{isReviewer ? (
+                                    <>
+                                        {currentDocumentReview?.finishedReviewedOn ? (
+                                            <Button
+                                                color="primary"
+                                                onClick={() => handleMarkAsViewed(document._id)}
+                                            >
+                                                <EditIcon />
+                          Mark as unread
+                                            </Button>
+                                        ) : (
+                                            <Button
+                                                color="white"
+                                                onClick={() => handleMarkAsViewed(document._id)}
+                                            >
+                                                <EditIcon />
+                          Mark as Viewed
+                                            </Button>
+                                        )}
+                                        {currentDocumentReview?.comment ? (
+                                            <Button
+                                                color="primary"
+                                                onClick={() =>
+                                                    setCurrentSelectedDocumentReview({
+                                                        document,
+                                                        reviewComment: currentDocumentReview,
+                                                    })
+                                                }
+                                            >
+                                                <EditIcon />
+                          Edit Comment
+                                            </Button>
+                                        ) : (
+                                            <Button
+                                                color="white"
+                                                onClick={() =>
+                                                    setCurrentSelectedDocumentReview({
+                                                        document,
+                                                        reviewComment: currentDocumentReview,
+                                                    })
+                                                }
+                                            >
+                                                <EditIcon />
+                          Add Comment
+                                            </Button>
+                                        )}
+                                    </>
+                                ) : (
+                                    <>
                                         <Button
                                             color="white"
-                                            onClick={() => handleMarkAsViewed(document._id)}
+                                            onClick={() => setCurrentSelectedDocument(document)}
                                         >
                                             <EditIcon />
-                      Mark as Viewed
+                        Edit
                                         </Button>
-                                    )}
-                                    {currentDocumentReview?.comment ? (
-                                        <Button
-                                            color="primary"
-                                            onClick={() =>
-                                                setCurrentSelectedDocumentReview({
-                                                    document,
-                                                    reviewComment: currentDocumentReview,
-                                                })
-                                            }
+                                        <AreYouSureButton
+                                            buttonProps={{ color: 'white' }}
+                                            action={handleDelete}
                                         >
-                                            <EditIcon />
-                      Edit Comment
-                                        </Button>
-                                    ) : (
-                                        <Button
-                                            color="white"
-                                            onClick={() =>
-                                                setCurrentSelectedDocumentReview({
-                                                    document,
-                                                    reviewComment: currentDocumentReview,
-                                                })
-                                            }
-                                        >
-                                            <EditIcon />
-                      Add Comment
-                                        </Button>
-                                    )}
-                                </>
-                            ) : (
-                                <>
-                                    <Button
-                                        color="white"
-                                        onClick={() => setCurrentSelectedDocument(document)}
-                                    >
-                                        <EditIcon />
-                    Edit
-                                    </Button>
-                                    <AreYouSureButton
-                                        buttonProps={{ color: 'white' }}
-                                        action={handleDelete}
-                                    >
-                                        <DeleteIcon />
-                    Delete
-                                    </AreYouSureButton>
-                                </>
-                            )}
+                                            <DeleteIcon />
+                        Delete
+                                        </AreYouSureButton>
+                                    </>
+                                )}</>
+                            }
                         </GridContainer>
                     </GridItem>
                 </GridContainer>

@@ -17,7 +17,7 @@ import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { services } from 'store/feathersClient';
 
-import { getEOCInfo, getIndexOfEOCMatch, getDetailsOfEntireEOC} from 'utils.js';
+import { getEOCInfo, getIndexOfEOCMatch, getDetailsOfEntireEOC} from 'utils/eocs';
 
 const EOCAccordion = ({ evaluationID }) => {
     // https://stackoverflow.com/questions/58539813/lazy-initial-state-what-is-and-where-to-use-it
@@ -48,7 +48,7 @@ const EOCAccordion = ({ evaluationID }) => {
         // Determine if there exist an entry with the same justification
         if (noReviewFound) {
             eocReviewsCopy.push({
-                eocNumber: [eocGeneralAndSpecific],
+                eocNumber: eocsInSameJustification,
                 justification,
                 developmentLevel,
             });
@@ -82,7 +82,7 @@ const EOCAccordion = ({ evaluationID }) => {
                 } = getDetailsOfEntireEOC(eocGeneralAndSpecific,eocReviews);
 
                 return (
-                    <GridItem key={eocGeneralAndSpecific} xs={4}>
+                    <GridItem key={eocGeneralAndSpecific} md={4}>
                         <EOCCard
                             eocGeneralAndSpecific={eocGeneralAndSpecific}
                             description={eoc.desc}

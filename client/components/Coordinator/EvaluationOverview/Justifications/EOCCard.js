@@ -20,7 +20,7 @@ const useStyles = makeStyles(styles);
 
 import React from 'react';
 
-import { developmentLevelToString } from 'utils.js';
+import { developmentLevelToString } from 'utils/eocs';
 
 const EOCCard = (props) => {
     const {
@@ -42,22 +42,22 @@ const EOCCard = (props) => {
         <Danger>Your Rating: None</Danger>
     );
 
-    const justMsg =
-    justification != null ? (
+    const justMsg = // Truthy and Falsy Color
+    justification ? (
         <Success>Your Justification: {justification}</Success>
     ) : (
         <Danger>Your Justification: None</Danger>
     );
 
-    const reasonMsg =
-    reason != null ? (
+    const reasonMsg = // Truthy and Falsy Color
+    reason ? (
         <Success>Your Reason: {reason}</Success>
     ) : (
         <Danger>Your Reason: None</Danger>
     );
 
-    const ideaForImprovementMsg =
-  ideaForImprovement != null ? (
+    const ideaForImprovementMsg = // Truthy and Falsy Color
+  ideaForImprovement ? (
       <Success>Your Idea For Improvement: {ideaForImprovement}</Success>
   ) : (
       <Danger>Your Idea For Improvement: None</Danger>

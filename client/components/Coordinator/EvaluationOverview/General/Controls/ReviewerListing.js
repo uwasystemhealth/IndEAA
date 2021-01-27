@@ -3,11 +3,10 @@ import GridContainer from 'components/MaterialKit/Grid/GridContainer.js';
 import GridItem from 'components/MaterialKit/Grid/GridItem.js';
 import Card from 'components/MaterialKit/Card/Card.js';
 import CardBody from 'components/MaterialKit/Card/CardBody.js';
-import Button from 'components/MaterialKit/CustomButtons/Button.js';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-// Store Actions and Redux
-
+// Custom Components
+import AreYouSureButton from 'components/Other/AreYouSureButton';
 
 import modalStyle from 'assets/jss/nextjs-material-kit/modalStyle.js';
 import { cardTitle, cardSubtitle } from 'assets/jss/nextjs-material-kit.js';
@@ -49,10 +48,13 @@ const ReviewerListing = ({
                         </h5>
                     </GridItem>
                     <GridItem xs={4} className={classes.center}>
-                        <Button onClick={removeReviewer} color="danger">
+                        <AreYouSureButton
+                            buttonProps={{color:'danger'}}
+                            action={removeReviewer}
+                        >
                             <DeleteIcon />
-              Delete
-                        </Button>
+                            Delete
+                        </AreYouSureButton>
                     </GridItem>
                 </GridContainer>
             </CardBody>

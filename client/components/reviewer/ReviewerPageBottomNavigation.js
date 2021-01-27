@@ -7,7 +7,7 @@ import CardFooter from 'components/MaterialKit/Card/CardFooter.js';
 import GridContainer from 'components/MaterialKit/Grid/GridContainer.js';
 import GridItem from 'components/MaterialKit/Grid/GridItem.js';
 
-import { reviewSteps } from 'utils';
+import { reviewSteps } from 'utils/review';
 
 // Index represents page number
 const ReviewerPageBottomNavigation = ({
