@@ -89,6 +89,7 @@ const ViewModal = ({
                 {
                     'step3Evaluation.$': {
                         ...state,
+                        eoc: eocGeneralAndSpecific
                     },
                 },
                 { query: { 'step3Evaluation.eoc': eocGeneralAndSpecific } }
