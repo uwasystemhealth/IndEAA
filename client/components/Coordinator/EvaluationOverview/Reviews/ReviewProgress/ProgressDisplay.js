@@ -1,3 +1,5 @@
+import { useRouter } from 'next/router';
+
 // CORE COMPONENTS
 import Card from 'components/MaterialKit/Card/Card.js';
 import CardBody from 'components/MaterialKit/Card/CardBody.js';
@@ -9,6 +11,11 @@ import PageviewIcon from '@material-ui/icons/Pageview';
 // CUSTOM COMPONENTS
 import ReviewProgress from 'components/reviewer/ReviewProgress';
 
+// Redux
+import { useSelector } from 'react-redux';
+import { services } from 'store/feathersClient';
+
+
 // STYLES
 import { makeStyles } from '@material-ui/core/styles';
 import { cardTitle, cardSubtitle } from 'assets/jss/nextjs-material-kit.js';
@@ -19,15 +26,22 @@ const styles = {
 const useStyles = makeStyles(styles);
 
 const ProgressDisplay = ({ reviewer, review }) => {
+    const router = useRouter();
     const classes = useStyles();
 
-    const handleView = () =>{
+    const courseEvaluation = useSelector((state) => state['course-evaluation'])
+        ?.data;
 
+    const handleView = () => {
+        router.push(`/coordinator/${courseEvaluation._id}/review/${reviewer._id}`);
     };
 
-    const handleReopen = () =>{
-
+    const handleReopen = () => {
+        services.review.patch(review._id,{
+            submittedDate: null
+        });
     };
+
     return (
         <Card>
             <CardBody>
@@ -35,17 +49,23 @@ const ProgressDisplay = ({ reviewer, review }) => {
                     <GridItem xs={4}>
                         <h4 className={classes.cardTitle}>{reviewer?.name}</h4>
                         <h5 className={classes.cardSubtitle}>{reviewer?.email}</h5>
-                        <Button display="inline-block" color="white">
+                        <Button
+                            display="inline-block"
+                            color="white"
+                            onClick={handleView}
+                        >
                             <PageviewIcon />
               View
                         </Button>
-                        <Button display="inline-block" color="white">
-                            <PageviewIcon />
-              Reopen
-                        </Button>
+                        {review?.submittedDate && (
+                            <Button display="inline-block" color="white" onClick={handleReopen}>
+                                <PageviewIcon />
+                Reopen
+                            </Button>
+                        )}
                     </GridItem>
                     <GridItem xs={8}>
-                        <ReviewProgress review={review} isCoordinator/>
+                        <ReviewProgress review={review} isCoordinator />
                     </GridItem>
                 </GridContainer>
             </CardBody>
