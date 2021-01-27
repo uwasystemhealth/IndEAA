@@ -15,7 +15,7 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 
 // Utils
-import {getEOCInfo} from 'utils/eocs';
+import {getEOCInfo, developmentLevelToString} from 'utils/eocs';
 import {getDetailsOfReviewEOC, getRangeOfDevelopmentLevel, getAverageOfDevelopmentLevel} from 'utils/compileResult';
 
 const useRowStyles = makeStyles({
@@ -25,21 +25,6 @@ const useRowStyles = makeStyles({
         },
     },
 });
-
-function createData(name, calories, fat, carbs, protein, price) {
-    return {
-        name,
-        calories,
-        fat,
-        carbs,
-        protein,
-        price,
-        history: [
-            { date: '2020-01-05', customerId: '110917001', amount: 3 },
-            { date: '2020-01-02', customerId: 'Anonymous', amount: 1 },
-        ],
-    };
-}
 
 function Row(props) {
     const { eocGeneralAndSpecific, reviewsUserLinked } = props;
@@ -56,7 +41,6 @@ function Row(props) {
     const developmentLevelList = allEOCReviewDetailsPerReviewer.map(({eocReview})=>eocReview?.rating);
     const rangeOfDevelopmentLevel = getRangeOfDevelopmentLevel(developmentLevelList);
     const averageOfDevelopmentLevel = getAverageOfDevelopmentLevel(developmentLevelList);
-    console.log('🚀 ~ file: ReviewEOCTable.js ~ line 55 ~ allEOCReviewDetailsPerReviewer ~ allEOCReviewDetailsPerReviewer', allEOCReviewDetailsPerReviewer);
     return (
         <React.Fragment>
             <TableRow className={classes.root}>
@@ -100,7 +84,7 @@ function Row(props) {
                                                 {index+1}
                                             </TableCell>
                                             <TableCell>{reviewer?.name || reviewer?.email}</TableCell>
-                                            <TableCell>{eocReview.rating || '-'}</TableCell>
+                                            <TableCell>{developmentLevelToString ? developmentLevelToString[eocReview.rating] : '-'}</TableCell>
                                             <TableCell align="right">{eocReview.reason}</TableCell>
                                             <TableCell align="right">{eocReview.ideaForImprovement}</TableCell>
                                         </TableRow>))}
