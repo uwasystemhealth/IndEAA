@@ -80,7 +80,6 @@ const ReviewerCourseReviewPage4 = () => {
                     }
                 />
             </>
-            ) 
         </div>
     );
 };
