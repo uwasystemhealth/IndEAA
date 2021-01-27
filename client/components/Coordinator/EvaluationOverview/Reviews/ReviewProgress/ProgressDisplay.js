@@ -7,7 +7,7 @@ import Button from 'components/MaterialKit/CustomButtons/Button.js';
 import PageviewIcon from '@material-ui/icons/Pageview';
 
 // CUSTOM COMPONENTS
-import Stepper from './Stepper.js';
+import ReviewProgress from 'components/reviewer/ReviewProgress';
 
 // STYLES
 import { makeStyles } from '@material-ui/core/styles';
@@ -18,16 +18,23 @@ const styles = {
 };
 const useStyles = makeStyles(styles);
 
-const ProgressDisplay = ({ name, email, dones, reviewID }) => {
+const ProgressDisplay = ({ reviewer, review }) => {
     const classes = useStyles();
 
+    const handleView = () =>{
+
+    };
+
+    const handleReopen = () =>{
+
+    };
     return (
         <Card>
             <CardBody>
                 <GridContainer>
                     <GridItem xs={4}>
-                        <h4 className={classes.cardTitle}>{name}</h4>
-                        <h5 className={classes.cardSubtitle}>{email}</h5>
+                        <h4 className={classes.cardTitle}>{reviewer?.name}</h4>
+                        <h5 className={classes.cardSubtitle}>{reviewer?.email}</h5>
                         <Button display="inline-block" color="white">
                             <PageviewIcon />
               View
@@ -38,7 +45,7 @@ const ProgressDisplay = ({ name, email, dones, reviewID }) => {
                         </Button>
                     </GridItem>
                     <GridItem xs={8}>
-                        <Stepper dones={dones} />
+                        <ReviewProgress review={review} isCoordinator/>
                     </GridItem>
                 </GridContainer>
             </CardBody>
