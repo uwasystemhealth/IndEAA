@@ -48,6 +48,8 @@ const ReviewProgress = () => {
         const users = useSelector((state) => state['users']);
 
         const usersData = users?.queryResult?.data;
+        
+        // TODO Note: Something similar is done in utils/compileResult
         const progressCards = usersData?.map(reviewer=>{
             const reviewOfUser = reviewData?.find(review=> review.user_id === reviewer._id) || {};
             return(

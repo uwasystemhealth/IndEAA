@@ -181,3 +181,4 @@ export const stringToDevelopmentLevel = developmentLevel.reduce((accumulator,cur
     [`Level ${currentIndex+1} - ${currentValue.short}`]:currentIndex+1
 }), {'Select a level':0});
 
+
