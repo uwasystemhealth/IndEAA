@@ -1,17 +1,17 @@
 export const getRangeOfDevelopmentLevel = (developmentLevelList) => {
-    const filteredList = removeNulls(developmentLevelList);
+    const filteredList = removeFalsyValuesInList(developmentLevelList);
     if(filteredList.length===0){
         return '-';
     }
     return(`${Math.min(...filteredList)} - ${Math.max(...filteredList)}`);};
 export const getAverageOfDevelopmentLevel = (developmentLevelList,roundDigit=2) =>{ 
     // https://stackoverflow.com/questions/11832914/round-to-at-most-2-decimal-places-only-if-necessary
-    const filteredList = removeNulls(developmentLevelList);
+    const filteredList = removeFalsyValuesInList(developmentLevelList);
     return(filteredList.reduce((accumulator,current) => accumulator+current, 0) / filteredList.length).toFixed(roundDigit);
 };
 
 // Removes the Falsy Values on a list - also 0
-export const removeNulls = (list) => list.filter(item => Boolean(item));
+export const removeFalsyValuesInList = (list) => list.filter(item => Boolean(item));
 
 // This has an some equivalence to
 // utils/eocs::getDetailsOfEntireEOC
