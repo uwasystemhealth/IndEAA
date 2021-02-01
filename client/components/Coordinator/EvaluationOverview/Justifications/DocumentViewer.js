@@ -16,6 +16,7 @@ const DocumentViewer = ({
     review_id = null,
     eocBeingViewed = null,
     isReviewer = false,
+    isReadOnly = false,
 }) => {
     const [
         currentSelectedDocumentReview,
@@ -43,6 +44,7 @@ const DocumentViewer = ({
 
     const generalCards = generalDocs.map((doc) => (
         <DocumentCard
+            isReadOnly={isReadOnly}
             key={doc}
             course_id={course_id}
             document={doc}
@@ -53,6 +55,7 @@ const DocumentViewer = ({
     ));
     const specificCards = specificDocs.map((doc) => (
         <DocumentCard
+            isReadOnly={isReadOnly}
             key={doc}
             course_id={course_id}
             document={doc}

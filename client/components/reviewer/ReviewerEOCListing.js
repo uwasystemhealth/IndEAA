@@ -18,7 +18,7 @@ import { useSelector } from 'react-redux';
 
 import { getEOCInfo, getDetailsOfEntireEOC} from 'utils/eocs';
 
-const EOCAccordion = () => {
+const EOCAccordion = ({isReadOnly}) => {
     // https://stackoverflow.com/questions/58539813/lazy-initial-state-what-is-and-where-to-use-it
     const [eocs, setEocs] = useState(() => getEOCInfo());
     const [selectedEOC, setSelectedEOC] = useState(null);
@@ -45,7 +45,7 @@ const EOCAccordion = () => {
                 } = getReviewEOCObject(eocGeneralAndSpecific) || {};
 
                 return (
-                    <GridItem key={eocGeneralAndSpecific} xs={4}>
+                    <GridItem key={eocGeneralAndSpecific} md={4}>
                         <EOCCard
                             isReviewer
                             eocGeneralAndSpecific={eocGeneralAndSpecific}
@@ -81,6 +81,7 @@ const EOCAccordion = () => {
                     justification ={selectedEOC && getDetailsOfEntireEOC(selectedEOC,eocReviews)?.justification}
                     isOpen={Boolean(selectedEOC)}
                     closeModal={deselectEOC}
+                    isReadOnly={isReadOnly}
                 />
                 {accordions ?? <p>loading...</p>}
             </Card>

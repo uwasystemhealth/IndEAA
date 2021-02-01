@@ -41,7 +41,7 @@ export const StepIcon = (props) => {
     );
 };
 
-const StepperPathway = ({ review }) => {
+const StepperPathway = ({ review, isCoordinator }) => {
     const stepperClasses = useStepperStyles();
     const router = useRouter();
 
@@ -81,7 +81,7 @@ const StepperPathway = ({ review }) => {
                 <Step key={stepName} active={done} connector={<StepperConnector />}>
                     <StepButton
                         icon={StepIcon({ done })}
-                        onClick={() =>
+                        onClick={() => !isCoordinator &&
                             router.push(
                                 `/reviewer/${review.course_id}/${index + 1}-${stepLink}`
                             )

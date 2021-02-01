@@ -48,7 +48,7 @@ const EOCAccordion = ({ evaluationID }) => {
         // Determine if there exist an entry with the same justification
         if (noReviewFound) {
             eocReviewsCopy.push({
-                eocNumber: [eocGeneralAndSpecific],
+                eocNumber: eocsInSameJustification,
                 justification,
                 developmentLevel,
             });
@@ -82,7 +82,7 @@ const EOCAccordion = ({ evaluationID }) => {
                 } = getDetailsOfEntireEOC(eocGeneralAndSpecific,eocReviews);
 
                 return (
-                    <GridItem key={eocGeneralAndSpecific} xs={4}>
+                    <GridItem key={eocGeneralAndSpecific} md={4}>
                         <EOCCard
                             eocGeneralAndSpecific={eocGeneralAndSpecific}
                             description={eoc.desc}

@@ -22,9 +22,9 @@ const stepperStyle = {
     // },
     active: {
         backgroundImage:
-          'linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)',
+      'linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)',
         boxShadow: '0 4px 10px 0 rgba(0,0,0,.25)',
-    }
+    },
 };
 
 export const StepperConnector = withStyles({
@@ -33,12 +33,14 @@ export const StepperConnector = withStyles({
     },
     active: {
         '& $line': {
-            backgroundImage: 'linear-gradient( 95deg,#F26923 0%,#01B5AF 50%,#83C562 10%)',
+            backgroundImage:
+        'linear-gradient( 95deg,#F26923 0%,#01B5AF 50%,#83C562 10%)',
         },
     },
     completed: {
         '& $line': {
-            backgroundImage: 'linear-gradient( 95deg,#F26923 0%,#01B5AF 50%,#83C562 100%)',
+            backgroundImage:
+        'linear-gradient( 95deg,#F26923 0%,#01B5AF 50%,#83C562 100%)',
         },
     },
     line: {

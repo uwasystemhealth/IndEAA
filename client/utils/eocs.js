@@ -21,6 +21,17 @@ export const getDetailsOfEntireEOC = (eocGeneralAndSpecific,eocReviews) => {
     return { rating, justification, eocsInSameJustification };
 };
 
+export const getStaticDetailsOfEOC = (eocGeneralAndSpecific,evaluationID) => {
+    if(eocGeneralAndSpecific)
+    {
+        const eocs = getEOCInfo(evaluationID);
+        const [eocSetNum,eocNum] = eocGeneralAndSpecific?.split('.');
+        const set = eocs?.find(({setNum})=> setNum==eocSetNum);
+        return set?.EOCS.find(({EOCNum})=> EOCNum==eocNum);
+    }
+    return null;
+};
+
 export const getEOCInfo = (evaluationID) => {
     return [
         {
@@ -138,17 +149,35 @@ export const getEOCInfo = (evaluationID) => {
     ];
 };
 
-export const developmentLevelToString = {
-    0: 'Select a level',
-    1: 'Level 1 - Foundational',
-    2: 'Level 2 - Broad and Coherent',
-    3: 'Level 3 - Advanced',
-    4: 'Level 4 - Specialist',
-};
-export const stringToDevelopmentLevel = {
-    'Select a level': 0,
-    'Level 1 - Foundational': 1,
-    'Level 2 - Broad and Coherent': 2,
-    'Level 3 - Advanced': 3,
-    'Level 4 - Specialist': 4,
-};
+// This is by order
+export const developmentLevel = [
+    {
+        short: 'Foundational',
+        meaning: 'Developing a foundation for university level study'
+    },
+    {
+        short: 'Broad and Coherent',
+        meaning: 'Sufficient capability to enter the workforce as a non-engineer'
+    },
+    {
+        short: 'Advanced',
+        meaning: 'Sufficient capability for professional practice as a starting engineer'
+    },
+    {
+        short: 'Specialist',
+        meaning: 'Selected areas of strength beyond the requirement for entering professional practice'
+    },
+];
+
+// Dictionary Converter format {level: "short"}
+export const developmentLevelToString = developmentLevel.reduce((accumulator,currentValue,currentIndex)=>({
+    ...accumulator,
+    [currentIndex+1]:`Level ${currentIndex+1} - ${currentValue.short}`
+}), {0:'Select a level'});
+
+// Dictionary Converter format {"short":level}
+export const stringToDevelopmentLevel = developmentLevel.reduce((accumulator,currentValue,currentIndex)=>({
+    ...accumulator,
+    [`Level ${currentIndex+1} - ${currentValue.short}`]:currentIndex+1
+}), {'Select a level':0});
+

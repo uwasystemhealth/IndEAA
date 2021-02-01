@@ -8,9 +8,9 @@ import GridContainer from 'components/MaterialKit/Grid/GridContainer.js';
 import GridItem from 'components/MaterialKit/Grid/GridItem.js';
 import CustomDropdown from 'components/MaterialKit/CustomDropdown/CustomDropdown.js';
 import TextField from '@material-ui/core/TextField';
-import HelpIcon from '@material-ui/icons/Help';
 import IconButton from '@material-ui/core/IconButton';
 import Close from '@material-ui/icons/Close';
+import Muted from 'components/MaterialKit/Typography/Muted';
 
 // redux
 import { useSelector } from 'react-redux';
@@ -19,15 +19,19 @@ import { useSelector } from 'react-redux';
 import ApplyTo from './ApplyTo.js';
 import DocumentViewer from './DocumentViewer.js';
 
+
 import { useState, useEffect } from 'react';
 
 // STYLES
 import { makeStyles } from '@material-ui/core/styles';
 import modalStyle from 'assets/jss/nextjs-material-kit/modalStyle.js';
-const styles = { ...modalStyle };
+import typographyStyle from 'assets/jss/nextjs-material-kit/pages/componentsSections/typographyStyle';
+const styles = { ...modalStyle, ...typographyStyle };
 const useStyles = makeStyles(styles);
 
 import {
+    getStaticDetailsOfEOC,
+    developmentLevel,
     developmentLevelToString,
     stringToDevelopmentLevel,
     getEOCInfo,
@@ -36,7 +40,6 @@ import {
 const ViewModal = ({
     eocGeneralAndSpecific,
     detailsOfEOC,
-    description,
     isOpen,
     closeModal,
     saveFields
@@ -44,6 +47,7 @@ const ViewModal = ({
     const classes = useStyles();
 
     const { rating, justification, eocsInSameJustification } = detailsOfEOC;
+    const {desc:description = ''} = getStaticDetailsOfEOC(eocGeneralAndSpecific) || {};
 
     const initialStateModal = {
         justification,
@@ -70,9 +74,11 @@ const ViewModal = ({
     };
 
     const handleDropdownChange = (e) => {
+        // Text Element of the Dropdown Header
+        const string = e.props.children[0].props.children;
         const newState = {
             ...state,
-            developmentLevel: stringToDevelopmentLevel[e],
+            developmentLevel: stringToDevelopmentLevel[string],
         };
         setModalState(newState);
     };
@@ -95,14 +101,18 @@ const ViewModal = ({
 
 
     const handleSave = () => {
-        console.log(state);
-        console.log(saveFields);
         saveFields(
             eocGeneralAndSpecific,
             state.developmentLevel,
             state.justification,
             state.eocsInSameJustification
         );
+        // Reset to null
+        setModalState({
+            justification:'',
+            developmentLevel: 0,
+            eocsInSameJustification:[],
+        });
         closeModal();
     };
 
@@ -133,36 +143,37 @@ const ViewModal = ({
                 >
                     <Close className={classes.modalClose} />
                 </IconButton>
-                <h3>
+                <h5 className={classes.title}>
                     {eocGeneralAndSpecific} - {description}
-                </h3>
+                </h5>
             </DialogTitle>
 
             <DialogContent>
                 <GridContainer>
-                    <GridItem xs={6}>
+                    <GridItem md={6}>
             Development Level
-                        <HelpIcon />
                         <CustomDropdown
                             buttonText={developmentLevelToString[state.developmentLevel]}
-                            dropdownList={[
-                                developmentLevelToString[1],
-                                developmentLevelToString[2],
-                                developmentLevelToString[3],
-                                developmentLevelToString[4],
-                            ]}
+                            dropdownList={
+                                developmentLevel.map(({short,meaning},index)=>(
+                                    <>
+                                        <h6>{`Level ${index+1} - ${short}`}</h6>
+                                        <Muted>{meaning}</Muted>
+                                    </>
+                                ))
+                            }
                             id="developmentLevel"
                             onClick={handleDropdownChange}
                         />
                     </GridItem>
-                    <GridItem xs={6}>
+                    <GridItem md={6}>
                         <ApplyTo
                             eocs={specificNumbers}
                             eocInSame={state.eocsInSameJustification}
                             handleCheck={handleCheck}
                         />
                     </GridItem>
-                    <GridItem xs={6}>
+                    <GridItem md={6}>
             Justification
                         <TextField
                             multiline
@@ -174,7 +185,7 @@ const ViewModal = ({
                             onChange={handleChange}
                         />
                     </GridItem>
-                    <GridItem xs={6}>
+                    <GridItem md={6}>
                         <DocumentViewer
                             course_id={course._id}
                             documents={course.documents}

@@ -10,9 +10,13 @@ import GridContainer from 'components/MaterialKit/Grid/GridContainer.js';
 import GridItem from 'components/MaterialKit/Grid/GridItem.js';
 import IconButton from '@material-ui/core/IconButton';
 import Close from '@material-ui/icons/Close';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import People from '@material-ui/icons/People';
 
 // CUSTOM COMPONENTS
 import ReviewerListing from './ReviewerListing.js';
+import AreYouSureButton from 'components/Other/AreYouSureButton';
+
 
 // STYLES
 import modalStyle from 'assets/jss/nextjs-material-kit/modalStyle.js';
@@ -31,6 +35,7 @@ import { useState, useEffect } from 'react';
 const ManageReviewers = ({ evaluationID }) => {
     const classes = useStyles();
     const [modal, setModal] = useState(false);
+    const [email, setEmail] = useState('');
 
     useEffect(() => {
         services['course-evaluation'].get({
@@ -49,7 +54,6 @@ const ManageReviewers = ({ evaluationID }) => {
     const userData = users?.queryResult?.data;
 
     // selects out all reviewers with correct permission
-    console.log(userData);
     const reviewers = userData.filter((user) =>
         user.perms.reduce(
             (acc, permission) =>
@@ -59,24 +63,31 @@ const ManageReviewers = ({ evaluationID }) => {
         )
     );
 
-    const removePermission = async (userId, permissionId) => {
-        const oldPermissions = reviewers.find((user) => user._id == userId).perms;
-        const newPerms = oldPerms.filter(
-            (permission) =>
-                !(permission.course_id == permissionId && permission.role == 'Reviewer')
-        );
-        const response = await services['users'].update(reviewerId, {
-            perms: newPerms,
-        });
-    };
-
-    const deleteReviewer = async (reviewerId) => {
-        console.log('a');
+    // removes a user from the evaluation
+    const removePermission = async (userId, evaluationId) => {
         try {
-            console.log(response);
-            setModal(false);
+            const oldPermissions = reviewers.find((user) => user._id == userId).perms;
+            const newPerms = oldPermissions.filter(
+                (permission) =>
+                    !(
+                        permission.course_id == evaluationId &&
+            permission.role == 'Reviewer'
+                    )
+            );
+            const response = await services['users'].patch(userId, {
+                perms: newPerms,
+            });
         } catch (error) {
             console.error(error);
+        }
+    };
+
+    // TODO: refactor (copied from administrator code)
+    const createUser = async (email) => {
+        try {
+            const response = await services.users.create({ email });
+            setModal(false)
+        } catch (error) {
             // Handled by Redux Saga
         }
     };
@@ -86,9 +97,14 @@ const ManageReviewers = ({ evaluationID }) => {
         <ReviewerListing
             key={reviewer._id}
             {...reviewer}
-            removeReviewer={() => deleteReviewer(reviewer._id)}
+            removeReviewer={() => removePermission(reviewer._id, evalData._id)}
         />
     ));
+
+    const handleSubmit = () => {
+        createUser(email);
+        setEmail('');
+    };
 
     return (
         <>
@@ -133,10 +149,19 @@ const ManageReviewers = ({ evaluationID }) => {
                                 formControlProps={{
                                     fullWidth: true,
                                 }}
+                                inputProps={{
+                                    endAdornment: (
+                                        <InputAdornment position="end">
+                                            <People />
+                                        </InputAdornment>
+                                    ),
+                                    value: email,
+                                    onChange: (e) => setEmail(e.target.value),
+                                }}
                             />
                         </GridItem>
                         <GridItem xs={6}>
-                            <Button color="white">
+                            <Button onClick={() => handleSubmit(email)} color="white">
                                 <SendIcon />
                 Invite
                             </Button>

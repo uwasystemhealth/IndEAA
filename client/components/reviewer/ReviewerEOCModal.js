@@ -10,9 +10,10 @@ import CustomDropdown from 'components/MaterialKit/CustomDropdown/CustomDropdown
 import TextField from '@material-ui/core/TextField';
 import Card from 'components/MaterialKit/Card/Card.js';
 import CardBody from 'components/MaterialKit/Card/CardBody.js';
-import HelpIcon from '@material-ui/icons/Help';
 import IconButton from '@material-ui/core/IconButton';
 import Close from '@material-ui/icons/Close';
+import Muted from 'components/MaterialKit/Typography/Muted';
+
 
 // Redux
 import { useSelector } from 'react-redux';
@@ -30,6 +31,8 @@ const styles = { ...modalStyle };
 const useStyles = makeStyles(styles);
 
 import {
+    getStaticDetailsOfEOC,
+    developmentLevel,
     developmentLevelToString,
     stringToDevelopmentLevel,
     getEOCInfo,
@@ -40,12 +43,13 @@ const ViewModal = ({
     reviewEOC,
     justification,
     isOpen,
-    description,
     closeModal,
+    isReadOnly // For finished Reviews or coordinator viewing
 }) => {
     const classes = useStyles();
 
     const { rating = 0, reason = '', ideaForImprovement = '' } = reviewEOC || {};
+    const {desc:description = ''} = getStaticDetailsOfEOC(eocGeneralAndSpecific) || {};
 
     const initialStateModal = {
         rating,
@@ -71,9 +75,11 @@ const ViewModal = ({
     };
 
     const handleDropdownChange = (e) => {
+        // Text Element of the Dropdown Header
+        const string = e.props.children[0].props.children;
         const newState = {
             ...state,
-            rating: stringToDevelopmentLevel[e],
+            rating: stringToDevelopmentLevel[string],
         };
         setModalState(newState);
     };
@@ -88,6 +94,7 @@ const ViewModal = ({
                 {
                     'step3Evaluation.$': {
                         ...state,
+                        eoc: eocGeneralAndSpecific
                     },
                 },
                 { query: { 'step3Evaluation.eoc': eocGeneralAndSpecific } }
@@ -127,9 +134,9 @@ const ViewModal = ({
                 >
                     <Close className={classes.modalClose} />
                 </IconButton>
-                <h3>
+                <h5 className={classes.title}>
                     {eocGeneralAndSpecific} - {description}
-                </h3>
+                </h5>
             </DialogTitle>
 
             <DialogContent>
@@ -145,18 +152,23 @@ const ViewModal = ({
                         </GridItem>
                         <GridItem>
               Development Level
-                            <HelpIcon />
+                            {!isReadOnly ? 
                             <CustomDropdown
                                 buttonText={developmentLevelToString[state.rating]}
-                                dropdownList={[
-                                    developmentLevelToString[1],
-                                    developmentLevelToString[2],
-                                    developmentLevelToString[3],
-                                    developmentLevelToString[4],
-                                ]}
+                                dropdownList={
+                                    developmentLevel.map(({short,meaning},index)=>(
+                                        <>
+                                            <h6>{`Level ${index+1} - ${short}`}</h6>
+                                            <Muted>{meaning}</Muted>
+                                        </>
+                                    ))
+                                }
                                 id="developmentLevel"
                                 onClick={handleDropdownChange}
                             />
+                                :
+                                <Button>{developmentLevelToString[state.rating]}</Button>
+                            }
                         </GridItem>
 
                         <GridItem>
@@ -169,6 +181,7 @@ const ViewModal = ({
                                 value={state.reason}
                                 id="reason"
                                 onChange={handleChange}
+                                disabled={isReadOnly}
                             />
                         </GridItem>
                         <GridItem>
@@ -181,6 +194,7 @@ const ViewModal = ({
                                 value={state.ideaForImprovement}
                                 id="ideaForImprovement"
                                 onChange={handleChange}
+                                disabled={isReadOnly}
                             />
                         </GridItem>
                     </GridItem>
@@ -192,6 +206,7 @@ const ViewModal = ({
                                 documents={course?.documents}
                                 eocBeingViewed={eocGeneralAndSpecific}
                                 isReviewer
+                                isReadOnly
                             />
                         </GridItem>
                     </GridItem>
@@ -199,9 +214,11 @@ const ViewModal = ({
             </DialogContent>
             <DialogActions>
                 <Button onClick={() => closeModal()}>Cancel</Button>
-                <Button color="primary" onClick={() => handleSave()}>
-          Save
-                </Button>
+                {!isReadOnly &&
+                    <Button color="primary" onClick={() => handleSave()}>
+                    Save
+                    </Button>
+                }
             </DialogActions>
         </Dialog>
     );
