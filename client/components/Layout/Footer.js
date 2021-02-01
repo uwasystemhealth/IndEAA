@@ -20,7 +20,7 @@ export default function Footer(props) {
   const { whiteFont } = props;
   const footerClasses = classNames({
     [classes.footer]: true,
-    [classes.footerWhiteFont]: whiteFont
+    [classes.footerWhiteFont]: whiteFont,
   });
   const aClasses = classNames({
     [classes.a]: true,
@@ -30,7 +30,7 @@ export default function Footer(props) {
     <footer className={footerClasses}>
       <div className={classes.container}>
         <div className={classes.left}>
-          &copy; {1900 + new Date().getYear()} , made by{" "}
+          &copy; {1900 + new Date().getYear()}, made by{" "}
           <a
             href="https://frinzelapuz.now.sh"
             className={aClasses}
@@ -38,11 +38,22 @@ export default function Footer(props) {
           >
             Frinze Erin Lapuz
           </a>{" "}
-          and
-          Michael Nefiodiovas on Behalf of the {' '}
-          <a href='https://systemhealthlab.com/' className={aClasses} target='_blank'>
+          and{" "}
+          <a
+            href="https://nefsite.vercel.app/"
+            className={aClasses}
+            target="_blank"
+          >
+            Michael Nefiodovas
+          </a>{" "}
+          on Behalf of the{" "}
+          <a
+            href="https://systemhealthlab.com/"
+            className={aClasses}
+            target="_blank"
+          >
             System Health Lab
-						</a>{' '}
+          </a>{" "}
         </div>
       </div>
     </footer>
@@ -50,5 +61,5 @@ export default function Footer(props) {
 }
 
 Footer.propTypes = {
-  whiteFont: PropTypes.bool
+  whiteFont: PropTypes.bool,
 };
