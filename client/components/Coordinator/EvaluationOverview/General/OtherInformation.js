@@ -14,13 +14,18 @@ const OtherInformation = ({ evaluationID }) => {
         services['course-evaluation'].get({
             _id: evaluationID,
         });
+        services['users'].find();
     }, []);
 
     const courseEval = useSelector((state) => state['course-evaluation']);
     const evalData = courseEval?.data;
 
+    const users = useSelector((state) => state['users']);
+    const userData = users?.queryResult?.data;
+
     const createdOn = new Date(evalData?.createdAt);
     const createdBy = evalData?.createdBy;
+    const author = userData?.find((elem) => elem._id == createdBy);
     const dateString = createdOn?.toLocaleDateString('en-gb', {
         year: 'numeric',
         month: 'short',
@@ -33,7 +38,8 @@ const OtherInformation = ({ evaluationID }) => {
             <CardBody>
                 <h4>Created by:</h4>
                 <p>
-                    {createdBy || 'Unknown creator'} (on {dateString || 'unknown date'})
+                    {author?.name ?? 'Unknown creator'} (on {dateString ?? 'unknown date'}
+          )
                 </p>
             </CardBody>
         </Card>
