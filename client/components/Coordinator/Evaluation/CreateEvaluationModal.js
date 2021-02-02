@@ -177,4 +177,143 @@ const CreateEvaluationModal = ({ closeModal, isOpen }) => {
     );
 };
 
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+
+export const EditEvaluationModal = ({ closeModal, isOpen, evaluationId }) => {
+    const classes = useStyles();
+    const router = useRouter();
+    const dispatch = useDispatch();
+
+    const [code, setCode] = useState('');
+    const [description, setDescription] = useState('');
+    const [dueDate, setDueDate] = useState('');
+
+    useEffect(() => {
+        services['course-evaluation'].get({
+            _id: evaluationId,
+        });
+
+        console.log(result);
+    }, []);
+
+    const result = useSelector((state) => state['course-evaluation']);
+    console.log(result);
+
+    const editEvaluation = async (code, description, dueDate, id) => {
+    // TODO: add dueDate to db schema
+        try {
+            const response = await services['course-evaluation'].update(id, {
+                courseId: code,
+                reviewDescription: description,
+                dueDate,
+            });
+
+            // Update User Permission in interface
+            await dispatch(signIn(true));
+
+            router.push(`coordinator/${response.value._id}`);
+        } catch (error) {
+            console.error(error);
+            // Handled by Redux Saga
+        }
+    };
+
+    const handleSubmit = () =>
+        editEvaluation(code, description, dueDate, evaluationId);
+
+    return (
+        <Dialog
+            classes={{
+                root: classes.center,
+                paper: classes.dialogPaper,
+            }}
+            open={isOpen}
+            TransitionComponent={Transition}
+            keepMounted
+            disableBackdropClick
+            fullWidth
+            maxWidth="md"
+            scroll="paper"
+            onClose={() => closeModal()}
+            aria-labelledby="modal-slide-title"
+            aria-describedby="modal-slide-description"
+        >
+            <DialogTitle
+                id="classic-modal-slide-title"
+                disableTypography
+                className={classes.modalHeader}
+            >
+                <IconButton
+                    className={classes.modalCloseButton}
+                    key="close"
+                    aria-label="Close"
+                    color="inherit"
+                    onClick={() => closeModal()}
+                >
+                    <Close className={classes.modalClose} />
+                </IconButton>
+                <h4 className={classes.modalTitle}>Edit Evaluation</h4>
+            </DialogTitle>
+            <DialogContent id="modal-slide-description" className={classes.modalBody}>
+                <CustomInput
+                    labelText="Course Identifier (unit code)"
+                    id="float"
+                    formControlProps={{
+                        fullWidth: true,
+                    }}
+                    inputProps={{
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                <People />
+                            </InputAdornment>
+                        ),
+                        value: code,
+                        onChange: (e) => setCode(e.target.value),
+                    }}
+                />
+                <CustomInput
+                    labelText="Course Description"
+                    formControlProps={{
+                        fullWidth: true,
+                    }}
+                    inputProps={{
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                <People />
+                            </InputAdornment>
+                        ),
+                        value: description,
+                        onChange: (e) => setDescription(e.target.value),
+                    }}
+                />
+                <InputLabel className={classes.label}>Review due date</InputLabel>
+                <br />
+                <FormControl fullWidth>
+                    <Datetime
+                        onChange={(date) => {
+                            setDueDate(date);
+                        }}
+                        value={dueDate}
+                        placeholder="13/05/2031"
+                    />
+                </FormControl>
+            </DialogContent>
+            <DialogActions
+                className={classes.modalFooter + ' ' + classes.modalFooterCenter}
+            >
+                <Button onClick={() => closeModal()}>Never Mind</Button>
+                <Button
+                    onClick={() => {
+                        handleSubmit();
+                    }}
+                    color="success"
+                >
+          Create evaluation
+                </Button>
+            </DialogActions>
+        </Dialog>
+    );
+};
+
 export default CreateEvaluationModal;
