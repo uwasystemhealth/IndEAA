@@ -15,10 +15,9 @@ import People from '@material-ui/icons/People';
 
 // CUSTOM COMPONENTS
 import ReviewerListing from './ReviewerListing.js';
-import AreYouSureButton from 'components/Other/AreYouSureButton';
 
 
-// STYLES
+
 import modalStyle from 'assets/jss/nextjs-material-kit/modalStyle.js';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -86,7 +85,7 @@ const ManageReviewers = ({ evaluationID }) => {
     const createUser = async (email) => {
         try {
             const response = await services.users.create({ email });
-            setModal(false)
+            setModal(false);
         } catch (error) {
             // Handled by Redux Saga
         }
