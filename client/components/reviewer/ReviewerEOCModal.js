@@ -208,7 +208,7 @@ const ViewModal = ({
                                 documents={course?.documents}
                                 eocBeingViewed={eocGeneralAndSpecific}
                                 isReviewer
-                                isReadOnly
+                                isReadOnly={isReadOnly}
                             />
                         </GridItem>
                     </GridItem>
