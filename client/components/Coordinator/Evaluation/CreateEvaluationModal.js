@@ -178,7 +178,6 @@ const CreateEvaluationModal = ({ closeModal, isOpen }) => {
 };
 
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
 
 export const EditEvaluationModal = ({ closeModal, isOpen, evaluationId }) => {
     const classes = useStyles();
@@ -189,35 +188,33 @@ export const EditEvaluationModal = ({ closeModal, isOpen, evaluationId }) => {
     const [description, setDescription] = useState('');
     const [dueDate, setDueDate] = useState('');
 
-    useEffect(() => {
-        services['course-evaluation'].get({
+    useEffect(async () => {
+        const response = await services['course-evaluation'].get({
             _id: evaluationId,
         });
-
-        console.log(result);
+        const evalData = response?.value;
+        setCode(evalData?.courseId);
+        setDescription(evalData?.reviewDescription);
+        // TODO: Install moment to parse duedate so that the form can be correctly filled.
+        setDueDate(evalData?.dueDate);
     }, []);
-
-    const result = useSelector((state) => state['course-evaluation']);
-    console.log(result);
 
     const editEvaluation = async (code, description, dueDate, id) => {
     // TODO: add dueDate to db schema
         try {
-            const response = await services['course-evaluation'].update(id, {
+            const response = await services['course-evaluation'].patch(id, {
                 courseId: code,
                 reviewDescription: description,
                 dueDate,
             });
 
-            // Update User Permission in interface
-            await dispatch(signIn(true));
-
-            router.push(`coordinator/${response.value._id}`);
+            closeModal();
         } catch (error) {
             console.error(error);
             // Handled by Redux Saga
         }
     };
+    console.log(dueDate);
 
     const handleSubmit = () =>
         editEvaluation(code, description, dueDate, evaluationId);
