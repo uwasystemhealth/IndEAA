@@ -195,8 +195,7 @@ export const EditEvaluationModal = ({ closeModal, isOpen, evaluationId }) => {
         const evalData = response?.value;
         setCode(evalData?.courseId);
         setDescription(evalData?.reviewDescription);
-        // TODO: Install moment to parse duedate so that the form can be correctly filled.
-        setDueDate(evalData?.dueDate);
+        setDueDate(new Date(evalData?.dueDate));
     }, []);
 
     const editEvaluation = async (code, description, dueDate, id) => {
