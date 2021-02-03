@@ -22,13 +22,11 @@ jobs:
       - uses: actions/checkout@v2
       - uses: ./
         with:
-          path: "client"
-      - uses: bahmutov/npm-install@v1
-        with:
           install-command: yarn --frozen-lockfile --silent
           working-directory: client
       - name: Run Linting
         run:  npm run lint
+        working-directory: client
 
   backend-check:
     runs-on: ubuntu-latest
@@ -36,10 +34,9 @@ jobs:
       - uses: actions/checkout@v2
       - uses: ./
         with:
-          path: "server"
-      - uses: bahmutov/npm-install@v1
-        with:
           install-command: yarn --frozen-lockfile --silent
           working-directory: server
       - name: Run Linting
         run:  npm run lint
+        working-directory: server
+
