@@ -14,7 +14,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Close from '@material-ui/icons/Close';
 import Muted from 'components/MaterialKit/Typography/Muted';
 
-
 // Redux
 import { useSelector } from 'react-redux';
 import { services } from 'store/feathersClient';
@@ -44,12 +43,13 @@ const ViewModal = ({
     justification,
     isOpen,
     closeModal,
-    isReadOnly // For finished Reviews or coordinator viewing
+    isReadOnly, // For finished Reviews or coordinator viewing
 }) => {
     const classes = useStyles();
 
     const { rating = 0, reason = '', ideaForImprovement = '' } = reviewEOC || {};
-    const {desc:description = ''} = getStaticDetailsOfEOC(eocGeneralAndSpecific) || {};
+    const { desc: description = '' } =
+    getStaticDetailsOfEOC(eocGeneralAndSpecific) || {};
 
     const initialStateModal = {
         rating,
@@ -75,7 +75,7 @@ const ViewModal = ({
     };
 
     const handleDropdownChange = (e) => {
-        // Text Element of the Dropdown Header
+    // Text Element of the Dropdown Header
         const string = e.props.children[0].props.children;
         const newState = {
             ...state,
@@ -94,7 +94,7 @@ const ViewModal = ({
                 {
                     'step3Evaluation.$': {
                         ...state,
-                        eoc: eocGeneralAndSpecific
+                        eoc: eocGeneralAndSpecific,
                     },
                 },
                 { query: { 'step3Evaluation.eoc': eocGeneralAndSpecific } }
@@ -145,34 +145,36 @@ const ViewModal = ({
                         <GridItem>
                             <Card>
                                 <CardBody>
-                                    <h4 className={classes.cardTitle}>Justification of Coordinators</h4>
+                                    <h4 className={classes.cardTitle}>
+                    Justification of Coordinators
+                                    </h4>
                                     <p>{justification}</p>
                                 </CardBody>
                             </Card>
                         </GridItem>
                         <GridItem>
               Development Level
-                            {!isReadOnly ? 
-                            <CustomDropdown
-                                buttonText={developmentLevelToString[state.rating]}
-                                dropdownList={
-                                    developmentLevel.map(({short,meaning},index)=>(
-                                        <>
-                                            <h6>{`Level ${index+1} - ${short}`}</h6>
-                                            <Muted>{meaning}</Muted>
-                                        </>
-                                    ))
-                                }
-                                id="developmentLevel"
-                                onClick={handleDropdownChange}
-                            />
-                                :
+                            {!isReadOnly ? (
+                                <CustomDropdown
+                                    buttonText={developmentLevelToString[state.rating]}
+                                    dropdownList={developmentLevel.map(
+                                        ({ short, meaning }, index) => (
+                                            <>
+                                                <h6>{`Level ${index + 1} - ${short}`}</h6>
+                                                <Muted>{meaning}</Muted>
+                                            </>
+                                        )
+                                    )}
+                                    id="developmentLevel"
+                                    onClick={handleDropdownChange}
+                                />
+                            ) : (
                                 <Button>{developmentLevelToString[state.rating]}</Button>
-                            }
+                            )}
                         </GridItem>
 
                         <GridItem>
-              reason
+              Justification for Selected Development Level
                             <TextField
                                 multiline
                                 fullWidth
@@ -185,7 +187,7 @@ const ViewModal = ({
                             />
                         </GridItem>
                         <GridItem>
-              ideaForImprovement
+              Suggestions for Improvement
                             <TextField
                                 multiline
                                 fullWidth
@@ -206,7 +208,7 @@ const ViewModal = ({
                                 documents={course?.documents}
                                 eocBeingViewed={eocGeneralAndSpecific}
                                 isReviewer
-                                isReadOnly
+                                isReadOnly={isReadOnly}
                             />
                         </GridItem>
                     </GridItem>
@@ -214,11 +216,11 @@ const ViewModal = ({
             </DialogContent>
             <DialogActions>
                 <Button onClick={() => closeModal()}>Cancel</Button>
-                {!isReadOnly &&
+                {!isReadOnly && (
                     <Button color="primary" onClick={() => handleSave()}>
-                    Save
+            Save
                     </Button>
-                }
+                )}
             </DialogActions>
         </Dialog>
     );
