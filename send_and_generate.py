@@ -9,7 +9,7 @@ parser.add_argument("project_id", help="The name of the project in Allure", type
 parser.add_argument("allure_username", nargs='?', default="admin", help="Allure Username", type=str)
 parser.add_argument("allure_password", nargs='?', default="Password123", help="Allure Password", type=str)
 parser.add_argument("allure_server", nargs='?', default="http://localhost:5050", help="Allure Server", type=str)
-parser.add_argument("allure_results_path", nargs='?', default="/allure-results", help="Allure Results Path (Where are the test result (json) files are)", type=str)
+parser.add_argument("allure_results_path", nargs='?', default="/test_results", help="Allure Results Path (Where are the test result (json) files are)", type=str)
 parser.add_argument("allure_execution_name", nargs='?', default="Script", help="Allure Results Path (Where are the test result (json) files are)", type=str)
 parser.add_argument("allure_execution_from", nargs='?', default="bmbmmbmbmbmb", help="The name of the site/system/area that generated the test results", type=str)
 parser.add_argument("allure_execution_type", nargs='?', default="bamboo", help="Type of CI/CD system used. Options are: bamboo, github, jenkins, gitlab, teamcity", type=str)

@@ -25,7 +25,9 @@ jobs:
           install-command: yarn --frozen-lockfile --silent
           working-directory: client
       - name: Run Linting
-        run:  npm run lint
+        run: |
+          npm run lint
+          npm run build
         working-directory: client
 
   backend-check:
@@ -39,4 +41,22 @@ jobs:
       - name: Run Linting
         run:  npm run lint
         working-directory: server
+
+  end-to-end-testing:
+    needs: [frontend-check, backend-check, run-database]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: bahmutov/npm-install@v1
+        with:
+          install-command: yarn --frozen-lockfile --silent
+      - name: Run end-to-end-testing
+        run: npm run ci:test
+      - name: Upload Results
+        if: ${{ always() }}
+        run: npm run allure:send
+        env:
+          ALLURE_USER: ${{secrets.ALLURE_USER}}
+          ALLURE_PASSWORD: ${{secrets.ALLURE_PASSWORD}}
+          ALLURE_API_SERVER: ${{secrets.ALLURE_API_SERVER}}
 
