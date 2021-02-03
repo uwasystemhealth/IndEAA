@@ -3,7 +3,7 @@ import CardBody from 'components/MaterialKit/Card/CardBody.js';
 import Button from 'components/MaterialKit/CustomButtons/Button.js';
 import ManageReviewers from './ManageReviewers.js';
 import { useRouter } from 'next/router';
-import { EditEvaluationModal } from 'components/Coordinator/Evaluation/CreateEvaluationModal';
+import EvaluationModal from 'components/Coordinator/Evaluation/EvaluationModal';
 import { useState } from 'react';
 
 // Store actions and Redux
@@ -50,10 +50,10 @@ const Controls = ({ evaluationID, archived }) => {
                 <Button onClick={openModal} color="info">
           Edit Evaluation
                 </Button>
-                <EditEvaluationModal
+                <EvaluationModal
                     closeModal={closeModal}
                     isOpen={editModalOpen}
-                    evaluationId={evaluationID}
+                    isEditModal
                 />
             </CardBody>
         </Card>

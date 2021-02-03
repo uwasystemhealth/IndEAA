@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 // material-ui components
@@ -22,7 +22,7 @@ import CustomInput from 'components/MaterialKit/CustomInput/CustomInput.js';
 
 // Redux
 import { signIn } from 'actions/auth';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { services } from 'store/feathersClient';
 
 // Styles
@@ -53,17 +53,24 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="down" ref={ref} {...props} />;
 });
 
-const CreateEvaluationModal = ({ closeModal, isOpen }) => {
+const EvaluationModal = ({ closeModal, isOpen, isEditModal }) => {
     const classes = useStyles();
     const router = useRouter();
     const dispatch = useDispatch();
-
+    const courseEvaluation = useSelector(state => state['course-evaluation']);
+    const courseData = courseEvaluation?.data;
+    console.log(courseData);
     const [code, setCode] = useState('');
     const [description, setDescription] = useState('');
     const [dueDate, setDueDate] = useState('');
 
+    useEffect(() => {
+        setCode(courseData?.courseId || '');
+        setDescription(courseData?.reviewDescription || '' );
+        setDueDate(courseData?.dueDate || '');
+    }, [courseData]);
+
     const createEvaluation = async (code, description, dueDate) => {
-    // TODO: add dueDate to db schema
         try {
             const response = await services['course-evaluation'].create({
                 courseId: code,
@@ -81,142 +88,24 @@ const CreateEvaluationModal = ({ closeModal, isOpen }) => {
         }
     };
 
-    const handleSubmit = () => createEvaluation(code, description, dueDate);
-
-    return (
-        <Dialog
-            classes={{
-                root: classes.center,
-                paper: classes.dialogPaper,
-            }}
-            open={isOpen}
-            TransitionComponent={Transition}
-            keepMounted
-            disableBackdropClick
-            fullWidth
-            maxWidth="md"
-            scroll="paper"
-            onClose={() => closeModal()}
-            aria-labelledby="modal-slide-title"
-            aria-describedby="modal-slide-description"
-        >
-            <DialogTitle
-                id="classic-modal-slide-title"
-                disableTypography
-                className={classes.modalHeader}
-            >
-                <IconButton
-                    className={classes.modalCloseButton}
-                    key="close"
-                    aria-label="Close"
-                    color="inherit"
-                    onClick={() => closeModal()}
-                >
-                    <Close className={classes.modalClose} />
-                </IconButton>
-                <h4 className={classes.modalTitle}>Creating a new evaluation</h4>
-            </DialogTitle>
-            <DialogContent id="modal-slide-description" className={classes.modalBody}>
-                <CustomInput
-                    labelText="Course Identifier (unit code)"
-                    id="float"
-                    formControlProps={{
-                        fullWidth: true,
-                    }}
-                    inputProps={{
-                        endAdornment: (
-                            <InputAdornment position="end">
-                                <People />
-                            </InputAdornment>
-                        ),
-                        value: code,
-                        onChange: (e) => setCode(e.target.value),
-                    }}
-                />
-                <CustomInput
-                    labelText="Course Description"
-                    formControlProps={{
-                        fullWidth: true,
-                    }}
-                    inputProps={{
-                        endAdornment: (
-                            <InputAdornment position="end">
-                                <People />
-                            </InputAdornment>
-                        ),
-                        value: description,
-                        onChange: (e) => setDescription(e.target.value),
-                    }}
-                />
-                <InputLabel className={classes.label}>Review due date</InputLabel>
-                <br />
-                <FormControl fullWidth>
-                    <Datetime
-                        onChange={(date) => {
-                            setDueDate(date);
-                        }}
-                        value={dueDate}
-                        placeholder="13/05/2031"
-                    />
-                </FormControl>
-            </DialogContent>
-            <DialogActions
-                className={classes.modalFooter + ' ' + classes.modalFooterCenter}
-            >
-                <Button onClick={() => closeModal()}>Never Mind</Button>
-                <Button
-                    onClick={() => {
-                        handleSubmit();
-                    }}
-                    color="success"
-                >
-          Create evaluation
-                </Button>
-            </DialogActions>
-        </Dialog>
-    );
-};
-
-import { useEffect } from 'react';
-
-export const EditEvaluationModal = ({ closeModal, isOpen, evaluationId }) => {
-    const classes = useStyles();
-    const router = useRouter();
-    const dispatch = useDispatch();
-
-    const [code, setCode] = useState('');
-    const [description, setDescription] = useState('');
-    const [dueDate, setDueDate] = useState('');
-
-    useEffect(async () => {
-        const response = await services['course-evaluation'].get({
-            _id: evaluationId,
-        });
-        const evalData = response?.value;
-        setCode(evalData?.courseId);
-        setDescription(evalData?.reviewDescription);
-        setDueDate(new Date(evalData?.dueDate));
-    }, []);
-
     const editEvaluation = async (code, description, dueDate, id) => {
-    // TODO: add dueDate to db schema
         try {
-            const response = await services['course-evaluation'].patch(id, {
+            await services['course-evaluation'].patch(id, {
                 courseId: code,
                 reviewDescription: description,
                 dueDate,
             });
-
+    
             closeModal();
         } catch (error) {
             console.error(error);
             // Handled by Redux Saga
         }
     };
-    console.log(dueDate);
 
-    const handleSubmit = () =>
-        editEvaluation(code, description, dueDate, evaluationId);
+    const handleSubmit = () => isEditModal 
+        ? editEvaluation(code, description, dueDate, evaluationId): 
+        createEvaluation(code, description, dueDate);
 
     return (
         <Dialog
@@ -249,7 +138,7 @@ export const EditEvaluationModal = ({ closeModal, isOpen, evaluationId }) => {
                 >
                     <Close className={classes.modalClose} />
                 </IconButton>
-                <h4 className={classes.modalTitle}>Edit Evaluation</h4>
+                <h4 className={classes.modalTitle}>{isEditModal ? 'Edit Evaluation' : 'Creating a new evaluation' }</h4>
             </DialogTitle>
             <DialogContent id="modal-slide-description" className={classes.modalBody}>
                 <CustomInput
@@ -305,11 +194,12 @@ export const EditEvaluationModal = ({ closeModal, isOpen, evaluationId }) => {
                     }}
                     color="success"
                 >
-          Create evaluation
+                    {isEditModal ? 'Save Edit' : 'Create evaluation' }
+          
                 </Button>
             </DialogActions>
         </Dialog>
     );
 };
 
-export default CreateEvaluationModal;
+export default EvaluationModal;
