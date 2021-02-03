@@ -24,6 +24,7 @@ jobs:
           path: "client"
       - uses: bahmutov/npm-install@v1
         with:
+          install-command: yarn --frozen-lockfile --silent
           working-directory: client
       - name: Run Linting
         run:  npm run lint
@@ -36,6 +37,7 @@ jobs:
           path: "server"
       - uses: bahmutov/npm-install@v1
         with:
+          install-command: yarn --frozen-lockfile --silent
           working-directory: server
       - name: Run Linting
         run:  npm run lint
