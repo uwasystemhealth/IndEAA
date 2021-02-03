@@ -1,0 +1,9 @@
+{
+    "videosFolder": "test_results",
+    "experimentalRunEvents": true,
+    "videoUploadOnPasses": false,
+    "env": {
+        "allureResultsPath": "test_results",
+        "flattenVideoFolder": true
+    }
+}
