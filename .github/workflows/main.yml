@@ -25,8 +25,10 @@ jobs:
       - uses: bahmutov/npm-install@v1
         with:
           install-command: yarn --frozen-lockfile --silent
+          working-directory: client
       - name: Run Linting
         run: |
+          ls
           npm run lint
           npm run build
         working-directory: client
@@ -40,8 +42,11 @@ jobs:
       - uses: bahmutov/npm-install@v1
         with:
           install-command: yarn --frozen-lockfile --silent
+          working-directory: client
       - name: Run Linting
-        run:  npm run lint
+        run: |
+          ls
+          npm run lint
         working-directory: server
 
   end-to-end-testing:
@@ -55,7 +60,15 @@ jobs:
         with:
           install-command: yarn --frozen-lockfile --silent
       - name: Run end-to-end-testing
-        run: npm run ci:test
+        run: |
+          ls
+          npm run ci:test
+        env:
+          GOOGLE_TEST_USERNAME: ${{secrets.GOOGLE_TEST_USERNAME}}
+          GOOGLE_TEST_PASSWORD: ${{secrets.GOOGLE_TEST_PASSWORD}}
+          FRONTEND_REDIRECT_URL: ${{secrets.FRONTEND_REDIRECT_URL}}
+          BACKEND_HOST_CALLBACK: ${{secrets.BACKEND_HOST_CALLBACK}}
+          NEXT_PUBLIC_BACKEND_URL: ${{secrets.NEXT_PUBLIC_BACKEND_URL}}
       - name: Upload Results
         if: ${{ always() }}
         run: npm run allure:send
@@ -63,9 +76,5 @@ jobs:
           ALLURE_USER: ${{secrets.ALLURE_USER}}
           ALLURE_PASSWORD: ${{secrets.ALLURE_PASSWORD}}
           ALLURE_API_SERVER: ${{secrets.ALLURE_API_SERVER}}
-          GOOGLE_TEST_USERNAME: ${{secrets.GOOGLE_TEST_USERNAME}}
-          GOOGLE_TEST_PASSWORD: ${{secrets.GOOGLE_TEST_PASSWORD}}
-          FRONTEND_REDIRECT_URL: ${{secrets.FRONTEND_REDIRECT_URL}}
-          BACKEND_HOST_CALLBACK: ${{secrets.BACKEND_HOST_CALLBACK}}
-          NEXT_PUBLIC_BACKEND_URL: ${{secrets.NEXT_PUBLIC_BACKEND_URL}}
+
 
