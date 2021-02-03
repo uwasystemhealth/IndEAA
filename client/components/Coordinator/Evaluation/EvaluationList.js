@@ -11,7 +11,7 @@ import List from '@material-ui/core/List';
 
 
 import EvaluationListing from './EvaluationListing.js';
-import CreateEvaluationModal from './CreateEvaluationModal.js';
+import EvaluationModal from './EvaluationModal.js';
 
 //Styles
 import { useTheme } from '@material-ui/core/styles';
@@ -131,7 +131,7 @@ const EvaluationList = () => {
                 <Button color="secondary" onClick={openNewEvaluationModal}>
           Create New Evaluation
                 </Button>
-                <CreateEvaluationModal
+                <EvaluationModal
                     isOpen={isNewEvaluationModalOpen}
                     closeModal={closeNewEvaluationModal}
                 />
