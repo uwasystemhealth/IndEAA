@@ -14,7 +14,7 @@
   "scripts": {
     "cypress:open": "cypress open",
     "cypress:run": "cypress run --env allure=true",
-    "allure:send": "python send_and_generate.py indeaa-end-to-end-testing $ALLURE_USER $ALLURE_PASSWORD $ALLURE_API_SERVER /test_results github github",
+    "allure:send": "python send_and_generate.py indeaa-e2e $ALLURE_USER $ALLURE_PASSWORD $ALLURE_API_SERVER /test_results github github",
     "start:frontend": "npm install --prefix client && npm run build --prefix client && npm run start --prefix client",
     "start:backend": "npm install --prefix server && npm run test:mongo && npm run start --prefix server",
     "test:mongo": "docker run --name indeaa_mongo -d -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=admin mongo ",
