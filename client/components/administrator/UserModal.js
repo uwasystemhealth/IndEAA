@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 // material-ui components
+import AreYouSureButton from 'components/Other/AreYouSureButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 import Slide from '@material-ui/core/Slide';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -11,7 +13,7 @@ import ListItem from '@material-ui/core/ListItem';
 
 
 import Close from '@material-ui/icons/Close';
-import Placeholder from '@material-ui/icons/Mood';
+import {roleIcons} from 'utils/permissions';
 
 // core components
 import CustomInput from 'components/MaterialKit/CustomInput/CustomInput.js';
@@ -96,6 +98,12 @@ export default function Modal(
     const handleSave = () => {
         const { perms } = modalState;
         services.users.patch(user._id, { perms });
+        closeModal();
+    };
+
+    const handleDeleteUser = () =>{
+        services.users.remove(user._id);
+        closeModal();
     };
 
     return (
@@ -140,6 +148,13 @@ export default function Modal(
                             <GridItem md={4}>
                                 < BasicInformationField user={user} authUser={authUser} classes={classes} isAdministrator={modalState.isAdministrator}
                                     isCoordinator={modalState.isCoordinator} toggleRole={toggleRole} />
+                                <AreYouSureButton
+                                    buttonProps={{color:'danger', disabled:user._id === authUser._id}}
+                                    action={handleDeleteUser}
+                                >
+                                    <DeleteIcon />
+                            Delete
+                                </AreYouSureButton>
                             </GridItem>
                             <GridItem md={8}>
                                 <CustomTabs
@@ -147,7 +162,7 @@ export default function Modal(
                                     tabs={[
                                         {
                                             tabName: 'Coordinator',
-                                            tabIcon: Placeholder,
+                                            tabIcon: roleIcons['Coordinator'],
                                             tabContent: (
                                                 <List>
                                                     {courseEvaluation.queryResult.data.map(
@@ -165,7 +180,7 @@ export default function Modal(
                                         },
                                         {
                                             tabName: 'Reviewer',
-                                            tabIcon: Placeholder,
+                                            tabIcon: roleIcons['Reviewer'],
                                             tabContent: (
                                                 <List>
                                                     {courseEvaluation.queryResult.data.map(
@@ -192,7 +207,7 @@ export default function Modal(
                 className={classes.modalFooter + ' ' + classes.modalFooterCenter}
             >
                 <Button onClick={() => closeModal()}>Cancel</Button>
-                <Button onClick={() => { closeModal(); handleSave(); }} color="success">
+                <Button onClick={() => handleSave()} color="success">
                     Save
                 </Button>
             </DialogActions>
