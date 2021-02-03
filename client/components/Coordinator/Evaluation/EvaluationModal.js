@@ -104,7 +104,7 @@ const EvaluationModal = ({ closeModal, isOpen, isEditModal }) => {
     };
 
     const handleSubmit = () => isEditModal 
-        ? editEvaluation(code, description, dueDate, evaluationId): 
+        ? editEvaluation(code, description, dueDate, courseData._id): 
         createEvaluation(code, description, dueDate);
 
     return (
