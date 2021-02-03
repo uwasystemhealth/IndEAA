@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: ./
+      - uses: bahmutov/npm-install@v1
         with:
           install-command: yarn --frozen-lockfile --silent
           working-directory: client
@@ -32,7 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: ./
+      - uses: bahmutov/npm-install@v1
         with:
           install-command: yarn --frozen-lockfile --silent
           working-directory: server
