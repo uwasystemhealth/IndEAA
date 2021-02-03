@@ -37,9 +37,8 @@ const ReviewDocumentsComments = ({reviewsUserLinked}) => {
             <CardBody>
                 <CardHeader color="success">Document Comments</CardHeader>
                 <GridContainer>{course?.documents.map(document=> (
-                    <GridItem md={4}><ReviewDocumentsComment
+                    <GridItem md={4} key={document?._id}><ReviewDocumentsComment
                         document={document}
-                        key={document?._id}
                         // Get only comments if the document id is defined
                         commentsUserLinked={document?._id ? getAllCommentsOfDocument(document._id, reviewsUserLinked) : []}
                     /></GridItem>
