@@ -3,8 +3,7 @@ import Card from 'components/MaterialKit/Card/Card.js';
 import CardBody from 'components/MaterialKit/Card/CardBody.js';
 import CardHeader from 'components/MaterialKit/Card/CardHeader.js';
 import List from '@material-ui/core/List';
-import DesignedCheckBox  from 'components/administrator/DesignedCheckBox';
-
+import DesignedCheckBox from 'components/administrator/DesignedCheckBox';
 
 // STYLES
 import { makeStyles } from '@material-ui/core/styles';
@@ -14,7 +13,7 @@ const styles = {
 };
 const useStyles = makeStyles(styles);
 
-const ApplyTo = ({ eocs ,eocInSame,handleCheck}) => {
+const ApplyTo = ({ disabled, eocs, eocInSame, handleCheck }) => {
     const classes = useStyles();
 
     return (
@@ -24,9 +23,10 @@ const ApplyTo = ({ eocs ,eocInSame,handleCheck}) => {
                 <List>
                     {eocs.map((numberLabel) => (
                         <DesignedCheckBox
+                            disabled={disabled == numberLabel}
                             key={numberLabel}
-                            onClick={() =>handleCheck(numberLabel)}
-                            isChecked={ eocInSame.includes(numberLabel)}
+                            onClick={() => handleCheck(numberLabel)}
+                            isChecked={eocInSame.includes(numberLabel)}
                             label={`EOC ${numberLabel}`}
                         />
                     ))}

@@ -19,7 +19,6 @@ import { useSelector } from 'react-redux';
 import ApplyTo from './ApplyTo.js';
 import DocumentViewer from './DocumentViewer.js';
 
-
 import { useState, useEffect } from 'react';
 
 // STYLES
@@ -42,12 +41,13 @@ const ViewModal = ({
     detailsOfEOC,
     isOpen,
     closeModal,
-    saveFields
+    saveFields,
 }) => {
     const classes = useStyles();
 
     const { rating, justification, eocsInSameJustification } = detailsOfEOC;
-    const {desc:description = ''} = getStaticDetailsOfEOC(eocGeneralAndSpecific) || {};
+    const { desc: description = '' } =
+    getStaticDetailsOfEOC(eocGeneralAndSpecific) || {};
 
     const initialStateModal = {
         justification,
@@ -74,7 +74,7 @@ const ViewModal = ({
     };
 
     const handleDropdownChange = (e) => {
-        // Text Element of the Dropdown Header
+    // Text Element of the Dropdown Header
         const string = e.props.children[0].props.children;
         const newState = {
             ...state,
@@ -94,11 +94,9 @@ const ViewModal = ({
         } else {
             eocs.splice(eocIndex, 1); // Pops specific index
         }
-        const newState = {...state, eocsInSameJustification: eocs};
+        const newState = { ...state, eocsInSameJustification: eocs };
         setModalState(newState);
     };
-
-
 
     const handleSave = () => {
         saveFields(
@@ -109,9 +107,9 @@ const ViewModal = ({
         );
         // Reset to null
         setModalState({
-            justification:'',
+            justification: '',
             developmentLevel: 0,
-            eocsInSameJustification:[],
+            eocsInSameJustification: [],
         });
         closeModal();
     };
@@ -154,20 +152,21 @@ const ViewModal = ({
             Development Level
                         <CustomDropdown
                             buttonText={developmentLevelToString[state.developmentLevel]}
-                            dropdownList={
-                                developmentLevel.map(({short,meaning},index)=>(
+                            dropdownList={developmentLevel.map(
+                                ({ short, meaning }, index) => (
                                     <>
-                                        <h6>{`Level ${index+1} - ${short}`}</h6>
+                                        <h6>{`Level ${index + 1} - ${short}`}</h6>
                                         <Muted>{meaning}</Muted>
                                     </>
-                                ))
-                            }
+                                )
+                            )}
                             id="developmentLevel"
                             onClick={handleDropdownChange}
                         />
                     </GridItem>
                     <GridItem md={6}>
                         <ApplyTo
+                            disabled={eocGeneralAndSpecific}
                             eocs={specificNumbers}
                             eocInSame={state.eocsInSameJustification}
                             handleCheck={handleCheck}
