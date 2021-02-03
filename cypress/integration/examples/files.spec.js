@@ -31,7 +31,7 @@ context('Files', () => {
     cy.get('.fixture-btn').click()
 
     cy.wait('@getComment').its('response.body')
-      .should('have.property', 'named')
+      .should('have.property', 'name')
       .and('include', 'Using fixtures to represent data')
   })
 
