@@ -21,10 +21,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          path: "/client"
+          path: "client"
       - uses: actions/setup-node@v1
         with:
           node-version: 12
+      - run: npm install
       - run: npm run lint
 
   backend-check:
@@ -32,8 +33,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          path: "/server"
+          path: "server"
       - uses: actions/setup-node@v1
         with:
           node-version: 12
+      - run: npm install
       - run: npm run lint
