@@ -43,7 +43,7 @@ jobs:
         working-directory: server
 
   end-to-end-testing:
-    needs: [frontend-check, backend-check, run-database]
+    needs: [frontend-check, backend-check]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -59,4 +59,9 @@ jobs:
           ALLURE_USER: ${{secrets.ALLURE_USER}}
           ALLURE_PASSWORD: ${{secrets.ALLURE_PASSWORD}}
           ALLURE_API_SERVER: ${{secrets.ALLURE_API_SERVER}}
+          GOOGLE_TEST_USERNAME: ${{secrets.GOOGLE_TEST_USERNAME}}
+          GOOGLE_TEST_PASSWORD: ${{secrets.GOOGLE_TEST_PASSWORD}}
+          FRONTEND_REDIRECT_URL: ${{secrets.FRONTEND_REDIRECT_URL}}
+          BACKEND_HOST_CALLBACK: ${{secrets.BACKEND_HOST_CALLBACK}}
+          NEXT_PUBLIC_BACKEND_URL: ${{secrets.NEXT_PUBLIC_BACKEND_URL}}
 
