@@ -20,6 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: ./
         with:
           path: "client"
       - uses: bahmutov/npm-install@v1
@@ -33,6 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: ./
         with:
           path: "server"
       - uses: bahmutov/npm-install@v1
