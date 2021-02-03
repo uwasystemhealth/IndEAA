@@ -30,7 +30,6 @@ jobs:
         run: |
           ls
           npm run lint
-          npm run build
         working-directory: client
 
   backend-check:
