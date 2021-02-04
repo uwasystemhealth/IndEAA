@@ -17,12 +17,15 @@ const allureWriter = require('@frinzekt/cypress-allure-plugin/writer');
 const del = require('del')
 const moveFile = require('move-file')
 const path = require('path');
+require('dotenv').config()
 
 /**
  * @type {Cypress.PluginConfig}
  */
 
 module.exports = (on, config) => {
+    // Add the process environment as part of the test config
+    config.env = { ...process.env, ...config.env }
     allureWriter(on, config);
     on('after:spec', (spec, results) => {
         if (results.stats.failures === 0 && results.video) {
