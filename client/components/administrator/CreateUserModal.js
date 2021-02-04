@@ -20,6 +20,7 @@ import CustomInput from 'components/MaterialKit/CustomInput/CustomInput.js';
 
 // Redux
 import { services } from 'store/feathersClient';
+import { useSelector } from 'react-redux';
 
 // Styles
 import { makeStyles } from '@material-ui/core/styles';
@@ -34,19 +35,18 @@ export default function Modal({ setCurrentUserSelected, closeModal, isOpen }) {
     const classes = useStyles();
 
     const [email, setEmail] = useState('');
-    const [createLoading, setCreateLoading] = useState(false);
 
     const createUser = async (email) => {
         try {
-            setCreateLoading(true);
             const response = await services.users.create({ email });
             closeModal();
             setCurrentUserSelected(response.value);
-            setCreateLoading(false);
         } catch (error) {
             // Handled by Redux Saga
         }
     };
+
+    const createLoading = useSelector((state) => state['users'].isLoading);
 
     const handleSubmit = () => {
         createUser(email);
