@@ -28,7 +28,7 @@ const Documents = ({
         evalData?.documents.filter(({tags}) => tags.includes(specificTags))
         :  evalData?.documents;
 
-    const documentComponents = documentsToDisplay.map((doc) => {
+    const documentComponents = documentsToDisplay?.map((doc) => {
         return (
             <GridItem key={doc._id} xs={4}>
                 <DocumentCard
