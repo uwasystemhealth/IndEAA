@@ -14,6 +14,7 @@ import useRedirectIfFinish from 'components/customHooks/ReviewerFinishedGuard';
 
 // Use own components
 import ReviewProgress from 'components/reviewer/ReviewProgress';
+import ReviewerDocumentsListing from 'components/reviewer/ReviewerDocumentsListing';
 import ReviewerPageCardDescription from 'components/reviewer/ReviewerPageCardDescription';
 import ReviewerPageBottomNavigation from 'components/reviewer/ReviewerPageBottomNavigation';
 
@@ -60,6 +61,7 @@ const ReviewerCourseReviewPage1 = () => {
             <ReviewerPageCardDescription
                 pageNumber={pageNumber}
             />
+            <ReviewerDocumentsListing specificTags={'introduction'} />
             <EOCDescriptionAccordions />
             <ReviewerPageBottomNavigation
                 pageNumber={pageNumber}

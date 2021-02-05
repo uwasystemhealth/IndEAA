@@ -11,7 +11,9 @@ import { useSelector } from 'react-redux';
 
 import { useState } from 'react';
 
-const Documents = () => {
+const Documents = ({ 
+    specificTags=null // Optional prop - allows filtering for specific documents of specific tags
+}) => {
     const [currentSelectedDocumentReview, setCurrentSelectedDocumentReview] = useState(null);
 
     const courseEval = useSelector((state) => state['course-evaluation']);
@@ -22,7 +24,11 @@ const Documents = () => {
     const deselectCurrentSelectedDocumentReview = () =>
         setCurrentSelectedDocumentReview(null);
 
-    const documentComponents = evalData?.documents.map((doc) => {
+    const documentsToDisplay = specificTags ? 
+        evalData?.documents.filter(({tags}) => tags.includes(specificTags))
+        :  evalData?.documents;
+
+    const documentComponents = documentsToDisplay.map((doc) => {
         return (
             <GridItem key={doc._id} xs={4}>
                 <DocumentCard
