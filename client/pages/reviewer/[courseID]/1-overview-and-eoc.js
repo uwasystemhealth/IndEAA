@@ -98,11 +98,11 @@ const EOCDescriptionAccordions = () => {
                                     <GridContainer>
                                         <GridItem md={6}>
                                             <h4 className={classes.title}>Description</h4>
-                                            {eoc.desc}
+                                            <p>{eoc.desc}</p>
                                         </GridItem>
                                         <GridItem md={6}>
                                             <h4 className={classes.title}>Indicators Of Attainment</h4>
-                                            {eoc.indicatorsOfAttainment}
+                                            {eoc.indicatorsOfAttainment.map(indicator=> <p key={indicator}>{indicator}</p>)}
                                         </GridItem>
                                     </GridContainer>
                                 ),
