@@ -23,6 +23,7 @@ module.exports = () => {
         }
 
         if(serviceName==='review'){ // This is for review service
+            // TODO: this needs to be improve to only accomodate authors
             // Get course id
             const course_id = context.data.course_id || context.existing.course_id;
 
