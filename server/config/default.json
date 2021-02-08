@@ -1,0 +1,46 @@
+{
+  "host": "localhost",
+  "port": 3030,
+  "public": "../public/",
+  "paginate": {
+    "default": 20,
+    "max": 50
+  },
+  "authentication": {
+    "entity": "user",
+    "service": "users",
+    "secret": "sMt300/XHJGEJoRq58lrt2JnT9A=",
+    "authStrategies": [
+      "jwt",
+      "local"
+    ],
+    "jwtOptions": {
+      "header": {
+        "typ": "access"
+      },
+      "audience": "https://yourdomain.com",
+      "issuer": "feathers",
+      "algorithm": "HS256",
+      "expiresIn": "999999d"
+    },
+    "local": {
+      "usernameField": "email",
+      "passwordField": "password"
+    },
+    "oauth": {
+      "redirect": "FRONTEND_REDIRECT_URL",
+      "google": {
+        "redirect_uri": "BACKEND_HOST_CALLBACK",
+        "callback": "/oauth/google/authenticate",
+        "key": "GOOGLE_OAUTH_KEY",
+        "secret": "GOOGLE_OAUTH_SECRET",
+        "scope": [
+          "email",
+          "profile",
+          "openid"
+        ]
+      }
+    }
+  },
+  "mongodb": "mongodb://admin:admin@db:27017/server?authSource=admin"
+}

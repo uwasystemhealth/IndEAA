@@ -1,0 +1,26 @@
+{
+  "host": "indeaa-server.systemhealthlab.com",
+  "mongodb": "MONGO_URI",
+  "authentication": {
+    "entity": "user",
+    "service": "users",
+    "secret": "AUTHENTICATION_SECRET",
+    "authStrategies": [
+      "jwt",
+      "local"
+    ],
+    "jwtOptions": {
+      "header": {
+        "typ": "access"
+      },
+      "audience": "https://indeaa.systemhealthlab.com",
+      "issuer": "feathers",
+      "algorithm": "HS256",
+      "expiresIn": "15d"
+    },
+    "local": {
+      "usernameField": "email",
+      "passwordField": "password"
+    }
+  }
+}
