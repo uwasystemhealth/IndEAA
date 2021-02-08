@@ -2,7 +2,7 @@
 export const reviewSteps = [
     {
         stepName: 'Overview & Eoc',
-        stepDescription:'This section is a refresher on the review process',
+        stepDescription:'This section is an introduction of the course and the review process. Below you will see documents that introduces the unit, as well as the Elements of Competencies (EOCs) and their indicators of attainment.',
         stepLink: 'overview-and-eoc',
     },
     {
