@@ -25,7 +25,6 @@ module.exports = (roleBasedPermissionsRequired) => {
         for (let roleRequired of roleBasedPermissionsRequired ){
             // If a user does not have the required permission, then disallow
             if(!availablePerms.has(roleRequired)){
-                console.log(roleRequired);
                 return true;
             }
         }
