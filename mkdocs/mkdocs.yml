@@ -13,6 +13,14 @@ theme:
     - navigation.tabs
 plugins:
   - search
+  - with-pdf:
+        author: Frinze Erin Lapuz and Michael Nefiodovas
+        copyright: System Health Lab
+        cover_title: IndEAA
+        cover_subtitle: Streamlining course review processs
+        cover_logo: ./docs/images/shl.png
+        enabled_if_env: ENABLE_PDF_EXPORT
+  # at the moment pdf cannot render relative linked image https://github.com/zhaoterryy/mkdocs-pdf-export-plugin/issues/92
   - mermaid2:
       version: 8.8.2
       arguments:
@@ -66,6 +74,7 @@ nav:
   - Introduction: administrator/index.md
 - Developer:
   - Introduction: developer/index.md
+  - Coding Standards: developer/coding_standards.md
   - Data Engineering: developer/data_engineering.md
   - Transport/Integration Layer (Feathers-redux): developer/feathers_redux.md
   - Database Support Scripts: developer/database_support_scripts.md
