@@ -1,6 +1,7 @@
 // Use this hook to manipulate incoming or outgoing data.
 // For more information on hooks see: http://docs.feathersjs.com/api/hooks.html
 
+const { Forbidden } = require('@feathersjs/errors');
 const { getAvailablePermissionsOfUser} = require('../utils');
 
 
@@ -15,7 +16,7 @@ const { getAvailablePermissionsOfUser} = require('../utils');
 */
 module.exports = (options = {}) => {
     return async context => {
-        const {serviceName,params} = context;
+        const {serviceName,params,method, id} = context;
 
         // No filter in internal server use
         if (typeof params.provider!=='undefined'){
@@ -36,9 +37,13 @@ module.exports = (options = {}) => {
                 { 
                     // Convert to set to eliminate redundancies
                     const courseIDsAllowed = Array.from(new Set(coordinatorCoursePermissions.concat(reviewerCoursePermissions)));
+                    if(method==='get' && !courseIDsAllowed.includes(id)){
+                        throw new Forbidden('You do not have the correct permission to access this');
+                    }
                     params.query = {...params.query, _id: {$in: courseIDsAllowed} };
                 }
                 else if(serviceName==='review'){
+                    // TODO: Create a permission filter for a review
                     params.query={
                         ...params.query,
                         $or: [
