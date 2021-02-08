@@ -1,6 +1,7 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
 const filterBasedPermission = require('../../hooks/filter-based-permission');
 
+const addCoordinatorsAndReviewersToEvaluation = require('../../hooks/add-coordinators-and-reviewers-to-evaluation');
 const addPermissionToUser = require('../../hooks/add-permission-to-user');
 
 module.exports = {
@@ -15,7 +16,7 @@ module.exports = {
     },
 
     after: {
-        all: [],
+        all: [addCoordinatorsAndReviewersToEvaluation()],
         find: [],
         get: [],
         create: [addPermissionToUser()],
