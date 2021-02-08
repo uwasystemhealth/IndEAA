@@ -30,7 +30,7 @@ const ReviewListing = ({
             <GridItem md={7}>
                 <Link href={`/reviewer/${evalId}/1-overview-and-eoc`} style={{textDecoration:'none'}}>
                     <h3 className={classes.title}>{courseCode}</h3>
-                    <h4 className={classes.description}>{coordinatorNames}.............</h4>
+                    <h4 className={classes.description}>{coordinatorNames}</h4>
                     <h5 className={classes.description}>{evaluationDescription}</h5>
                 </Link>
             </GridItem>

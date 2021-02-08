@@ -45,8 +45,7 @@ const EvaluationList = () => {
     const authUser = useSelector((state) => state.auth.user);
 
     useEffect(() => {
-    // 1. Find all CourseEvaluations where the createdBy key matches the logged in user
-        services['course-evaluation'].find();
+        services['course-evaluation'].find(); // This is already a filtered lists based on perms
     }, []);
 
     // Executes on Component Remount (after auth user is fetched)

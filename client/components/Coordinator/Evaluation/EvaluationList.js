@@ -80,8 +80,6 @@ const EvaluationList = () => {
         ({ _id, courseId, reviewDescription }) => {
             // select out the coordinators with the permission for this evaluation
 
-            console.log('users', users);
-            console.log('_id', _id);
             const coordinators = users.filter(({ perms }) =>
                 perms.some(
                     ({ course_id, role }) => course_id === _id && role === 'Coordinator'
