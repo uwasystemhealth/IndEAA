@@ -37,7 +37,8 @@ module.exports = (options = {}) => {
                 { 
                     // Convert to set to eliminate redundancies
                     const courseIDsAllowed = Array.from(new Set(coordinatorCoursePermissions.concat(reviewerCoursePermissions)));
-                    if(method==='get' && !courseIDsAllowed.includes(id)){
+                    const courseIDsAllowedStringCasted = courseIDsAllowed.map(course_id => String(course_id));
+                    if(method==='get' && !courseIDsAllowedStringCasted.includes(id)){
                         throw new Forbidden('You do not have the correct permission to access this');
                     }
                     params.query = {...params.query, _id: {$in: courseIDsAllowed} };
