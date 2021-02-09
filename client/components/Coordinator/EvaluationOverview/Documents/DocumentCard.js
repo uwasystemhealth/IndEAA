@@ -1,7 +1,6 @@
 // CORE COMPONENTS
 import Card from 'components/MaterialKit/Card/Card.js';
 import CardBody from 'components/MaterialKit/Card/CardBody.js';
-import CardFooter from 'components/MaterialKit/Card/CardFooter.js';
 import Badge from 'components/MaterialKit/Badge/Badge.js';
 import GridContainer from 'components/MaterialKit/Grid/GridContainer.js';
 import GridItem from 'components/MaterialKit/Grid/GridItem.js';
@@ -116,6 +115,7 @@ const DocumentCard = ({
                     <GridItem md={8}>
                         <h4 className={classes.cardTitle}>{name}</h4>
                         <p>{description}</p>
+                        {badges}
                     </GridItem>
                     <GridItem md={3}>
                         <GridContainer direction="column">
@@ -194,7 +194,6 @@ const DocumentCard = ({
                     </GridItem>
                 </GridContainer>
             </CardBody>
-            <CardFooter>{badges}</CardFooter>
         </Card>
     );
 };
