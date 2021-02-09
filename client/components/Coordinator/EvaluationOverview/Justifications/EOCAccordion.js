@@ -16,19 +16,18 @@ import { useState } from 'react';
 // Store Actions and Redux
 import { useSelector } from 'react-redux';
 import { services } from 'store/feathersClient';
-import {useCurrentCourseData} from 'components/customHooks/CoordinatorCourseLoad';
 
 import { getEOCInfo, getIndexOfEOCMatch, getDetailsOfEntireEOC} from 'utils/eocs';
 
-const EOCAccordion = ({ evaluationID }) => {
+const EOCAccordion = () => {
     // https://stackoverflow.com/questions/58539813/lazy-initial-state-what-is-and-where-to-use-it
     const [eocs, setEocs] = useState(() => getEOCInfo());
     const [selectedEOC, setSelectedEOC] = useState(null);
     
     const courseEvaluation = useSelector((state) => state['course-evaluation']);
-    const eocReviews = courseEvaluation?.data?.eoc;
-    // Initiate Conditional Data Loading
-    useCurrentCourseData();
+    const courseData = courseEvaluation?.data;
+    const eocReviews = courseData?.eoc;
+
 
     const saveFields = (
         eocGeneralAndSpecific,
@@ -36,7 +35,6 @@ const EOCAccordion = ({ evaluationID }) => {
         justification,
         eocsInSameJustification
     ) => {
-        console.log('WTYFF');
    
         const eocReviewsCopy = JSON.parse(JSON.stringify(eocReviews));  // Clone
         const matchedIndex = getIndexOfEOCMatch(eocGeneralAndSpecific, eocReviewsCopy);
@@ -60,7 +58,7 @@ const EOCAccordion = ({ evaluationID }) => {
             eocReviewsCopy[matchedIndex].eocNumber = eocsInSameJustification;
         }
 
-        services['course-evaluation'].patch(evaluationID, {
+        services['course-evaluation'].patch(courseData?._id, {
             eoc: eocReviewsCopy,
         });
     };

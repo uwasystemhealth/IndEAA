@@ -12,11 +12,13 @@ import Controls from './Controls';
 // Store Actions and Redux
 import { useSelector } from 'react-redux';
 import {useCurrentCourseData} from 'components/customHooks/CoordinatorCourseLoad';
+import { services } from 'store/feathersClient';
 
-
-const General = ({ evaluationData }) => {
+const General = () => {
     const router = useRouter();
-    
+
+    const evaluation = useSelector((state) => state['course-evaluation']);
+    const evaluationData = evaluation?.data;
     // Initiate Conditional Data Loading
     useCurrentCourseData();
 

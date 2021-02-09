@@ -12,7 +12,7 @@ import {useCurrentCourseData} from 'components/customHooks/CoordinatorCourseLoad
 
 import { useState } from 'react';
 
-const Documents = ({ evaluationID }) => {
+const Documents = ({ specificTags=null, }) => {
     const [isNewDocumentModalOpen, setIsNewDocumentModalOpen] = useState(false);
     const [currentSelectedDocument, setCurrentSelectedDocument] = useState(null);
 
@@ -27,20 +27,24 @@ const Documents = ({ evaluationID }) => {
     const closeNewDocumentModal = () => setIsNewDocumentModalOpen(false);
     const openNewDocumentModal = () => setIsNewDocumentModalOpen(true);
 
+    const documentsToDisplay = specificTags ? 
+        evalData?.documents.filter(({tags}) => tags.includes(specificTags))
+        :  evalData?.documents;
+
     return (
         <>
             <EditModal
-                course_id={evaluationID}
+                course_id={evalData?._id}
                 isOpen={isNewDocumentModalOpen}
                 setClose={closeNewDocumentModal}
             />
             <EditModal
-                course_id={evaluationID}
+                course_id={evalData?._id}
                 document={currentSelectedDocument}
                 isOpen={Boolean(currentSelectedDocument)}
                 setClose={deselectCurrentSelectedDocument}
             />
-            <DocumentsListItems documentsToDisplay={evalData?.documents} course_id={evalData?.id}
+            <DocumentsListItems documentsToDisplay={documentsToDisplay} course_id={evalData?.id}
                 setCurrentSelectedDocument={setCurrentSelectedDocument} />
             <Button color="primary" onClick={() => openNewDocumentModal()}>
                 <EditIcon />

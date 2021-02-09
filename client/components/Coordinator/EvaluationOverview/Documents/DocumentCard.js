@@ -113,17 +113,11 @@ const DocumentCard = ({
         <Card>
             <CardBody>
                 <GridContainer>
-                    <GridItem xs={8}>
+                    <GridItem md={8}>
                         <h4 className={classes.cardTitle}>{name}</h4>
                         <p>{description}</p>
-                        <p>
-              URI:{' '}
-                            <a href={link} className={cardLink}>
-                                {link}
-                            </a>
-                        </p>
                     </GridItem>
-                    <GridItem xs={3}>
+                    <GridItem md={3}>
                         <GridContainer direction="column">
                             <Button color="white" onClick={() => window.open(link)}>
                                 <PageviewIcon />

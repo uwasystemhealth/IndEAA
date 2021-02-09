@@ -13,6 +13,7 @@ const DocumentsListItems = ({documentsToDisplay,
     setCurrentSelectedDocumentReview, 
     setCurrentSelectedDocument, 
     isReviewer,
+    isReadOnly,
     gridItemProps={md:4} // Optional Props for sizing
 })=> {
     
@@ -23,6 +24,7 @@ const DocumentsListItems = ({documentsToDisplay,
                     course_id={course_id}
                     document={doc}
                     isReviewer={isReviewer}
+                    isReadOnly={isReadOnly}
                     setCurrentSelectedDocumentReview={setCurrentSelectedDocumentReview} 
                     setCurrentSelectedDocument={setCurrentSelectedDocument}/>
             </GridItem>
