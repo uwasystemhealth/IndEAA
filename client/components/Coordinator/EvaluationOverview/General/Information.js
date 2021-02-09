@@ -14,7 +14,7 @@ const useStyles = makeStyles(styles);
 // Store Actions and Redux
 import { useSelector } from 'react-redux';
 
-const Information = ({ evaluationID }) => {
+const Information = () => {
     const classes = useStyles();
 
 
