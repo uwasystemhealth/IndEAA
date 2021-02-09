@@ -11,9 +11,6 @@ import { useEffect } from 'react';
 
 const OtherInformation = ({ evaluationID }) => {
     useEffect(() => {
-        services['course-evaluation'].get({
-            _id: evaluationID,
-        });
         services['users'].find();
     }, []);
 

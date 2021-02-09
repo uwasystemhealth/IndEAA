@@ -13,21 +13,14 @@ const useStyles = makeStyles(styles);
 
 // Store Actions and Redux
 import { useSelector } from 'react-redux';
-import { services } from 'store/feathersClient';
-
-import { useEffect } from 'react';
 
 const Information = ({ evaluationID }) => {
     const classes = useStyles();
 
-    useEffect(() => {
-        services['course-evaluation'].get({
-            _id: evaluationID,
-        });
-    }, []);
 
     const courseEval = useSelector((state) => state['course-evaluation']);
     const evalData = courseEval?.data;
+    
     const date = new Date(evalData?.dueDate);
     const dateString = date.toLocaleDateString('en-gb', {
         year: 'numeric',
