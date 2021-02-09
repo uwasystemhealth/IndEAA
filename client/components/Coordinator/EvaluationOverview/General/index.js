@@ -12,7 +12,6 @@ import Controls from './Controls';
 // Store Actions and Redux
 import { useSelector } from 'react-redux';
 import {useCurrentCourseData} from 'components/customHooks/CoordinatorCourseLoad';
-import { services } from 'store/feathersClient';
 
 const General = () => {
     const router = useRouter();

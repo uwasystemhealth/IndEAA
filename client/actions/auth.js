@@ -6,7 +6,6 @@ export const signIn = (isUserUpdate) => async (dispatch, getState) => {
         // Force Update on User update
         const forceUpdate = isUserUpdate || false;
         const loginDetails = await feathersClient.reAuthenticate(forceUpdate);
-        console.log(loginDetails);
         return dispatch({
             type: 'SIGNIN_SUCCESS',
             ...loginDetails

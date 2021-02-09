@@ -12,7 +12,6 @@ export const useCurrentCourseData = () => {
     const { courseID } = router.query;
     const authUser = useSelector((state) => state.auth.user);
     const courseState = useSelector((state) => state['course-evaluation']);
-    console.log(courseState);
 
     return useEffect(() => {
         // Only Call when authUser is now defined

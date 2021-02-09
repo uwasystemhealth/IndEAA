@@ -38,8 +38,6 @@ const EOCAccordion = () => {
    
         const eocReviewsCopy = JSON.parse(JSON.stringify(eocReviews));  // Clone
         const matchedIndex = getIndexOfEOCMatch(eocGeneralAndSpecific, eocReviewsCopy);
-        console.log(eocGeneralAndSpecific, 'is it included in ', eocReviewsCopy);
-        console.log(matchedIndex);
         const noReviewFound = matchedIndex === -1;
         // Determine if there exist an entry with the same justification
         if (noReviewFound) {
