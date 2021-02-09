@@ -8,12 +8,17 @@ import DocumentCard from 'components/Coordinator/EvaluationOverview/Documents/Do
 
 
 
-const DocumentsListItems = ({documentsToDisplay, course_id, setCurrentSelectedDocumentReview, setCurrentSelectedDocument, isReviewer})=> {
+const DocumentsListItems = ({documentsToDisplay, 
+    course_id, 
+    setCurrentSelectedDocumentReview, 
+    setCurrentSelectedDocument, 
+    isReviewer,
+    gridItemProps={md:4} // Optional Props for sizing
+})=> {
     
-    console.log(documentsToDisplay);
     return <GridContainer>{documentsToDisplay?.map((doc) => {
         return (
-            <GridItem key={doc._id} xs={4}>
+            <GridItem key={doc._id} {...gridItemProps}>
                 <DocumentCard
                     course_id={course_id}
                     document={doc}
