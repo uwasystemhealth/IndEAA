@@ -47,6 +47,7 @@ export default function Modal(
 
     const handleSubmit = () => {
         createUser(email);
+        setEmail('');
     };
     return (
         <Dialog
