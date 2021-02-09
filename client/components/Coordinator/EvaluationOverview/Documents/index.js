@@ -6,6 +6,7 @@ import Button from 'components/MaterialKit/CustomButtons/Button.js';
 
 // CUSTOM COMPONENTS
 import DocumentCard from 'components/Coordinator/EvaluationOverview/Documents/DocumentCard.js';
+import DocumentsListItems from 'components/Coordinator/EvaluationOverview/Documents/DocumentsListItems.js';
 import EditModal from 'components/Coordinator/EvaluationOverview/Documents/EditModal.js';
 
 // Store Actions and Redux
@@ -15,8 +16,6 @@ import { services } from 'store/feathersClient';
 import { useState, useEffect } from 'react';
 
 const Documents = ({ evaluationID }) => {
-    const [documents, setDocuments] = useState([]);
-    const [loading, setLoading] = useState(true);
     const [isNewDocumentModalOpen, setIsNewDocumentModalOpen] = useState(false);
     const [currentSelectedDocument, setCurrentSelectedDocument] = useState(null);
 
@@ -34,19 +33,6 @@ const Documents = ({ evaluationID }) => {
     const closeNewDocumentModal = () => setIsNewDocumentModalOpen(false);
     const openNewDocumentModal = () => setIsNewDocumentModalOpen(true);
 
-    const documentComponents = evalData?.documents.map((doc) => {
-        return (
-            <GridItem key={doc._id} xs={4}>
-                <DocumentCard
-                    // handleDelete={handleDelete}
-                    course_id={evaluationID}
-                    document={doc}
-                    setCurrentSelectedDocument={setCurrentSelectedDocument}
-                />
-            </GridItem>
-        );
-    });
-
     return (
         <>
             <EditModal
@@ -60,7 +46,8 @@ const Documents = ({ evaluationID }) => {
                 isOpen={Boolean(currentSelectedDocument)}
                 setClose={deselectCurrentSelectedDocument}
             />
-            <GridContainer>{documentComponents}</GridContainer>;
+            <DocumentsListItems documentsToDisplay={evalData?.documents} course_id={evalData?.id}
+                setCurrentSelectedDocument={setCurrentSelectedDocument} />
             <Button color="primary" onClick={() => openNewDocumentModal()}>
                 <EditIcon />
         Add New Document
