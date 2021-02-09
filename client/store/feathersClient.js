@@ -32,17 +32,20 @@ export const serviceNames = [
     'course-evaluation',
     'review'
 ];
-export const rawServices = reduxifyServices(feathersClient, serviceNames,{
+
+// Used for Services that are not affecting Redux
+export const rawServices = (serviceName) => feathersClient.service(serviceName);
+export const reduxifiedServices = reduxifyServices(feathersClient, serviceNames,{
     idField: '_id', // This is to ensure that realtime update matching uses that attribute
 });
-const store = configureStore(rawServices);
+const store = configureStore(reduxifiedServices);
 export default store;
 
 // Run all Saga Middlewares
 sagaMiddleware.run(feathersSaga);
 
 // Bind Services with Redux Dispatch calls
-export const services = bindWithDispatch(store.dispatch, rawServices);
+export const services = bindWithDispatch(store.dispatch, reduxifiedServices);
 
 
 // Realtime Feathers Update Confguration
@@ -50,16 +53,16 @@ serviceNames.forEach(serviceName=>{
     const currentSelectedService = feathersClient.service(`/${serviceName}`);
 
     currentSelectedService.on('created', (data) => {
-        store.dispatch(rawServices[serviceName].onCreated(data));
+        store.dispatch(reduxifiedServices[serviceName].onCreated(data));
     });
     currentSelectedService.on('updated', (data) => {
-        store.dispatch(rawServices[serviceName].onUpdated(data));
+        store.dispatch(reduxifiedServices[serviceName].onUpdated(data));
     });
     currentSelectedService.on('patched', (data) => {
-        store.dispatch(rawServices[serviceName].onPatched(data));
+        store.dispatch(reduxifiedServices[serviceName].onPatched(data));
     });
     currentSelectedService.on('removed', (data) => {
-        store.dispatch(rawServices[serviceName].onRemoved(data));
+        store.dispatch(reduxifiedServices[serviceName].onRemoved(data));
     });
 });
 

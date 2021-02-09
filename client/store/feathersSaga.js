@@ -3,7 +3,7 @@ This contains all the Redux Sagas (handler of all sideEffects of Dispatch events
 Usage: Notification and Error Detection
 */
 // Importing the types of the services
-import { rawServices as services } from 'store/feathersClient';
+import { reduxifiedServices as services } from 'store/feathersClient';
 import { put, takeEvery } from 'redux-saga/effects';
 
 import { addNotificationMessageParams } from 'actions/general';
