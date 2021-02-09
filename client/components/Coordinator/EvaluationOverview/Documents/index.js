@@ -12,7 +12,7 @@ import {useCurrentCourseData} from 'components/customHooks/CoordinatorCourseLoad
 
 import { useState } from 'react';
 
-const Documents = ({ specificTags=null, }) => {
+const Documents = ({ specificTags=null, gridItemProps={md:4}, removeAddDocument = false}) => {
     const [isNewDocumentModalOpen, setIsNewDocumentModalOpen] = useState(false);
     const [currentSelectedDocument, setCurrentSelectedDocument] = useState(null);
 
@@ -45,11 +45,13 @@ const Documents = ({ specificTags=null, }) => {
                 setClose={deselectCurrentSelectedDocument}
             />
             <DocumentsListItems documentsToDisplay={documentsToDisplay} course_id={evalData?.id}
-                setCurrentSelectedDocument={setCurrentSelectedDocument} />
+                setCurrentSelectedDocument={setCurrentSelectedDocument} gridItemProps={gridItemProps}/>
+            {!removeAddDocument && 
             <Button color="primary" onClick={() => openNewDocumentModal()}>
                 <EditIcon />
         Add New Document
-            </Button>
+            </Button>}
+            
         </>
     );
 };
