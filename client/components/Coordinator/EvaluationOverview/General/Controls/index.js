@@ -5,6 +5,9 @@ import ManageReviewers from './ManageReviewers.js';
 
 import { useRouter } from 'next/router';
 
+// custom components
+import LoadingButton, { useLoading } from 'components/Other/LoadingButton.js';
+
 // Store actions and Redux
 import { services } from 'store/feathersClient';
 
@@ -23,24 +26,27 @@ const Controls = ({ evaluationID, archived }) => {
     const router = useRouter();
     console.log(archived);
 
+    const handleSubmit = () => {
+        if (archived) {
+            makeArchived(evaluationID, router);
+        }
+        else {
+            makeUnarchived(evaluationID, router);
+        }
+    }
+
+    const [isLoading, handleSubmitLoading] = useLoading(handleSubmit)
+
     return (
         <Card>
             <CardBody>
-                {!archived ? (
-                    <Button
-                        color="warning"
-                        onClick={() => makeArchived(evaluationID, router)}
-                    >
-            Archive
-                    </Button>
-                ) : (
-                    <Button
-                        color="warning"
-                        onClick={() => makeUnarchived(evaluationID, router)}
-                    >
-            Unarchive
-                    </Button>
-                )}
+
+                <LoadingButton isLoading={isLoading} buttonProps={{
+                    color: "warning",
+                    onClick={() => handleSubmitLoading()}
+                }}>
+                    {!archived ? "Archive" : "Unarchive"}
+                </LoadingButton>
 
                 <Button color="warning">Force Completion</Button>
                 <ManageReviewers evaluationID={evaluationID} />
