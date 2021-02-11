@@ -15,8 +15,7 @@ import People from '@material-ui/icons/People';
 
 // CUSTOM COMPONENTS
 import ReviewerListing from './ReviewerListing.js';
-import AreYouSureButton from 'components/Other/AreYouSureButton';
-
+import LoadingButton, {useLoading} from 'components/Other/LoadingButton.js';
 
 // STYLES
 import modalStyle from 'assets/jss/nextjs-material-kit/modalStyle.js';
@@ -86,7 +85,7 @@ const ManageReviewers = ({ evaluationID }) => {
     const createUser = async (email) => {
         try {
             const response = await services.users.create({ email });
-            setModal(false)
+            setModal(false);
         } catch (error) {
             // Handled by Redux Saga
         }
@@ -105,6 +104,8 @@ const ManageReviewers = ({ evaluationID }) => {
         createUser(email);
         setEmail('');
     };
+
+    const [isLoading, handleSubmitLoading] = useLoading(handleSubmit);
 
     return (
         <>
@@ -161,10 +162,10 @@ const ManageReviewers = ({ evaluationID }) => {
                             />
                         </GridItem>
                         <GridItem xs={6}>
-                            <Button onClick={() => handleSubmit(email)} color="white">
+                            <LoadingButton isLoading={isLoading} buttonProps={{onClick:() => handleSubmit(email), color: 'white'}}>
                                 <SendIcon />
                 Invite
-                            </Button>
+                            </LoadingButton>
                         </GridItem>
                     </GridContainer>
                 </DialogActions>
