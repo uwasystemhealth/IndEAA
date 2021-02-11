@@ -70,7 +70,7 @@ services:
     ports:
       - 10005:8000
     volumes:
-      - ./mkdocs:/docs
+      - ./mkdocs:/mkdocs
     stdin_open: true # docker run -i
     tty: true        # docker run -t
     

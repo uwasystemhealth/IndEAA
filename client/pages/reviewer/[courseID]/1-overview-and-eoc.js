@@ -7,6 +7,9 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import CustomTabs from 'components/MaterialKit/CustomTabs/CustomTabs.js';
+import GridContainer from 'components/MaterialKit/Grid/GridContainer.js';
+import GridItem from 'components/MaterialKit/Grid/GridItem.js';
+
 
 // Custom Hooks
 import {useCurrentReviewOfUser} from 'components/customHooks/ReviewerReviewLoad';
@@ -14,6 +17,7 @@ import useRedirectIfFinish from 'components/customHooks/ReviewerFinishedGuard';
 
 // Use own components
 import ReviewProgress from 'components/reviewer/ReviewProgress';
+import ReviewerDocumentsListing from 'components/reviewer/ReviewerDocumentsListing';
 import ReviewerPageCardDescription from 'components/reviewer/ReviewerPageCardDescription';
 import ReviewerPageBottomNavigation from 'components/reviewer/ReviewerPageBottomNavigation';
 
@@ -60,6 +64,7 @@ const ReviewerCourseReviewPage1 = () => {
             <ReviewerPageCardDescription
                 pageNumber={pageNumber}
             />
+            <ReviewerDocumentsListing specificTags={'introduction'} />
             <EOCDescriptionAccordions />
             <ReviewerPageBottomNavigation
                 pageNumber={pageNumber}
@@ -92,10 +97,16 @@ const EOCDescriptionAccordions = () => {
                             tabs={eocSet.EOCS.map((eoc) => ({
                                 tabName: `EOC ${eocSet.setNum}.${eoc.EOCNum}`,
                                 tabContent: (
-                                    <div>
-                                        <h4 className={classes.title}>{eocSet.setName}</h4>
-                                        {eoc.desc}
-                                    </div>
+                                    <GridContainer>
+                                        <GridItem md={6}>
+                                            <h4 className={classes.title}>Description</h4>
+                                            <p>{eoc.desc}</p>
+                                        </GridItem>
+                                        <GridItem md={6}>
+                                            <h4 className={classes.title}>Indicators Of Attainment</h4>
+                                            {eoc.indicatorsOfAttainment.map(indicator=> <p key={indicator}>{indicator}</p>)}
+                                        </GridItem>
+                                    </GridContainer>
                                 ),
                             }))}
                         />
