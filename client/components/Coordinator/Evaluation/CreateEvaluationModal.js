@@ -21,7 +21,7 @@ import Button from 'components/MaterialKit/CustomButtons/Button.js';
 import CustomInput from 'components/MaterialKit/CustomInput/CustomInput.js';
 
 // custom components
-import LoadingButton from 'components/Other/LoadingButton.js';
+import LoadingButton, { useLoading } from 'components/Other/LoadingButton.js';
 
 // Redux
 import { signIn } from 'actions/auth';
@@ -106,11 +106,11 @@ const EvaluationModal = ({ closeModal, isOpen, isEditModal }) => {
         }
     };
 
-    const evaluationsLoading = useSelector((state) => state['course-evaluation'].isLoading);
-
-    const handleSubmit = () => isEditModal 
+    const handleSubmit = () => isEditModal
         ? editEvaluation(code, description, dueDate, courseData._id): 
         createEvaluation(code, description, dueDate);
+
+    const [isLoading, handleSubmitLoading] = useLoading(handleSubmit);
 
     return (
         <Dialog
@@ -194,12 +194,12 @@ const EvaluationModal = ({ closeModal, isOpen, isEditModal }) => {
             >
                 <Button onClick={() => closeModal()}>Never Mind</Button>
                 <LoadingButton
-                  isLoading={evaluationsLoading}
-                  buttonProps={{
-                    onClick: () => {
-                        handleSubmit();
-                    }
-                  color="success" }}
+                    isLoading={isLoading}
+                    buttonProps={{
+                        onClick: () => {
+                            handleSubmitLoading();
+                        },
+                        color: 'success' }}
                 >
                     {isEditModal ? 'Save Edit' : 'Create evaluation' }
           
