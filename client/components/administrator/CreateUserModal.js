@@ -12,7 +12,7 @@ import People from '@material-ui/icons/People';
 import Close from '@material-ui/icons/Close';
 
 // custom components
-import LoadingButton from 'components/Other/LoadingButton.js';
+import LoadingButton, { useLoading }  from 'components/Other/LoadingButton.js';
 
 // core components
 import Button from 'components/MaterialKit/CustomButtons/Button.js';
@@ -20,9 +20,8 @@ import CustomInput from 'components/MaterialKit/CustomInput/CustomInput.js';
 
 // Redux
 import { services } from 'store/feathersClient';
-import { useSelector } from 'react-redux';
 
-// Styles
+
 import { makeStyles } from '@material-ui/core/styles';
 import modalStyle from 'assets/jss/nextjs-material-kit/modalStyle.js';
 const useStyles = makeStyles(modalStyle);
@@ -46,11 +45,12 @@ export default function Modal({ setCurrentUserSelected, closeModal, isOpen }) {
         }
     };
 
-    const createLoading = useSelector((state) => state['users'].isLoading);
-
     const handleSubmit = () => {
         createUser(email);
     };
+
+    const [isLoading, handleSubmitLoading] = useLoading(handleSubmit);
+
     return (
         <Dialog
             classes={{
@@ -107,10 +107,10 @@ export default function Modal({ setCurrentUserSelected, closeModal, isOpen }) {
             >
                 <Button onClick={() => closeModal()}>Never Mind</Button>
                 <LoadingButton
-                    isLoading={createLoading}
+                    isLoading={isLoading}
                     buttonProps={{
                         onClick: () => {
-                            handleSubmit();
+                            handleSubmitLoading();
                         },
                         color: 'success',
                     }}

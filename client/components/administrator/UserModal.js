@@ -102,7 +102,6 @@ export default function Modal(
         closeModal();
     };
 
-    const usersLoading = useSelector((state) => state['users'].isLoading);
     const [isLoading, handleSaveLoading] = useLoading(handleSave);
 
     return (
