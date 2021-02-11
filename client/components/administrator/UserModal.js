@@ -21,7 +21,7 @@ import GridItem from 'components/MaterialKit/Grid/GridItem.js';
 import CustomTabs from 'components/MaterialKit/CustomTabs/CustomTabs.js';
 
 // custom components
-import LoadingButton from 'components/Other/LoadingButton.js';
+import LoadingButton, { useLoading } from 'components/Other/LoadingButton.js';
 
 // Utils
 import { getAvailablePermissionsOfUser } from 'utils/permissions';
@@ -99,9 +99,11 @@ export default function Modal(
     const handleSave = () => {
         const { perms } = modalState;
         services.users.patch(user._id, { perms });
+        closeModal();
     };
 
     const usersLoading = useSelector((state) => state['users'].isLoading);
+    const [isLoading, handleSaveLoading] = useLoading(handleSave);
 
     return (
         <Dialog
@@ -198,11 +200,10 @@ export default function Modal(
             >
                 <Button onClick={() => closeModal()}>Cancel</Button>
                 <LoadingButton
-                    isLoading={usersLoading}
+                    isLoading={isLoading}
                     buttonProps={{
                         onClick: () => {
-                            closeModal();
-                            handleSave();
+                            handleSaveLoading();
                         },
                         color: 'success'
                     }}
