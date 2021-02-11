@@ -3,6 +3,9 @@ import { green } from '@material-ui/core/colors';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from 'components/MaterialKit/CustomButtons/Button.js';
 
+// React
+import { useState } from "react";
+
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
@@ -49,5 +52,17 @@ const LoadingButton = ({ isLoading, buttonProps, children }) => {
         </div>
     );
 };
+
+export const useLoading = (func) => {
+    const [isLoading, setLoading] = useState(false);
+
+    const wrappedFunc = () => {
+        setLoading(true);
+        func(...arguments);
+        setLoading(false);
+    }
+
+    return [isLoading, wrappedFunc];
+}
 
 export default LoadingButton;
