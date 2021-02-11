@@ -20,6 +20,9 @@ import Close from '@material-ui/icons/Close';
 import Button from 'components/MaterialKit/CustomButtons/Button.js';
 import CustomInput from 'components/MaterialKit/CustomInput/CustomInput.js';
 
+// custom components
+import LoadingButton from 'components/Other/LoadingButton.js';
+
 // Redux
 import { signIn } from 'actions/auth';
 import { useDispatch, useSelector } from 'react-redux';
@@ -102,6 +105,8 @@ const EvaluationModal = ({ closeModal, isOpen, isEditModal }) => {
             // Handled by Redux Saga
         }
     };
+
+    const evaluationsLoading = useSelector((state) => state['course-evaluation'].isLoading);
 
     const handleSubmit = () => isEditModal 
         ? editEvaluation(code, description, dueDate, courseData._id): 
@@ -188,15 +193,17 @@ const EvaluationModal = ({ closeModal, isOpen, isEditModal }) => {
                 className={classes.modalFooter + ' ' + classes.modalFooterCenter}
             >
                 <Button onClick={() => closeModal()}>Never Mind</Button>
-                <Button
-                    onClick={() => {
+                <LoadingButton
+                  isLoading={evaluationsLoading}
+                  buttonProps={{
+                    onClick: () => {
                         handleSubmit();
-                    }}
-                    color="success"
+                    }
+                  color="success" }}
                 >
                     {isEditModal ? 'Save Edit' : 'Create evaluation' }
           
-                </Button>
+                </LoadingButton>
             </DialogActions>
         </Dialog>
     );
