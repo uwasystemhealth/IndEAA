@@ -79,4 +79,6 @@ nav:
   - Transport/Integration Layer (Feathers-redux): developer/feathers_redux.md
   - Database Support Scripts: developer/database_support_scripts.md
   - Notifications with Redux Saga: developer/notifications.md
+  - Frontend:
+    - Component vs Page: developer/frontend/component_vs_page.md
 - Changelog: changelog.md

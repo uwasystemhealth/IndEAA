@@ -45,6 +45,7 @@
     "react/self-closing-comp": ["error", {
       "component": true,
       "html": true
-    }]
+    }],
+    "no-console": ["error", { "allow": ["warn","info","error","groupCollapsed","groupEnd"] }]
   }
 }

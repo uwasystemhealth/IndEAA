@@ -9,11 +9,8 @@ import { services } from 'store/feathersClient';
 
 import { useEffect } from 'react';
 
-const OtherInformation = ({ evaluationID }) => {
+const OtherInformation = () => {
     useEffect(() => {
-        services['course-evaluation'].get({
-            _id: evaluationID,
-        });
         services['users'].find();
     }, []);
 

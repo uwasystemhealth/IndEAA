@@ -37,9 +37,6 @@ const ManageReviewers = ({ evaluationID }) => {
     const [email, setEmail] = useState('');
 
     useEffect(() => {
-        services['course-evaluation'].get({
-            _id: evaluationID,
-        });
         services['users'].find({
             perms: {
                 $in: [{ course_id: evaluationID, role: 'Reviewer' }],
