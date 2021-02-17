@@ -23,7 +23,7 @@ const ReviewListing = ({
 }) => {
     const classes = useStyles();
 
-    const coordinatorNames = coordinators?.join(', ');
+    const coordinatorNames = coordinators?.map(({name,email})=>name || email).join(', ');
 
     return (
         <Grid className={classes.root} direction="row" alignItems="center" justify="center">
