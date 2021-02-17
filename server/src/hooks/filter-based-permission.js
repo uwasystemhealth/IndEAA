@@ -55,7 +55,6 @@ module.exports = (options = {}) => {
                 }
             }
         }
-        console.log(params.query);
         return context;
     };
 };
