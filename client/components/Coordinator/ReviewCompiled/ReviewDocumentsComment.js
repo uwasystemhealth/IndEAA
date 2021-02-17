@@ -54,7 +54,6 @@ export default ReviewDocumentsComments;
 const ReviewDocumentsComment = ({document, commentsUserLinked}) => {
     const classes = useStyles();
 
-    console.log(document?._id );
     return (
         <Card>
             <CardBody>

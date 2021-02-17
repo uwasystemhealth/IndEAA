@@ -72,7 +72,6 @@ const EvaluationList = () => {
         evaluationListings = courseEvaluations.filter((val) => !val.isArchived);
     }
 
-    console.log('evals:', evaluationListings);
     // 3. Render course list elemnts
     evaluationListings = evaluationListings.map(
         ({ _id, courseId, reviewDescription, coordinators }) => {

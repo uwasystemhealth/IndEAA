@@ -86,17 +86,12 @@ const ReviewerDocumentModal = ({
         const { id, value } = event.target;
         const newState = { ...state, [id]: value };
         setModalState(newState);
-        console.log(newState);
     };
 
     const handleSave = (event) => {
         setClose();
-        console.log(reviewComment);
-        console.log(review_id);
         if (reviewComment) {
             // Review exists, so edit it here
-            console.log('EXIST');
-            console.log(reviewComment);
             services.review.patch(
                 review_id,
                 {
@@ -109,7 +104,6 @@ const ReviewerDocumentModal = ({
             );
         } else {
             // Review does not yet exist, so create it here
-            console.log('DOES NOT EXIST');
             services.review.patch(review_id, {
                 $push: {  step2Documents: {...state, document_id: document._id} },
             });

@@ -27,7 +27,7 @@ const useStyles = makeStyles({
 
 // Store Actions and Redux
 import { useSelector } from 'react-redux';
-import { services } from 'store/feathersClient';
+import { services, rawServices } from 'store/feathersClient';
 
 import { useState, useEffect } from 'react';
 
@@ -37,9 +37,6 @@ const ManageReviewers = ({ evaluationID }) => {
     const [email, setEmail] = useState('');
 
     useEffect(() => {
-        services['course-evaluation'].get({
-            _id: evaluationID,
-        });
         services['users'].find({
             perms: {
                 $in: [{ course_id: evaluationID, role: 'Reviewer' }],
@@ -81,13 +78,30 @@ const ManageReviewers = ({ evaluationID }) => {
         }
     };
 
-    // TODO: refactor (copied from administrator code)
-    const createUser = async (email) => {
+    const addPermissionToUser = async (email) => {
         try {
-            const response = await services.users.create({ email });
+            const responseOnFind = await rawServices('users').find({ query:{email} });
+            if(responseOnFind.total){
+                const user = responseOnFind.data[0];
+                // User Already Exist
+                await services.users.patch(
+                    user._id,
+                    {
+                        $push:{
+                            perms:{course_id: evaluationID, role:'Reviewer'}
+                        }
+                    });
+            }
+            else{
+                await services.users.create({
+                    email, 
+                    perms:[{course_id: evaluationID, role:'Reviewer'}] 
+                });
+            }
             setModal(false);
         } catch (error) {
             // Handled by Redux Saga
+            console.error(error);
         }
     };
 
@@ -101,7 +115,7 @@ const ManageReviewers = ({ evaluationID }) => {
     ));
 
     const handleSubmit = () => {
-        createUser(email);
+        addPermissionToUser(email);
         setEmail('');
     };
 
