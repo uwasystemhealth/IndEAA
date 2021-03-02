@@ -24,7 +24,6 @@ const useStyles = makeStyles({
 const ReviewerListing = ({
     email,
     name,
-    inviter,
     googleId,
     removeReviewer,
 }) => {

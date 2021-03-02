@@ -11,9 +11,7 @@ module.exports = (options = {}) => {
         if(context.params.authStrategies && context.params.authStrategies.includes('google'))
         {
             const googleId = context.params.query.googleId;
-            console.log(googleId);
             context.params.user = (await userModel.findOne({googleId}))._doc;
-            console.log(context.user);
         }
 
         return context;

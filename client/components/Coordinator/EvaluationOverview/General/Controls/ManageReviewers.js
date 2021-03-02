@@ -29,49 +29,24 @@ const useStyles = makeStyles({
 import { useSelector } from 'react-redux';
 import { services, rawServices } from 'store/feathersClient';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 const ManageReviewers = ({ evaluationID }) => {
     const classes = useStyles();
     const [modal, setModal] = useState(false);
     const [email, setEmail] = useState('');
 
-    useEffect(() => {
-        services['users'].find({
-            perms: {
-                $in: [{ course_id: evaluationID, role: 'Reviewer' }],
-            },
-        });
-    }, []);
-
     const courseEval = useSelector((state) => state['course-evaluation']);
     const evalData = courseEval?.data;
-    const users = useSelector((state) => state['users']);
-    const userData = users?.queryResult?.data;
 
     // selects out all reviewers with correct permission
-    const reviewers = userData.filter((user) =>
-        user.perms.reduce(
-            (acc, permission) =>
-                acc ||
-        (permission.course_id == evaluationID && permission.role == 'Reviewer'),
-            false
-        )
-    );
+    const reviewers = evalData?.reviewers  || [];
 
     // removes a user from the evaluation
     const removePermission = async (userId, evaluationId) => {
         try {
-            const oldPermissions = reviewers.find((user) => user._id == userId).perms;
-            const newPerms = oldPermissions.filter(
-                (permission) =>
-                    !(
-                        permission.course_id == evaluationId &&
-            permission.role == 'Reviewer'
-                    )
-            );
-            const response = await services['users'].patch(userId, {
-                perms: newPerms,
+            services['users'].patch(userId, {
+                $pull: { perms: {course_id:evaluationId,role:'Reviewer'}}
             });
         } catch (error) {
             console.error(error);

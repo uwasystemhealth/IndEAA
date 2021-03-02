@@ -24,19 +24,11 @@ const CompiledPage = () => {
                 course_id: courseID
             },
         }); //Accessed by queryResult.data
-        services['users'].find(
-            {query:
-               { 
-                   perms: {
-                       $elemMatch: { course_id: courseID, role: 'Reviewer' },
-                   }
-               }
-            }
-        ); // Accessed by queryResult.data
     }, [courseID]);
 
-    const userState = useSelector(state=> state.users);
-    const reviewers = userState?.queryResult.data;
+    const courseEval = useSelector((state) => state['course-evaluation']);
+    const evalData = courseEval?.data;
+    const reviewers = evalData?.reviewers || [];
     const reviewState = useSelector(state=> state.review);
     const reviews = reviewState?.queryResult.data;
 
