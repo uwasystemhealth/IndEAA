@@ -48,7 +48,7 @@ const ViewModal = ({
     const classes = useStyles();
 
     const { rating = 0, reason = '', ideaForImprovement = '' } = reviewEOC || {};
-    const { desc: description = '' } =
+    const { desc: description = '', indicatorsOfAttainment } =
     getStaticDetailsOfEOC(eocGeneralAndSpecific) || {};
 
     const initialStateModal = {
@@ -149,6 +149,16 @@ const ViewModal = ({
                     Justification of Coordinators
                                     </h4>
                                     <p>{justification}</p>
+                                </CardBody>
+                            </Card>
+                        </GridItem>
+                        <GridItem>
+                            <Card>
+                                <CardBody>
+                                    <h4 className={classes.cardTitle}>
+                    Indicators of Attainment
+                                    </h4>
+                                    {indicatorsOfAttainment?.map(indicator=> <p key={indicator}>{indicator}</p>)}
                                 </CardBody>
                             </Card>
                         </GridItem>
