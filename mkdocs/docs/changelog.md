@@ -1,6 +1,14 @@
 # Changelog
 This is the changelog for IndEAA.
 
+# v1.1.0 - Mar 3, 2021
+???+ info "Improvements"
+    - Introduction Documents + Some Optimisation of Data Fetching Optimisation Related ([#82](https://github.com/uwasystemhealth/IndEAA/issues/82), [#108](https://github.com/uwasystemhealth/IndEAA/issues/108) )
+    - Permission protection + metadata on course-evaluation page ([#24](https://github.com/uwasystemhealth/IndEAA/issues/24), [#71](https://github.com/uwasystemhealth/IndEAA/issues/71))
+
+???+ bug "Bugfixes"
+    - Fix for adding permission to reviewer from coordinator view ([#110](https://github.com/uwasystemhealth/IndEAA/issues/110))
+
 # v1.0.0 (Initial Deployment) - Feb 5, 2021
 
 First initial deployment
