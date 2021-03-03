@@ -92,7 +92,6 @@ const ApplyTags = ({ tagsAllowed, tagsSelected, handleCheck }) => {
 const EditModal = ({ document, course_id, isOpen, setClose }) => {
     const isCreateModal = typeof document === 'undefined';
     const classes = useStyles();
-    console.log(document);
     const initialStateModal = {
         name: document?.name || '',
         description: document?.description || '',

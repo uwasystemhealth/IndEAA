@@ -24,12 +24,10 @@ const useStyles = makeStyles({
 const ReviewerListing = ({
     email,
     name,
-    inviter,
     googleId,
     removeReviewer,
 }) => {
     const classes = useStyles();
-
     return (
         <Card>
             <CardBody>
@@ -40,9 +38,6 @@ const ReviewerListing = ({
                     </GridItem>
 
                     <GridItem xs={4}>
-                        {/* <h5>
-                  Inviter: <b>{inviter}</b>
-                  </h5> */}
                         <h5>
               Status: <b>{googleId ? 'Has logged in' : 'Not logged in yet'}</b>
                         </h5>

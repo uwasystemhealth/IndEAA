@@ -22,7 +22,7 @@ const EvaluationListing = ({
 }) => {
     const classes = useStyles();
 
-    const coordinatorNames = coordinators.map(({ name }) => name)?.join(', ');
+    const coordinatorNames = coordinators.map(({ name,email }) => name || email)?.join(', ');
 
     return (
         <Grid
@@ -33,7 +33,7 @@ const EvaluationListing = ({
         >
             <GridItem md={7}>
                 <h3 className={classes.title}>{courseCode}</h3>
-                <h4 className={classes.description}>{coordinatorNames}.</h4>
+                <h4 className={classes.description}>{coordinatorNames}</h4>
                 <h5 className={classes.description}>{evaluationDescription}</h5>
             </GridItem>
             <GridItem md={2}>

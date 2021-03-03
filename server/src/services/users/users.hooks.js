@@ -9,14 +9,13 @@ module.exports = {
     before: {
         all: [],
         find: [authenticate('jwt'),
-            // attachUser(),
             roleBasedRestrictions(['Coordinator'])
         ],
         get: [authenticate('jwt')],
         create: [firstUser(), compileGoogleAndSystemPerms()],
-        update: [authenticate('jwt')],
-        patch: [authenticate('jwt')],
-        remove: [authenticate('jwt')],
+        update: [authenticate('jwt'), roleBasedRestrictions(['Administrator'])], // Only Admin
+        patch: [authenticate('jwt'), roleBasedRestrictions(['Coordinator'])], // Only Coordinator + Admin
+        remove: [authenticate('jwt'), roleBasedRestrictions(['Administrator'])], // Only Admin
     },
 
     after: {

@@ -56,7 +56,6 @@ const AdminstratorMainPage = () => {
     const selectUser = async (user_id) => {
         // Make life easier by doing a direct query
         const userSelectedDetails = await services.users.get(user_id);
-        console.log(userSelectedDetails);
         setCurrentUserSelected(userSelectedDetails.value);
     };
 

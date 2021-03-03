@@ -76,7 +76,12 @@ nav:
   - Introduction: developer/index.md
   - Coding Standards: developer/coding_standards.md
   - Data Engineering: developer/data_engineering.md
-  - Transport/Integration Layer (Feathers-redux): developer/feathers_redux.md
   - Database Support Scripts: developer/database_support_scripts.md
-  - Notifications with Redux Saga: developer/notifications.md
+  - Frontend:
+    - Component vs Page: developer/frontend/component_vs_page.md
+    - Transport/Integration Layer (Feathers-redux): developer/frontend/feathers_redux.md
+    - Notifications with Redux Saga: developer/frontend/notifications.md
+  - Backend:
+    - Permission: developer/backend/permission.md
+    - Services: developer/backend/services.md
 - Changelog: changelog.md

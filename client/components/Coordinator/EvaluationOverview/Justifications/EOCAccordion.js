@@ -11,7 +11,7 @@ import GridItem from 'components/MaterialKit/Grid/GridItem.js';
 import EOCCard from './EOCCard.js';
 import ViewModal from './ViewModal.js';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 // Store Actions and Redux
 import { useSelector } from 'react-redux';
@@ -19,18 +19,15 @@ import { services } from 'store/feathersClient';
 
 import { getEOCInfo, getIndexOfEOCMatch, getDetailsOfEntireEOC} from 'utils/eocs';
 
-const EOCAccordion = ({ evaluationID }) => {
+const EOCAccordion = () => {
     // https://stackoverflow.com/questions/58539813/lazy-initial-state-what-is-and-where-to-use-it
     const [eocs, setEocs] = useState(() => getEOCInfo());
     const [selectedEOC, setSelectedEOC] = useState(null);
-    useEffect(() => {
-        services['course-evaluation'].get({
-            _id: evaluationID,
-        });
-    }, []);
-
+    
     const courseEvaluation = useSelector((state) => state['course-evaluation']);
-    const eocReviews = courseEvaluation?.data?.eoc;
+    const courseData = courseEvaluation?.data;
+    const eocReviews = courseData?.eoc;
+
 
     const saveFields = (
         eocGeneralAndSpecific,
@@ -38,12 +35,9 @@ const EOCAccordion = ({ evaluationID }) => {
         justification,
         eocsInSameJustification
     ) => {
-        console.log('WTYFF');
    
         const eocReviewsCopy = JSON.parse(JSON.stringify(eocReviews));  // Clone
         const matchedIndex = getIndexOfEOCMatch(eocGeneralAndSpecific, eocReviewsCopy);
-        console.log(eocGeneralAndSpecific, 'is it included in ', eocReviewsCopy);
-        console.log(matchedIndex);
         const noReviewFound = matchedIndex === -1;
         // Determine if there exist an entry with the same justification
         if (noReviewFound) {
@@ -62,7 +56,7 @@ const EOCAccordion = ({ evaluationID }) => {
             eocReviewsCopy[matchedIndex].eocNumber = eocsInSameJustification;
         }
 
-        services['course-evaluation'].patch(evaluationID, {
+        services['course-evaluation'].patch(courseData?._id, {
             eoc: eocReviewsCopy,
         });
     };
