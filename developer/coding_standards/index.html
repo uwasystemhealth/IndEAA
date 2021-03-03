@@ -1,0 +1,944 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="../../images/shl.png" rel="shortcut icon"/>
+<meta content="mkdocs-1.1.2, mkdocs-material-6.2.6" name="generator"/>
+<title>Coding Standards - IndEAA Documentation</title>
+<link href="../../assets/stylesheets/main.cb6bc1d0.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.39b8e14a.min.css" rel="stylesheet"/>
+<meta content="#795649" name="theme-color"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&amp;display=fallback" rel="stylesheet"/>
+<style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+<!-- Add custom analytics integration here -->
+</head>
+<body data-md-color-accent="" data-md-color-primary="brown" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#coding-standards">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<!--
+  Copyright (c) 2016-2020 Martin Donath <martin.donath@squidfunk.com>.
+  Modified by Frinze Erin Lapuz < https://github.com/frinzekt > for his own template
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+<!-- Application header -->
+<header class="md-header" data-md-component="header">
+<!-- Top-level navigation -->
+<nav aria-label="Header" class="md-header-nav md-grid">
+<!-- Link to home -->
+<a aria-label="IndEAA Documentation" class="md-header-nav__button md-logo" href="../.." title="IndEAA Documentation">
+<img alt="logo" src="../../images/shl.png"/>
+</a>
+<!-- Button to open drawer -->
+<label class="md-header-nav__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"></path></svg>
+</label>
+<!-- Header title -->
+<div class="md-header-nav__title" data-md-component="header-title">
+<div class="md-header-nav__ellipsis">
+<span class="md-header-nav__topic md-ellipsis">
+            IndEAA Documentation
+          </span>
+<span class="md-header-nav__topic md-ellipsis">
+            
+              Coding Standards
+            
+          </span>
+</div>
+</div>
+<!-- Button to open search dialogue -->
+<label class="md-header-nav__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"></path></svg>
+</label>
+<!-- Search interface -->
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" data-md-state="active" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
+</label>
+<button aria-label="Clear" class="md-search__icon md-icon" data-md-component="search-reset" tabindex="-1" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"></path></svg>
+</button>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Repository containing source -->
+<div class="md-header-nav__source">
+<a class="md-source" href="https://github.com/uwasystemhealth/IndEAA/" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"></path></svg>
+</div>
+<div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-tabs__inner md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../..">
+      Overview
+    </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../coordinator/">
+        Coordinator
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../reviewer/">
+        Reviewer
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../administrator/">
+        Administrator
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link md-tabs__link--active" href="../">
+        Developer
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../changelog/">
+      Changelog
+    </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<!--
+  Copyright (c) 2016-2020 Martin Donath <martin.donath@squidfunk.com>
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+<!-- Main navigation -->
+<nav aria-label="Navigation" class="md-nav md-nav--primary" data-md-level="0">
+<!-- Site title -->
+<label class="md-nav__title" for="__drawer">
+<a aria-label="IndEAA Documentation" class="md-nav__button md-logo" href="../.." title="IndEAA Documentation">
+<img alt="logo" src="../../images/shl.png"/>
+</a>
+    IndEAA Documentation
+  </label>
+<!-- Repository containing source -->
+<div class="md-nav__source">
+<a class="md-source" href="https://github.com/uwasystemhealth/IndEAA/" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"></path></svg>
+</div>
+<div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+</div>
+<!-- Render item list -->
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
+        Overview
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" id="nav-2" type="checkbox"/>
+<label class="md-nav__link" for="nav-2">
+        Coordinator
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Coordinator" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="nav-2">
+<span class="md-nav__icon md-icon"></span>
+          Coordinator
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../coordinator/">
+        Introduction
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" id="nav-3" type="checkbox"/>
+<label class="md-nav__link" for="nav-3">
+        Reviewer
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Reviewer" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="nav-3">
+<span class="md-nav__icon md-icon"></span>
+          Reviewer
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reviewer/">
+        Introduction
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" id="nav-4" type="checkbox"/>
+<label class="md-nav__link" for="nav-4">
+        Administrator
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Administrator" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="nav-4">
+<span class="md-nav__icon md-icon"></span>
+          Administrator
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../administrator/">
+        Introduction
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="nav-5" id="nav-5" type="checkbox"/>
+<label class="md-nav__link" for="nav-5">
+        Developer
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Developer" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="nav-5">
+<span class="md-nav__icon md-icon"></span>
+          Developer
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../">
+        Introduction
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+          Coding Standards
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+        Coding Standards
+      </a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#import-order">
+    Import Order
+  </a>
+<nav aria-label="Import Order" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#frontend-import-order">
+    Frontend Import Order
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#backend-import-order">
+    Backend Import Order
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#naming-of-variables-files-and-database">
+    Naming of Variables, Files and Database
+  </a>
+<nav aria-label="Naming of Variables, Files and Database" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#general">
+    General
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#consistent-variable-names">
+    Consistent Variable Names
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#consistent-file-naming">
+    Consistent File Naming
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#frontend-custom-hooks">
+    Frontend Custom Hooks
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#frontend-props">
+    Frontend Props
+  </a>
+<nav aria-label="Frontend Props" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#generic-reused-component">
+    Generic Reused Component
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#specific-context-component">
+    Specific Context Component
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#oversplitting-or-too-dry">
+    Oversplitting or Too Dry
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#utils">
+    Utils
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#_id-suffix">
+    _id Suffix
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../data_engineering/">
+        Data Engineering
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../database_support_scripts/">
+        Database Support Scripts
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-5" id="nav-5-5" type="checkbox"/>
+<label class="md-nav__link" for="nav-5-5">
+        Frontend
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Frontend" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="nav-5-5">
+<span class="md-nav__icon md-icon"></span>
+          Frontend
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../frontend/component_vs_page/">
+        Component vs Page
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../frontend/feathers_redux/">
+        Transport/Integration Layer (Feathers-redux)
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../frontend/notifications/">
+        Notifications with Redux Saga
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-6" id="nav-5-6" type="checkbox"/>
+<label class="md-nav__link" for="nav-5-6">
+        Backend
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Backend" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="nav-5-6">
+<span class="md-nav__icon md-icon"></span>
+          Backend
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../backend/permission/">
+        Permission
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../backend/services/">
+        Services
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../changelog/">
+        Changelog
+      </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#import-order">
+    Import Order
+  </a>
+<nav aria-label="Import Order" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#frontend-import-order">
+    Frontend Import Order
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#backend-import-order">
+    Backend Import Order
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#naming-of-variables-files-and-database">
+    Naming of Variables, Files and Database
+  </a>
+<nav aria-label="Naming of Variables, Files and Database" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#general">
+    General
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#consistent-variable-names">
+    Consistent Variable Names
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#consistent-file-naming">
+    Consistent File Naming
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#frontend-custom-hooks">
+    Frontend Custom Hooks
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#frontend-props">
+    Frontend Props
+  </a>
+<nav aria-label="Frontend Props" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#generic-reused-component">
+    Generic Reused Component
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#specific-context-component">
+    Specific Context Component
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#oversplitting-or-too-dry">
+    Oversplitting or Too Dry
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#utils">
+    Utils
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#_id-suffix">
+    _id Suffix
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content">
+<article class="md-content__inner md-typeset">
+<a class="md-content__button md-icon" href="https://github.com/uwasystemhealth/IndEAA/edit/master/docs/developer/coding_standards.md" title="Edit this page">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
+</a>
+<h1 id="coding-standards">Coding Standards<a class="headerlink" href="#coding-standards" title="Permanent link">¶</a></h1>
+<p>The IndEAA is bootstrapped by two developers working remotely. Along with the development, due to the difference of coding standards and background, this documentation has been established for better communication while working remotely.</p>
+<details class="info" open="open"><summary>Leniency</summary><p>This coding standard is established for the purpose of more fluid communication. However, this is followed for the usual governance of the codebase, but can be overruled given a reason.</p>
+</details>
+<h2 id="import-order">Import Order<a class="headerlink" href="#import-order" title="Permanent link">¶</a></h2>
+<p>It is important to have an order of import for code readability. There is a specific order of package, and if in the same category, it is arranged alphabetically. Each category is divided a space.</p>
+<h3 id="frontend-import-order">Frontend Import Order<a class="headerlink" href="#frontend-import-order" title="Permanent link">¶</a></h3>
+<p>The order is:</p>
+<ol>
+<li>React + Redux + Functionality Imports</li>
+<li>Own Components Import</li>
+<li>Utilities Import</li>
+<li>Material Kit import</li>
+<li>Material Ui Import</li>
+<li>Icons</li>
+<li>Styles Import (both Material UI usestyles, style imports and style definition)</li>
+</ol>
+<details class="info"><summary>Absolute Import</summary><p>It is recommended to use absolute import as it makes it easier to compare source code file imports. The frontend is configured to use absolute import from the root folder <code>client</code>. This is not the same for <code>server</code> at the moment.</p>
+</details>
+<details class="example" open="open"><summary>Frontend Import Order Example</summary><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="c1">// This is reordered of administrator/index.js</span>
+
+<span class="k">import</span> <span class="p">{</span> <span class="nx">useEffect</span><span class="p">,</span> <span class="nx">useState</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">"react"</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">useDispatch</span><span class="p">,</span> <span class="nx">useSelector</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">"react-redux"</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">services</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">"store/feathersClient"</span>
+
+<span class="c1">// Own Components</span>
+<span class="k">import</span> <span class="nx">UserModal</span> <span class="nx">from</span> <span class="s2">"components/administrator/UserModal"</span>
+<span class="k">import</span> <span class="nx">CreateUserModal</span> <span class="nx">from</span> <span class="s2">"components/administrator/CreateUserModal"</span>
+
+<span class="c1">// Helper</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">getAvailablePermissionsOfUser</span><span class="p">,</span> <span class="nx">roleIcons</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">"utils"</span>
+
+<span class="c1">// Material Kit</span>
+<span class="k">import</span> <span class="nx">Card</span> <span class="nx">from</span> <span class="s2">"components/MaterialKit/Card/Card.js"</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">CardBody</span> <span class="nx">from</span> <span class="s2">"components/MaterialKit/Card/CardBody.js"</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">CardHeader</span> <span class="nx">from</span> <span class="s2">"components/MaterialKit/Card/CardHeader.js"</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">Button</span> <span class="nx">from</span> <span class="s2">"components/MaterialKit/CustomButtons/Button.js"</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">Grid</span> <span class="nx">from</span> <span class="s2">"components/MaterialKit/Grid/GridContainer.js"</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">GridItem</span> <span class="nx">from</span> <span class="s2">"components/MaterialKit/Grid/GridItem.js"</span><span class="p">;</span>
+
+<span class="c1">// Material UI</span>
+<span class="k">import</span> <span class="nx">Tooltip</span> <span class="nx">from</span> <span class="s2">"@material-ui/core/Tooltip"</span><span class="p">;</span>
+
+<span class="c1">// Icons</span>
+<span class="k">import</span> <span class="nx">Placeholder</span> <span class="nx">from</span> <span class="s2">"@material-ui/icons/Mood"</span><span class="p">;</span>
+
+<span class="c1">//Styles</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">makeStyles</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">"@material-ui/core/styles"</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">styles</span> <span class="nx">from</span> <span class="s2">"assets/jss/nextjs-material-kit/pages/landingPage"</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">useStyles</span> <span class="o">=</span> <span class="nx">makeStyles</span><span class="p">(</span><span class="nx">styles</span><span class="p">);</span>
+</code></pre></div>
+</td></tr></table>
+</details>
+<h3 id="backend-import-order">Backend Import Order<a class="headerlink" href="#backend-import-order" title="Permanent link">¶</a></h3>
+<p>The order is:</p>
+<ol>
+<li>NPM imports</li>
+<li>Project Imports</li>
+</ol>
+<h2 id="naming-of-variables-files-and-database">Naming of Variables, Files and Database<a class="headerlink" href="#naming-of-variables-files-and-database" title="Permanent link">¶</a></h2>
+<p>This is no different to usual coding standards, but it is worth noting to put name of variable as sensible names.</p>
+<h3 id="general">General<a class="headerlink" href="#general" title="Permanent link">¶</a></h3>
+<h3 id="consistent-variable-names">Consistent Variable Names<a class="headerlink" href="#consistent-variable-names" title="Permanent link">¶</a></h3>
+<p>Consistency of variable names for variables that refers to the same property, but different context.</p>
+<details class="example" open="open"><summary>Data from the store and data from the form state</summary><div class="tabbed-set" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"><label for="__tabbed_1_1">Good</label><div class="tabbed-content">
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code> <span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">setCourseId</span><span class="p">(</span><span class="nx">courseData</span><span class="o">?</span><span class="p">.</span><span class="nx">courseId</span> <span class="o">||</span> <span class="s1">''</span><span class="p">);</span>
+    <span class="nx">setReviewDescription</span><span class="p">(</span><span class="nx">courseData</span><span class="o">?</span><span class="p">.</span><span class="nx">reviewDescription</span> <span class="o">||</span> <span class="s1">''</span> <span class="p">);</span>
+    <span class="nx">setDueDate</span><span class="p">(</span><span class="nx">courseData</span><span class="o">?</span><span class="p">.</span><span class="nx">dueDate</span> <span class="o">||</span> <span class="s1">''</span><span class="p">);</span>
+<span class="p">},</span> <span class="p">[</span><span class="nx">courseData</span><span class="p">]);</span>
+</code></pre></div>
+</td></tr></table>
+</div>
+<input id="__tabbed_1_2" name="__tabbed_1" type="radio"><label for="__tabbed_1_2">Another Good one</label><div class="tabbed-content">
+<p>This uses a single <code>formState</code> instead of separating.
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code> <span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">setFormState</span><span class="p">({</span>
+        <span class="nx">courseId</span><span class="o">:</span> <span class="nx">courseData</span><span class="o">?</span><span class="p">.</span><span class="nx">courseId</span> <span class="o">||</span> <span class="s1">''</span><span class="p">,</span>
+        <span class="nx">reviewDescription</span><span class="o">:</span> <span class="nx">courseData</span><span class="o">?</span><span class="p">.</span><span class="nx">reviewDescription</span> <span class="o">||</span> <span class="s1">''</span><span class="p">,</span>
+        <span class="nx">dueDate</span><span class="o">:</span> <span class="nx">courseData</span><span class="o">?</span><span class="p">.</span><span class="nx">dueDate</span> <span class="o">||</span> <span class="s1">''</span><span class="p">,</span>
+    <span class="p">})</span>
+<span class="p">},</span> <span class="p">[</span><span class="nx">courseData</span><span class="p">]);</span>
+</code></pre></div>
+</td></tr></table></p>
+</div>
+<input id="__tabbed_1_3" name="__tabbed_1" type="radio"><label for="__tabbed_1_3">Bad</label><div class="tabbed-content">
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code> <span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">setCode</span><span class="p">(</span><span class="nx">courseData</span><span class="o">?</span><span class="p">.</span><span class="nx">courseId</span> <span class="o">||</span> <span class="s1">''</span><span class="p">);</span>
+    <span class="nx">setDescription</span><span class="p">(</span><span class="nx">courseData</span><span class="o">?</span><span class="p">.</span><span class="nx">reviewDescription</span> <span class="o">||</span> <span class="s1">''</span> <span class="p">);</span>
+    <span class="nx">setDueDate</span><span class="p">(</span><span class="nx">courseData</span><span class="o">?</span><span class="p">.</span><span class="nx">dueDate</span> <span class="o">||</span> <span class="s1">''</span><span class="p">);</span>
+<span class="p">},</span> <span class="p">[</span><span class="nx">courseData</span><span class="p">]);</span>
+</code></pre></div>
+</td></tr></table>
+</div>
+</input></input></input></div>
+<p>This is part of the Evaluation Modal where a form state is declared and initialised with values from the data store.</p>
+</details>
+<p>If you look at the bad example, you will notice these:
+- what is the difference of terminology between <code>code</code> and <code>courseId</code>
+- between <code>description</code> and <code>reviewDescription</code>, there isn't that much of a problem. However, that begs the question, why change the first terminology in the first place?
+  - the advantage that you get if you don't change terminology is that you can use the usual JavaScript <code>...</code> operator due to same name.</p>
+<p>If you see a bad naming, but is consistent, you have 2 choices:
+- replace the entire reference of the bad name
+- use the bad name, and replace it later with find and replace.</p>
+<p>This is the main power of being consistent is that you can always tie it to other references, although with different naming, you still can but you have to do it manually.</p>
+<h3 id="consistent-file-naming">Consistent File Naming<a class="headerlink" href="#consistent-file-naming" title="Permanent link">¶</a></h3>
+<p>Make sure that the name of the default function is the same name as the filename. If it is not the same name, have a good reason.</p>
+<details class="example" open="open"><summary>Filename consistency</summary><div class="tabbed-set" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio"><label for="__tabbed_2_1">Good</label><div class="tabbed-content">
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="c1">// AreYouSureButton.js</span>
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">AreYouSureButton</span><span class="p">({...})</span>
+</code></pre></div>
+</td></tr></table>
+</div>
+<input id="__tabbed_2_2" name="__tabbed_2" type="radio"><label for="__tabbed_2_2">Bad</label><div class="tabbed-content">
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="c1">// AreYouSureButton.js</span>
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">Modal</span><span class="p">({...})</span>
+</code></pre></div>
+</td></tr></table>
+</div>
+</input></input></div>
+</details>
+<h3 id="frontend-custom-hooks">Frontend Custom Hooks<a class="headerlink" href="#frontend-custom-hooks" title="Permanent link">¶</a></h3>
+<p>All custom hooks should have <code>use</code> as prefix. Refer to the original <a href="https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook">documentation</a> for the source of this coding standard.</p>
+<h3 id="frontend-props">Frontend Props<a class="headerlink" href="#frontend-props" title="Permanent link">¶</a></h3>
+<p>Usually there are 2 main reason as to why a react component is divided into 2 reasons: readability - by splitting the code into subcomponents, and reusability - to be able to reuse components.</p>
+<h4 id="generic-reused-component">Generic Reused Component<a class="headerlink" href="#generic-reused-component" title="Permanent link">¶</a></h4>
+<p>For reuse component, always use generic variable name in the component, but the props passing should solve this.</p>
+<details class="example" open="open"><summary>Props with different name to the variable value it was assigned to</summary><p><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="c1">// AreYouSureButton.js</span>
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">AreYouSureButton</span><span class="p">({</span>
+    <span class="nx">title</span> <span class="o">=</span> <span class="s1">'Are you sure?'</span><span class="p">,</span>
+    <span class="nx">description</span> <span class="o">=</span> <span class="s1">'Are you sure you want to do this?'</span><span class="p">,</span>
+    <span class="nx">action</span><span class="p">,</span>
+    <span class="nx">actionParameter</span> <span class="o">=</span> <span class="p">[],</span>
+    <span class="nx">buttonProps</span> <span class="o">=</span> <span class="p">{},</span>
+    <span class="nx">children</span><span class="p">,</span>
+<span class="p">})</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
+
+<span class="c1">// Some other file that will use this</span>
+<span class="o">&lt;</span><span class="nx">AreYouSureButton</span>
+    <span class="nx">buttonProps</span><span class="o">=</span><span class="p">{{}}</span>
+    <span class="nx">description</span><span class="o">=</span><span class="p">{</span>
+        <span class="s1">'You are about to submit a review. Upon submission of a review, you will lose the ability to edit your review. If you have to edit a review, you will have to contact the coordinator of this unit.'</span>
+    <span class="p">}</span>
+    <span class="nx">action</span><span class="o">=</span><span class="p">{</span><span class="nx">handleSubmit</span><span class="p">}</span>
+<span class="o">&gt;</span>
+<span class="nx">Submit</span>
+<span class="o">&lt;</span><span class="err">/AreYouSureButton&gt;</span>
+</code></pre></div>
+</td></tr></table>
+As you can see from this one, <code>action</code> is just the action to be executed by the modal when a the confirm button is pressed. However, the function name that was passed to a prop is called <code>handleSubmit</code>. The reason why <code>action</code> does not have to be named <code>handleSubmit</code> because you could have times where you might want to pass <code>handleDelete</code> or something else.</p>
+</details>
+<h4 id="specific-context-component">Specific Context Component<a class="headerlink" href="#specific-context-component" title="Permanent link">¶</a></h4>
+<p>There are times where context is very important or when components are only divided for readability, but not for the purpose of reusability.</p>
+<details class="example" open="open"><summary>Props with Almost same name to the variable it was assigned to</summary><p><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="nx">DocumentViewer</span> <span class="o">=</span> <span class="p">({</span>
+    <span class="nx">documents</span> <span class="o">=</span> <span class="p">[],</span>
+    <span class="nx">course_id</span> <span class="o">=</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nx">review_id</span> <span class="o">=</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nx">eocBeingViewed</span> <span class="o">=</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nx">isReviewer</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nx">isReadOnly</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+<span class="p">})</span> <span class="p">=&gt;</span> <span class="p">{...}</span>
+
+<span class="c1">// Being used in another file</span>
+<span class="o">&lt;</span><span class="nx">DocumentViewer</span>
+    <span class="nx">course_id</span><span class="o">=</span><span class="p">{</span><span class="nx">course</span><span class="o">?</span><span class="p">.</span><span class="nx">_id</span><span class="p">}</span>
+    <span class="nx">review_id</span><span class="o">=</span><span class="p">{</span><span class="nx">review</span><span class="o">?</span><span class="p">.</span><span class="nx">_id</span><span class="p">}</span>
+    <span class="nx">documents</span><span class="o">=</span><span class="p">{</span><span class="nx">course</span><span class="o">?</span><span class="p">.</span><span class="nx">documents</span><span class="p">}</span>
+    <span class="nx">eocBeingViewed</span><span class="o">=</span><span class="p">{</span><span class="nx">eocGeneralAndSpecific</span><span class="p">}</span>
+    <span class="nx">isReviewer</span>
+    <span class="nx">isReadOnly</span><span class="o">=</span><span class="p">{</span><span class="nx">isReadOnly</span><span class="p">}</span>
+<span class="err">/&gt;</span>
+</code></pre></div>
+</td></tr></table>
+As you can see from here, the name of the props being passed is almost the same name as the variable it was being assigned to.</p>
+</details>
+<h4 id="oversplitting-or-too-dry">Oversplitting or Too Dry<a class="headerlink" href="#oversplitting-or-too-dry" title="Permanent link">¶</a></h4>
+<p>As much as you want to have "DRY" (Dont Repeat Yourself) code, if it interferes with the readability of the code and adds more line of code instead of reducing, then it is not worth even splitting it.</p>
+<p>In majority of cases, splitting is correctly, but be mindful especially because once you split the code, it may become less flexible.</p>
+<details class="example" open="open"><summary>Oversimplified Code</summary><p>Let say I have a function that needs to be executed twice for two different context.</p>
+<p><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="nx">someFunction</span> <span class="o">=</span> <span class="p">(</span><span class="nx">requiredParam</span><span class="p">,</span> <span class="nx">optionalParam</span><span class="o">=</span><span class="s2">"optional"</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">...</span> <span class="c1">// Maybe DB operation</span>
+
+<span class="c1">// Correct way</span>
+<span class="nx">someFunction</span><span class="p">(</span><span class="s2">"some value1"</span><span class="p">)</span>
+<span class="nx">someFunction</span><span class="p">(</span><span class="s2">"some value2"</span><span class="p">,</span><span class="s2">"some options"</span><span class="p">)</span>
+
+<span class="c1">// Overly simplified code</span>
+<span class="p">[</span>
+    <span class="p">{</span><span class="nx">requiredParam</span><span class="o">:</span> <span class="s2">"some value1"</span><span class="p">},</span> 
+    <span class="p">{</span><span class="nx">requiredParam</span><span class="o">:</span> <span class="s2">"some value2"</span><span class="p">,</span> <span class="nx">optionalParam</span><span class="o">:</span><span class="s2">"some options"</span><span class="p">}</span>
+<span class="p">].</span><span class="nx">forEach</span><span class="p">(({</span><span class="nx">requiredParam</span><span class="p">,</span><span class="nx">optionalParam</span><span class="p">})=&gt;</span> <span class="nx">someFunction</span><span class="p">(</span><span class="nx">requiredParam</span><span class="p">,</span><span class="nx">optionalParam</span><span class="p">)</span> <span class="p">)</span>
+</code></pre></div>
+</td></tr></table>
+At this example, the "correct way" has been executed twice, but the code that follows "DRY" has more lines of code and is more complex. The only time the "DRY" code is accepted is if you need to call this function, enormous amount of times (maybe around 4 or more times. Use with discretion). </p>
+</details>
+<h4 id="utils">Utils<a class="headerlink" href="#utils" title="Permanent link">¶</a></h4>
+<p>If you have functions that you think are too generic, but it can be used for many situation depending on context. Put it in the <code>utils</code> folder.</p>
+<h4 id="_id-suffix">_id Suffix<a class="headerlink" href="#_id-suffix" title="Permanent link">¶</a></h4>
+<p><code>_id</code> suffix is a standard of Mongo Object ID. This codebase uses Pascal Case for all cases, so using <code>_id</code> is an exception of the rule which indicates that this is a mongo Object ID.</p>
+<details class="alert" open="open"><summary>CourseID and course_id</summary><p>This is one of the pitfalls of coding standard that needs to be resolved. Currently <code>courseID</code> means differently in different context:</p>
+<ul>
+<li>routing - this corresponds to <code>course_id</code></li>
+<li>anywhere else - this corresponds to <code>courseID</code> the unit code of the course.</li>
+</ul>
+</details>
+</article>
+</div>
+</div>
+</main>
+<!--
+  Copyright (c) 2016-2020 Martin Donath <martin.donath@squidfunk.com>
+  Modified by Frinze Erin Lapuz < https://github.com/frinzekt > for his own template
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+<!-- Application footer -->
+<footer class="md-footer">
+<!-- Link to previous and/or next page -->
+<div class="md-footer-nav">
+<nav aria-label="Footer" class="md-footer-nav__inner md-grid">
+<!-- Link to previous page -->
+<a class="md-footer-nav__link md-footer-nav__link--prev" href="../" rel="prev" title="Introduction">
+<div class="md-footer-nav__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
+</div>
+<div class="md-footer-nav__title">
+<div class="md-ellipsis">
+<span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Introduction
+              </div>
+</div>
+</a>
+<!-- Link to next page -->
+<a class="md-footer-nav__link md-footer-nav__link--next" href="../data_engineering/" rel="next" title="Data Engineering">
+<div class="md-footer-nav__title">
+<div class="md-ellipsis">
+<span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Data Engineering
+              </div>
+</div>
+<div class="md-footer-nav__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"></path></svg>
+</div>
+</a>
+</nav>
+</div>
+<!-- Further information -->
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<!-- Copyright and theme information -->
+<div class="md-footer-copyright">
+<div class="md-footer-copyright__highlight">
+            Copyright System Health Lab <script>document.write(new Date().getFullYear())</script>
+</div> Web Documentation Setup by <a href="https://frinzelapuz.now.sh/">Frinze Erin Lapuz</a> and Michael Nef
+        
+      </div>
+<!-- Social links -->
+</div>
+</div>
+</footer>
+</div>
+<script src="../../assets/javascripts/vendor.53cc9318.min.js"></script>
+<script src="../../assets/javascripts/bundle.e9c9f54f.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+<script>
+        app = initialize({
+          base: "../..",
+          features: ['navigation.tabs'],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.9c0e82ba.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+<script src="https://unpkg.com/mermaid@8.8.2/dist/mermaid.min.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</body>
+</html>
