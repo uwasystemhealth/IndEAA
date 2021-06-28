@@ -1,4 +1,7 @@
+// Material Kit
 import InfoArea from 'components/MaterialKit/InfoArea/InfoArea.js';
+
+// Icons
 import ErrorIcon from '@material-ui/icons/Error';
 
 const Error = ({ msg }) => {
