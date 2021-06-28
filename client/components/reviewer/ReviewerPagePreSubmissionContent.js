@@ -1,28 +1,28 @@
-
+// React + Redux + Functionality
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 
-
+// Custom Components
 import ReviewerEOCListing from 'components/reviewer/ReviewerEOCListing';
 import ReviewerGeneralComment from 'components/reviewer/ReviewerGeneralComment';
 
-// CORE COMPONENTS
-import Accordion from '@material-ui/core/Accordion';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
+// Material Kit
 import Card from 'components/MaterialKit/Card/Card.js';
 import CardBody from 'components/MaterialKit/Card/CardBody.js';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Success from 'components/MaterialKit/Typography/Success.js';
 import Danger from 'components/MaterialKit/Typography/Danger.js';
 import GridContainer from 'components/MaterialKit/Grid/GridContainer.js';
 import GridItem from 'components/MaterialKit/Grid/GridItem.js';
 
+// Material UI
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
 
+// Icons
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-
-
-
+// Styles
 import { makeStyles } from '@material-ui/core/styles';
 import {
     cardTitle,
