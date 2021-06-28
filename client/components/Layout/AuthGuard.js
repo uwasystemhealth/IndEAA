@@ -1,12 +1,11 @@
+// React + Redux + Functionality
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
-
-// Store Actions and Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { signIn } from 'actions/auth';
 import { setCurrentRoleSelected, setPageMiddleTitle } from 'actions/general';
 
-
+// Utilities
 import { permissions, getAvailablePermissionsOfUser } from 'utils/permissions';
 
 const AuthGuard = ({ children, isProtected }) => {
