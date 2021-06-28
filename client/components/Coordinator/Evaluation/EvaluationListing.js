@@ -1,10 +1,14 @@
-// CORE
-import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf';
-import HowToVoteIcon from '@material-ui/icons/HowToVote';
+// Material Kit
 import Grid from 'components/MaterialKit/Grid/GridContainer.js';
 import GridItem from 'components/MaterialKit/Grid/GridItem.js';
 import Button from 'components/MaterialKit/CustomButtons/Button.js';
+
+// Material UI
 import Link from '@material-ui/core/Link';
+
+// Icons
+import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf';
+import HowToVoteIcon from '@material-ui/icons/HowToVote';
 
 //Styles
 import { makeStyles } from '@material-ui/core/styles';
