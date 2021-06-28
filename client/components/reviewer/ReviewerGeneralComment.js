@@ -1,26 +1,22 @@
-// CORE COMPONENTS
-import Button from 'components/MaterialKit/CustomButtons/Button.js';
-import GridContainer from 'components/MaterialKit/Grid/GridContainer.js';
-import GridItem from 'components/MaterialKit/Grid/GridItem.js';
-import TextField from '@material-ui/core/TextField';
-
-
+// React + Redux + Functionality
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { services } from 'store/feathersClient';
 import { addNotificationMessage } from 'actions/general';
 
-// CUSTOM COMPONENTS
+// Material Kit
+import Button from 'components/MaterialKit/CustomButtons/Button.js';
+import GridContainer from 'components/MaterialKit/Grid/GridContainer.js';
+import GridItem from 'components/MaterialKit/Grid/GridItem.js';
 
-import { useState, useEffect } from 'react';
+// Material UI
+import TextField from '@material-ui/core/TextField';
 
 // STYLES
 import { makeStyles } from '@material-ui/core/styles';
 import modalStyle from 'assets/jss/nextjs-material-kit/modalStyle.js';
 const styles = { ...modalStyle };
 const useStyles = makeStyles(styles);
-
-
-
 
 const ViewModal = ({ isReadOnly }) => {
     const classes = useStyles();
