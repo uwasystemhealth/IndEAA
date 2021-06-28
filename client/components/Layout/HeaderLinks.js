@@ -1,65 +1,59 @@
-/*eslint-disable*/
-import React from "react";
-import Link from "next/link";
+// React + Redux + Functionality
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { signOut } from 'actions/auth';
+import Link from 'next/link';
 
-// @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import Tooltip from "@material-ui/core/Tooltip";
-import Icon from "@material-ui/core/Icon";
+// Utilities
+import { getAvailablePermissionsOfUser, roleIcons } from 'utils/permissions';
 
-// @material-ui/icons
-import { Apps, CloudDownload } from "@material-ui/icons";
-import DeleteIcon from "@material-ui/icons/Delete";
-import IconButton from "@material-ui/core/IconButton";
+// Material Kit
+import CustomDropdown from 'components/MaterialKit/CustomDropdown/CustomDropdown.js';
+import Button from 'components/MaterialKit/CustomButtons/Button.js';
 
-// redux
-import { useSelector, useDispatch } from "react-redux"
-import { signOut } from "actions/auth"
+// Material UI
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import Tooltip from '@material-ui/core/Tooltip';
+import Icon from '@material-ui/core/Icon';
 
-// Utils
-import { getAvailablePermissionsOfUser, roleIcons } from "utils/permissions"
+// Icons
+import { Apps } from '@material-ui/icons';
 
-
-// core components
-import CustomDropdown from "components/MaterialKit/CustomDropdown/CustomDropdown.js";
-import Button from "components/MaterialKit/CustomButtons/Button.js";
-
-import styles from "assets/jss/nextjs-material-kit/components/headerLinksStyle.js";
-
+// Styles
+import { makeStyles } from '@material-ui/core/styles';
+import styles from 'assets/jss/nextjs-material-kit/components/headerLinksStyle.js';
 const useStyles = makeStyles(styles);
 
-
 export default function HeaderLinks(props) {
-    const user = useSelector(state => state.auth.user)
-    const currentRoleSelected = useSelector(state => state.general.currentRoleSelected)
+    const user = useSelector(state => state.auth.user);
+    const currentRoleSelected = useSelector(state => state.general.currentRoleSelected);
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     const classes = useStyles();
 
     // Get All the Unique permissions of the user by the role
     // Turn it into JSX Links
-    const rolesOfUser = user && Array.from(getAvailablePermissionsOfUser(user.perms))//.filter(role => role!==currentRoleSelected)
+    const rolesOfUser = user && Array.from(getAvailablePermissionsOfUser(user.perms));//.filter(role => role!==currentRoleSelected)
     const rolesLinksToUsers = user && rolesOfUser.map(
         permission => {
-            const RoleIcon = roleIcons[permission]
+            const RoleIcon = roleIcons[permission];
             return (<Link href={`/${permission.toLowerCase()}`}>
-                <a className={classes.dropdownLink}><RoleIcon></RoleIcon>{permission}</a>
-            </Link>)
+                <a className={classes.dropdownLink}><RoleIcon />{permission}</a>
+            </Link>);
         }
-    )
+    );
     return (
         <List className={classes.list}>
-            {user && (rolesOfUser.length != 0 || currentRoleSelected!="") &&
+            {user && (rolesOfUser.length != 0 || currentRoleSelected!='') &&
                 <ListItem className={classes.listItem}>
                     <CustomDropdown
                         noLiPadding
                         navDropdown
-                        buttonText={currentRoleSelected || "Choose Your Role"}
+                        buttonText={currentRoleSelected || 'Choose Your Role'}
                         buttonProps={{
                             className: classes.navLink,
-                            color: "transparent"
+                            color: 'transparent'
                         }}
                         buttonIcon={currentRoleSelected ? roleIcons[currentRoleSelected] : Apps}
                         dropdownList={rolesLinksToUsers}
@@ -75,19 +69,19 @@ export default function HeaderLinks(props) {
                     className={classes.navLink}
                 >
                     <Icon className={classes.icons}>unarchive</Icon> Documentation
-        </Button>
+                </Button>
             </ListItem>
 
             {user &&
                 (<ListItem className={classes.listItem}>
                     <Tooltip
                         title={`You are login as ${user.name}`}
-                        placement={"top"}
+                        placement={'top'}
                         classes={{ tooltip: classes.tooltip }}
                     ><Button
-                        color="info"
-                        onClick={(e) => dispatch(signOut())}
-                    >
+                            color="info"
+                            onClick={(e) => dispatch(signOut())}
+                        >
                             Signout
                         </Button>
                     </Tooltip>
