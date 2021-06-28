@@ -1,21 +1,21 @@
+// React + Redux + Functionality
 import { useRouter } from 'next/router';
-// Custom Hooks
-import {useCurrentReviewOfUser} from 'components/customHooks/ReviewerReviewLoad';
-import useRedirectIfFinish from 'components/customHooks/ReviewerFinishedGuard';
-// Use own components
+import { useSelector } from 'react-redux';
+
+// Custom Components
 import ReviewProgress from 'components/reviewer/ReviewProgress';
 import ReviewerDocumentsListing from 'components/reviewer/ReviewerDocumentsListing';
 import ReviewerPageCardDescription from 'components/reviewer/ReviewerPageCardDescription';
 import ReviewerPageBottomNavigation from 'components/reviewer/ReviewerPageBottomNavigation';
 
-// Redux
-import { useSelector } from 'react-redux';
+// Utilities
+import { useCurrentReviewOfUser } from 'components/customHooks/ReviewerReviewLoad';
+import useRedirectIfFinish from 'components/customHooks/ReviewerFinishedGuard';
 
 //Styles
 import { makeStyles } from '@material-ui/core/styles';
 import styles from 'assets/jss/nextjs-material-kit/pages/landingPage.js';
 const useStyles = makeStyles(styles);
-
 
 const ReviewerCourseReviewPage2 = () => {
     const router = useRouter();
