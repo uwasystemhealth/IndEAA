@@ -1,26 +1,24 @@
+// React + Redux + Functionality
 import React from 'react';
 import { useRouter } from 'next/router';
+
+// Utilities
 import classnames from 'classnames';
-// @material-ui/core components
-import { makeStyles, styled } from '@material-ui/core/styles';
 
-// ICONS
-import Done from '@material-ui/icons/CheckCircleOutline';
-import NotDone from '@material-ui/icons/RadioButtonUnchecked';
-
-// CORE COMPONENTS
+// Material UI
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepButton from '@material-ui/core/StepButton';
 
+// Icons
+import Done from '@material-ui/icons/CheckCircleOutline';
+import NotDone from '@material-ui/icons/RadioButtonUnchecked';
+
 // STYLES
+import { makeStyles, styled } from '@material-ui/core/styles';
 import stepperStyle from 'assets/jss/custom/stepper.js';
 import { StepperConnector } from 'assets/jss/custom/stepper';
 const useStepperStyles = makeStyles(stepperStyle);
-
-// Redux
-
-
 const StyledStepButton = styled(StepButton)({
     '& .MuiStepLabel-active': {
         color: '#FFFF',
