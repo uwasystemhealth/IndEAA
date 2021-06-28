@@ -1,22 +1,24 @@
-// CORE COMPONENTS
+// React + Redux + Functionality
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+
+// Custom Components
+import EOCCard from 'components/Coordinator/EvaluationOverview/Justifications/EOCCard';
+import ReviewerEOCModal from 'components/reviewer/ReviewerEOCModal';
+
+// Utilities
+import { getEOCInfo, getDetailsOfEntireEOC} from 'utils/eocs';
+
+// Material Kit
 import Card from 'components/MaterialKit/Card/Card.js';
+import GridContainer from 'components/MaterialKit/Grid/GridContainer.js';
+import GridItem from 'components/MaterialKit/Grid/GridItem.js';
+
+// Material UI
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import GridContainer from 'components/MaterialKit/Grid/GridContainer.js';
-import GridItem from 'components/MaterialKit/Grid/GridItem.js';
-
-// CUSTOM COMPONENTS
-import EOCCard from 'components/Coordinator/EvaluationOverview/Justifications/EOCCard';
-import ReviewerEOCModal from 'components/reviewer/ReviewerEOCModal';
-
-import { useState } from 'react';
-
-// Store Actions and Redux
-import { useSelector } from 'react-redux';
-
-import { getEOCInfo, getDetailsOfEntireEOC} from 'utils/eocs';
 
 const EOCAccordion = ({isReadOnly}) => {
     // https://stackoverflow.com/questions/58539813/lazy-initial-state-what-is-and-where-to-use-it
