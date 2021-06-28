@@ -15,6 +15,8 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
+
+// React + Redux + Functionality
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import Head from 'next/head';
@@ -22,14 +24,16 @@ import Router from 'next/router';
 import { Provider } from 'react-redux';
 import store from 'store/feathersClient';
 
-import PageChange from 'components/MaterialKit/PageChange/PageChange.js';
-
-import 'assets/scss/nextjs-material-kit.scss?v=1.1.0';
-
-// Own Components
+// Custom Components
 import Navbar from 'components/Layout/Navbar';
 import ContentWrapper from 'components/Layout/ContentWrapper';
 import AuthGuard from 'components/Layout/AuthGuard';
+
+// Material Kit
+import PageChange from 'components/MaterialKit/PageChange/PageChange.js';
+
+// Styles
+import 'assets/scss/nextjs-material-kit.scss?v=1.1.0';
 
 Router.events.on('routeChangeStart', url => {
     console.info(`Loading: ${url}`);
