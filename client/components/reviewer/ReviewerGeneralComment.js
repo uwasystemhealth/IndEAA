@@ -12,7 +12,7 @@ import GridItem from 'components/MaterialKit/Grid/GridItem.js';
 // Material UI
 import TextField from '@material-ui/core/TextField';
 
-// STYLES
+// Styles
 import { makeStyles } from '@material-ui/core/styles';
 import modalStyle from 'assets/jss/nextjs-material-kit/modalStyle.js';
 const styles = { ...modalStyle };
