@@ -1,15 +1,19 @@
+// React + Redux + Functionality
 import React, { useState } from 'react';
-// material-ui components
+
+// Material Kit
+import Button from 'components/MaterialKit/CustomButtons/Button.js';
+
+// Material UI
 import Slide from '@material-ui/core/Slide';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
-// @material-ui/icons
+
+// Icons
 import Close from '@material-ui/icons/Close';
-// core components
-import Button from 'components/MaterialKit/CustomButtons/Button.js';
 
 // Styles
 import { makeStyles } from '@material-ui/core/styles';
