@@ -1,9 +1,10 @@
+// React + Redux + Functionality
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { updateCurrentlyBeingViewedCourse } from 'utils/feathersUpdate';
-
-// Store Actions and Redux
 import { useSelector } from 'react-redux';
+
+// Utilities
+import { updateCurrentlyBeingViewedCourse } from 'utils/feathersUpdate';
 
 export const useCurrentCourseData = () => {
     // Fetch Course dependent on AuthUser and when the Course fetched matches the course route
