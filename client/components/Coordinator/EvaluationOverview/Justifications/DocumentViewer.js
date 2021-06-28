@@ -1,14 +1,17 @@
-// CORE COMPONENTS
-import CustomTabs from 'components/MaterialKit/CustomTabs/CustomTabs.js';
-import Face from '@material-ui/icons/Face';
-import Chat from '@material-ui/icons/Chat';
+// React + Redux + Functionality
+import { useState } from 'react';
 
-// CUSTOM COMPONENTS
+// Custom Components
 import DocumentCard from './../Documents/DocumentCard.js';
 import EditModal from 'components/Coordinator/EvaluationOverview/Documents/EditModal.js';
 import ReviewerDocumentModal from 'components/reviewer/ReviewerDocumentModal';
 
-import { useState } from 'react';
+// Material Kit
+import CustomTabs from 'components/MaterialKit/CustomTabs/CustomTabs.js';
+
+// Icons
+import Face from '@material-ui/icons/Face';
+import Chat from '@material-ui/icons/Chat';
 
 const DocumentViewer = ({
     documents = [],
