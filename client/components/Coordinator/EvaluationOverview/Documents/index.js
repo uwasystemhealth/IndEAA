@@ -1,16 +1,17 @@
-import EditIcon from '@material-ui/icons/Edit';
-// CORE COMPONENTS
-import Button from 'components/MaterialKit/CustomButtons/Button.js';
+// React + Redux + Functionality
+import { useSelector } from 'react-redux';
+import { useCurrentCourseData } from 'components/customHooks/CoordinatorCourseLoad';
+import { useState } from 'react';
 
-// CUSTOM COMPONENTS
+// Custom Components
 import DocumentsListItems from 'components/Coordinator/EvaluationOverview/Documents/DocumentsListItems.js';
 import EditModal from 'components/Coordinator/EvaluationOverview/Documents/EditModal.js';
 
-// Store Actions and Redux
-import { useSelector } from 'react-redux';
-import {useCurrentCourseData} from 'components/customHooks/CoordinatorCourseLoad';
+// Material Kit
+import Button from 'components/MaterialKit/CustomButtons/Button.js';
 
-import { useState } from 'react';
+// Material UI
+import EditIcon from '@material-ui/icons/Edit';
 
 const Documents = ({ specificTags=null, gridItemProps={md:4}, removeAddDocument = false}) => {
     const [isNewDocumentModalOpen, setIsNewDocumentModalOpen] = useState(false);
