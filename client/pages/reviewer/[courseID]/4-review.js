@@ -1,29 +1,24 @@
+// React + Redux + Functionality
 import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
+import { services } from 'store/feathersClient';
 
-// Custom Hooks
-import {useCurrentReviewOfUser} from 'components/customHooks/ReviewerReviewLoad';
+// Utilities
+import { useCurrentReviewOfUser } from 'components/customHooks/ReviewerReviewLoad';
 import useRedirectIfFinish from 'components/customHooks/ReviewerFinishedGuard';
-// Use own components
+import { reviewSteps } from 'utils/review';
+
+// Custom Components
 import ReviewProgress from 'components/reviewer/ReviewProgress';
 import ReviewerPagePreSubmissionContent from 'components/reviewer/ReviewerPagePreSubmissionContent';
 import ReviewerPageCardDescription from 'components/reviewer/ReviewerPageCardDescription';
 import ReviewerPageBottomNavigation from 'components/reviewer/ReviewerPageBottomNavigation';
 import AreYouSureButton from 'components/Other/AreYouSureButton';
 
-// MaterialKit
-
-
-import { useSelector } from 'react-redux';
-import { services } from 'store/feathersClient';
-
-// Utils
-import { reviewSteps } from 'utils/review';
-
 //Styles
 import { makeStyles } from '@material-ui/core/styles';
 import styles from 'assets/jss/nextjs-material-kit/pages/landingPage.js';
 const useStyles = makeStyles(styles);
-
 
 const ReviewerCourseReviewPage4 = () => {
     const router = useRouter();
