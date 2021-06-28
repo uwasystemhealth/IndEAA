@@ -1,4 +1,4 @@
-// CUSTOM COMPONENTS
+// Custom Components
 import ReviewList from 'components/reviewer/ReviewList';
 
 //Styles
