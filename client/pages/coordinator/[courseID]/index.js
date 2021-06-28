@@ -1,6 +1,8 @@
-// CORE COMPONENTS
-import GeneralPage from 'components/Coordinator/EvaluationOverview/GeneralPage.js';
+// React + Redux + Functionality
 import { useRouter } from 'next/router';
+
+// Custom Components
+import GeneralPage from 'components/Coordinator/EvaluationOverview/GeneralPage.js';
 
 //Styles
 import { makeStyles } from '@material-ui/core/styles';
