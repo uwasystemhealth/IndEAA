@@ -1,5 +1,10 @@
+// React + Redux + Functionality
 import React from 'react';
+
+// Utilities
 import Document, { Html, Head, Main, NextScript } from 'next/document';
+
+// Styles
 import { ServerStyleSheets } from '@material-ui/styles';
 
 class MyDocument extends Document {
