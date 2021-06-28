@@ -1,16 +1,18 @@
-// CORE COMPONENTS
+// Custom Components
+import AreYouSureButton from 'components/Other/AreYouSureButton';
+
+// Material Kit
 import GridContainer from 'components/MaterialKit/Grid/GridContainer.js';
 import GridItem from 'components/MaterialKit/Grid/GridItem.js';
 import Card from 'components/MaterialKit/Card/Card.js';
 import CardBody from 'components/MaterialKit/Card/CardBody.js';
+
+// Material UI
 import DeleteIcon from '@material-ui/icons/Delete';
 
-// Custom Components
-import AreYouSureButton from 'components/Other/AreYouSureButton';
-
+// Styles
 import modalStyle from 'assets/jss/nextjs-material-kit/modalStyle.js';
 import { cardTitle, cardSubtitle } from 'assets/jss/nextjs-material-kit.js';
-
 import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles({
     ...modalStyle,
