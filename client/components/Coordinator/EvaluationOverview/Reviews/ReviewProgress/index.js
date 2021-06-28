@@ -1,18 +1,17 @@
-// CORE COMPONENTS
+// React + Redux + Functionality
+import { useSelector } from 'react-redux';
+import { services } from 'store/feathersClient';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+
+// Custom Components
+import ProgressDisplay from './ProgressDisplay.js';
+
+// Material Kit
 import Card from 'components/MaterialKit/Card/Card.js';
 import CardBody from 'components/MaterialKit/Card/CardBody.js';
 import CardHeader from 'components/MaterialKit/Card/CardHeader.js';
 import GridContainer from 'components/MaterialKit/Grid/GridContainer.js';
-
-
-import ProgressDisplay from './ProgressDisplay.js';
-
-// Redux
-import { useSelector } from 'react-redux';
-import { services } from 'store/feathersClient';
-
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 
 const ReviewProgress = () => {
     const router = useRouter();
