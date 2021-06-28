@@ -1,27 +1,28 @@
+// React + Redux + Functionality
 import React from 'react';
+import { useSelector } from 'react-redux';
 
-// CORE COMPONENTS
+// Utilities
+import { getAllCommentsOfDocument } from 'utils/compileResult';
+
+// Material Kit
 import Card from 'components/MaterialKit/Card/Card.js';
 import CardBody from 'components/MaterialKit/Card/CardBody.js';
 import CardHeader from 'components/MaterialKit/Card/CardHeader.js';
 import GridContainer from 'components/MaterialKit/Grid/GridContainer.js';
 import GridItem from 'components/MaterialKit/Grid/GridItem.js';
+
+// Material UI
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 
-import { useSelector } from 'react-redux';
-
-// Utils
-import {getAllCommentsOfDocument} from 'utils/compileResult';
-
-// STYLES
+// Styles
 import { makeStyles } from '@material-ui/core/styles';
 import {
     cardTitle,
     cardLink,
     cardSubtitle,
 } from 'assets/jss/nextjs-material-kit.js';
-
 const styles = { cardTitle, cardLink, cardSubtitle };
 const useStyles = makeStyles(styles);
 
