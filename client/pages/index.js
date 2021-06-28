@@ -1,8 +1,12 @@
+// React + Redux + Functionality
 import React from 'react';
-// @material-ui/core components
-import { makeStyles } from '@material-ui/core/styles';
+import { useSelector } from 'react-redux';
 
+// Custom Components
+import Navbar from 'components/Layout/Navbar';
+import Footer from 'components/Layout/Footer';
 
+// Material Kit
 import GridContainer from 'components/MaterialKit/Grid/GridContainer.js';
 import GridItem from 'components/MaterialKit/Grid/GridItem.js';
 import Button from 'components/MaterialKit/CustomButtons/Button.js';
@@ -10,17 +14,10 @@ import Card from 'components/MaterialKit/Card/Card.js';
 import CardHeader from 'components/MaterialKit/Card/CardHeader.js';
 import CardFooter from 'components/MaterialKit/Card/CardFooter.js';
 
-
-import Navbar from 'components/Layout/Navbar';
-import Footer from 'components/Layout/Footer';
-
-// redux
-import { useSelector } from 'react-redux';
-
 // Styles
 import styles from 'assets/jss/nextjs-material-kit/pages/loginPage.js';
 import image from 'assets/img/bg7.jpg';
-
+import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles(styles);
 
 const LoginPage = (props) => {
