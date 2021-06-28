@@ -1,38 +1,37 @@
+// React + Redux + Functionality
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
+import { services } from 'store/feathersClient';
 
-// CORE COMPONENTS
-import Accordion from '@material-ui/core/Accordion';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import CustomTabs from 'components/MaterialKit/CustomTabs/CustomTabs.js';
-import GridContainer from 'components/MaterialKit/Grid/GridContainer.js';
-import GridItem from 'components/MaterialKit/Grid/GridItem.js';
-
-
-// Custom Hooks
-import {useCurrentReviewOfUser} from 'components/customHooks/ReviewerReviewLoad';
-import useRedirectIfFinish from 'components/customHooks/ReviewerFinishedGuard';
-
-// Use own components
+// Custom Components
 import ReviewProgress from 'components/reviewer/ReviewProgress';
 import ReviewerDocumentsListing from 'components/reviewer/ReviewerDocumentsListing';
 import ReviewerPageCardDescription from 'components/reviewer/ReviewerPageCardDescription';
 import ReviewerPageBottomNavigation from 'components/reviewer/ReviewerPageBottomNavigation';
 
-// Redux
-import { useSelector } from 'react-redux';
-import { services } from 'store/feathersClient';
-
-// Utils
+// Utilities
+import {useCurrentReviewOfUser} from 'components/customHooks/ReviewerReviewLoad';
+import useRedirectIfFinish from 'components/customHooks/ReviewerFinishedGuard';
 import { getEOCInfo } from 'utils/eocs';
+
+// Material Kit
+import CustomTabs from 'components/MaterialKit/CustomTabs/CustomTabs.js';
+import GridContainer from 'components/MaterialKit/Grid/GridContainer.js';
+import GridItem from 'components/MaterialKit/Grid/GridItem.js';
+
+// Material UI
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+
+// Icons
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 //Styles
 import { makeStyles } from '@material-ui/core/styles';
 import styles from 'assets/jss/nextjs-material-kit/pages/loginPage.js';
 const useStyles = makeStyles(styles);
-
 
 const ReviewerCourseReviewPage1 = () => {
     const router = useRouter();
