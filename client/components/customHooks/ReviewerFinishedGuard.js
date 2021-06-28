@@ -1,7 +1,6 @@
+// React + Redux + Functionality
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-
-// Redux
 
 const useRedirectIfFinish = (review, courseID) => {
     const router = useRouter();
