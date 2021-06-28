@@ -1,19 +1,26 @@
-// CORE COMPONENTS
+// React + Redux + Functionality
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { services } from 'store/feathersClient';
+
+// Custom Components
+import ReviewListing from './ReviewListing';
+
+// Material Kit
 import Card from 'components/MaterialKit/Card/Card.js';
 import CardBody from 'components/MaterialKit/Card/CardBody.js';
 import CardHeader from 'components/MaterialKit/Card/CardHeader.js';
 import Button from 'components/MaterialKit/CustomButtons/Button.js';
 import GridContainer from 'components/MaterialKit/Grid/GridContainer.js';
 import GridItem from 'components/MaterialKit/Grid/GridItem.js';
+
+// Material UI
 import ListItem from '@material-ui/core/ListItem';
 import List from '@material-ui/core/List';
-import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-// CUSTOM COMPONENTS
-import ReviewListing from './ReviewListing';
-
-//Styles
+// Styles
+import { useTheme } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/core/styles';
 import styles from 'assets/jss/nextjs-material-kit/pages/landingPage.js';
 import checkboxStyles from 'assets/jss/nextjs-material-kit/customCheckboxRadioSwitch.js';
@@ -27,12 +34,6 @@ const useStyles = makeStyles(() => ({
         marginLeft: '1rem',
     },
 }));
-
-import { useEffect, useState } from 'react';
-
-// Redux
-import { useSelector } from 'react-redux';
-import { services } from 'store/feathersClient';
 
 const EvaluationList = () => {
     const classes = useStyles();
