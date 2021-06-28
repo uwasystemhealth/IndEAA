@@ -1,28 +1,30 @@
-// CORE COMPONENTS
+// React + Redux + Functionality
+import { useSelector } from 'react-redux';
+import { useState, useEffect } from 'react';
+
+// Custom Components
+import ApplyTo from './ApplyTo.js';
+import DocumentViewer from './DocumentViewer.js';
+
+// Material Kit
 import Button from 'components/MaterialKit/CustomButtons/Button.js';
+import GridContainer from 'components/MaterialKit/Grid/GridContainer.js';
+import GridItem from 'components/MaterialKit/Grid/GridItem.js';
+import CustomDropdown from 'components/MaterialKit/CustomDropdown/CustomDropdown.js';
+import Muted from 'components/MaterialKit/Typography/Muted';
+
+// Material UI
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
-import GridContainer from 'components/MaterialKit/Grid/GridContainer.js';
-import GridItem from 'components/MaterialKit/Grid/GridItem.js';
-import CustomDropdown from 'components/MaterialKit/CustomDropdown/CustomDropdown.js';
 import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
+
+// Icons
 import Close from '@material-ui/icons/Close';
-import Muted from 'components/MaterialKit/Typography/Muted';
 
-// redux
-import { useSelector } from 'react-redux';
-
-// CUSTOM COMPONENTS
-import ApplyTo from './ApplyTo.js';
-import DocumentViewer from './DocumentViewer.js';
-
-
-import { useState, useEffect } from 'react';
-
-// STYLES
+// Styles
 import { makeStyles } from '@material-ui/core/styles';
 import modalStyle from 'assets/jss/nextjs-material-kit/modalStyle.js';
 import typographyStyle from 'assets/jss/nextjs-material-kit/pages/componentsSections/typographyStyle';
