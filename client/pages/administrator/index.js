@@ -1,32 +1,32 @@
+// React + Redux + Functionality
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { services } from 'store/feathersClient';
 
-// MUI Icons
-import EditIcon from '@material-ui/icons/Edit';
+// Custom Components
+import UserModal from 'components/administrator/UserModal';
+import CreateUserModal from 'components/administrator/CreateUserModal';
 
-// Core Components
+// Utilities
+import { getAvailablePermissionsOfUser, roleIcons } from 'utils/permissions';
+
+// Material Kit
 import Card from 'components/MaterialKit/Card/Card.js';
 import CardBody from 'components/MaterialKit/Card/CardBody.js';
 import CardHeader from 'components/MaterialKit/Card/CardHeader.js';
 import Button from 'components/MaterialKit/CustomButtons/Button.js';
 import Grid from 'components/MaterialKit/Grid/GridContainer.js';
 import GridItem from 'components/MaterialKit/Grid/GridItem.js';
+
+// Material UI
 import Tooltip from '@material-ui/core/Tooltip';
 
-// Own Components
-import UserModal from 'components/administrator/UserModal';
-import CreateUserModal from 'components/administrator/CreateUserModal';
+// Icons
+import EditIcon from '@material-ui/icons/Edit';
 
 //Styles
 import { makeStyles } from '@material-ui/core/styles';
 import styles from 'assets/jss/nextjs-material-kit/pages/landingPage';
-
-// Redux
-import { useDispatch, useSelector } from 'react-redux';
-import { services } from 'store/feathersClient';
-
-// Helper
-import { getAvailablePermissionsOfUser, roleIcons } from 'utils/permissions';
-
 const useStyles = makeStyles(styles);
 
 const AdminstratorMainPage = () => {
