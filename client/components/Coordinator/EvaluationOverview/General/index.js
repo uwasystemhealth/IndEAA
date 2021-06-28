@@ -1,12 +1,7 @@
+// React + Redux + Functionality
 import { useRouter } from 'next/router';
-
-// CORE COMPONENTS
-import GridContainer from 'components/MaterialKit/Grid/GridContainer.js';
-import GridItem from 'components/MaterialKit/Grid/GridItem.js';
-import Card from 'components/MaterialKit/Card/Card.js';
-import CardBody from 'components/MaterialKit/Card/CardBody.js';
-import CardHeader from 'components/MaterialKit/Card/CardHeader.js';
-
+import { useSelector } from 'react-redux';
+import {useCurrentCourseData} from 'components/customHooks/CoordinatorCourseLoad';
 
 // Custom Components
 import Documents from 'components/Coordinator/EvaluationOverview/Documents';
@@ -14,9 +9,12 @@ import Information from './Information.js';
 import OtherInformation from './OtherInformation.js';
 import Controls from './Controls';
 
-// Store Actions and Redux
-import { useSelector } from 'react-redux';
-import {useCurrentCourseData} from 'components/customHooks/CoordinatorCourseLoad';
+// Material Kit
+import GridContainer from 'components/MaterialKit/Grid/GridContainer.js';
+import GridItem from 'components/MaterialKit/Grid/GridItem.js';
+import Card from 'components/MaterialKit/Card/Card.js';
+import CardBody from 'components/MaterialKit/Card/CardBody.js';
+import CardHeader from 'components/MaterialKit/Card/CardHeader.js';
 
 const General = () => {
     const router = useRouter();
