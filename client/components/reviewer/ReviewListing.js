@@ -1,10 +1,12 @@
-// CORE
+// Custom Components
+import ReviewProgress from 'components/reviewer/ReviewProgress';
+
+// Material Kit
 import Grid from 'components/MaterialKit/Grid/GridContainer.js';
 import GridItem from 'components/MaterialKit/Grid/GridItem.js';
-import Link from '@material-ui/core/Link';
 
-// Own Components
-import ReviewProgress from 'components/reviewer/ReviewProgress';
+// Material UI
+import Link from '@material-ui/core/Link';
 
 //Styles
 import { makeStyles } from '@material-ui/core/styles';
