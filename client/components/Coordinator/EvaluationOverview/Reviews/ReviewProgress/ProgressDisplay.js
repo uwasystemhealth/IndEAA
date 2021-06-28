@@ -1,24 +1,23 @@
+// React + Redux + Functionality
 import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
+import { services } from 'store/feathersClient';
 
-// CORE COMPONENTS
+// Custom Components
+import ReviewProgress from 'components/reviewer/ReviewProgress';
+import AreYouSureButton from 'components/Other/AreYouSureButton';
+
+// Material Kit
 import Card from 'components/MaterialKit/Card/Card.js';
 import CardBody from 'components/MaterialKit/Card/CardBody.js';
 import GridContainer from 'components/MaterialKit/Grid/GridContainer.js';
 import GridItem from 'components/MaterialKit/Grid/GridItem.js';
 import Button from 'components/MaterialKit/CustomButtons/Button.js';
+
+// Icons
 import PageviewIcon from '@material-ui/icons/Pageview';
 
-// CUSTOM COMPONENTS
-import ReviewProgress from 'components/reviewer/ReviewProgress';
-import AreYouSureButton from 'components/Other/AreYouSureButton';
-
-
-// Redux
-import { useSelector } from 'react-redux';
-import { services } from 'store/feathersClient';
-
-
-// STYLES
+// Styles
 import { makeStyles } from '@material-ui/core/styles';
 import { cardTitle, cardSubtitle } from 'assets/jss/nextjs-material-kit.js';
 const styles = {
