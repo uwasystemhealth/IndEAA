@@ -1,21 +1,18 @@
+// React + Redux + Functionality
 import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
 
-// Custom Hooks
+// Utilities
 import {useCurrentReviewOfUser} from 'components/customHooks/ReviewerReviewLoad';
 
-//Use Own Components
+// Custom Components
 import ReviewerPageCardDescription from 'components/reviewer/ReviewerPageCardDescription';
 import ReviewerPagePreSubmissionContent from 'components/reviewer/ReviewerPagePreSubmissionContent';
 
-// Redux
-import { useSelector } from 'react-redux';
-
-
-
+// Styles
 import { makeStyles } from '@material-ui/core/styles';
 import styles from 'assets/jss/nextjs-material-kit/pages/landingPage.js';
 const useStyles = makeStyles(styles);
-
 
 const ReviewerCourseReviewPage5 = () => {
     const router = useRouter();
