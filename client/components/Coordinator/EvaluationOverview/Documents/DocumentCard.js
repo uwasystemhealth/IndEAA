@@ -1,29 +1,30 @@
-// CORE COMPONENTS
+// React + Redux + Functionality
+import { useDispatch, useSelector } from 'react-redux';
+import { services } from 'store/feathersClient';
+
+// Custom Components
+import AreYouSureButton from 'components/Other/AreYouSureButton';
+
+// Material Kit
 import Card from 'components/MaterialKit/Card/Card.js';
 import CardBody from 'components/MaterialKit/Card/CardBody.js';
 import Badge from 'components/MaterialKit/Badge/Badge.js';
 import GridContainer from 'components/MaterialKit/Grid/GridContainer.js';
 import GridItem from 'components/MaterialKit/Grid/GridItem.js';
 import Button from 'components/MaterialKit/CustomButtons/Button.js';
+
+// Material UI
 import PageviewIcon from '@material-ui/icons/Pageview';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-// CUSTOM COMPONENTS
-import AreYouSureButton from 'components/Other/AreYouSureButton';
-
-// STYLES
+// Styles
 import { makeStyles } from '@material-ui/core/styles';
 import {
     cardTitle,
     cardLink,
     cardSubtitle,
 } from 'assets/jss/nextjs-material-kit.js';
-
-// Store Actions and Redux
-import { useDispatch, useSelector } from 'react-redux';
-import { services } from 'store/feathersClient';
-
 const styles = { cardTitle, cardLink, cardSubtitle };
 const useStyles = makeStyles(styles);
 
