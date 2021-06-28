@@ -1,4 +1,10 @@
-// CORE COMPONENTS
+// React + Redux + Functionality
+import React from 'react';
+
+// Utilities
+import { developmentLevelToString } from 'utils/eocs';
+
+// Material Kit
 import Card from 'components/MaterialKit/Card/Card.js';
 import CardBody from 'components/MaterialKit/Card/CardBody.js';
 import CardFooter from 'components/MaterialKit/Card/CardFooter.js';
@@ -8,19 +14,17 @@ import Danger from 'components/MaterialKit/Typography/Danger.js';
 import GridContainer from 'components/MaterialKit/Grid/GridContainer.js';
 import GridItem from 'components/MaterialKit/Grid/GridItem.js';
 import Button from 'components/MaterialKit/CustomButtons/Button.js';
+
+// Icons
 import FindInPageIcon from '@material-ui/icons/FindInPage';
 
-// STYLES
+// Styles
 import { makeStyles } from '@material-ui/core/styles';
 import { cardTitle } from 'assets/jss/nextjs-material-kit.js';
 const styles = {
     cardTitle,
 };
 const useStyles = makeStyles(styles);
-
-import React from 'react';
-
-import { developmentLevelToString } from 'utils/eocs';
 
 const EOCCard = (props) => {
     const {
