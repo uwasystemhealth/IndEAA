@@ -1,17 +1,17 @@
+// React + Redux + Functionality
 import React from 'react';
+import { useSelector } from 'react-redux';
 
-// @material-ui/core components
-import { makeStyles } from '@material-ui/core/styles';
-
-// core components
-import Header from 'components/MaterialKit/Header/Header.js';
+// Custom Component
 import HeaderLinks from 'components/Layout/HeaderLinks.js';
 
+// Material Kit
+import Header from 'components/MaterialKit/Header/Header.js';
+
+// Styles
 import styles from 'assets/jss/nextjs-material-kit/pages/componentsSections/navbarsStyle.js';
 const useStyles = makeStyles(styles);
-
-// Redux
-import { useSelector } from 'react-redux';
+import { makeStyles } from '@material-ui/core/styles';
 
 const Navbar = () => {
     const classes = useStyles();
