@@ -10,7 +10,7 @@ import EditModal from 'components/Coordinator/EvaluationOverview/Documents/EditM
 // Material Kit
 import Button from 'components/MaterialKit/CustomButtons/Button.js';
 
-// Material UI
+// Icons
 import EditIcon from '@material-ui/icons/Edit';
 
 const Documents = ({ specificTags=null, gridItemProps={md:4}, removeAddDocument = false}) => {
