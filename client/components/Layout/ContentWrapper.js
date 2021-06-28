@@ -1,20 +1,23 @@
+// React + Redux + Functionality
 import React from 'react';
-import { SnackbarProvider} from 'notistack';
 
-// CORE COMPONENTS
+// Custom Components
+import Footer from 'components/Layout/Footer';
+import Notification from 'components/Layout/Notification';
+
+// Material Kit
 import Card from 'components/MaterialKit/Card/Card.js';
 import CardBody from 'components/MaterialKit/Card/CardBody.js';
 import GridContainer from 'components/MaterialKit/Grid/GridContainer.js';
 
+// Other
+import image from 'assets/img/bg7.jpg';
+import { SnackbarProvider } from 'notistack';
 
-import Footer from 'components/Layout/Footer';
-import Notification from 'components/Layout/Notification';
-
-// STYLES
+// Styles
 import { makeStyles } from '@material-ui/core/styles';
 import styles from 'assets/jss/nextjs-material-kit/pages/loginPage.js';
 const useStyles = makeStyles(styles);
-import image from 'assets/img/bg7.jpg';
 
 const ContentWrapper = ({ children }) => {
     const classes = useStyles();
