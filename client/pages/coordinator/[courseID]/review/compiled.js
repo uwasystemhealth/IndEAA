@@ -1,7 +1,6 @@
+// React + Redux + Functionality
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
-
-// Redux
 import { useSelector } from 'react-redux';
 import { services } from 'store/feathersClient';
 
@@ -10,7 +9,7 @@ import ReviewDocumentsComments from 'components/Coordinator/ReviewCompiled/Revie
 import ReviewGeneralCommentCards from 'components/Coordinator/ReviewCompiled/ReviewGeneralCommentCards';
 import ReviewEOCTable from 'components/Coordinator/ReviewCompiled/ReviewEOCTable';
 
-
+// Utilities
 import {linkReviewerAndReview} from 'utils/compileResult';
 
 const CompiledPage = () => {
