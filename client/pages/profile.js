@@ -1,13 +1,11 @@
+// React + Redux + Functionality
 import React from 'react';
+
+// Utilities
 // nodejs library that concatenates classes
 import classNames from 'classnames';
-// @material-ui/core components
-import { makeStyles } from '@material-ui/core/styles';
-// @material-ui/icons
-import Camera from '@material-ui/icons/Camera';
-import Palette from '@material-ui/icons/Palette';
-import Favorite from '@material-ui/icons/Favorite';
-// core components
+
+// Material Kit
 import Header from 'components/MaterialKit/Header/Header.js';
 import Footer from 'components/MaterialKit/Footer/Footer.js';
 import Button from 'components/MaterialKit/CustomButtons/Button.js';
@@ -17,8 +15,8 @@ import HeaderLinks from 'components/MaterialKit/Header/HeaderLinks.js';
 import NavPills from 'components/MaterialKit/NavPills/NavPills.js';
 import Parallax from 'components/MaterialKit/Parallax/Parallax.js';
 
+// Other
 import profile from 'assets/img/faces/christian.jpg';
-
 import studio1 from 'assets/img/examples/studio-1.jpg';
 import studio2 from 'assets/img/examples/studio-2.jpg';
 import studio3 from 'assets/img/examples/studio-3.jpg';
@@ -30,8 +28,14 @@ import work3 from 'assets/img/examples/cynthia-del-rio.jpg';
 import work4 from 'assets/img/examples/mariya-georgieva.jpg';
 import work5 from 'assets/img/examples/clem-onojegaw.jpg';
 
-import styles from 'assets/jss/nextjs-material-kit/pages/profilePage.js';
+// Icons
+import Camera from '@material-ui/icons/Camera';
+import Palette from '@material-ui/icons/Palette';
+import Favorite from '@material-ui/icons/Favorite';
 
+// Styles
+import styles from 'assets/jss/nextjs-material-kit/pages/profilePage.js';
+import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles(styles);
 
 export default function ProfilePage(props) {
