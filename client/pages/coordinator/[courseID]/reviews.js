@@ -1,3 +1,4 @@
+// React + Redux + Functionality
 import { useRouter } from 'next/router';
 
 //Styles
