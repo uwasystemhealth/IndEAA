@@ -1,7 +1,16 @@
+// React + Redux + Functionality
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import Datetime from 'react-datetime';
+import { signIn } from 'actions/auth';
+import { useDispatch, useSelector } from 'react-redux';
+import { services } from 'store/feathersClient';
 
-// material-ui components
+// Material Kit
+import Button from 'components/MaterialKit/CustomButtons/Button.js';
+import CustomInput from 'components/MaterialKit/CustomInput/CustomInput.js';
+
+// Material UI
 import Slide from '@material-ui/core/Slide';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -10,20 +19,11 @@ import DialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import People from '@material-ui/icons/People';
-import Datetime from 'react-datetime';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 
-// @material-ui/icons
+// Icons
 import Close from '@material-ui/icons/Close';
-// core components
-import Button from 'components/MaterialKit/CustomButtons/Button.js';
-import CustomInput from 'components/MaterialKit/CustomInput/CustomInput.js';
-
-// Redux
-import { signIn } from 'actions/auth';
-import { useDispatch, useSelector } from 'react-redux';
-import { services } from 'store/feathersClient';
 
 // Styles
 import { makeStyles } from '@material-ui/core/styles';
