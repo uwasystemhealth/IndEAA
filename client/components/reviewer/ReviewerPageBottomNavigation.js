@@ -1,13 +1,15 @@
+// React + Redux + Functionality
 import React from 'react';
 import { useRouter } from 'next/router';
 
-// CORE COMPONENTS
+// Utilities
+import { reviewSteps } from 'utils/review';
+
+// Material Kit
 import Button from 'components/MaterialKit/CustomButtons/Button.js';
 import CardFooter from 'components/MaterialKit/Card/CardFooter.js';
 import GridContainer from 'components/MaterialKit/Grid/GridContainer.js';
 import GridItem from 'components/MaterialKit/Grid/GridItem.js';
-
-import { reviewSteps } from 'utils/review';
 
 // Index represents page number
 const ReviewerPageBottomNavigation = ({
