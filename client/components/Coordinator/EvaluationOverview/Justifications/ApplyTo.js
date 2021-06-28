@@ -1,12 +1,15 @@
-// CORE COMPONENTS
+// Custom Components
+import DesignedCheckBox  from 'components/administrator/DesignedCheckBox';
+
+// Material Kit
 import Card from 'components/MaterialKit/Card/Card.js';
 import CardBody from 'components/MaterialKit/Card/CardBody.js';
 import CardHeader from 'components/MaterialKit/Card/CardHeader.js';
+
+// Material UI
 import List from '@material-ui/core/List';
-import DesignedCheckBox  from 'components/administrator/DesignedCheckBox';
 
-
-// STYLES
+// Styles
 import { makeStyles } from '@material-ui/core/styles';
 import checkboxStyles from 'assets/jss/nextjs-material-kit/customCheckboxRadioSwitch.js';
 const styles = {
