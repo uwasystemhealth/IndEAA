@@ -1,4 +1,14 @@
-// CORE COMPONENTS
+// React + Redux + Functionality
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { services } from 'store/feathersClient';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+
+// Custom Components
+import EvaluationListing from './EvaluationListing.js';
+import EvaluationModal from './EvaluationModal.js';
+
+// Material Kit
 import Card from 'components/MaterialKit/Card/Card.js';
 import CardBody from 'components/MaterialKit/Card/CardBody.js';
 import CardHeader from 'components/MaterialKit/Card/CardHeader.js';
@@ -6,19 +16,17 @@ import CardFooter from 'components/MaterialKit/Card/CardFooter.js';
 import Button from 'components/MaterialKit/CustomButtons/Button.js';
 import GridContainer from 'components/MaterialKit/Grid/GridContainer.js';
 import GridItem from 'components/MaterialKit/Grid/GridItem.js';
+
+// Material UI
 import ListItem from '@material-ui/core/ListItem';
 import List from '@material-ui/core/List';
 
-
-import EvaluationListing from './EvaluationListing.js';
-import EvaluationModal from './EvaluationModal.js';
-
 //Styles
 import { useTheme } from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { makeStyles } from '@material-ui/core/styles';
 import styles from 'assets/jss/nextjs-material-kit/pages/landingPage.js';
 import checkboxStyles from 'assets/jss/nextjs-material-kit/customCheckboxRadioSwitch.js';
+
 const useStyles = makeStyles(() => ({
     ...styles,
     ...checkboxStyles,
@@ -30,12 +38,6 @@ const useStyles = makeStyles(() => ({
         overflow: 'auto',
     },
 }));
-
-import { useEffect, useState } from 'react';
-
-// Redux
-import { useSelector } from 'react-redux';
-import { services } from 'store/feathersClient';
 
 const EvaluationList = () => {
     const classes = useStyles();
