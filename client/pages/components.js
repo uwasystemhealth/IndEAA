@@ -1,12 +1,13 @@
+// React + Redux + Functionality
 import React from 'react';
+
+// Utilities
 // nodejs library that concatenates classes
 import classNames from 'classnames';
 // react components for routing our app without refresh
 import Link from 'next/link';
-// @material-ui/core components
-import { makeStyles } from '@material-ui/core/styles';
-// @material-ui/icons
-// core components
+
+// Material Kit
 import Header from 'components/MaterialKit/Header/Header.js';
 import HeaderLinks from 'components/MaterialKit/Header/HeaderLinks.js';
 import Footer from 'components/MaterialKit/Footer/Footer.js';
@@ -30,8 +31,9 @@ import SectionExamples from 'pages-sections/Components-Sections/SectionExamples.
 import SectionDownload from 'pages-sections/Components-Sections/SectionDownload.js';
 import SectionMaterialDashboard from 'pages-sections/Components-Sections/SectionMaterialDashboard.js';
 
+// Styles
 import styles from 'assets/jss/nextjs-material-kit/pages/components.js';
-
+import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles(styles);
 
 export default function Components(props) {
