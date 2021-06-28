@@ -1,14 +1,11 @@
+// Custom Components
+import DocumentCard from 'components/Coordinator/EvaluationOverview/Documents/DocumentCard.js';
 
+// Material Kit
 import GridContainer from 'components/MaterialKit/Grid/GridContainer.js';
 import GridItem from 'components/MaterialKit/Grid/GridItem.js';
 
-
-import DocumentCard from 'components/Coordinator/EvaluationOverview/Documents/DocumentCard.js';
-
-
-
-
-const DocumentsListItems = ({documentsToDisplay, 
+const DocumentsListItems = ({documentsToDisplay,
     course_id, 
     setCurrentSelectedDocumentReview, 
     setCurrentSelectedDocument, 
