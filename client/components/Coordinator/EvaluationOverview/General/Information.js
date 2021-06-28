@@ -1,18 +1,18 @@
-// CORE COMPONENTS
+// React + Redux + Functionality
+import { useSelector } from 'react-redux';
+
+// Material Kit
 import Card from 'components/MaterialKit/Card/Card.js';
 import CardBody from 'components/MaterialKit/Card/CardBody.js';
 import CardHeader from 'components/MaterialKit/Card/CardHeader.js';
 
-// STYLES
+// Styles
 import { cardSubtitle } from 'assets/jss/nextjs-material-kit.js';
 import { makeStyles } from '@material-ui/core/styles';
 const styles = {
     cardSubtitle,
 };
 const useStyles = makeStyles(styles);
-
-// Store Actions and Redux
-import { useSelector } from 'react-redux';
 
 const Information = () => {
     const classes = useStyles();
