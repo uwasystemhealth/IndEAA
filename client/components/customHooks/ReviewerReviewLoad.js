@@ -1,4 +1,7 @@
-import {useEffect} from 'react';
+// React + Redux + Functionality
+import { useEffect } from 'react';
+
+// Utilities
 import { getOrCreateReview, updateCurrentlyBeingViewedCourse } from 'utils/feathersUpdate';
 
 export const useCurrentReviewOfUser = (authUser, reviewState, course_id) => {
