@@ -1,13 +1,16 @@
+// React + Redux + Functionality
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+import { services } from 'store/feathersClient';
+
+// Custom Components
+import ManageReviewers from './ManageReviewers.js';
+import EvaluationModal from 'components/Coordinator/Evaluation/EvaluationModal';
+
+// Material Kit
 import Card from 'components/MaterialKit/Card/Card.js';
 import CardBody from 'components/MaterialKit/Card/CardBody.js';
 import Button from 'components/MaterialKit/CustomButtons/Button.js';
-import ManageReviewers from './ManageReviewers.js';
-import { useRouter } from 'next/router';
-import EvaluationModal from 'components/Coordinator/Evaluation/EvaluationModal';
-import { useState } from 'react';
-
-// Store actions and Redux
-import { services } from 'store/feathersClient';
 
 const makeArchived = (evaluation_id, router) =>
     setArchived(evaluation_id, router, true);
