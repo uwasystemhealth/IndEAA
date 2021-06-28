@@ -1,13 +1,12 @@
-// CORE COMPONENTS
+// React + Redux + Functionality
+import { useSelector } from 'react-redux';
+
+// Material Kit
 import Card from 'components/MaterialKit/Card/Card.js';
 import CardBody from 'components/MaterialKit/Card/CardBody.js';
 import CardHeader from 'components/MaterialKit/Card/CardHeader.js';
 import Grid from 'components/MaterialKit/Grid/GridContainer.js';
 import GridItem from 'components/MaterialKit/Grid/GridItem.js';
-
-// Store Actions and Redux
-import { useSelector } from 'react-redux';
-
 
 const OtherInformation = () => {
     const courseEval = useSelector((state) => state['course-evaluation']);
