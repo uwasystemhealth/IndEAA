@@ -1,3 +1,4 @@
+// React + Redux + Functionality
 import React from 'react';
 
 const Page404 = () => {
