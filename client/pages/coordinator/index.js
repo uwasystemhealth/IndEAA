@@ -1,4 +1,4 @@
-// CUSTOM COMPONENTS
+// Custom Components
 import CourseList from '../../components/Coordinator/Evaluation/EvaluationList';
 
 //Styles
