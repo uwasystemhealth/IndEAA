@@ -1,13 +1,10 @@
+// React + Redux + Functionality
+import { useSelector } from 'react-redux';
+import { useState } from 'react';
 
-
-
+// Custom Components
 import DocumentsListItems from 'components/Coordinator/EvaluationOverview/Documents/DocumentsListItems.js';
 import ReviewerDocumentModal from 'components/reviewer/ReviewerDocumentModal';
-
-// Store Actions and Redux
-import { useSelector } from 'react-redux';
-
-import { useState } from 'react';
 
 const Documents = ({ 
     specificTags=null, // Optional prop - allows filtering for specific documents of specific tags
