@@ -1,5 +1,16 @@
+// React + Redux + Functionality
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+
+// Utilities
+import { getEOCInfo, developmentLevelToString } from 'utils/eocs';
+import { getDetailsOfReviewEOC, getRangeOfDevelopmentLevel, getAverageOfDevelopmentLevel } from 'utils/compileResult';
+
+// Material Kit
+import Card from 'components/MaterialKit/Card/Card.js';
+import CardBody from 'components/MaterialKit/Card/CardBody.js';
+import CardHeader from 'components/MaterialKit/Card/CardHeader.js';
+
+// Material UI
 import Box from '@material-ui/core/Box';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
@@ -11,18 +22,13 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
+
+// Icons
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 
-// CORE COMPONENTS
-import Card from 'components/MaterialKit/Card/Card.js';
-import CardBody from 'components/MaterialKit/Card/CardBody.js';
-import CardHeader from 'components/MaterialKit/Card/CardHeader.js';
-
-
-import {getEOCInfo, developmentLevelToString} from 'utils/eocs';
-import {getDetailsOfReviewEOC, getRangeOfDevelopmentLevel, getAverageOfDevelopmentLevel} from 'utils/compileResult';
-
+// Styles
+import { makeStyles } from '@material-ui/core/styles';
 const useRowStyles = makeStyles({
     root: {
         '& > *': {
