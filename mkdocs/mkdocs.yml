@@ -1,12 +1,24 @@
 site_name: IndEAA Documentation
 copyright: Copyright System Health Lab
 repo_url: https://github.com/uwasystemhealth/IndEAA
+# This uri refers to the github path to edit, change this if you branch is different in name
+edit_uri: edit/main/mkdocs/docs/
 theme:
   name: material
-  custom_dir: overrides
+  custom_dir: overrides # remove this if you removed the override/partial
   palette:
+  - media: "(prefers-color-scheme: light)" # below here is a palette for light mode
     primary: brown
-    scheme: default # "slate" is dark, "default" is white
+    scheme: default
+    toggle:
+      icon: material/toggle-switch-off-outline
+      name: Switch to dark mode
+  - media: "(prefers-color-scheme: dark)"  # below here is a palette for dark mode
+    primary: brown
+    scheme: slate
+    toggle:
+      icon: material/toggle-switch
+      name: Switch to light mode
   logo: images/shl.png
   favicon: images/shl.png
   features:
@@ -18,7 +30,7 @@ plugins:
         copyright: System Health Lab
         cover_title: IndEAA
         cover_subtitle: Streamlining course review processs
-        cover_logo: ./docs/images/shl.png
+        cover_logo: ./docs/images/shl_with_text.png
         enabled_if_env: ENABLE_PDF_EXPORT
   # at the moment pdf cannot render relative linked image https://github.com/zhaoterryy/mkdocs-pdf-export-plugin/issues/92
   - mermaid2:
@@ -63,6 +75,23 @@ extra_javascript:
   - https://unpkg.com/mermaid@8.8.2/dist/mermaid.min.js
   - https://polyfill.io/v3/polyfill.min.js?features=es6
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+extra:
+  social:
+    - icon: octicons/globe-16
+      link: https://systemhealthlab.com/
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/uwasystemhealth
+    - icon: fontawesome/brands/instagram
+      link: https://www.instagram.com/uwasystemhealth/
+    - icon: fontawesome/brands/facebook
+      link: https://www.facebook.com/SystemHealthLab/
+    - icon: fontawesome/brands/youtube
+      link: https://www.youtube.com/channel/UCzrEiyVpb3xix8yYt1m6BNw
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/company/systemhealthlab/
+    - icon: fontawesome/solid/paper-plane
+      link: mailto:systemhealthlab@gmail.com
 
 nav:
 - Overview: index.md
