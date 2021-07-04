@@ -38,7 +38,7 @@ export default function HeaderLinks(props) {
   const rolesLinksToUsers = user && rolesOfUser.map(
     permission => {
       const RoleIcon = roleIcons[permission];
-      return (<Link href={`/${permission.toLowerCase()}`}>
+      return (<Link href={`/${permission.toLowerCase()}`} key={permission}>
         <a className={classes.dropdownLink}><RoleIcon />{permission}</a>
       </Link>);
     }
