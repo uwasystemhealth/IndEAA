@@ -30,6 +30,7 @@ export default function Footer(props) {
             href="https://frinzelapuz.now.sh"
             className={aClasses}
             target="_blank"
+            rel="noreferrer"
           >
             Frinze Erin Lapuz
           </a>{' '}
@@ -38,6 +39,7 @@ export default function Footer(props) {
             href="https://nefsite.vercel.app/"
             className={aClasses}
             target="_blank"
+            rel="noreferrer"
           >
             Michael Nefiodovas
           </a>{' '}
@@ -46,6 +48,7 @@ export default function Footer(props) {
             href="https://systemhealthlab.com/"
             className={aClasses}
             target="_blank"
+            rel="noreferrer"
           >
             System Health Lab
           </a>{' '}
