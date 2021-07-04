@@ -13,30 +13,30 @@ import List from '@material-ui/core/List';
 import { makeStyles } from '@material-ui/core/styles';
 import checkboxStyles from 'assets/jss/nextjs-material-kit/customCheckboxRadioSwitch.js';
 const styles = {
-    ...checkboxStyles,
+  ...checkboxStyles,
 };
 const useStyles = makeStyles(styles);
 
 const ApplyTo = ({ eocs ,eocInSame,handleCheck}) => {
-    const classes = useStyles();
+  const classes = useStyles();
 
-    return (
-        <Card>
-            <CardHeader color="success">Tags</CardHeader>
-            <CardBody>
-                <List>
-                    {eocs.map((numberLabel) => (
-                        <DesignedCheckBox
-                            key={numberLabel}
-                            onClick={() =>handleCheck(numberLabel)}
-                            isChecked={ eocInSame.includes(numberLabel)}
-                            label={`EOC ${numberLabel}`}
-                        />
-                    ))}
-                </List>
-            </CardBody>
-        </Card>
-    );
+  return (
+    <Card>
+      <CardHeader color="success">Tags</CardHeader>
+      <CardBody>
+        <List>
+          {eocs.map((numberLabel) => (
+            <DesignedCheckBox
+              key={numberLabel}
+              onClick={() =>handleCheck(numberLabel)}
+              isChecked={ eocInSame.includes(numberLabel)}
+              label={`EOC ${numberLabel}` }
+            />
+          ))}
+        </List>
+      </CardBody>
+    </Card>
+  );
 };
 
 export default ApplyTo;

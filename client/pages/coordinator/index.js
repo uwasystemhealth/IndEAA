@@ -7,12 +7,12 @@ import styles from 'assets/jss/nextjs-material-kit/pages/landingPage.js';
 const useStyles = makeStyles(styles);
 
 const CoordinatorMainPage = () => {
-    const classes = useStyles();
-    return (
-        <div>
-            <CourseList />
-        </div>
-    );
+  const classes = useStyles();
+  return (
+    <div>
+      <CourseList />
+    </div>
+  );
 };
 
 export default CoordinatorMainPage;

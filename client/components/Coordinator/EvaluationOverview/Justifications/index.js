@@ -5,10 +5,10 @@ import {useCurrentCourseData} from 'components/customHooks/CoordinatorCourseLoad
 import EOCAccordion from './EOCAccordion.js';
 
 const Justifications = () => {
-    // Initiate Conditional Data Loading
-    useCurrentCourseData();
+  // Initiate Conditional Data Loading
+  useCurrentCourseData();
     
-    return <EOCAccordion />;
+  return <EOCAccordion />;
 };
 
 export default Justifications;

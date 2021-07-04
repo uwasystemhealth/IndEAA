@@ -34,86 +34,86 @@ import styles from 'assets/jss/nextjs-material-kit/pages/loginPage.js';
 const useStyles = makeStyles(styles);
 
 const ReviewerCourseReviewPage1 = () => {
-    const router = useRouter();
-    const { courseID } = router.query;
+  const router = useRouter();
+  const { courseID } = router.query;
 
-    const reviewState = useSelector((state) => state.review);
-    const review = reviewState.queryResult.data[0] || { course_id: courseID };
-    const authUser = useSelector((state) => state.auth.user);
+  const reviewState = useSelector((state) => state.review);
+  const review = reviewState.queryResult.data[0] || { course_id: courseID };
+  const authUser = useSelector((state) => state.auth.user);
 
 
-    // Load the Reviewer using custom useEffect Hook
-    useCurrentReviewOfUser(authUser,reviewState,courseID);
-    useRedirectIfFinish(review,courseID);
+  // Load the Reviewer using custom useEffect Hook
+  useCurrentReviewOfUser(authUser,reviewState,courseID);
+  useRedirectIfFinish(review,courseID);
 
-    const handleSubmit = () => {
+  const handleSubmit = () => {
     // Update the Review Process when has been read
-        if (!review.step1DevelopmentLevels) {
-            services.review.patch(review._id, {
-                step1DevelopmentLevels: new Date(),
-            });
-        }
-    };
+    if (!review.step1DevelopmentLevels) {
+      services.review.patch(review._id, {
+        step1DevelopmentLevels: new Date(),
+      });
+    }
+  };
 
-    const pageNumber = 1;
+  const pageNumber = 1;
 
-    return (
-        <div>
-            <ReviewProgress review={review} />
-            <ReviewerPageCardDescription
-                pageNumber={pageNumber}
-            />
-            <ReviewerDocumentsListing specificTags={'introduction'} />
-            <EOCDescriptionAccordions />
-            <ReviewerPageBottomNavigation
-                pageNumber={pageNumber}
-                course_id={courseID}
-                handleSubmit={handleSubmit}
-            />
-        </div>
-    );
+  return (
+    <div>
+      <ReviewProgress review={review} />
+      <ReviewerPageCardDescription
+        pageNumber={pageNumber}
+      />
+      <ReviewerDocumentsListing specificTags={'introduction'} />
+      <EOCDescriptionAccordions />
+      <ReviewerPageBottomNavigation
+        pageNumber={pageNumber}
+        course_id={courseID}
+        handleSubmit={handleSubmit}
+      />
+    </div>
+  );
 };
 
 const EOCDescriptionAccordions = () => {
-    const [eocs] = useState(() => getEOCInfo());
+  const [eocs] = useState(() => getEOCInfo());
 
-    // This is a copy of the coordinator/EOCAccordion (modified)
-    // This needs to be refactored later on
-    // Ideally the aggreed upon
+  // This is a copy of the coordinator/EOCAccordion (modified)
+  // This needs to be refactored later on
+  // Ideally the aggreed upon
 
-    const classes = useStyles();
+  const classes = useStyles();
 
-    return (
-        <>
-            {eocs.map((eocSet) => (
-                <Accordion key={eocSet.setNum}>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+  return (
+    <>
+      {eocs.map((eocSet) => (
+        <Accordion key={eocSet.setNum}>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
             EOC {eocSet.setNum}: {eocSet.setName}
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <CustomTabs
-                            headerColor="primary"
-                            tabs={eocSet.EOCS.map((eoc) => ({
-                                tabName: `EOC ${eocSet.setNum}.${eoc.EOCNum}`,
-                                tabContent: (
-                                    <GridContainer>
-                                        <GridItem md={6}>
-                                            <h4 className={classes.title}>Description</h4>
-                                            <p>{eoc.desc}</p>
-                                        </GridItem>
-                                        <GridItem md={6}>
-                                            <h4 className={classes.title}>Indicators Of Attainment</h4>
-                                            {eoc.indicatorsOfAttainment.map(indicator=> <p key={indicator}>{indicator}</p>)}
-                                        </GridItem>
-                                    </GridContainer>
-                                ),
-                            }))}
-                        />
-                    </AccordionDetails>
-                </Accordion>
-            ))}
-        </>
-    );
+          </AccordionSummary>
+          <AccordionDetails>
+            <CustomTabs
+              headerColor="primary"
+              tabs={eocSet.EOCS.map((eoc) => ({
+                tabName: `EOC ${eocSet.setNum}.${eoc.EOCNum}`,
+                tabContent: (
+                  <GridContainer>
+                    <GridItem md={6}>
+                      <h4 className={classes.title}>Description</h4>
+                      <p>{eoc.desc}</p>
+                    </GridItem>
+                    <GridItem md={6}>
+                      <h4 className={classes.title}>Indicators Of Attainment</h4>
+                      {eoc.indicatorsOfAttainment.map(indicator=> <p key={indicator}>{indicator}</p>)}
+                    </GridItem>
+                  </GridContainer>
+                ),
+              }))}
+            />
+          </AccordionDetails>
+        </Accordion>
+      ))}
+    </>
+  );
 };
 
 export default ReviewerCourseReviewPage1;

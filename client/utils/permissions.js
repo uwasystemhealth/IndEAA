@@ -1,6 +1,6 @@
 // Get all available roles permissions of a user
 export const getAvailablePermissionsOfUser = (permissions) => {
-    return new Set(permissions.map((permission) => permission.role).sort());
+  return new Set(permissions.map((permission) => permission.role).sort());
 };
 
 export const permissions = ['Administrator', 'Coordinator', 'Reviewer'];
@@ -12,7 +12,7 @@ import RateReviewIcon from '@material-ui/icons/RateReview';
 
 // Consistent Casing to different Permissions
 export const roleIcons = {
-    Administrator: SupervisorAccountIcon,
-    Reviewer: RateReviewIcon,
-    Coordinator: AccountCircleIcon
+  Administrator: SupervisorAccountIcon,
+  Reviewer: RateReviewIcon,
+  Coordinator: AccountCircleIcon
 };

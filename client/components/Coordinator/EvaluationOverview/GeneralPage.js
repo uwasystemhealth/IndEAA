@@ -21,35 +21,35 @@ const useStyles = makeStyles({ ...landingStyles });
 
 const GeneralPage = () => {
 
-    return (
-        <CustomTabs
-            headerColor="success"
-            tabs={[
-                {
-                    tabName: 'General',
-                    tabIcon: Face,
-                    tabContent: <General />,
-                },
-                {
-                    tabName: 'Justifications',
-                    tabIcon: Chat,
-                    tabContent: (
-                        <Justifications />
-                    ),
-                },
-                {
-                    tabName: 'Documents',
-                    tabIcon: Chat,
-                    tabContent: <Documents />,
-                },
-                {
-                    tabName: 'Reviews',
-                    tabIcon: Build,
-                    tabContent: <Reviews />,
-                },
-            ]}
-        />
-    );
+  return (
+    <CustomTabs
+      headerColor="success"
+      tabs={[
+        {
+          tabName: 'General',
+          tabIcon: Face,
+          tabContent: <General />,
+        },
+        {
+          tabName: 'Justifications',
+          tabIcon: Chat,
+          tabContent: (
+            <Justifications />
+          ),
+        },
+        {
+          tabName: 'Documents',
+          tabIcon: Chat,
+          tabContent: <Documents />,
+        },
+        {
+          tabName: 'Reviews',
+          tabIcon: Build,
+          tabContent: <Reviews />,
+        },
+      ]}
+    />
+  );
     
 };
 

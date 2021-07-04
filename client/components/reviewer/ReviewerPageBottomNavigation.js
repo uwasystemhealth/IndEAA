@@ -13,67 +13,67 @@ import GridItem from 'components/MaterialKit/Grid/GridItem.js';
 
 // Index represents page number
 const ReviewerPageBottomNavigation = ({
-    pageNumber,
-    course_id,
-    handleSubmit,
-    overwriteNextButton,
+  pageNumber,
+  course_id,
+  handleSubmit,
+  overwriteNextButton,
 }) => {
-    // Look at ReviewProgress.js and make sure this lines up with "steps"
-    const index = pageNumber - 1;
-    const pageLink = reviewSteps;
-    const router = useRouter();
+  // Look at ReviewProgress.js and make sure this lines up with "steps"
+  const index = pageNumber - 1;
+  const pageLink = reviewSteps;
+  const router = useRouter();
 
-    return (
-        <CardFooter>
-            <GridContainer direction="row" alignItems="flex-start" justify="flex-end">
-                {index > 0 && (
-                    <GridItem xs={6}>
-                        <Button
-                            href={`/reviewer/${course_id}/${pageNumber - 1}-${
-                                pageLink[index - 1].stepLink
-                            }`}
-                        >
+  return (
+    <CardFooter>
+      <GridContainer direction="row" alignItems="flex-start" justify="flex-end">
+        {index > 0 && (
+          <GridItem xs={6}>
+            <Button
+              href={`/reviewer/${course_id}/${pageNumber - 1}-${
+                pageLink[index - 1].stepLink
+              }`}
+            >
               Back
-                        </Button>
-                    </GridItem>
-                )}
-                {!overwriteNextButton ? (
-                    <>
-                        {index < pageLink.length - 1 &&
+            </Button>
+          </GridItem>
+        )}
+        {!overwriteNextButton ? (
+          <>
+            {index < pageLink.length - 1 &&
               // The button has different functionality depending on whether there is a handleChange event
               (handleSubmit ? (
-                  <GridItem xs={6}>
-                      <Button
-                          onClick={() => {
-                              handleSubmit();
-                              router.push(
-                                  `/reviewer/${course_id}/${pageNumber + 1}-${
-                                      pageLink[index + 1].stepLink
-                                  }`
-                              );
-                          }}
-                      >
+                <GridItem xs={6}>
+                  <Button
+                    onClick={() => {
+                      handleSubmit();
+                      router.push(
+                        `/reviewer/${course_id}/${pageNumber + 1}-${
+                          pageLink[index + 1].stepLink
+                        }`
+                      );
+                    }}
+                  >
                     Next
-                      </Button>
-                  </GridItem>
+                  </Button>
+                </GridItem>
               ) : (
-                  <GridItem xs={6}>
-                      <Button
-                          href={`/reviewer/${course_id}/${pageNumber + 1}-${
-                              pageLink[index + 1].stepLink
-                          }`}
-                      >
+                <GridItem xs={6}>
+                  <Button
+                    href={`/reviewer/${course_id}/${pageNumber + 1}-${
+                      pageLink[index + 1].stepLink
+                    }`}
+                  >
                     Next
-                      </Button>
-                  </GridItem>
+                  </Button>
+                </GridItem>
               ))}
-                    </>
-                ) : (
-                    <>{overwriteNextButton}</>
-                )}
-            </GridContainer>
-        </CardFooter>
-    );
+          </>
+        ) : (
+          <>{overwriteNextButton}</>
+        )}
+      </GridContainer>
+    </CardFooter>
+  );
 };
 
 export default ReviewerPageBottomNavigation;

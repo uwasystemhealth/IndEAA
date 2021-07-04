@@ -17,41 +17,41 @@ import CardBody from 'components/MaterialKit/Card/CardBody.js';
 import CardHeader from 'components/MaterialKit/Card/CardHeader.js';
 
 const General = () => {
-    const router = useRouter();
+  const router = useRouter();
 
-    const evaluation = useSelector((state) => state['course-evaluation']);
-    const evaluationData = evaluation?.data;
-    // Initiate Conditional Data Loading
-    useCurrentCourseData();
+  const evaluation = useSelector((state) => state['course-evaluation']);
+  const evaluationData = evaluation?.data;
+  // Initiate Conditional Data Loading
+  useCurrentCourseData();
 
-    const { courseID } = router.query;
+  const { courseID } = router.query;
 
-    return (
-        <GridContainer>
-            <GridItem md={6}>
-                <Information />
-            </GridItem>
-            <GridItem md={6}>
-                <OtherInformation />
-                <Controls
-                    evaluationID={courseID}
-                    archived={evaluationData?.isArchived}
-                />
-            </GridItem>
-            <GridItem md={6} ><DocumentsGeneralSection /></GridItem>
-        </GridContainer>
-    );
+  return (
+    <GridContainer>
+      <GridItem md={6}>
+        <Information />
+      </GridItem>
+      <GridItem md={6}>
+        <OtherInformation />
+        <Controls
+          evaluationID={courseID}
+          archived={evaluationData?.isArchived}
+        />
+      </GridItem>
+      <GridItem md={6} ><DocumentsGeneralSection /></GridItem>
+    </GridContainer>
+  );
 
 };
 
 const DocumentsGeneralSection = () => (<>
-    {/* Disable Grid Item Props */}
-    <Card>
-        <CardHeader color="success">Introduction Documents</CardHeader>
-        <CardBody>
-            <Documents specificTags={'introduction'} gridItemProps={{}} removeAddDocument/> 
-        </CardBody>
-    </Card>
+  {/* Disable Grid Item Props */}
+  <Card>
+    <CardHeader color="success">Introduction Documents</CardHeader>
+    <CardBody>
+      <Documents specificTags={'introduction'} gridItemProps={{}} removeAddDocument/> 
+    </CardBody>
+  </Card>
 </>);
 
 export default General;

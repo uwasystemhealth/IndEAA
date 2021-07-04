@@ -25,146 +25,146 @@ import Close from '@material-ui/icons/Close';
 import modalStyle from 'assets/jss/nextjs-material-kit/modalStyle.js';
 import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles({
-    ...modalStyle,
+  ...modalStyle,
 });
 
 // COPY PASTED CODE, this should be refactored
 const CustomFormField = ({
-    label,
-    fieldName,
-    handleChange,
-    icon,
-    required = false,
-    value = '',
-    error = '',
-    inputProps,
-    formControlProps,
+  label,
+  fieldName,
+  handleChange,
+  icon,
+  required = false,
+  value = '',
+  error = '',
+  inputProps,
+  formControlProps,
 }) => (
-    <CustomInput
-        success={!error && !!value}
-        error={!!error}
-        required={required}
-        labelText={label}
-        key={fieldName}
-        id={fieldName}
-        helperText={error}
-        formControlProps={{
-            fullWidth: true,
-            ...formControlProps,
-        }}
-        inputProps={{
-            endAdornment: <InputAdornment position="end">{icon}</InputAdornment>,
-            onChange: handleChange,
-            value,
-            ...inputProps,
-        }}
-    />
+  <CustomInput
+    success={!error && !!value}
+    error={!!error}
+    required={required}
+    labelText={label}
+    key={fieldName}
+    id={fieldName}
+    helperText={error}
+    formControlProps={{
+      fullWidth: true,
+      ...formControlProps,
+    }}
+    inputProps={{
+      endAdornment: <InputAdornment position="end">{icon}</InputAdornment>,
+      onChange: handleChange,
+      value,
+      ...inputProps,
+    }}
+  />
 );
 
 const ReviewerDocumentModal = ({
-    documentReview,
-    review_id,
-    isOpen,
-    setClose,
+  documentReview,
+  review_id,
+  isOpen,
+  setClose,
 }) => {
-    const isCreateModal = typeof document === 'undefined';
-    const classes = useStyles();
+  const isCreateModal = typeof document === 'undefined';
+  const classes = useStyles();
 
-    // Get 2 part information
-    const { document, reviewComment } = documentReview || {};
+  // Get 2 part information
+  const { document, reviewComment } = documentReview || {};
 
-    const initialStateModal = {
-        comment: reviewComment?.comment || '',
-    };
+  const initialStateModal = {
+    comment: reviewComment?.comment || '',
+  };
 
-    const [state, setModalState] = useState(initialStateModal);
+  const [state, setModalState] = useState(initialStateModal);
 
-    // Rerenders on everytime the document changes
-    useEffect(() => {
-        setModalState(initialStateModal);
-    }, [documentReview]);
+  // Rerenders on everytime the document changes
+  useEffect(() => {
+    setModalState(initialStateModal);
+  }, [documentReview]);
 
-    const handleChange = (event) => {
-        const { id, value } = event.target;
-        const newState = { ...state, [id]: value };
-        setModalState(newState);
-    };
+  const handleChange = (event) => {
+    const { id, value } = event.target;
+    const newState = { ...state, [id]: value };
+    setModalState(newState);
+  };
 
-    const handleSave = (event) => {
-        setClose();
-        if (reviewComment) {
-            // Review exists, so edit it here
-            services.review.patch(
-                review_id,
-                {
-                    'step2Documents.$': {
-                        ...reviewComment,
-                        comment:state.comment,
-                    },
-                },
-                { query: { 'step2Documents.document_id': document._id } }
-            );
-        } else {
-            // Review does not yet exist, so create it here
-            services.review.patch(review_id, {
-                $push: {  step2Documents: {...state, document_id: document._id} },
-            });
-        }
-    };
+  const handleSave = (event) => {
+    setClose();
+    if (reviewComment) {
+      // Review exists, so edit it here
+      services.review.patch(
+        review_id,
+        {
+          'step2Documents.$': {
+            ...reviewComment,
+            comment:state.comment,
+          },
+        },
+        { query: { 'step2Documents.document_id': document._id } }
+      );
+    } else {
+      // Review does not yet exist, so create it here
+      services.review.patch(review_id, {
+        $push: {  step2Documents: {...state, document_id: document._id} },
+      });
+    }
+  };
 
-    return (
-        <>
-            <Dialog
-                open={isOpen}
-                keepMounted
-                onClose={() => setClose()}
-                maxWidth="lg"
-                fullWidth
-            >
-                <DialogTitle className={classes.modalHeader}>
-                    <IconButton
-                        className={classes.modalCloseButton}
-                        key="close"
-                        aria-label="Close"
-                        color="inherit"
-                        onClick={() => setClose()}
-                    >
-                        <Close className={classes.modalClose} />
-                    </IconButton>
-                    <h3>Comment on {document?.name}</h3>
-                </DialogTitle>
-                <DialogContent>
-                    <GridContainer>
-                        <Card>
-                            <CardBody>
-                                <GridContainer justify="center">
-                                    <GridItem xs={12}>
-                                        <CustomFormField
-                                            required
-                                            label="Comment on Document"
-                                            fieldName="comment"
-                                            handleChange={handleChange}
-                                            value={state['comment']}
-                                            inputProps={{
-                                                multiline: true,
-                                                rows: 4,
-                                            }}
-                                        />
-                                    </GridItem>
-                                </GridContainer>
-                            </CardBody>
-                        </Card>
-                    </GridContainer>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={() => setClose()}>Cancel</Button>
-                    <Button color="primary" onClick={() => handleSave()}>
+  return (
+    <>
+      <Dialog
+        open={isOpen}
+        keepMounted
+        onClose={() => setClose()}
+        maxWidth="lg"
+        fullWidth
+      >
+        <DialogTitle className={classes.modalHeader}>
+          <IconButton
+            className={classes.modalCloseButton}
+            key="close"
+            aria-label="Close"
+            color="inherit"
+            onClick={() => setClose()}
+          >
+            <Close className={classes.modalClose} />
+          </IconButton>
+          <h3>Comment on {document?.name}</h3>
+        </DialogTitle>
+        <DialogContent>
+          <GridContainer>
+            <Card>
+              <CardBody>
+                <GridContainer justify="center">
+                  <GridItem xs={12}>
+                    <CustomFormField
+                      required
+                      label="Comment on Document"
+                      fieldName="comment"
+                      handleChange={handleChange}
+                      value={state['comment']}
+                      inputProps={{
+                        multiline: true,
+                        rows: 4,
+                      }}
+                    />
+                  </GridItem>
+                </GridContainer>
+              </CardBody>
+            </Card>
+          </GridContainer>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setClose()}>Cancel</Button>
+          <Button color="primary" onClick={() => handleSave()}>
             Save
-                    </Button>
-                </DialogActions>
-            </Dialog>
-        </>
-    );
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
+  );
 };
 
 export default ReviewerDocumentModal;

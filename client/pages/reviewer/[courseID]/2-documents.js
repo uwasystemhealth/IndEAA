@@ -18,30 +18,30 @@ import styles from 'assets/jss/nextjs-material-kit/pages/landingPage.js';
 const useStyles = makeStyles(styles);
 
 const ReviewerCourseReviewPage2 = () => {
-    const router = useRouter();
-    const { courseID } = router.query;
+  const router = useRouter();
+  const { courseID } = router.query;
 
-    const reviewState = useSelector((state) => state.review);
-    const review = reviewState.queryResult.data[0] || { course_id: courseID };
-    const authUser = useSelector((state) => state.auth.user);
+  const reviewState = useSelector((state) => state.review);
+  const review = reviewState.queryResult.data[0] || { course_id: courseID };
+  const authUser = useSelector((state) => state.auth.user);
 
-    // Load the Reviewer using custom useEffect Hook
-    useCurrentReviewOfUser(authUser,reviewState,courseID);
-    useRedirectIfFinish(review,courseID);
-    const classes = useStyles();
-    const pageNumber = 2;
+  // Load the Reviewer using custom useEffect Hook
+  useCurrentReviewOfUser(authUser,reviewState,courseID);
+  useRedirectIfFinish(review,courseID);
+  const classes = useStyles();
+  const pageNumber = 2;
 
-    return (
-        <div>
-            <ReviewProgress review={review} />
-            <ReviewerPageCardDescription pageNumber={pageNumber} />
-            <ReviewerDocumentsListing />
-            <ReviewerPageBottomNavigation
-                pageNumber={pageNumber}
-                course_id={courseID}
-            />
-        </div>
-    );
+  return (
+    <div>
+      <ReviewProgress review={review} />
+      <ReviewerPageCardDescription pageNumber={pageNumber} />
+      <ReviewerDocumentsListing />
+      <ReviewerPageBottomNavigation
+        pageNumber={pageNumber}
+        course_id={courseID}
+      />
+    </div>
+  );
 };
 
 export default ReviewerCourseReviewPage2;

@@ -20,40 +20,40 @@ import styles from 'assets/jss/nextjs-material-kit/pages/loginPage.js';
 const useStyles = makeStyles(styles);
 
 const ContentWrapper = ({ children }) => {
-    const classes = useStyles();
-    return (
-        <>
-            <SnackbarProvider maxSnack={5}
-                preventDuplicate={true}
-                anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left'
-                }}
-            >
-                <Notification />
-                <div
-                    className={classes.pageHeader}
-                    style={{
-                        backgroundImage: 'url(' + image + ')',
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'top center'
-                    }}
-                >
-                    <div className={classes.container}>
-                        <GridContainer justify="center">
-                            <Card >
-                                <CardBody>
-                                    {children}
-                                </CardBody>
-                            </Card>
+  const classes = useStyles();
+  return (
+    <>
+      <SnackbarProvider maxSnack={5}
+        preventDuplicate={true}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left'
+        }}
+      >
+        <Notification />
+        <div
+          className={classes.pageHeader}
+          style={{
+            backgroundImage: 'url(' + image + ')',
+            backgroundSize: 'cover',
+            backgroundPosition: 'top center'
+          }}
+        >
+          <div className={classes.container}>
+            <GridContainer justify="center">
+              <Card >
+                <CardBody>
+                  {children}
+                </CardBody>
+              </Card>
 
-                        </GridContainer>
-                    </div>
-                    <Footer whiteFont />
-                </div>
-            </SnackbarProvider>
-        </>
-    );
+            </GridContainer>
+          </div>
+          <Footer whiteFont />
+        </div>
+      </SnackbarProvider>
+    </>
+  );
 };
 
 export default ContentWrapper;

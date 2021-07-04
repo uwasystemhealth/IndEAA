@@ -26,71 +26,71 @@ import styles from 'assets/jss/nextjs-material-kit/components/headerLinksStyle.j
 const useStyles = makeStyles(styles);
 
 export default function HeaderLinks(props) {
-    const user = useSelector(state => state.auth.user);
-    const currentRoleSelected = useSelector(state => state.general.currentRoleSelected);
+  const user = useSelector(state => state.auth.user);
+  const currentRoleSelected = useSelector(state => state.general.currentRoleSelected);
 
-    const dispatch = useDispatch();
-    const classes = useStyles();
+  const dispatch = useDispatch();
+  const classes = useStyles();
 
-    // Get All the Unique permissions of the user by the role
-    // Turn it into JSX Links
-    const rolesOfUser = user && Array.from(getAvailablePermissionsOfUser(user.perms));//.filter(role => role!==currentRoleSelected)
-    const rolesLinksToUsers = user && rolesOfUser.map(
-        permission => {
-            const RoleIcon = roleIcons[permission];
-            return (<Link href={`/${permission.toLowerCase()}`}>
-                <a className={classes.dropdownLink}><RoleIcon />{permission}</a>
-            </Link>);
-        }
-    );
-    return (
-        <List className={classes.list}>
-            {user && (rolesOfUser.length != 0 || currentRoleSelected!='') &&
+  // Get All the Unique permissions of the user by the role
+  // Turn it into JSX Links
+  const rolesOfUser = user && Array.from(getAvailablePermissionsOfUser(user.perms));//.filter(role => role!==currentRoleSelected)
+  const rolesLinksToUsers = user && rolesOfUser.map(
+    permission => {
+      const RoleIcon = roleIcons[permission];
+      return (<Link href={`/${permission.toLowerCase()}`}>
+        <a className={classes.dropdownLink}><RoleIcon />{permission}</a>
+      </Link>);
+    }
+  );
+  return (
+    <List className={classes.list}>
+      {user && (rolesOfUser.length != 0 || currentRoleSelected!='') &&
                 <ListItem className={classes.listItem}>
-                    <CustomDropdown
-                        noLiPadding
-                        navDropdown
-                        buttonText={currentRoleSelected || 'Choose Your Role'}
-                        buttonProps={{
-                            className: classes.navLink,
-                            color: 'transparent'
-                        }}
-                        buttonIcon={currentRoleSelected ? roleIcons[currentRoleSelected] : Apps}
-                        dropdownList={rolesLinksToUsers}
-                    />
+                  <CustomDropdown
+                    noLiPadding
+                    navDropdown
+                    buttonText={currentRoleSelected || 'Choose Your Role'}
+                    buttonProps={{
+                      className: classes.navLink,
+                      color: 'transparent'
+                    }}
+                    buttonIcon={currentRoleSelected ? roleIcons[currentRoleSelected] : Apps}
+                    dropdownList={rolesLinksToUsers}
+                  />
                 </ListItem>
-            }
-            <ListItem className={classes.listItem}>
-                <Button
-                    href="https://indeaa-docs.systemhealthlab.com/"
-                    color="transparent"
-                    target="_blank"
-                    external={true}
-                    className={classes.navLink}
-                >
-                    <Icon className={classes.icons}>unarchive</Icon> Documentation
-                </Button>
-            </ListItem>
+      }
+      <ListItem className={classes.listItem}>
+        <Button
+          href="https://indeaa-docs.systemhealthlab.com/"
+          color="transparent"
+          target="_blank"
+          external={true}
+          className={classes.navLink}
+        >
+          <Icon className={classes.icons}>unarchive</Icon> Documentation
+        </Button>
+      </ListItem>
 
-            {user &&
+      {user &&
                 (<ListItem className={classes.listItem}>
-                    <Tooltip
-                        title={`You are login as ${user.name}`}
-                        placement={'top'}
-                        classes={{ tooltip: classes.tooltip }}
-                    ><Button
-                            color="info"
-                            onClick={(e) => dispatch(signOut())}
-                        >
+                  <Tooltip
+                    title={`You are login as ${user.name}`}
+                    placement={'top'}
+                    classes={{ tooltip: classes.tooltip }}
+                  ><Button
+                      color="info"
+                      onClick={(e) => dispatch(signOut())}
+                    >
                             Signout
-                        </Button>
-                    </Tooltip>
+                    </Button>
+                  </Tooltip>
                 </ListItem>
 
                 )
 
-            }
+      }
 
-        </List>
-    );
+    </List>
+  );
 }

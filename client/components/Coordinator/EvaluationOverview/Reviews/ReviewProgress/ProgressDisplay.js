@@ -21,62 +21,62 @@ import PageviewIcon from '@material-ui/icons/Pageview';
 import { makeStyles } from '@material-ui/core/styles';
 import { cardTitle, cardSubtitle } from 'assets/jss/nextjs-material-kit.js';
 const styles = {
-    cardTitle,
-    cardSubtitle,
+  cardTitle,
+  cardSubtitle,
 };
 const useStyles = makeStyles(styles);
 
 const ProgressDisplay = ({ reviewer, review }) => {
-    const router = useRouter();
-    const classes = useStyles();
+  const router = useRouter();
+  const classes = useStyles();
 
-    const courseEvaluation = useSelector((state) => state['course-evaluation'])
-        ?.data;
+  const courseEvaluation = useSelector((state) => state['course-evaluation'])
+    ?.data;
 
-    const handleView = () => {
-        router.push(`/coordinator/${courseEvaluation._id}/review/${reviewer._id}`);
-    };
+  const handleView = () => {
+    router.push(`/coordinator/${courseEvaluation._id}/review/${reviewer._id}`);
+  };
 
-    const handleReopen = () => {
-        services.review.patch(review._id,{
-            submittedDate: null
-        });
-    };
+  const handleReopen = () => {
+    services.review.patch(review._id,{
+      submittedDate: null
+    });
+  };
 
-    return (
-        <Card>
-            <CardBody>
-                <GridContainer>
-                    <GridItem xs={4}>
-                        <h4 className={classes.cardTitle}>{reviewer?.name}</h4>
-                        <h5 className={classes.cardSubtitle}>{reviewer?.email}</h5>
-                        <Button
-                            display="inline-block"
-                            color="white"
-                            onClick={handleView}
-                            disabled={!review?._id}
-                        >
-                            <PageviewIcon />
+  return (
+    <Card>
+      <CardBody>
+        <GridContainer>
+          <GridItem xs={4}>
+            <h4 className={classes.cardTitle}>{reviewer?.name}</h4>
+            <h5 className={classes.cardSubtitle}>{reviewer?.email}</h5>
+            <Button
+              display="inline-block"
+              color="white"
+              onClick={handleView}
+              disabled={!review?._id}
+            >
+              <PageviewIcon />
                             View
-                        </Button>
-                        {review?.submittedDate && (
+            </Button>
+            {review?.submittedDate && (
                                 
-                            <AreYouSureButton
-                                buttonProps={{ color: 'white', display:'inline-block' }}
-                                action={handleReopen}
-                            >
-                                <PageviewIcon />
+              <AreYouSureButton
+                buttonProps={{ color: 'white', display:'inline-block' }}
+                action={handleReopen}
+              >
+                <PageviewIcon />
                                 Reopen
-                            </AreYouSureButton>
-                        )}
-                    </GridItem>
-                    <GridItem xs={8}>
-                        <ReviewProgress review={review} isCoordinator />
-                    </GridItem>
-                </GridContainer>
-            </CardBody>
-        </Card>
-    );
+              </AreYouSureButton>
+            )}
+          </GridItem>
+          <GridItem xs={8}>
+            <ReviewProgress review={review} isCoordinator />
+          </GridItem>
+        </GridContainer>
+      </CardBody>
+    </Card>
+  );
 };
 
 export default ProgressDisplay;

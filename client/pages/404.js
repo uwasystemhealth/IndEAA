@@ -2,11 +2,11 @@
 import React from 'react';
 
 const Page404 = () => {
-    return (
-        <div>
+  return (
+    <div>
             Page Not Found
-        </div>
-    );
+    </div>
+  );
 };
 
 Page404.isProtected = false;

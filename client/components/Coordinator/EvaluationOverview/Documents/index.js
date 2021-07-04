@@ -14,47 +14,47 @@ import Button from 'components/MaterialKit/CustomButtons/Button.js';
 import EditIcon from '@material-ui/icons/Edit';
 
 const Documents = ({ specificTags=null, gridItemProps={md:4}, removeAddDocument = false}) => {
-    const [isNewDocumentModalOpen, setIsNewDocumentModalOpen] = useState(false);
-    const [currentSelectedDocument, setCurrentSelectedDocument] = useState(null);
+  const [isNewDocumentModalOpen, setIsNewDocumentModalOpen] = useState(false);
+  const [currentSelectedDocument, setCurrentSelectedDocument] = useState(null);
 
-    const courseEval = useSelector((state) => state['course-evaluation']);
-    const evalData = courseEval?.data;
+  const courseEval = useSelector((state) => state['course-evaluation']);
+  const evalData = courseEval?.data;
 
-    // Initiate Conditional Data Loading
-    useCurrentCourseData();
+  // Initiate Conditional Data Loading
+  useCurrentCourseData();
 
-    const deselectCurrentSelectedDocument = () =>
-        setCurrentSelectedDocument(null);
-    const closeNewDocumentModal = () => setIsNewDocumentModalOpen(false);
-    const openNewDocumentModal = () => setIsNewDocumentModalOpen(true);
+  const deselectCurrentSelectedDocument = () =>
+    setCurrentSelectedDocument(null);
+  const closeNewDocumentModal = () => setIsNewDocumentModalOpen(false);
+  const openNewDocumentModal = () => setIsNewDocumentModalOpen(true);
 
-    const documentsToDisplay = specificTags ? 
-        evalData?.documents.filter(({tags}) => tags.includes(specificTags))
-        :  evalData?.documents;
+  const documentsToDisplay = specificTags ? 
+    evalData?.documents.filter(({tags}) => tags.includes(specificTags))
+    :  evalData?.documents;
 
-    return (
-        <>
-            <EditModal
-                course_id={evalData?._id}
-                isOpen={isNewDocumentModalOpen}
-                setClose={closeNewDocumentModal}
-            />
-            <EditModal
-                course_id={evalData?._id}
-                document={currentSelectedDocument}
-                isOpen={Boolean(currentSelectedDocument)}
-                setClose={deselectCurrentSelectedDocument}
-            />
-            <DocumentsListItems documentsToDisplay={documentsToDisplay} course_id={evalData?.id}
-                setCurrentSelectedDocument={setCurrentSelectedDocument} gridItemProps={gridItemProps}/>
-            {!removeAddDocument && 
+  return (
+    <>
+      <EditModal
+        course_id={evalData?._id}
+        isOpen={isNewDocumentModalOpen}
+        setClose={closeNewDocumentModal}
+      />
+      <EditModal
+        course_id={evalData?._id}
+        document={currentSelectedDocument}
+        isOpen={Boolean(currentSelectedDocument)}
+        setClose={deselectCurrentSelectedDocument}
+      />
+      <DocumentsListItems documentsToDisplay={documentsToDisplay} course_id={evalData?.id}
+        setCurrentSelectedDocument={setCurrentSelectedDocument} gridItemProps={gridItemProps}/>
+      {!removeAddDocument && 
             <Button color="primary" onClick={() => openNewDocumentModal()}>
-                <EditIcon />
+              <EditIcon />
         Add New Document
             </Button>}
             
-        </>
-    );
+    </>
+  );
 };
 
 export default Documents;

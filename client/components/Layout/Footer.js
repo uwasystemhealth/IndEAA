@@ -11,50 +11,50 @@ import styles from 'assets/jss/nextjs-material-kit/components/footerStyle.js';
 const useStyles = makeStyles(styles);
 
 export default function Footer(props) {
-    const classes = useStyles();
-    const { whiteFont } = props;
-    const footerClasses = classNames({
-        [classes.footer]: true,
-        [classes.footerWhiteFont]: whiteFont,
-    });
-    const aClasses = classNames({
-        [classes.a]: true,
+  const classes = useStyles();
+  const { whiteFont } = props;
+  const footerClasses = classNames({
+    [classes.footer]: true,
+    [classes.footerWhiteFont]: whiteFont,
+  });
+  const aClasses = classNames({
+    [classes.a]: true,
     // [classes.footerWhiteFont]: whiteFont
-    });
-    return (
-        <footer className={footerClasses}>
-            <div className={classes.container}>
-                <div className={classes.left}>
+  });
+  return (
+    <footer className={footerClasses}>
+      <div className={classes.container}>
+        <div className={classes.left}>
           &copy; {1900 + new Date().getYear()}, made by{' '}
-                    <a
-                        href="https://frinzelapuz.now.sh"
-                        className={aClasses}
-                        target="_blank"
-                    >
+          <a
+            href="https://frinzelapuz.now.sh"
+            className={aClasses}
+            target="_blank"
+          >
             Frinze Erin Lapuz
-                    </a>{' '}
+          </a>{' '}
           and{' '}
-                    <a
-                        href="https://nefsite.vercel.app/"
-                        className={aClasses}
-                        target="_blank"
-                    >
+          <a
+            href="https://nefsite.vercel.app/"
+            className={aClasses}
+            target="_blank"
+          >
             Michael Nefiodovas
-                    </a>{' '}
+          </a>{' '}
           on Behalf of the{' '}
-                    <a
-                        href="https://systemhealthlab.com/"
-                        className={aClasses}
-                        target="_blank"
-                    >
+          <a
+            href="https://systemhealthlab.com/"
+            className={aClasses}
+            target="_blank"
+          >
             System Health Lab
-                    </a>{' '}
-                </div>
-            </div>
-        </footer>
-    );
+          </a>{' '}
+        </div>
+      </div>
+    </footer>
+  );
 }
 
 Footer.propTypes = {
-    whiteFont: PropTypes.bool,
+  whiteFont: PropTypes.bool,
 };
