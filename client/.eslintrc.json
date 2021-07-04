@@ -17,7 +17,7 @@
   "rules": {
     "indent": [
       "error",
-      2
+      4
     ],
     "linebreak-style": [
       "error",
@@ -41,7 +41,7 @@
      { "vars": "all", "varsIgnorePattern": "^_", "args": "after-used", "argsIgnorePattern": "^_" }
     ],
     "react/react-in-jsx-scope": "off", // using nextjs does not need react in scope
-    "react/prop-types": "off", // not using proptypes for Material Kit
+    "react/prop-types": "warn", // not using proptypes for Material Kit
     "react/self-closing-comp": ["error", {
       "component": true,
       "html": true
