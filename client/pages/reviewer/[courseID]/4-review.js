@@ -15,11 +15,6 @@ import ReviewerPageCardDescription from 'components/reviewer/ReviewerPageCardDes
 import ReviewerPageBottomNavigation from 'components/reviewer/ReviewerPageBottomNavigation';
 import AreYouSureButton from 'components/Other/AreYouSureButton';
 
-//Styles
-import { makeStyles } from '@material-ui/core/styles';
-import styles from 'assets/jss/nextjs-material-kit/pages/landingPage.js';
-const useStyles = makeStyles(styles);
-
 const ReviewerCourseReviewPage4 = () => {
   const router = useRouter();
   const { courseID } = router.query;
@@ -30,8 +25,6 @@ const ReviewerCourseReviewPage4 = () => {
   // Uses query result
 
   const authUser = useSelector((state) => state.auth.user);
-  const courseState = useSelector((state) => state['course-evaluation']);
-  const course = courseState.data;
 
   // Load the Reviewer using custom useEffect Hook
   useCurrentReviewOfUser(authUser,reviewState,courseID);
@@ -50,7 +43,6 @@ const ReviewerCourseReviewPage4 = () => {
     );
   };
 
-  const classes = useStyles();
   return (
     <div>
       <>
