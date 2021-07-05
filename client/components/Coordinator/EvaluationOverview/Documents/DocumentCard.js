@@ -1,5 +1,5 @@
 // React + Redux + Functionality
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { services } from 'store/feathersClient';
 
 // Custom Components
@@ -31,7 +31,6 @@ const useStyles = makeStyles(styles);
 const DocumentCard = ({
   document,
   course_id,
-  review_id,
   setCurrentSelectedDocument,
   setCurrentSelectedDocumentReview, // contains both document and review details (for reviewer)
   isReviewer,
@@ -39,7 +38,6 @@ const DocumentCard = ({
 }) => {
   const { _id, name, description, link, tags } = document;
   const classes = useStyles();
-  const dispatch = useDispatch();
 
   //   const dateString = createdDate?.toLocaleDateString("en-gb", {
   //     year: "numeric",
