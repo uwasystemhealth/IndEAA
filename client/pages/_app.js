@@ -61,9 +61,6 @@ const MyApp = ({ Component, pageProps }) => {
   const isProtected = typeof (Component.isProtected) === 'undefined' ? true : Component.isProtected;
   // The AuthGuard to be rendered will either be the AuthGuard or a Fragment depending on Presence
 
-  // Title with Default
-  const pageTitle = Component.pageTitle || 'IndEAA Page';
-
   useEffect(() => {
     // Template Licenses
     let comment = document.createComment(`
@@ -114,7 +111,7 @@ const MyApp = ({ Component, pageProps }) => {
   );
 };
 
-MyApp.getInitialProps = async ({ Component, router, ctx }) => {
+MyApp.getInitialProps = async ({ Component, ctx }) => {
   let pageProps = {};
 
   if (Component.getInitialProps) {
