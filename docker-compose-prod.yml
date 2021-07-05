@@ -39,19 +39,3 @@ services:
       - /app_code/.next
     stdin_open: true # docker run -i
     tty: true        # docker run -t
-
-  docs:
-    build:
-      context: .
-      dockerfile: docker/nginx_mkdocs/Dockerfile
-    container_name: indeaa_docs_nginx
-    restart: unless-stopped
-    env_file:
-      - .env-production
-    ports:
-      - 10005:80
-    volumes:
-      - ./mkdocs:/docs
-    stdin_open: true # docker run -i
-    tty: true        # docker run -t
-    
