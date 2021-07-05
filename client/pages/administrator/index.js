@@ -1,6 +1,6 @@
 // React + Redux + Functionality
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { services } from 'store/feathersClient';
 
 // Custom Components
@@ -30,8 +30,6 @@ import styles from 'assets/jss/nextjs-material-kit/pages/landingPage';
 const useStyles = makeStyles(styles);
 
 const AdminstratorMainPage = () => {
-  const dispatch = useDispatch();
-
   // Update state with all users
   useEffect(() => {
     services.users.find();
@@ -44,7 +42,6 @@ const AdminstratorMainPage = () => {
 
   const userState = useSelector(state => state.users);
   const courseEvaluation = useSelector(state => state['course-evaluation']);
-  const authUserState = useSelector(state => state.auth.user);
 
   // Current User Selected
   const [currentUserSelected, setCurrentUserSelected] = useState(null);
@@ -98,7 +95,7 @@ const AdminstratorMainPage = () => {
                         </GridItem>
                         <GridItem xs={1}>
                           <Button color="primary" justIcon round
-                            onClick={(e) => selectUser(user._id)}
+                            onClick={() => selectUser(user._id)}
                           ><EditIcon /></Button>
                         </GridItem>
                       </Grid>
