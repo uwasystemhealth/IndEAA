@@ -9,9 +9,9 @@ import logger from './logger';
 export const sagaMiddleware = createSagaMiddleware();
 
 export default [
-    reduxThunk, // Thunk middleware for Redux
-    reduxPromiseMiddleware, // Resolve, reject promises with conditional optimistic updates
-    sagaMiddleware,
-    // routerMiddleware(browserHistory), // !! IMPORTANT for location.href changes
-    logger, // A basic middleware logger
+  reduxThunk, // Thunk middleware for Redux
+  reduxPromiseMiddleware, // Resolve, reject promises with conditional optimistic updates
+  sagaMiddleware,
+  // routerMiddleware(browserHistory), // !! IMPORTANT for location.href changes
+  logger, // A basic middleware logger
 ];

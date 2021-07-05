@@ -11,32 +11,32 @@ import reduxifyServices, { bindWithDispatch } from 'feathers-redux';
 
 
 export const socket = io(process.env.NEXT_PUBLIC_BACKEND_URL, {
-    transports: ['websocket'],
-    forceNew: true
+  transports: ['websocket'],
+  forceNew: true
 });
 
 
 // Configure Feathers with Socket Connection
 export const feathersClient = feathers();
 feathersClient.configure(socketio(socket,
-    {
-        timeout: 15000 // Increase timeout (defualt 5000ms)
-    }
+  {
+    timeout: 15000 // Increase timeout (defualt 5000ms)
+  }
 ));
 feathersClient.configure(feathers.authentication());
 
 
 // Configure Redux with Feathers
 export const serviceNames = [
-    'users',
-    'course-evaluation',
-    'review'
+  'users',
+  'course-evaluation',
+  'review'
 ];
 
 // Used for Services that are not affecting Redux
 export const rawServices = (serviceName) => feathersClient.service(serviceName);
 export const reduxifiedServices = reduxifyServices(feathersClient, serviceNames,{
-    idField: '_id', // This is to ensure that realtime update matching uses that attribute
+  idField: '_id', // This is to ensure that realtime update matching uses that attribute
 });
 const store = configureStore(reduxifiedServices);
 export default store;
@@ -50,20 +50,20 @@ export const services = bindWithDispatch(store.dispatch, reduxifiedServices);
 
 // Realtime Feathers Update Confguration
 serviceNames.forEach(serviceName=>{
-    const currentSelectedService = feathersClient.service(`/${serviceName}`);
+  const currentSelectedService = feathersClient.service(`/${serviceName}`);
 
-    currentSelectedService.on('created', (data) => {
-        store.dispatch(reduxifiedServices[serviceName].onCreated(data));
-    });
-    currentSelectedService.on('updated', (data) => {
-        store.dispatch(reduxifiedServices[serviceName].onUpdated(data));
-    });
-    currentSelectedService.on('patched', (data) => {
-        store.dispatch(reduxifiedServices[serviceName].onPatched(data));
-    });
-    currentSelectedService.on('removed', (data) => {
-        store.dispatch(reduxifiedServices[serviceName].onRemoved(data));
-    });
+  currentSelectedService.on('created', (data) => {
+    store.dispatch(reduxifiedServices[serviceName].onCreated(data));
+  });
+  currentSelectedService.on('updated', (data) => {
+    store.dispatch(reduxifiedServices[serviceName].onUpdated(data));
+  });
+  currentSelectedService.on('patched', (data) => {
+    store.dispatch(reduxifiedServices[serviceName].onPatched(data));
+  });
+  currentSelectedService.on('removed', (data) => {
+    store.dispatch(reduxifiedServices[serviceName].onRemoved(data));
+  });
 });
 
 // Configure realtime & connect it to services
