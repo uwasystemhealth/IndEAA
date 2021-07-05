@@ -22,12 +22,17 @@ module.exports = () => {
             return false; // Allow service
         }
 
+        // Difficult to do comparison when Mongoose Object ID is being compared
+        const userPermissionsWithCourseIdCastedAsString = params.user.perms.map(({course_id,role})=> {
+            String(course_id),
+            role;
+        });
         if(serviceName==='review'){ // This is for review service
+            // TODO: this needs to be improve to only accomodate authors
             // Get course id
             const course_id = context.data.course_id || context.existing.course_id;
-
             // If the service is a review, then the user needs to have a Reviewer role
-            if (!params.user.perms.includes({course_id,role:'Reviewer'})){
+            if (userPermissionsWithCourseIdCastedAsString.includes({course_id,role:'Reviewer'})){
                 return true;
             }
         }
@@ -37,7 +42,7 @@ module.exports = () => {
             const course_id = context.data._id || context.existing._id;
 
             // If the service is a course-evaluation role
-            if (!params.user.perms.includes({course_id,role:'Coordinator'})){
+            if (userPermissionsWithCourseIdCastedAsString.includes({course_id,role:'Coordinator'})){
                 return true;
             }
         }

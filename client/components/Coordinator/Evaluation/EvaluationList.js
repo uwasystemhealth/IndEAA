@@ -52,15 +52,13 @@ const EvaluationList = () => {
     useEffect(() => {
     // 1. Find all CourseEvaluations where the createdBy key matches the logged in user
         services['course-evaluation'].find();
-        services['users'].find();
         setLoading(false);
     }, []);
 
     const courseEvaluations = useSelector((state) => state['course-evaluation'])
         ?.queryResult?.data;
-    const users = useSelector((state) => state['users'])?.queryResult?.data;
 
-    if (loading || !users || !courseEvaluations) {
+    if (loading || !courseEvaluations) {
         return (
             <Card>
                 <CardBody>Loading...</CardBody>
@@ -74,19 +72,10 @@ const EvaluationList = () => {
         evaluationListings = courseEvaluations.filter((val) => !val.isArchived);
     }
 
-    console.log('evals:', evaluationListings);
     // 3. Render course list elemnts
     evaluationListings = evaluationListings.map(
-        ({ _id, courseId, reviewDescription }) => {
+        ({ _id, courseId, reviewDescription, coordinators }) => {
             // select out the coordinators with the permission for this evaluation
-
-            console.log('users', users);
-            console.log('_id', _id);
-            const coordinators = users.filter(({ perms }) =>
-                perms.some(
-                    ({ course_id, role }) => course_id === _id && role === 'Coordinator'
-                )
-            );
 
             return (
                 <ListItem key={_id} divider>

@@ -66,22 +66,23 @@ const CustomFormField = ({
     />
 );
 
-const ApplyTags = ({ eocs, tags, handleCheck }) => {
-    const classes = useStyles();
+const ApplyTags = ({ tagsAllowed, tagsSelected, handleCheck }) => {
 
     return (
         <Card>
             <CardHeader color="success">Tags</CardHeader>
             <CardBody>
                 <List>
-                    {eocs.map((numberLabel) => (
-                        <DesignedCheckBox
-                            key={numberLabel}
-                            onClick={() => handleCheck(numberLabel)}
-                            isChecked={tags.includes(numberLabel)}
-                            label={`EOC ${numberLabel}`}
-                        />
-                    ))}
+                    {tagsAllowed.map((tag) => {
+                        const isEOC = Boolean(parseFloat(tag)); // Non-floating point are false
+                        return(
+                            <DesignedCheckBox
+                                key={tag}
+                                onClick={() => handleCheck(tag)}
+                                isChecked={tagsSelected.includes(tag)}
+                                label={isEOC ? `EOC ${tag}` : tag}
+                            />
+                        );})}
                 </List>
             </CardBody>
         </Card>
@@ -91,7 +92,6 @@ const ApplyTags = ({ eocs, tags, handleCheck }) => {
 const EditModal = ({ document, course_id, isOpen, setClose }) => {
     const isCreateModal = typeof document === 'undefined';
     const classes = useStyles();
-    console.log(document);
     const initialStateModal = {
         name: document?.name || '',
         description: document?.description || '',
@@ -144,6 +144,7 @@ const EditModal = ({ document, course_id, isOpen, setClose }) => {
         setModalState(newState);
     };
 
+    // Get all EOC both general EOC and specific EOC
     const eocs = getEOCInfo(course_id);
     const generalAndSpecificNumbers = eocs.reduce((accumulator, current) => {
         const currentSetEocNumbers = current.EOCS.map(
@@ -151,6 +152,12 @@ const EditModal = ({ document, course_id, isOpen, setClose }) => {
         );
         return [...accumulator, String(current.setNum), ...currentSetEocNumbers];
     }, []);
+
+    // Tags Allowed to be Applied
+    const tagsAllowed = [
+        ...generalAndSpecificNumbers,
+        'introduction'
+    ];
 
     return (
         <>
@@ -219,8 +226,8 @@ const EditModal = ({ document, course_id, isOpen, setClose }) => {
                         </GridItem>
                         <GridItem xs={7}>
                             <ApplyTags
-                                eocs={generalAndSpecificNumbers}
-                                tags={state.tags}
+                                tagsAllowed={tagsAllowed}
+                                tagsSelected={state.tags}
                                 handleCheck={handleCheck}
                             />
                         </GridItem>

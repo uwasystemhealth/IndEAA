@@ -55,9 +55,10 @@ const ProgressDisplay = ({ reviewer, review }) => {
                             display="inline-block"
                             color="white"
                             onClick={handleView}
+                            disabled={!review?._id}
                         >
                             <PageviewIcon />
-              View
+                            View
                         </Button>
                         {review?.submittedDate && (
                                 

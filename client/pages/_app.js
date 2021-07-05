@@ -32,7 +32,7 @@ import ContentWrapper from 'components/Layout/ContentWrapper';
 import AuthGuard from 'components/Layout/AuthGuard';
 
 Router.events.on('routeChangeStart', url => {
-    console.log(`Loading: ${url}`);
+    console.info(`Loading: ${url}`);
     document.body.classList.add('body-page-transition');
     ReactDOM.render(
         <PageChange path={url} />,

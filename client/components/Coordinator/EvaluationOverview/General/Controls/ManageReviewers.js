@@ -27,67 +27,56 @@ const useStyles = makeStyles({
 
 // Store Actions and Redux
 import { useSelector } from 'react-redux';
-import { services } from 'store/feathersClient';
+import { services, rawServices } from 'store/feathersClient';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 const ManageReviewers = ({ evaluationID }) => {
     const classes = useStyles();
     const [modal, setModal] = useState(false);
     const [email, setEmail] = useState('');
 
-    useEffect(() => {
-        services['course-evaluation'].get({
-            _id: evaluationID,
-        });
-        services['users'].find({
-            perms: {
-                $in: [{ course_id: evaluationID, role: 'Reviewer' }],
-            },
-        });
-    }, []);
-
     const courseEval = useSelector((state) => state['course-evaluation']);
     const evalData = courseEval?.data;
-    const users = useSelector((state) => state['users']);
-    const userData = users?.queryResult?.data;
 
     // selects out all reviewers with correct permission
-    const reviewers = userData.filter((user) =>
-        user.perms.reduce(
-            (acc, permission) =>
-                acc ||
-        (permission.course_id == evaluationID && permission.role == 'Reviewer'),
-            false
-        )
-    );
+    const reviewers = evalData?.reviewers  || [];
 
     // removes a user from the evaluation
     const removePermission = async (userId, evaluationId) => {
         try {
-            const oldPermissions = reviewers.find((user) => user._id == userId).perms;
-            const newPerms = oldPermissions.filter(
-                (permission) =>
-                    !(
-                        permission.course_id == evaluationId &&
-            permission.role == 'Reviewer'
-                    )
-            );
-            const response = await services['users'].patch(userId, {
-                perms: newPerms,
+            services['users'].patch(userId, {
+                $pull: { perms: {course_id:evaluationId,role:'Reviewer'}}
             });
         } catch (error) {
             console.error(error);
         }
     };
 
-    // TODO: refactor (copied from administrator code)
-    const createUser = async (email) => {
+    const addPermissionToUser = async (email) => {
         try {
-            const response = await services.users.create({ email });
+            const responseOnFind = await rawServices('users').find({ query:{email} });
+            if(responseOnFind.total){
+                const user = responseOnFind.data[0];
+                // User Already Exist
+                await services.users.patch(
+                    user._id,
+                    {
+                        $push:{
+                            perms:{course_id: evaluationID, role:'Reviewer'}
+                        }
+                    });
+            }
+            else{
+                await services.users.create({
+                    email, 
+                    perms:[{course_id: evaluationID, role:'Reviewer'}] 
+                });
+            }
             setModal(false);
         } catch (error) {
             // Handled by Redux Saga
+            console.error(error);
         }
     };
 
@@ -101,7 +90,7 @@ const ManageReviewers = ({ evaluationID }) => {
     ));
 
     const handleSubmit = () => {
-        createUser(email);
+        addPermissionToUser(email);
         setEmail('');
     };
 

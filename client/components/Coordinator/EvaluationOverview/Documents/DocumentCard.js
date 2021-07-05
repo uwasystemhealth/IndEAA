@@ -1,7 +1,6 @@
 // CORE COMPONENTS
 import Card from 'components/MaterialKit/Card/Card.js';
 import CardBody from 'components/MaterialKit/Card/CardBody.js';
-import CardFooter from 'components/MaterialKit/Card/CardFooter.js';
 import Badge from 'components/MaterialKit/Badge/Badge.js';
 import GridContainer from 'components/MaterialKit/Grid/GridContainer.js';
 import GridItem from 'components/MaterialKit/Grid/GridItem.js';
@@ -24,7 +23,6 @@ import {
 // Store Actions and Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { services } from 'store/feathersClient';
-import { addNotificationMessage } from 'actions/general';
 
 const styles = { cardTitle, cardLink, cardSubtitle };
 const useStyles = makeStyles(styles);
@@ -66,15 +64,13 @@ const DocumentCard = ({
 
     const currentDocumentReview = getReviewDocumentObject(document._id);
 
-    const handleMarkAsViewed = (documentId) => {
+    const handleMarkAsViewed = () => {
+        // If the document has already been reviewed, then mark it as null (to unmark)
+        const dateReviewed = currentDocumentReview?.finishedReviewedOn
+            ? null
+            : new Date();
         if (currentDocumentReview) {
-            // Document exist
-
-            // If the document has already been reviewed, then mark it as null (to unmark)
-            const dateReviewed = currentDocumentReview.finishedReviewedOn
-                ? null
-                : new Date();
-
+            // Document exist - update current document record
             services.review.patch(
                 review._id,
                 {
@@ -86,37 +82,42 @@ const DocumentCard = ({
                 { query: { 'step2Documents.document_id': document._id } }
             );
         } else {
-            // Document Does not exist yet
-            dispatch(
-                addNotificationMessage({
-                    message:
-            'Marking as finished reviews has failed due to no comments on documents.',
-                })
+            // Document Does not exist yet - Push new document record
+            services.review.patch(
+                review._id,
+                {
+                    $push : {step2Documents: {
+                        document_id: document._id,
+                        finishedReviewedOn: dateReviewed,
+                    }},
+                }
             );
         }
     };
 
-    const badges = tags.map((eoc) => (
-        <Badge key={eoc} color={eoc.includes('.') ? 'info' : 'primary'}>
-      EOC: {eoc}
-        </Badge>
-    ));
+    const badges = tags.map(tag=>{
+        const isEOC = Boolean(parseFloat(tag)); // Non-floating point are false
+        const color = isEOC ? 
+            tag.includes('.') ? 'info' : 'primary' :
+            'rose';
+
+        return(
+            <Badge key={tag} color={color}>
+                {isEOC ? <>EOC: {tag}</> : tag}
+            </Badge>
+        );
+    });
 
     return (
         <Card>
             <CardBody>
                 <GridContainer>
-                    <GridItem xs={8}>
+                    <GridItem md={8}>
                         <h4 className={classes.cardTitle}>{name}</h4>
                         <p>{description}</p>
-                        <p>
-              URI:{' '}
-                            <a href={link} className={cardLink}>
-                                {link}
-                            </a>
-                        </p>
+                        {badges}
                     </GridItem>
-                    <GridItem xs={3}>
+                    <GridItem md={3}>
                         <GridContainer direction="column">
                             <Button color="white" onClick={() => window.open(link)}>
                                 <PageviewIcon />
@@ -128,7 +129,7 @@ const DocumentCard = ({
                                         {currentDocumentReview?.finishedReviewedOn ? (
                                             <Button
                                                 color="primary"
-                                                onClick={() => handleMarkAsViewed(document._id)}
+                                                onClick={() => handleMarkAsViewed()}
                                             >
                                                 <EditIcon />
                           Mark as unread
@@ -136,7 +137,7 @@ const DocumentCard = ({
                                         ) : (
                                             <Button
                                                 color="white"
-                                                onClick={() => handleMarkAsViewed(document._id)}
+                                                onClick={() => handleMarkAsViewed()}
                                             >
                                                 <EditIcon />
                           Mark as Viewed
@@ -193,7 +194,6 @@ const DocumentCard = ({
                     </GridItem>
                 </GridContainer>
             </CardBody>
-            <CardFooter>{badges}</CardFooter>
         </Card>
     );
 };

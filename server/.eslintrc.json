@@ -33,6 +33,7 @@
     "unused-imports/no-unused-vars": [
      "warn",
      { "vars": "all", "varsIgnorePattern": "^_", "args": "after-used", "argsIgnorePattern": "^_" }
-    ]
+    ],
+    "no-console": ["error", { "allow": ["warn","info","error","groupCollapsed","groupEnd"] }]
   }
 }

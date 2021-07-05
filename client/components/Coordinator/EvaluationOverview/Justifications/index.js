@@ -1,11 +1,17 @@
 // CORE COMPONENTS
 
-
 import EOCAccordion from './EOCAccordion.js';
 
 
-const Justifications = ({ evaluationID }) => {
-    return <EOCAccordion evaluationID={evaluationID} />;
+
+import {useCurrentCourseData} from 'components/customHooks/CoordinatorCourseLoad';
+
+
+const Justifications = () => {
+    // Initiate Conditional Data Loading
+    useCurrentCourseData();
+    
+    return <EOCAccordion />;
 };
 
 export default Justifications;

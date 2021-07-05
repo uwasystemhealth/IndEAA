@@ -43,13 +43,13 @@ services:
   docs:
     build:
       context: .
-      dockerfile: docker/mkdocs/Dockerfile
-    container_name: indeaa_docs
+      dockerfile: docker/nginx_mkdocs/Dockerfile
+    container_name: indeaa_docs_nginx
     restart: unless-stopped
     env_file:
       - .env-production
     ports:
-      - 10005:8000
+      - 10005:80
     volumes:
       - ./mkdocs:/docs
     stdin_open: true # docker run -i

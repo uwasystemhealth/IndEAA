@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 // MUI Icons
-import Placeholder from '@material-ui/icons/Mood';
+import EditIcon from '@material-ui/icons/Edit';
 
 // Core Components
 import Card from 'components/MaterialKit/Card/Card.js';
@@ -56,7 +56,6 @@ const AdminstratorMainPage = () => {
     const selectUser = async (user_id) => {
         // Make life easier by doing a direct query
         const userSelectedDetails = await services.users.get(user_id);
-        console.log(userSelectedDetails);
         setCurrentUserSelected(userSelectedDetails.value);
     };
 
@@ -100,7 +99,7 @@ const AdminstratorMainPage = () => {
                                                 <GridItem xs={1}>
                                                     <Button color="primary" justIcon round
                                                         onClick={(e) => selectUser(user._id)}
-                                                    ><Placeholder /></Button>
+                                                    ><EditIcon /></Button>
                                                 </GridItem>
                                             </Grid>
                                         </CardBody>

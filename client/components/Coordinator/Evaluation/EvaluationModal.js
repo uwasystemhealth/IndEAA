@@ -59,7 +59,6 @@ const EvaluationModal = ({ closeModal, isOpen, isEditModal }) => {
     const dispatch = useDispatch();
     const courseEvaluation = useSelector(state => state['course-evaluation']);
     const courseData = courseEvaluation?.data;
-    console.log(courseData);
     const [code, setCode] = useState('');
     const [description, setDescription] = useState('');
     const [dueDate, setDueDate] = useState('');
