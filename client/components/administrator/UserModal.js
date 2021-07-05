@@ -45,8 +45,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function Modal(
-  { user, courseEvaluation, closeModal }: { user: any, courseEvaluation: any, closeModal: any }
-) {
+  { user, courseEvaluation, closeModal }) {
   const authUser = useSelector(state => state.auth.user);
   const classes = useStyles();
   const initialStateModal = {
