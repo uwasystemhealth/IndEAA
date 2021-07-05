@@ -67,7 +67,6 @@ const ReviewerDocumentModal = ({
   isOpen,
   setClose,
 }) => {
-  const isCreateModal = typeof document === 'undefined';
   const classes = useStyles();
 
   // Get 2 part information
@@ -90,7 +89,7 @@ const ReviewerDocumentModal = ({
     setModalState(newState);
   };
 
-  const handleSave = (event) => {
+  const handleSave = () => {
     setClose();
     if (reviewComment) {
       // Review exists, so edit it here
