@@ -12,14 +12,7 @@ import GridItem from 'components/MaterialKit/Grid/GridItem.js';
 // Material UI
 import TextField from '@material-ui/core/TextField';
 
-// Styles
-import { makeStyles } from '@material-ui/core/styles';
-import modalStyle from 'assets/jss/nextjs-material-kit/modalStyle.js';
-const styles = { ...modalStyle };
-const useStyles = makeStyles(styles);
-
 const ViewModal = ({ isReadOnly }) => {
-  const classes = useStyles();
   const dispatch = useDispatch();
 
   const reviewState = useSelector((state) => state.review);
@@ -42,7 +35,7 @@ const ViewModal = ({ isReadOnly }) => {
     setState(newState);
   };
 
-  const handleSave = (event) => {
+  const handleSave = () => {
     if (review) {
       // Review exist hence be updated
       services.review.patch(review._id, {
