@@ -11,18 +11,10 @@ import Button from 'components/MaterialKit/CustomButtons/Button.js';
 // Utilities
 import {useReviewOfUser} from 'components/customHooks/ReviewerReviewLoad';
 
-// Styles
-import { makeStyles } from '@material-ui/core/styles';
-import styles from 'assets/jss/nextjs-material-kit/pages/landingPage.js';
-const useStyles = makeStyles(styles);
-
 const ReviewerCourseReviewPage5 = () => {
   const router = useRouter();
   const { courseID, userID } = router.query;
 
-
-  const userStateBeingViewed = useSelector(state=> state.users);
-  const userBeingViewed = userStateBeingViewed?.data; // This will be used along with the component for showing user
   const reviewState = useSelector(state=> state.review);
 
   useEffect(() => {
@@ -38,7 +30,6 @@ const ReviewerCourseReviewPage5 = () => {
   // Load the Reviewer using custom useEffect Hook
   useReviewOfUser(userID,reviewState,courseID);
 
-  const classes = useStyles();
   return (
     <> 
       {

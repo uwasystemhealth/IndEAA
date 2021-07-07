@@ -32,7 +32,7 @@ export const getStaticDetailsOfEOC = (eocGeneralAndSpecific,evaluationID) => {
   return null;
 };
 
-export const getEOCInfo = (evaluationID) => {
+export const getEOCInfo = () => {
   return [
     {
       _id: '1',

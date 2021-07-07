@@ -113,7 +113,7 @@ const EditModal = ({ document, course_id, isOpen, setClose }) => {
     setModalState(newState);
   };
 
-  const handleSave = (event) => {
+  const handleSave = () => {
     setClose();
     // commit the saved data to database
 

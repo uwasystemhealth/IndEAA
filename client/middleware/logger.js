@@ -4,7 +4,7 @@
  See http://redux.js.org/docs/advanced/Middleware.html
  */
 
-const logger = store => next => action => {
+const logger = () => next => action => {
   console.groupCollapsed(action.type);
   console.info('dispatching', action);
   const result = next(action);

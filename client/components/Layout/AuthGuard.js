@@ -59,7 +59,7 @@ const AuthGuard = ({ children, isProtected }) => {
 
           // If the router has the courseId, then a combination of both the courseId
           // and permission should be found
-          if (router.query.hasOwnProperty('courseID')) {
+          if (Object.prototype.hasOwnProperty.call(router.query, 'courseID')) {
             const { courseID } = router.query;
             const courseSpecificPermissions = user.perms.filter(
               (permission) => courseID == permission.course_id

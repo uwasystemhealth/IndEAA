@@ -38,7 +38,6 @@ const ReviewerPagePreSubmissionContent = ({isReadOnly}) => {
   const classes = useStyles();
   const reviewState = useSelector((state) => state.review);
   const review = reviewState.queryResult.data[0] || { course_id: courseID };
-  const authUser = useSelector((state) => state.auth.user);
   const courseState = useSelector((state) => state['course-evaluation']);
   const course = courseState.data;
 

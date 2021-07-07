@@ -12,11 +12,6 @@ import ReviewerPageBottomNavigation from 'components/reviewer/ReviewerPageBottom
 import { useCurrentReviewOfUser } from 'components/customHooks/ReviewerReviewLoad';
 import useRedirectIfFinish from 'components/customHooks/ReviewerFinishedGuard';
 
-//Styles
-import { makeStyles } from '@material-ui/core/styles';
-import styles from 'assets/jss/nextjs-material-kit/pages/landingPage.js';
-const useStyles = makeStyles(styles);
-
 const ReviewerCourseReviewPage2 = () => {
   const router = useRouter();
   const { courseID } = router.query;
@@ -28,7 +23,6 @@ const ReviewerCourseReviewPage2 = () => {
   // Load the Reviewer using custom useEffect Hook
   useCurrentReviewOfUser(authUser,reviewState,courseID);
   useRedirectIfFinish(review,courseID);
-  const classes = useStyles();
   const pageNumber = 2;
 
   return (

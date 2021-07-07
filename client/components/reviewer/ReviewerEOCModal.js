@@ -37,7 +37,6 @@ import {
   developmentLevel,
   developmentLevelToString,
   stringToDevelopmentLevel,
-  getEOCInfo,
 } from 'utils/eocs';
 
 const ViewModal = ({
@@ -87,7 +86,7 @@ const ViewModal = ({
     setModalState(newState);
   };
 
-  const handleSave = (event) => {
+  const handleSave = () => {
     closeModal();
 
     if (reviewEOC) {
@@ -111,14 +110,6 @@ const ViewModal = ({
   };
 
   // TODO: get Display EOCS (borrowed from EditModal.js) - needs to be transferred to utils.js
-  const eocs = getEOCInfo(course?._id);
-  const specificNumbers = eocs.reduce((accumulator, current) => {
-    const currentSetEocNumbers = current.EOCS.map(
-      (eoc) => `${current.setNum}.${eoc.EOCNum}`
-    );
-    return [...accumulator, ...currentSetEocNumbers];
-  }, []);
-
   return (
     <Dialog
       open={isOpen}
