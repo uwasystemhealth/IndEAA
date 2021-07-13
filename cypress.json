@@ -1,5 +1,4 @@
 {
-    "videosFolder": "test_results",
     "experimentalRunEvents": true,
     "env": {
         "allureResultsPath": "test_results",
