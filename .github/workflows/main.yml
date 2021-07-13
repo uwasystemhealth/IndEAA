@@ -134,13 +134,6 @@ jobs:
         if: always()
         with:
           name: cypress-videos
-          path: cypress/test_results
-      - name: Upload Results
-        if: ${{ always() }}
-        run: npm run allure:send
-        env:
-          ALLURE_USER: ${{secrets.ALLURE_USER}}
-          ALLURE_PASSWORD: ${{secrets.ALLURE_PASSWORD}}
-          ALLURE_API_SERVER: ${{secrets.ALLURE_API_SERVER}}
+          path: cypress/videos
 
 

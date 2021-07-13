@@ -13,10 +13,6 @@
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
 
-const allureWriter = require('@frinzekt/cypress-allure-plugin/writer');
-const del = require('del')
-const moveFile = require('move-file')
-const path = require('path');
 require('dotenv').config()
 
 /**
@@ -26,20 +22,5 @@ require('dotenv').config()
 module.exports = (on, config) => {
     // Add the process environment as part of the test config
     config.env = { ...process.env, ...config.env }
-    allureWriter(on, config);
-    on('after:spec', (spec, results) => {
-        if (results.stats.failures === 0 && results.video) {
-            // `del()` returns a promise, so it's important to return it to ensure
-            // deleting the video is finished before moving on
-            return del(results.video)
-        }
-        else {
-            // Enabled Cypress
-            return moveFile(results.video, path.join(
-                "test_results", // This is similar to the cypress.json results
-                results.video.split("/").pop() // Get the filename
-            ))
-        }
-    });
     return config;
 };

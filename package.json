@@ -4,18 +4,12 @@
   "description": "A web application that streamlines course review by industry advisory panels.",
   "dependencies": {},
   "devDependencies": {
-    "@frinzekt/cypress-allure-plugin": "^0.0.1-development",
-    "concurrently": "^5.3.0",
     "cypress": "^6.3.0",
-    "del": "^6.0.0",
-    "dotenv": "^8.2.0",
-    "move-file": "^2.0.0",
-    "start-server-and-test": "^1.11.7"
+    "dotenv": "^8.2.0"
   },
   "scripts": {
-    "cypress:open": "cypress open",
-    "cypress:run": "cypress run --env allure=true",
-    "allure:send": "python send_and_generate.py indeaa-e2e $ALLURE_USER $ALLURE_PASSWORD $ALLURE_API_SERVER /test_results github github",
+    "cypress:open": "export cypress_baseUrl=http://localhost:10004 && cypress open",
+    "cypress:run": "cypress run",
     "ci:client": "npm run start --prefix client",
     "ci:server": "NODE_ENV=ci npm run start --prefix server"
   },
