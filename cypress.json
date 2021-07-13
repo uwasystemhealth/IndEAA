@@ -4,6 +4,7 @@
     "videoUploadOnPasses": false,
     "env": {
         "allureResultsPath": "test_results",
-        "flattenVideoFolder": true
+        "flattenVideoFolder": true,
+        "baseUrl":"http://localhost:3000"
     }
 }
