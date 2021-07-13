@@ -13,10 +13,10 @@ const styles = {
   cardSubtitle,
 };
 const useStyles = makeStyles(styles);
-const classes = useStyles();
 
 const Information = () => {
   const courseEval = useSelector((state) => state['course-evaluation']);
+  const classes = useStyles();
   const evalData = courseEval?.data;
     
   const date = new Date(evalData?.dueDate);
