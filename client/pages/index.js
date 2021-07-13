@@ -20,7 +20,7 @@ import image from 'assets/img/bg7.jpg';
 import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles(styles);
 
-const LoginPage = (props) => {
+const LoginPage = () => {
   const [cardAnimaton, setCardAnimation] = React.useState('cardHidden');
   setTimeout(function () {
     setCardAnimation('');
@@ -83,6 +83,6 @@ const LoginPage = (props) => {
 };
 
 // eslint-disable-next-line no-unused-vars
-LoginPage.customLayout = ({ children }) => <div>{children}</div>;
+LoginPage.customLayout = function layout({ children }) { return (<div>{children}</div>); };
 
 export default LoginPage;

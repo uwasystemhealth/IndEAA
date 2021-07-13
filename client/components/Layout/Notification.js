@@ -7,17 +7,11 @@ import { useSnackbar } from 'notistack';
 // Material Kit
 import Button from 'components/MaterialKit/CustomButtons/Button.js';
 
-// Styles
-import styles from 'assets/jss/nextjs-material-kit/pages/componentsSections/notificationsStyles.js';
-import { makeStyles } from '@material-ui/core/styles';
-const useStyles = makeStyles(styles);
-
 export default function SectionNotifications() {
   // Built from idea of https://github.com/iamhosseindhv/notistack/issues/116
   const snackbar = useSnackbar();
   const dispatch = useDispatch();
   const { enqueueSnackbar, closeSnackbar } = snackbar;
-
 
   const notifications = useSelector(state => state.general.notifications);
 
@@ -27,11 +21,12 @@ export default function SectionNotifications() {
         key,
         variant,
         autoHideDuration: 3000,
-        action: (key) => (
-          <Button onClick={() => { closeSnackbar(key); }} simple>
+        action: function snackbarCloser(key) {
+          return (
+            <Button onClick={() => { closeSnackbar(key); }} simple>
                         Dismiss
-          </Button>
-        ),
+            </Button>
+          );},
         anchorOrigin: {
           vertical: 'top',
           horizontal: 'right',

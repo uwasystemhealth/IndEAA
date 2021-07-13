@@ -20,15 +20,11 @@ import ListItem from '@material-ui/core/ListItem';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   cardTitle,
-  cardLink,
-  cardSubtitle,
 } from 'assets/jss/nextjs-material-kit.js';
-const styles = { cardTitle, cardLink, cardSubtitle };
+const styles = { cardTitle };
 const useStyles = makeStyles(styles);
 
 const ReviewDocumentsComments = ({reviewsUserLinked}) => {
-  const classes = useStyles();
-
   // Get all the documents in the store
   const courseState = useSelector(state=>state['course-evaluation']);
   const course = courseState?.data;

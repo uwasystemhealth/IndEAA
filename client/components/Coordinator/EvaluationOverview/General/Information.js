@@ -13,11 +13,9 @@ const styles = {
   cardSubtitle,
 };
 const useStyles = makeStyles(styles);
+const classes = useStyles();
 
 const Information = () => {
-  const classes = useStyles();
-
-
   const courseEval = useSelector((state) => state['course-evaluation']);
   const evalData = courseEval?.data;
     
@@ -32,9 +30,9 @@ const Information = () => {
     <Card>
       <CardHeader color="success">Information</CardHeader>
       <CardBody>
-        <h4 className={cardSubtitle}>Review Target due Date:</h4>
+        <h4 className={classes.cardSubtitle}>Review Target due Date:</h4>
         <p>{dateString || 'Not set'}</p>
-        <h4 className={cardSubtitle}>Review Description:</h4>
+        <h4 className={classes.cardSubtitle}>Review Description:</h4>
         <p>{evalData?.reviewDescription || 'Not set'}</p>
       </CardBody>
     </Card>

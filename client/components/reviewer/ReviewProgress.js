@@ -15,15 +15,10 @@ import Done from '@material-ui/icons/CheckCircleOutline';
 import NotDone from '@material-ui/icons/RadioButtonUnchecked';
 
 // STYLES
-import { makeStyles, styled } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import stepperStyle from 'assets/jss/custom/stepper.js';
 import { StepperConnector } from 'assets/jss/custom/stepper';
 const useStepperStyles = makeStyles(stepperStyle);
-const StyledStepButton = styled(StepButton)({
-  '& .MuiStepLabel-active': {
-    color: '#FFFF',
-  },
-});
 
 export const StepIcon = (props) => {
   const stepperClasses = useStepperStyles();
@@ -42,8 +37,6 @@ export const StepIcon = (props) => {
 const StepperPathway = ({ review, isCoordinator }) => {
   const stepperClasses = useStepperStyles();
   const router = useRouter();
-
-  // const StepButtonCustom = whiteFont ? StyledStepButton : StepButton; // OVERWRITE BY WHITEFONT
 
   // Done calculation is determined to be completed or ready for next step
   // if there is an entry atleast once

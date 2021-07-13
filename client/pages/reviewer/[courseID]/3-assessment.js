@@ -12,11 +12,6 @@ import ReviewerEOCListing from 'components/reviewer/ReviewerEOCListing';
 import ReviewerPageCardDescription from 'components/reviewer/ReviewerPageCardDescription';
 import ReviewerPageBottomNavigation from 'components/reviewer/ReviewerPageBottomNavigation';
 
-// Styles
-import { makeStyles } from '@material-ui/core/styles';
-import styles from 'assets/jss/nextjs-material-kit/pages/landingPage.js';
-const useStyles = makeStyles(styles);
-
 const ReviewerCourseReviewPage3 = () => {
   const router = useRouter();
   const { courseID } = router.query;
@@ -29,7 +24,6 @@ const ReviewerCourseReviewPage3 = () => {
   useCurrentReviewOfUser(authUser,reviewState,courseID);
   useRedirectIfFinish(review,courseID);
 
-  const classes = useStyles();
   const pageNumber = 3;
   return (
     <div>

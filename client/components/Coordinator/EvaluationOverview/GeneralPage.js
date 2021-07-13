@@ -12,13 +12,6 @@ import Face from '@material-ui/icons/Face';
 import Chat from '@material-ui/icons/Chat';
 import Build from '@material-ui/icons/Build';
 
-// Styles
-import landingStyles from 'assets/jss/nextjs-material-kit/pages/landingPage.js';
-import { makeStyles } from '@material-ui/core/styles';
-const useStyles = makeStyles({ ...landingStyles });
-
-
-
 const GeneralPage = () => {
 
   return (

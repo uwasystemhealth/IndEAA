@@ -1,4 +1,4 @@
-export const setCurrentRoleSelected = (role) => async (dispatch, getState) => {
+export const setCurrentRoleSelected = (role) => async (dispatch) => {
   return dispatch({
     type: 'CHANGE_CURRENT_ROLE_SELECTED',
     role
@@ -35,19 +35,19 @@ export const addNotificationMessageParams = (notification) => {
 
 
 // This will be used if notification message are to be created outside of Redux Saga
-export const addNotificationMessage = (notification) => async (dispatch, getState) => {
+export const addNotificationMessage = (notification) => async (dispatch) => {
   return dispatch(addNotificationMessageParams(notification));
 };
 
 
-export const removeNotificationMessage = (key) => async (dispatch, getState) => {
+export const removeNotificationMessage = (key) => async (dispatch) => {
   return dispatch({
     type: 'REMOVE_NOTIFICATION_MESSAGE',
     key
   });
 };
 
-export const setPageMiddleTitle = (pageMiddleTitle) => async (dispatch, getState) => {
+export const setPageMiddleTitle = (pageMiddleTitle) => async (dispatch) => {
   return dispatch({
     type: 'SET_PAGE_MIDDLE_TITLE',
     pageMiddleTitle

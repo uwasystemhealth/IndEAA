@@ -25,7 +25,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import styles from 'assets/jss/nextjs-material-kit/components/headerLinksStyle.js';
 const useStyles = makeStyles(styles);
 
-export default function HeaderLinks(props) {
+export default function HeaderLinks() {
   const user = useSelector(state => state.auth.user);
   const currentRoleSelected = useSelector(state => state.general.currentRoleSelected);
 
@@ -80,7 +80,7 @@ export default function HeaderLinks(props) {
                     classes={{ tooltip: classes.tooltip }}
                   ><Button
                       color="info"
-                      onClick={(e) => dispatch(signOut())}
+                      onClick={() => dispatch(signOut())}
                     >
                             Signout
                     </Button>
