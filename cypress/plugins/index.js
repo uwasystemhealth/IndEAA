@@ -1,5 +1,4 @@
 /// <reference types="cypress" />
-/// <reference types="@frinzekt/cypress-allure-plugin" />
 // ***********************************************************
 // This example plugins/index.js can be used to load plugins
 //
