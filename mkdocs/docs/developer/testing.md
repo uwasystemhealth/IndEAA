@@ -2,7 +2,7 @@
 In IndEAA, there are two testing frameworks that are chosen:
 
 - Cypress for end-to-end testing from the frontend
-- Jest (to be confirmed) for backend unit testing
+- Mocha + Assert for backend unit testing
 
 ## CI Pipeline
 The CI pipeline has 3 main steps below. See more information in the `.github/workflows/main.yml` file where the CI pipeline is set.
