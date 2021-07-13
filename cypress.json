@@ -1,8 +1,8 @@
 {
     "experimentalRunEvents": true,
+    "baseUrl":"http://localhost:3000",
     "env": {
         "allureResultsPath": "test_results",
-        "flattenVideoFolder": true,
-        "baseUrl":"http://localhost:3000"
+        "flattenVideoFolder": true
     }
 }
