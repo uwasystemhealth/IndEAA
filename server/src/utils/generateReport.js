@@ -1,5 +1,4 @@
 const createDocumentFromMarkdown = require('../lib/createDocumentFromMarkdown');
-const getUsersForRoleClosure = require('../utils/feathersStuff');
 
 // To generate the report
 // The following details are needed:
