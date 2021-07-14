@@ -1,13 +1,17 @@
 # Changelog
 This is the changelog for IndEAA.
 
-# v1.1.1 "Config Hotfix" - Jul 15, 2021
+# v1.2.0 - Jul 15, 2021
 ???+ info "Improvements"
     - Pagination Default Changes from 20 to 100 ([#48](https://github.com/uwasystemhealth/IndEAA/issues/48))
+    - Cleanups of Import (partial progress) ([#42](https://github.com/uwasystemhealth/IndEAA/issues/42))
+
+???+ bug "Bugfixes"
+    - Broken css documentation fix ([#125](https://github.com/uwasystemhealth/IndEAA/issues/125))
 
 # v1.1.0 - Mar 3, 2021
 ???+ info "Improvements"
-    - Introduction Documents + Some Optimisation of Data Fetching Optimisation Related ([#82](https://github.com/uwasystemhealth/IndEAA/issues/82), [#108](https://github.com/uwasystemhealth/IndEAA/issues/108) )
+    - Introduction Documents + Some Optimisation o f Data Fetching Optimisation Related ([#82](https://github.com/uwasystemhealth/IndEAA/issues/82), [#108](https://github.com/uwasystemhealth/IndEAA/issues/108) )
     - Permission protection + metadata on course-evaluation page ([#24](https://github.com/uwasystemhealth/IndEAA/issues/24), [#71](https://github.com/uwasystemhealth/IndEAA/issues/71))
 
 ???+ bug "Bugfixes"
