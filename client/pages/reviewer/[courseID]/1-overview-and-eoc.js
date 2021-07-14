@@ -13,7 +13,6 @@ import ReviewerPageBottomNavigation from 'components/reviewer/ReviewerPageBottom
 // Utilities
 import {useCurrentReviewOfUser} from 'components/customHooks/ReviewerReviewLoad';
 import useRedirectIfFinish from 'components/customHooks/ReviewerFinishedGuard';
-import { getEOCInfo } from 'utils/eocs';
 
 // Material Kit
 import CustomTabs from 'components/MaterialKit/CustomTabs/CustomTabs.js';

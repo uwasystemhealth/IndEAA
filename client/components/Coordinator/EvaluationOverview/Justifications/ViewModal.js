@@ -32,11 +32,10 @@ const styles = { ...modalStyle, ...typographyStyle };
 const useStyles = makeStyles(styles);
 
 import {
-  getStaticDetailsOfEOC,
+  // getStaticDetailsOfEOC,
   developmentLevel,
   developmentLevelToString,
   stringToDevelopmentLevel,
-  getEOCInfo,
 } from 'utils/eocs';
 
 const ViewModal = ({
@@ -49,7 +48,20 @@ const ViewModal = ({
   const classes = useStyles();
 
   const { rating, justification, eocsInSameJustification } = detailsOfEOC;
-  const {desc:description = ''} = getStaticDetailsOfEOC(eocGeneralAndSpecific) || {};
+
+  const course = useSelector((state) => state['course-evaluation']).data;
+
+
+  let staticDetails;
+  if(eocGeneralAndSpecific)
+  {
+    const eocs = course?.generalEocs;
+    const [eocSetNum,eocNum] = eocGeneralAndSpecific?.split('.');
+    const set = eocs?.find(({generalNum})=> generalNum==eocSetNum);
+    staticDetails = set?.specificEocs.find(({specificNum})=> specificNum==eocNum);
+  }
+
+  const {desc:description = ''} = staticDetails || {};
 
   const initialStateModal = {
     justification,
@@ -67,7 +79,7 @@ const ViewModal = ({
   // fix this or use this for props passing
   // I dont want to do prop drillings
   // I will just get course_id here
-  const course = useSelector((state) => state['course-evaluation']).data;
+
 
   const handleChange = (event) => {
     const { id, value } = event.target;
@@ -119,10 +131,10 @@ const ViewModal = ({
   };
 
   // TODO: get Display EOCS (borrowed from EditModal.js) - needs to be transferred to utils.js
-  const eocs = getEOCInfo(course._id);
+  const eocs = useSelector(state => state['course-evaluation'])?.data?.generalEocs ?? [];
   const specificNumbers = eocs.reduce((accumulator, current) => {
-    const currentSetEocNumbers = current.EOCS.map(
-      (eoc) => `${current.setNum}.${eoc.EOCNum}`
+    const currentSetEocNumbers = current.specificEocs.map(
+      (eoc) => `${current.generalNum}.${eoc.specificNum}`
     );
     return [...accumulator, ...currentSetEocNumbers];
   }, []);

@@ -8,7 +8,7 @@ import EOCCard from './EOCCard.js';
 import ViewModal from './ViewModal.js';
 
 // Utilities
-import { getEOCInfo, getIndexOfEOCMatch, getDetailsOfEntireEOC} from 'utils/eocs';
+import { getIndexOfEOCMatch, getDetailsOfEntireEOC} from 'utils/eocs';
 
 // Material Kit
 import Card from 'components/MaterialKit/Card/Card.js';
@@ -22,15 +22,13 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const EOCAccordion = () => {
-  // https://stackoverflow.com/questions/58539813/lazy-initial-state-what-is-and-where-to-use-it
-  const [eocs,] = useState(() => getEOCInfo());
   const [selectedEOC, setSelectedEOC] = useState(null);
 
   const courseEvaluation = useSelector((state) => state['course-evaluation']);
   const courseData = courseEvaluation?.data;
-  const eocReviews = courseData?.eoc;
+  const eocRemarks = courseData?.eocRemarks;
 
-
+  const generalEocs = courseData?.generalEocs;
 
   const saveFields = (
     eocGeneralAndSpecific,
@@ -38,8 +36,7 @@ const EOCAccordion = () => {
     justification,
     eocsInSameJustification
   ) => {
-   
-    const eocReviewsCopy = JSON.parse(JSON.stringify(eocReviews));  // Clone
+    const eocReviewsCopy = JSON.parse(JSON.stringify(eocRemarks));  // Clone
     const matchedIndex = getIndexOfEOCMatch(eocGeneralAndSpecific, eocReviewsCopy);
     const noReviewFound = matchedIndex === -1;
     // Determine if there exist an entry with the same justification
@@ -68,15 +65,15 @@ const EOCAccordion = () => {
 
   // Create EOC Card Component Sets per Accordion
   let accordions = null;
-  if (eocReviews !== null) {
-    accordions = eocs.map((eocSet) => {
-      const eocCards = eocSet.EOCS.map((eoc) => {
-        const eocGeneralAndSpecific = `${eocSet.setNum}.${eoc.EOCNum}`;
+  if (eocRemarks !== null) {
+    accordions = generalEocs.map((eocSet) => {
+      const eocCards = eocSet.specificEocs.map((eoc) => {
+        const eocGeneralAndSpecific = `${eocSet.generalNum}.${eoc.specificNum}`;
         const {
           rating,
           justification,
           eocsInSameJustification,
-        } = getDetailsOfEntireEOC(eocGeneralAndSpecific,eocReviews);
+        } = getDetailsOfEntireEOC(eocGeneralAndSpecific,eocRemarks);
 
         return (
           <GridItem key={eocGeneralAndSpecific} md={4}>
@@ -93,9 +90,9 @@ const EOCAccordion = () => {
       });
 
       return (
-        <Accordion key={eocSet.setNum}>
+        <Accordion key={eocSet.generalNum}>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            EOC {eocSet.setNum}: {eocSet.setName}
+            EOC {eocSet.generalNum}: {eocSet.generalName}
           </AccordionSummary>
           <AccordionDetails>
             <GridContainer>{eocCards}</GridContainer>
@@ -110,7 +107,7 @@ const EOCAccordion = () => {
       <Card>
         <ViewModal
           eocGeneralAndSpecific={selectedEOC}
-          detailsOfEOC={getDetailsOfEntireEOC(selectedEOC,eocReviews)}
+          detailsOfEOC={getDetailsOfEntireEOC(selectedEOC,eocRemarks)}
           isOpen={Boolean(selectedEOC)}
           closeModal={deselectEOC}
           saveFields={saveFields}
