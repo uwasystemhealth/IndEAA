@@ -47,10 +47,7 @@ const ViewModal = ({
   isReadOnly, // For finished Reviews or coordinator viewing
 }) => {
   const classes = useStyles();
-
-
   const eocs = useSelector(state => state['course-evaluation'])?.data?.generalEocs ?? [];
-
   let staticDetails;
   if (eocGeneralAndSpecific) {
     const [eocSetNum,eocNum] = eocGeneralAndSpecific?.split('.');

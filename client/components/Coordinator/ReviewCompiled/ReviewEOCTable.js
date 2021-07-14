@@ -1,8 +1,9 @@
 // React + Redux + Functionality
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 // Utilities
-import { getEOCInfo, developmentLevelToString } from 'utils/eocs';
+import { developmentLevelToString } from 'utils/eocs';
 import { getDetailsOfReviewEOC, getRangeOfDevelopmentLevel, getAverageOfDevelopmentLevel } from 'utils/compileResult';
 
 // Material Kit
@@ -111,7 +112,7 @@ function Row(props) {
 
 export default function CollapsibleTable({reviewsUserLinked}) {
 
-  const eocs  = getEOCInfo();
+  const eocs = useSelector(state => state['course-evaluation'])?.data?.generalEocs ?? [];
   return (
     <Card>
       <CardBody>
@@ -130,9 +131,9 @@ export default function CollapsibleTable({reviewsUserLinked}) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {eocs.map((eocSet) => {
-                return eocSet.EOCS.map((eoc) => {
-                  const eocGeneralAndSpecific = `${eocSet.setNum}.${eoc.EOCNum}`;
+              {eocs.map((generalEoc) => {
+                return generalEoc.specificEocs.map((eoc) => {
+                  const eocGeneralAndSpecific = `${generalEoc.generalNum}.${eoc.specificNum}`;
                   return(<Row key={eocGeneralAndSpecific} eocGeneralAndSpecific={eocGeneralAndSpecific} reviewsUserLinked={reviewsUserLinked} />);
                 });
               })
