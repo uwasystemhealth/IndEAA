@@ -1,4 +1,5 @@
-const createDocumentFromMarkdown = require('./lib/createDocumentFromMarkdown');
+const createDocumentFromMarkdown = require('../lib/createDocumentFromMarkdown');
+const getUsersForRoleClosure = require('../utils/feathersStuff');
 
 // To generate the report
 // The following details are needed:
@@ -73,3 +74,17 @@ const generateReport = (courseEvaluation,reviews,coordinators,reviewers) =>{
     return createDocumentFromMarkdown(markdownDetails,filename);
 };
 
+const gatherInformationForCourseEvaluationClosure =(app) => async (courseEvaluation_id) =>{
+    const getUsersForRole = getUsersForRoleClosure(app);
+    const [coordinators,reviewers] = await Promise.all([getUsersForRole(courseEvaluation_id,'Coordinator'),getUsersForRole(courseEvaluation_id,'Reviewer')]);
+    const reviews = await app.service('review').find({
+        query:{
+            course_id: courseEvaluation_id._id
+        },
+    }).data;
+    const courseEvaluation = await app.service('course-evaluation').get(courseEvaluation_id);
+
+    return generateReport(courseEvaluation,reviews,coordinators,reviewers);
+};
+
+module.exports = gatherInformationForCourseEvaluationClosure;
