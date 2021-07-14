@@ -113,4 +113,5 @@ nav:
   - Backend:
     - Permission: developer/backend/permission.md
     - Services: developer/backend/services.md
+    - Report Generation: developer/backend/report_generation.md
 - Changelog: changelog.md
