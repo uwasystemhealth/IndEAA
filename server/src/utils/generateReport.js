@@ -1,4 +1,5 @@
 const createDocumentFromMarkdown = require('../lib/createDocumentFromMarkdown');
+const {DEVELOPMENT_LEVEL} = require('./eocs');
 
 // To generate the report
 // The following details are needed:
@@ -11,11 +12,11 @@ const generateReport = (courseEvaluation,reviews,coordinators,reviewers) =>{
 
 Coordinators: 
 
-${coordinators.map(user => `- ${user.name || user.email}`).join('\n')}
+${coordinators.map(user => `- ${user.name ? `${user.name} <${user.email}>`: user.email}`).join('\n')}
 
 Reviewers:
 
-${reviewers.map(user => `- ${user.name || user.email}`).join('\n')}
+${reviewers.map(user => `- ${user.name ? `${user.name} <${user.email}>` : user.email}`).join('\n')}
 
 ## Course Information
 ${courseEvaluation.reviewDescription}
@@ -62,7 +63,7 @@ Finished Reviewed On: ${documentReview.finishedReviewedOn || 'Reviewer has not m
 ### Element of Competencies Review
 ${review.step3Evaluation.map(eocReview =>`
 #### EOC ${eocReview.eoc}
-Rating: ${eocReview.rating || 'Reviewer has not rated the EOC'}
+Rating: ${eocReview.rating ? `${eocReview.rating} - ${DEVELOPMENT_LEVEL[eocReview.rating - 1].short}` : 'Reviewer has not rated the EOC'}
 
 Reason: ${eocReview.reason || 'Reviewer did not provide reason'}
 
