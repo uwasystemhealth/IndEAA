@@ -44,7 +44,7 @@ const generateReport = (courseEvaluation,reviews,coordinators,reviewers) =>{
     # Review
 
     ${reviews.map(review =>`
-    ## Review of ${reviewers.find(user => user._id == review.user_id).name}
+    ## Review of ${review.user_id}
     
     Read the Development Levels on: ${review.step1DevelopmentLevels}
 
@@ -75,15 +75,18 @@ const generateReport = (courseEvaluation,reviews,coordinators,reviewers) =>{
 };
 
 const gatherInformationForCourseEvaluationClosure =(app) => async (courseEvaluation_id) =>{
-    const getUsersForRole = getUsersForRoleClosure(app);
-    const [coordinators,reviewers] = await Promise.all([getUsersForRole(courseEvaluation_id,'Coordinator'),getUsersForRole(courseEvaluation_id,'Reviewer')]);
-    const reviews = await app.service('review').find({
+    const reviews = (await app.service('review').find({
         query:{
-            course_id: courseEvaluation_id._id
+            course_id: courseEvaluation_id
         },
-    }).data;
+    })).data;
     const courseEvaluation = await app.service('course-evaluation').get(courseEvaluation_id);
-
+    // This assumes the the courseEvaluation will have the coordinators and reviewers
+    const {coordinators, reviewers} = courseEvaluation;
+    console.log(courseEvaluation);
+    console.log(coordinators);
+    console.log(reviewers);
+    console.log(reviews);
     return generateReport(courseEvaluation,reviews,coordinators,reviewers);
 };
 
