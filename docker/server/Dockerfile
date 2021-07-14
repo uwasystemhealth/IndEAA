@@ -10,6 +10,12 @@ RUN chmod +x /runtime.sh
 # Copy Application code into a directory called `app_code`
 COPY ./server /app_code
 
+# install latex packages
+RUN apt-get update -y \
+    && apt-get install -y --no-install-recommends \
+    texlive \
+    pandoc
+
 # Install ALL Dependencies
 RUN yarn install
 
