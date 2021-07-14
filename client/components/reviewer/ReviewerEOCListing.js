@@ -7,7 +7,7 @@ import EOCCard from 'components/Coordinator/EvaluationOverview/Justifications/EO
 import ReviewerEOCModal from 'components/reviewer/ReviewerEOCModal';
 
 // Utilities
-import { getEOCInfo, getDetailsOfEntireEOC} from 'utils/eocs';
+import { getDetailsOfEntireEOC} from 'utils/eocs';
 
 // Material Kit
 import Card from 'components/MaterialKit/Card/Card.js';
@@ -22,13 +22,19 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const EOCAccordion = ({isReadOnly}) => {
   // https://stackoverflow.com/questions/58539813/lazy-initial-state-what-is-and-where-to-use-it
-  const [eocs,] = useState(() => getEOCInfo());
+  // const [eocs,] = useState(() => getEOCInfo());
   const [selectedEOC, setSelectedEOC] = useState(null);
 
   const courseEvaluation = useSelector((state) => state['course-evaluation']);
+  const generalEocs = courseEvaluation?.generalEocs;
+  if (typeof generalEocs === undefined) {
+    generalEocs = []
+  }
+
+
   const reviewState = useSelector((state) => state.review);
   const review = reviewState?.queryResult.data[0];
-  const eocReviews = courseEvaluation?.data?.eoc;
+  const eocReviews = courseEvaluation?.data?.eocRemarks;
 
   const deselectEOC = () => setSelectedEOC(null);
   const getReviewEOCObject = (eocGeneralAndSpecific) =>
@@ -37,9 +43,9 @@ const EOCAccordion = ({isReadOnly}) => {
   // Create EOC Card Component Sets per Accordion
   let accordions = null;
   if (eocReviews !== null) {
-    accordions = eocs.map((eocSet) => {
-      const eocCards = eocSet.EOCS.map((eoc) => {
-        const eocGeneralAndSpecific = `${eocSet.setNum}.${eoc.EOCNum}`;
+    accordions = generalEocs?.map((eocSet) => {
+      const eocCards = eocSet.specificEocs.map((eoc) => {
+        const eocGeneralAndSpecific = `${eocSet.generalNum}.${eoc.specificNum}`;
         const {
           rating =0,
           reason = null,
@@ -62,9 +68,9 @@ const EOCAccordion = ({isReadOnly}) => {
       });
 
       return (
-        <Accordion key={eocSet.setNum}>
+        <Accordion key={eocSet.generalNum}>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            EOC {eocSet.setNum}: {eocSet.setName}
+            EOC {eocSet.setNum}: {eocSet.generalName}
           </AccordionSummary>
           <AccordionDetails>
             <GridContainer>{eocCards}</GridContainer>
@@ -85,7 +91,7 @@ const EOCAccordion = ({isReadOnly}) => {
           closeModal={deselectEOC}
           isReadOnly={isReadOnly}
         />
-        {accordions ?? <p>loading...</p>}
+        {accordions ?? <p>Loading... (or ask your coordinator to add some EOCs)</p>}
       </Card>
     </>
   );
