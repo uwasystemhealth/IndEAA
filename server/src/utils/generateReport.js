@@ -7,69 +7,77 @@ const createDocumentFromMarkdown = require('../lib/createDocumentFromMarkdown');
 const generateReport = (courseEvaluation,reviews,coordinators,reviewers) =>{
     // This function is a wrapper for creation of Document and returns a Promise
     const filename = `IndEAA-${courseEvaluation._id}-${courseEvaluation.courseId}`;
-    const markdownDetails =`
-    # IndEAA Report: ${courseEvaluation.courseId}
-    Coordinators: 
+    const markdownDetails =`# IndEAA Report: ${courseEvaluation.courseId}
 
-    ${coordinators.map(user => `- ${user.name}`).join('\n')}
+Coordinators: 
 
-    Reviewers:
+${coordinators.map(user => `- ${user.name || user.email}`).join('\n')}
 
-    ${reviewers.map(user => `- ${user.name}`).join('\n')}
+Reviewers:
 
-    ## Course Information
-    ${courseEvaluation.reviewDescription}
+${reviewers.map(user => `- ${user.name || user.email}`).join('\n')}
 
-    Target Date: ${courseEvaluation.reviewTargetDate}
-    Completed Date: ${courseEvaluation.completedDate}
-    Coordinators:
+## Course Information
+${courseEvaluation.reviewDescription}
 
-    ## Elements of Competencies
-    // TODO
+Target Date: ${courseEvaluation.dueDate || 'Not Specified'}
 
-    ## Documents Attached are:
-    
-    ${courseEvaluation.documents.map(document =>`
-    ### ${document.name}
-    ${document.description}
+Completed Date: ${courseEvaluation.completedDate || 'Not Specified'}
 
-    Link: ${document.link}
-    Tags: ${document.tags.join(',')}
-    `).join('\n')}
+## Elements of Competencies
+// TODO
 
-    ## Coordinator Review Justification
-    // TODO
+## Documents Attached are:
 
-    # Review
+${courseEvaluation.documents.map(document =>`
+### Document: ${document.name}
+${document.description}
 
-    ${reviews.map(review =>`
-    ## Review of ${review.user_id}
-    
-    Read the Development Levels on: ${review.step1DevelopmentLevels}
+Link: ${document.link}
 
-    ### General Comment
-    ${review.step4ReviewComment}
+Tags: ${document.tags.join(',')}
+`).join('\n')}
 
-    ### Documents Review
-    ${review.step2Documents.map(documentReview => `
-    #### ${documentReview.document_id}
-    ${documentReview.comment}
+# Coordinator Review Justification
+// TODO
 
-    Finished Reviewed On: ${documentReview.finishedReviewedOn}
-    `).join('\n')}
+# Review
 
-    ### Element of Competencies Review
-    ${review.step3Evaluation.map(eocReview =>`
-    #### EOC ${eocReview.eoc}
-    Rating: ${eocReview.rating}
-    Reason: ${eocReview.reason}
-    Idea for Improvement: ${eocReview.ideaForImprovement}
-    `).join('\n')}
+${reviews.map(review =>`
+## Review of ${review.user_id}
+
+Read the Development Levels on: ${review.step1DevelopmentLevels}
+
+### General Comment
+${review.step4ReviewComment}
+
+### Documents Review
+${review.step2Documents.map(documentReview => `
+#### ${documentReview.document_id}
+${documentReview.comment}
+
+Finished Reviewed On: ${documentReview.finishedReviewedOn}
+`).join('\n')}
+
+### Element of Competencies Review
+${review.step3Evaluation.map(eocReview =>`
+#### EOC ${eocReview.eoc}
+Rating: ${eocReview.rating}
+
+Reason: ${eocReview.reason}
+
+Idea for Improvement: ${eocReview.ideaForImprovement}
+`).join('\n')}
 
 
-    `).join('\n')}
-    
-    `;
+`).join('\n')}
+
+| Syntax | Description |
+| --- | ----------- |
+| Header | Title |
+| Paragraph | Text |
+
+`;
     return createDocumentFromMarkdown(markdownDetails,filename);
 };
 
