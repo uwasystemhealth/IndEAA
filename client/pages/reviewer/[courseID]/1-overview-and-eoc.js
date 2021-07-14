@@ -75,7 +75,8 @@ const ReviewerCourseReviewPage1 = () => {
 };
 
 const EOCDescriptionAccordions = () => {
-  const [eocs] = useState(() => getEOCInfo());
+  const evaluation = useSelector(state => state['course-evaluation'])
+  const generalEocs = evaluation?.data?.generalEocs ?? []
 
   // This is a copy of the coordinator/EOCAccordion (modified)
   // This needs to be refactored later on
@@ -85,16 +86,16 @@ const EOCDescriptionAccordions = () => {
 
   return (
     <>
-      {eocs.map((eocSet) => (
-        <Accordion key={eocSet.setNum}>
+      {generalEocs.map((eocSet) => (
+        <Accordion key={eocSet.generalNum}>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            EOC {eocSet.setNum}: {eocSet.setName}
+            EOC {eocSet.generalNum}: {eocSet.generalName}
           </AccordionSummary>
           <AccordionDetails>
             <CustomTabs
               headerColor="primary"
-              tabs={eocSet.EOCS.map((eoc) => ({
-                tabName: `EOC ${eocSet.setNum}.${eoc.EOCNum}`,
+              tabs={eocSet.specificEocs.map((eoc) => ({
+                tabName: `EOC ${eocSet.generalNum}.${eoc.specificNum}`,
                 tabContent: (
                   <GridContainer>
                     <GridItem md={6}>
