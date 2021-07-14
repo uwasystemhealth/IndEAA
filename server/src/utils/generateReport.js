@@ -31,11 +31,11 @@ Completed Date: ${courseEvaluation.completedDate || 'Not Specified'}
 
 ${courseEvaluation.documents.map(document =>`
 ### Document: ${document.name}
-${document.description}
+${document.description || 'Document has no description'}
 
-Link: ${document.link}
+Link: ${document.link || 'Document has no link'}
 
-Tags: ${document.tags.join(',')}
+Tags: ${(document.tags||[]).join(',')}
 `).join('\n')}
 
 # Coordinator Review Justification
@@ -49,33 +49,28 @@ ${reviews.map(review =>`
 Read the Development Levels on: ${review.step1DevelopmentLevels}
 
 ### General Comment
-${review.step4ReviewComment}
+${review.step4ReviewComment || 'Reviewer has no general comment'}
 
 ### Documents Review
 ${review.step2Documents.map(documentReview => `
-#### ${documentReview.document_id}
-${documentReview.comment}
+#### Review for document ${documentReview.document_id}
+${documentReview.comment || 'Reviewer has no comment for document'}
 
-Finished Reviewed On: ${documentReview.finishedReviewedOn}
+Finished Reviewed On: ${documentReview.finishedReviewedOn || 'Reviewer has not marked finished reviewing document'}
 `).join('\n')}
 
 ### Element of Competencies Review
 ${review.step3Evaluation.map(eocReview =>`
 #### EOC ${eocReview.eoc}
-Rating: ${eocReview.rating}
+Rating: ${eocReview.rating || 'Reviewer has not rated the EOC'}
 
-Reason: ${eocReview.reason}
+Reason: ${eocReview.reason || 'Reviewer did not provide reason'}
 
-Idea for Improvement: ${eocReview.ideaForImprovement}
+Idea for Improvement: ${eocReview.ideaForImprovement ||'Reviewer did not give suggestion'}
 `).join('\n')}
 
 
 `).join('\n')}
-
-| Syntax | Description |
-| --- | ----------- |
-| Header | Title |
-| Paragraph | Text |
 
 `;
     return createDocumentFromMarkdown(markdownDetails,filename);

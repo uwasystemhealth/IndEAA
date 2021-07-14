@@ -6,7 +6,7 @@ const createDocumentFromMarkdown = async (markdownData,filename) => {
     // About args format: https://github.com/asaf050/node-pandoc-promise/issues/4
     try{
         const filePath = `public/documents/${filename}.docx`;
-        await pandoc(markdownData, `--from gfm -t docx --output ${filePath}`.split(' '));
+        await pandoc(markdownData, `--from markdown -t docx --output ${filePath}`.split(' '));
         console.info(`Document Generation is Successful: ${filePath}`);
     }
     catch(err){
