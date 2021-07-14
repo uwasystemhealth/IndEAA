@@ -90,10 +90,6 @@ const gatherInformationForCourseEvaluationClosure =(app) => async (courseEvaluat
     const courseEvaluation = await app.service('course-evaluation').get(courseEvaluation_id);
     // This assumes the the courseEvaluation will have the coordinators and reviewers
     const {coordinators, reviewers} = courseEvaluation;
-    console.log(courseEvaluation);
-    console.log(coordinators);
-    console.log(reviewers);
-    console.log(reviews);
     return generateReport(courseEvaluation,reviews,coordinators,reviewers);
 };
 
