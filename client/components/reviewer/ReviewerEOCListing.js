@@ -22,7 +22,6 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const EOCAccordion = ({isReadOnly}) => {
   // https://stackoverflow.com/questions/58539813/lazy-initial-state-what-is-and-where-to-use-it
-  // const [eocs,] = useState(() => getEOCInfo());
   const [selectedEOC, setSelectedEOC] = useState(null);
 
   const courseEvaluation = useSelector((state) => state['course-evaluation']);
@@ -75,9 +74,6 @@ const EOCAccordion = ({isReadOnly}) => {
       );
     });
   }
-
-  console.log(selectedEOC, eocReviews)
-  console.log(selectedEOC && getDetailsOfEntireEOC(selectedEOC,eocReviews))
 
   return (
     <>

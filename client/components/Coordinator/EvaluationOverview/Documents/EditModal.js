@@ -1,4 +1,5 @@
 // React + Redux + Functionality
+import { useSelector } from 'react-redux';
 import { services } from 'store/feathersClient';
 import React, { useState, useEffect } from 'react';
 
@@ -6,9 +7,8 @@ import React, { useState, useEffect } from 'react';
 import DesignedCheckBox from 'components/administrator/DesignedCheckBox';
 
 // Utilities
-import { getEOCInfo } from 'utils/eocs';
 
-// Material Kit
+
 import Button from 'components/MaterialKit/CustomButtons/Button.js';
 import GridContainer from 'components/MaterialKit/Grid/GridContainer.js';
 import GridItem from 'components/MaterialKit/Grid/GridItem.js';
@@ -146,12 +146,15 @@ const EditModal = ({ document, course_id, isOpen, setClose }) => {
   };
 
   // Get all EOC both general EOC and specific EOC
-  const eocs = getEOCInfo(course_id);
-  const generalAndSpecificNumbers = eocs.reduce((accumulator, current) => {
-    const currentSetEocNumbers = current.EOCS.map(
-      (eoc) => `${current.setNum}.${eoc.EOCNum}`
+  // const eocs = getEOCInfo(course_id);
+  const courseEvaluation = useSelector((state) => state['course-evaluation']);
+  const generalEocs = courseEvaluation?.data?.generalEocs ?? [];
+
+  const generalAndSpecificNumbers = generalEocs.reduce((accumulator, current) => {
+    const currentSetEocNumbers = current.specificEocs.map(
+      (eoc) => `${current.generalNum}.${eoc.specificNum}`
     );
-    return [...accumulator, String(current.setNum), ...currentSetEocNumbers];
+    return [...accumulator, String(current.generalNum), ...currentSetEocNumbers];
   }, []);
 
   // Tags Allowed to be Applied
