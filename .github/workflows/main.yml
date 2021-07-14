@@ -4,9 +4,6 @@
 name: Main CI Pipeline
 
 on:
-  push:
-    branches:
-      - "main"
   pull_request:
   workflow_dispatch:
     inputs:
@@ -18,9 +15,10 @@ on:
 jobs:
   frontend-check:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v2
-      - uses: bahmutov/npm-install@v1
+      - uses: bahmutov/npm-install@v1 # Can do caching
         with:
           install-command: yarn --frozen-lockfile --silent
           working-directory: client
@@ -30,13 +28,112 @@ jobs:
 
   backend-check:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v2
-      - uses: bahmutov/npm-install@v1
+      - uses: bahmutov/npm-install@v1 # Can do caching
         with:
           install-command: yarn --frozen-lockfile --silent
           working-directory: server
       - name: Run Linting
         run:  npm run lint
         working-directory: server
+
+  backend-unit-testing:
+    needs: [backend-check]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      mongodb:
+        image: mongo
+        ports:
+          - 27017:27017
+        env:
+          MONGO_INITDB_ROOT_USERNAME: admin
+          MONGO_INITDB_ROOT_PASSWORD: admin
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          clean: false
+      - uses: bahmutov/npm-install@v1 # Can do caching
+        with:
+          install-command: yarn --frozen-lockfile --silent
+          working-directory: server
+      - name: Run Test
+        run:  npm run ci:test
+        working-directory: server
+      # Always upload the coverage
+      - uses: actions/upload-artifact@v1
+        if: always()
+        with:
+          name: coverage-report
+          path: server/coverage
+
+  end-to-end-testing:
+    needs: [frontend-check, backend-check]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    services:
+      mongodb:
+        image: mongo
+        ports:
+          - 27017:27017
+        env:
+          MONGO_INITDB_ROOT_USERNAME: admin
+          MONGO_INITDB_ROOT_PASSWORD: admin
+
+      
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          clean: false
+
+      # Cache Build: https://nextjs.org/docs/messages/no-cache#github-actions
+      - uses: actions/cache@v2
+        with:
+          path: ${{ github.workspace }}/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/client/yarn.lock') }}
+
+      # Builds and installs
+      - uses: bahmutov/npm-install@v1 # Can do caching
+        with:
+          install-command: yarn --frozen-lockfile --silent
+          working-directory: client
+      - name: Attempt to build frontend-check
+        run: npm run build
+        working-directory: client
+      - uses: bahmutov/npm-install@v1 # Can do caching
+        with:
+          install-command: yarn --frozen-lockfile --silent
+          working-directory: server
+
+      - uses: cypress-io/github-action@v2
+        with:
+          install-command: yarn --frozen-lockfile --silent
+          # API runs on port 3030
+          # Web server runs on port 3000
+          start: npm run ci:client, npm run ci:server
+          # wait for all services to respond
+          wait-on: 'http://localhost:3000, http://localhost:3030'
+        env:
+          NEXT_PUBLIC_BACKEND_URL: http://localhost:3030
+      
+      # after the test run completes
+      # store videos and any screenshots
+      # NOTE: screenshots will be generated only if E2E test failed
+      # thus we store screenshots only on failures
+      # Alternative: create and commit an empty cypress/screenshots folder
+      # to always have something to upload
+      - uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+      - uses: actions/upload-artifact@v1
+        if: always()
+        with:
+          name: cypress-videos
+          path: cypress/videos
+
 
