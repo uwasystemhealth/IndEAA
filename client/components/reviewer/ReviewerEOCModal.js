@@ -33,7 +33,6 @@ const styles = { ...modalStyle };
 const useStyles = makeStyles(styles);
 
 import {
-  getStaticDetailsOfEOC,
   developmentLevel,
   developmentLevelToString,
   stringToDevelopmentLevel,
@@ -49,9 +48,21 @@ const ViewModal = ({
 }) => {
   const classes = useStyles();
 
+
+  const eocs = useSelector(state => state['course-evaluation'])?.data?.generalEocs ?? [];
+
+  let staticDetails;
+  if (eocGeneralAndSpecific) {
+    const [eocSetNum,eocNum] = eocGeneralAndSpecific?.split('.');
+    const generalEoc = eocs.find(({generalNum})=> generalNum==eocSetNum);
+    staticDetails = generalEoc.specificEocs.find(({specificNum})=> specificNum==eocNum);
+
+  }
   const { rating = 0, reason = '', ideaForImprovement = '' } = reviewEOC || {};
   const { desc: description = '', indicatorsOfAttainment = [] } =
-    getStaticDetailsOfEOC(eocGeneralAndSpecific) || {};
+    staticDetails || {};
+
+
 
   const initialStateModal = {
     rating,

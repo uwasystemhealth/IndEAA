@@ -26,11 +26,7 @@ const EOCAccordion = ({isReadOnly}) => {
   const [selectedEOC, setSelectedEOC] = useState(null);
 
   const courseEvaluation = useSelector((state) => state['course-evaluation']);
-  const generalEocs = courseEvaluation?.generalEocs;
-  if (typeof generalEocs === undefined) {
-    generalEocs = []
-  }
-
+  const generalEocs = courseEvaluation?.data?.generalEocs ?? [];
 
   const reviewState = useSelector((state) => state.review);
   const review = reviewState?.queryResult.data[0];
@@ -79,6 +75,9 @@ const EOCAccordion = ({isReadOnly}) => {
       );
     });
   }
+
+  console.log(selectedEOC, eocReviews)
+  console.log(selectedEOC && getDetailsOfEntireEOC(selectedEOC,eocReviews))
 
   return (
     <>
