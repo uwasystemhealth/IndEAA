@@ -28,7 +28,16 @@ module.exports = function (app) {
         isArchived: Boolean,
         completedDate: Date,
         dueDate: Date,
-        eoc: [{
+      generalEocs: [{
+        generalNum: {type: Number},
+        generalName: {type: String},
+        specificEocs: [{
+          specificNum: {type: Number},
+          desc: {type: String},
+          indicatorsOfAttainment: [String]
+        }]
+      ],
+        eocRemarks: [{
             eocNumber: [String],
             developmentLevel: {type: Number},
             justification: DescType()
