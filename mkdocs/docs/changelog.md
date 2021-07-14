@@ -2,6 +2,9 @@
 This is the changelog for IndEAA.
 
 # v1.2.0 - Jul 15, 2021
+???+ success "New"
+    - Implemented Cypress and Automated Testing Pipeline ([#48](https://github.com/uwasystemhealth/IndEAA/issues/48))
+  
 ???+ info "Improvements"
     - Pagination Default Changes from 20 to 100 ([#48](https://github.com/uwasystemhealth/IndEAA/issues/48))
     - Cleanups of Import (partial progress) ([#42](https://github.com/uwasystemhealth/IndEAA/issues/42))
