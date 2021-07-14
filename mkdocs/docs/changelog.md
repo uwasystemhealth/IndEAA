@@ -1,6 +1,10 @@
 # Changelog
 This is the changelog for IndEAA.
 
+# v1.1.1 "Config Hotfix" - Jul 15, 2021
+???+ info "Improvements"
+    - Pagination Default Changes from 20 to 100 ([#48](https://github.com/uwasystemhealth/IndEAA/issues/48))
+
 # v1.1.0 - Mar 3, 2021
 ???+ info "Improvements"
     - Introduction Documents + Some Optimisation of Data Fetching Optimisation Related ([#82](https://github.com/uwasystemhealth/IndEAA/issues/82), [#108](https://github.com/uwasystemhealth/IndEAA/issues/108) )
