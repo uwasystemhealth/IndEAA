@@ -36,12 +36,12 @@ module.exports = function (app) {
           desc: {type: String},
           indicatorsOfAttainment: [String]
         }]
-      ],
-        eocRemarks: [{
-            eocNumber: [String],
-            developmentLevel: {type: Number},
-            justification: DescType()
-        }]
+      }],
+      eocRemarks: [{
+        eocNumber: [String],
+        developmentLevel: {type: Number},
+        justification: DescType()
+      }],
     });
 
     // This is necessary to avoid model compilation errors in watch mode
