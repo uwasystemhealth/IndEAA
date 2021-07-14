@@ -146,7 +146,6 @@ const EditModal = ({ document, course_id, isOpen, setClose }) => {
   };
 
   // Get all EOC both general EOC and specific EOC
-  // const eocs = getEOCInfo(course_id);
   const courseEvaluation = useSelector((state) => state['course-evaluation']);
   const generalEocs = courseEvaluation?.data?.generalEocs ?? [];
 
