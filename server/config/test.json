@@ -1,1 +1,3 @@
-{}
+{
+  "mongodb": "mongodb://admin:admin@db:27017/test?authSource=admin"
+}

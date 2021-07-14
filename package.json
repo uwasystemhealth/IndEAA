@@ -1,0 +1,27 @@
+{
+  "name": "indeaa",
+  "version": "1.0.0",
+  "description": "A web application that streamlines course review by industry advisory panels.",
+  "dependencies": {},
+  "devDependencies": {
+    "cypress": "^6.3.0",
+    "dotenv": "^8.2.0"
+  },
+  "scripts": {
+    "cypress:open": "export cypress_baseUrl=http://localhost:10004 && cypress open",
+    "cypress:run": "cypress run",
+    "ci:client": "npm run start --prefix client",
+    "ci:server": "NODE_ENV=ci npm run start --prefix server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uwasystemhealth/IndEAA.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/uwasystemhealth/IndEAA/issues"
+  },
+  "homepage": "https://github.com/uwasystemhealth/IndEAA#readme"
+}
