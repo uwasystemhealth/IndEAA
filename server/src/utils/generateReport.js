@@ -45,7 +45,7 @@ ${courseEvaluation.documents.map(document =>`
 
 Link: ${document.link ? `[Click here](${document.link})` : 'Document has no link'}
 
-Tags: ${(document.tags||[]).join(',')}
+Tags: ${(document.tags||[]).join(', ')}
 `).join('\n')}
 
 # Coordinator Review Justification
