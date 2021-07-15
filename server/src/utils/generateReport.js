@@ -7,7 +7,8 @@ const {DEVELOPMENT_LEVEL} = require('./eocs');
 // User Information: Reviewers and Coordinators
 const generateReport = (courseEvaluation,reviews,coordinators,reviewers) =>{
     // This function is a wrapper for creation of Document and returns a Promise
-    const filename = `IndEAA-${courseEvaluation._id}-${courseEvaluation.courseId}`;
+    const filename = `IndEAA-Report-${courseEvaluation.courseId}`;
+    const folderPath = `${courseEvaluation._id}`;
     const markdownDetails =`# IndEAA Report: ${courseEvaluation.courseId}
 
 Coordinators: 
@@ -74,7 +75,7 @@ Idea for Improvement: ${eocReview.ideaForImprovement ||'Reviewer did not give su
 `).join('\n')}
 
 `;
-    return createDocumentFromMarkdown(markdownDetails,filename);
+    return createDocumentFromMarkdown(markdownDetails,filename,folderPath);
 };
 
 const gatherInformationForCourseEvaluationClosure =(app) => async (courseEvaluation_id) =>{

@@ -15,4 +15,4 @@ The server application uses the `/public/documents` path to store the generated 
 ???+ info "Security"
     As of the implementation of the feature, the security authentication is not established.
 
-    Currently, it is deemed secure enough because to access a file, the user/application will need the **exact** name of the file  they want to access. The format will be in `IndEAA-${course_id}-{courseCode}`. The hardest bit here to guess is the `course_id` because that refers to the MongoDB Object ID. Guessing this will probably be almost the same thing as trying to guess the JWT authentication token.
+    Currently, it is deemed secure enough because to access a file, the user/application will need the **exact** path of the file  they want to access. The format will be in `public/documents/${course_id}/IndEAA-Report-{courseCode}`. The hardest bit here to guess is the `course_id` because that refers to the MongoDB Object ID. Guessing this will probably be almost the same thing as trying to guess the JWT authentication token.
