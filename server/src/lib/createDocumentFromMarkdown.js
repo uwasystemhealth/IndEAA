@@ -12,7 +12,9 @@ const cleanName = (name) =>{
 const createDocumentFromMarkdown = async (markdownData,filename,folderPath) => {
     // This function is used for generating word documents with markdown
     // Use https://pandoc.org/MANUAL.html for args
-    // About args format: https://github.com/asaf050/node-pandoc-promise/issues/4
+    // About args format: https://github.com/asaf050/node-pandoc-promise/issues/
+    // About TOC, I had trouble making it dynamically prefil as per https://github.com/jgm/pandoc/issues/458
+    // After the use gets the Word Document, they can just right click the Table Of Contents to Generate it
     try{
         const filePath = `public/documents/${folderPath}`;
         // Pandoc can only create file when directory to hold file exist
