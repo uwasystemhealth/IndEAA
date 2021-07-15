@@ -5,7 +5,7 @@ const cleanName = (name) =>{
     // This function is used to sanitise a name that is appropriate for filenames
     // Reference: https://stackoverflow.com/questions/3881297/regexp-for-clean-file-and-folder-names
     name = name.replace(/\s+/gi, '-'); // Replace white space with dash
-    name = name.replace(/[^a-zA-Z0-9\-]/gi, ''); // Strip any special charactere
+    name = name.replace(/[^a-zA-Z0-9-]/gi, ''); // Strip any special charactere
     return name;
 }; 
 
