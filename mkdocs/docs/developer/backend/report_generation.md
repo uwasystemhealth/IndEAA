@@ -2,6 +2,13 @@
 The report generation feature is used for generating reports for the Coordinators.
 
 ## Implementation
+The report is generated everytime a new change that has been done for a Course Evaluation (either the details changed or reviews are filled).
+
+???+ info "Node Background Process"
+    Report generation for every change normally increases server load. However, it is the easiest implementation. Also, it doesn't affect the performance of the server application as much because it runs as an after hook that is not awaited.
+
+    ???+ warning "Do not Await!"
+        As said, it runs as an after hook that is not awaited so don't put an `await` there.
 
 ### Markdown to Word Document Pandoc
 The feature is implemented using the package [node-pandoc-promise](https://github.com/asaf050/node-pandoc-promise).

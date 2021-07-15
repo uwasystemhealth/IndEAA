@@ -12,10 +12,10 @@ module.exports = (options = {}) => {
         // Generate the report
         // Do not Await the report generation
         if(serviceName==='course-evaluation'){
-            await gatherInformationForCourseEvaluation(result._id);
+            gatherInformationForCourseEvaluation(result._id);
         }
         else if(serviceName==='review'){
-            await gatherInformationForCourseEvaluation(result.course_id);
+            gatherInformationForCourseEvaluation(result.course_id);
         }
         else{
             throw new Error(`Hook has no purpose here. Service Name: ${serviceName}`);
