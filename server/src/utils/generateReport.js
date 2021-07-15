@@ -41,9 +41,9 @@ ${reviewers.map(user => `- ${user.name ? `${user.name} <${user.email}>` : user.e
 
 ${courseEvaluation.documents.map(document =>`
 ### Document: ${document.name}
-${document.description || 'Document has no description'}
+> ${document.description || 'Document has no description'}
 
-Link: ${document.link || 'Document has no link'}
+Link: ${document.link ? `[Click here](${document.link})` : 'Document has no link'}
 
 Tags: ${(document.tags||[]).join(',')}
 `).join('\n')}
@@ -56,7 +56,7 @@ Development Level: ${remarks.developmentLevel ? `${remarks.developmentLevel} - $
 
 Justification:
 
-${remarks.justification}
+> ${remarks.justification}
 `).join('\n')}
 
 # Review
@@ -67,27 +67,31 @@ ${reviews.map(review =>`
 Read the Development Levels on: ${review.step1DevelopmentLevels || 'Reviewer has not confirmed reading the development levels'}
 
 ### General Comment
-${review.step4ReviewComment || 'Reviewer has no general comment'}
+> ${review.step4ReviewComment || 'Reviewer has no general comment'}
 
 ### Documents Review
 ${review.step2Documents.map(documentReview => `
 ${ documentReview.comment ? `#### Review for document ${documentReview.document_id}
-${documentReview.comment || 'Reviewer has no comment for document'}
+> ${documentReview.comment || 'Reviewer has no comment for document'}
 
 Finished Reviewed On: ${documentReview.finishedReviewedOn || 'Reviewer has not marked finished reviewing document'}
-`: ''}`).join('\n') || 'Reviewer has not reviewed the documents'}
+`: ''}`).join('\n') || '>  Reviewer has not reviewed the documents'}
 
 ### Element of Competencies Review
 ${review.step3Evaluation.map(eocReview =>`
 #### EOC ${eocReview.eoc}
 Rating: ${eocReview.rating ? `${eocReview.rating} - ${DEVELOPMENT_LEVEL[eocReview.rating - 1].short}` : 'Reviewer has not rated the EOC'}
 
-Reason: ${eocReview.reason || 'Reviewer did not provide reason'}
+Reason: 
 
-Idea for Improvement: ${eocReview.ideaForImprovement ||'Reviewer did not give suggestion'}
-`).join('\n') || 'Reviewer has not evaluated any Elements of Competency'}
+> ${eocReview.reason || 'Reviewer did not provide reason'}
 
+Idea for Improvement: 
 
+> ${eocReview.ideaForImprovement ||'Reviewer did not give suggestion'}
+`).join('\n') || '> Reviewer has not evaluated any Elements of Competency'}
+
+***
 `).join('\n')}
 
 `;
