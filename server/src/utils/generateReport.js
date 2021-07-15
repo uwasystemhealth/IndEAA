@@ -9,7 +9,19 @@ const generateReport = (courseEvaluation,reviews,coordinators,reviewers) =>{
     // This function is a wrapper for creation of Document and returns a Promise
     const filename = `IndEAA-Report-${courseEvaluation.courseId}`;
     const folderPath = `${courseEvaluation._id}`;
-    const markdownDetails =`# IndEAA Report: ${courseEvaluation.courseId}
+    const markdownDetails =
+`
+---
+title: IndEAA Report - ${courseEvaluation.courseId}
+abstract: ABC
+---
+
+## Course Information
+${courseEvaluation.reviewDescription}
+
+Target Date: ${courseEvaluation.dueDate || 'Not Specified'}
+
+Completed Date: ${courseEvaluation.completedDate || 'Not Specified'}
 
 Coordinators: 
 
@@ -19,12 +31,6 @@ Reviewers:
 
 ${reviewers.map(user => `- ${user.name ? `${user.name} <${user.email}>` : user.email}`).join('\n')}
 
-## Course Information
-${courseEvaluation.reviewDescription}
-
-Target Date: ${courseEvaluation.dueDate || 'Not Specified'}
-
-Completed Date: ${courseEvaluation.completedDate || 'Not Specified'}
 
 ## Elements of Competencies
 // TODO
@@ -41,7 +47,15 @@ Tags: ${(document.tags||[]).join(',')}
 `).join('\n')}
 
 # Coordinator Review Justification
-// TODO
+// TODO: This needs to be changed with the EOC stuff later
+${courseEvaluation.eoc.map(remarks =>`
+## Justification for ${remarks.eocNumber.join(', ')}
+Development Level: ${remarks.developmentLevel ? `${remarks.developmentLevel} - ${DEVELOPMENT_LEVEL[remarks.developmentLevel - 1].short}` : 'Coordinator has not rated the development Level'}
+
+Justification:
+
+${remarks.justification}
+`).join('\n')}
 
 # Review
 
@@ -55,11 +69,11 @@ ${review.step4ReviewComment || 'Reviewer has no general comment'}
 
 ### Documents Review
 ${review.step2Documents.map(documentReview => `
-#### Review for document ${documentReview.document_id}
+${ documentReview.comment ? `#### Review for document ${documentReview.document_id}
 ${documentReview.comment || 'Reviewer has no comment for document'}
 
 Finished Reviewed On: ${documentReview.finishedReviewedOn || 'Reviewer has not marked finished reviewing document'}
-`).join('\n')}
+`: ''}`).join('\n')}
 
 ### Element of Competencies Review
 ${review.step3Evaluation.map(eocReview =>`

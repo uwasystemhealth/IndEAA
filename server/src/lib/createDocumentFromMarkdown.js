@@ -21,7 +21,7 @@ const createDocumentFromMarkdown = async (markdownData,filename,folderPath) => {
         }
         const cleanFileName = cleanName(filename);
         const destination = `${filePath}/${cleanFileName}.docx`;
-        await pandoc(markdownData, `--from markdown -t docx --output ${destination} --toc`.split(' '));
+        await pandoc(markdownData, `--from markdown -t docx --output ${destination} --toc --reference-doc=template/custom-reference.docx`.split(' '));
         console.info(`Document Generation is Successful: ${destination}`);
     }
     catch(err){
