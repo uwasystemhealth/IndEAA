@@ -51,7 +51,7 @@ Tags: ${(document.tags||[]).join(',')}
 # Coordinator Review Justification
 // TODO: This needs to be changed with the EOC stuff later
 ${courseEvaluation.eoc.map(remarks =>`
-## Justification for ${remarks.eocNumber.join(', ')}
+## Justification for EOC: ${remarks.eocNumber.join(', ')}
 Development Level: ${remarks.developmentLevel ? `${remarks.developmentLevel} - ${DEVELOPMENT_LEVEL[remarks.developmentLevel - 1].short}` : 'Coordinator has not rated the development Level'}
 
 Justification:
@@ -75,7 +75,7 @@ ${ documentReview.comment ? `#### Review for document ${documentReview.document_
 ${documentReview.comment || 'Reviewer has no comment for document'}
 
 Finished Reviewed On: ${documentReview.finishedReviewedOn || 'Reviewer has not marked finished reviewing document'}
-`: ''}`).join('\n')}
+`: ''}`).join('\n') || 'Reviewer has not reviewed the documents'}
 
 ### Element of Competencies Review
 ${review.step3Evaluation.map(eocReview =>`
@@ -85,7 +85,7 @@ Rating: ${eocReview.rating ? `${eocReview.rating} - ${DEVELOPMENT_LEVEL[eocRevie
 Reason: ${eocReview.reason || 'Reviewer did not provide reason'}
 
 Idea for Improvement: ${eocReview.ideaForImprovement ||'Reviewer did not give suggestion'}
-`).join('\n')}
+`).join('\n') || 'Reviewer has not evaluated any Elements of Competency'}
 
 
 `).join('\n')}
