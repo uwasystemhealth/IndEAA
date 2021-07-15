@@ -62,9 +62,9 @@ ${remarks.justification}
 # Review
 
 ${reviews.map(review =>`
-## Review of ${review.user_id}
+## Review of ${review.user_id.name}
 
-Read the Development Levels on: ${review.step1DevelopmentLevels}
+Read the Development Levels on: ${review.step1DevelopmentLevels || 'Reviewer has not confirmed reading the development levels'}
 
 ### General Comment
 ${review.step4ReviewComment || 'Reviewer has no general comment'}
@@ -97,7 +97,8 @@ Idea for Improvement: ${eocReview.ideaForImprovement ||'Reviewer did not give su
 const gatherInformationForCourseEvaluationClosure =(app) => async (courseEvaluation_id) =>{
     const reviews = (await app.service('review').find({
         query:{
-            course_id: courseEvaluation_id
+            course_id: courseEvaluation_id,
+            $populate: 'user_id'
         },
     })).data;
     const courseEvaluation = await app.service('course-evaluation').get(courseEvaluation_id);
