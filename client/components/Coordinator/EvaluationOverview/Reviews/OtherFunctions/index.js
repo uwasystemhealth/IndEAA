@@ -29,12 +29,6 @@ const OtherFunctions = () => {
             </Button>
           </GridItem>
           <GridItem xs={6}>
-            <Button color="white" display="block" fullWidth>
-              <PictureAsPdfIcon />
-              Export
-            </Button>
-          </GridItem>
-          <GridItem xs={6}>
             <Button color="white" fullWidth>
               <SettingsIcon />
               Manage Users
