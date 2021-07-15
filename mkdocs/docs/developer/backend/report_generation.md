@@ -7,6 +7,8 @@ The report is generated everytime a new change that has been done for a Course E
 ???+ info "Node Background Process"
     Report generation for every change normally increases server load. However, it is the easiest implementation. Also, it doesn't affect the performance of the server application as much because it runs as an after hook that is not awaited.
 
+    With Pandoc, the report generation usually takes only a couple of seconds to generate <50 pages.
+
     ???+ warning "Do not Await!"
         As said, it runs as an after hook that is not awaited so don't put an `await` there.
 
