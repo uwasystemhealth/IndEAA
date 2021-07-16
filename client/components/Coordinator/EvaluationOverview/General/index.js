@@ -54,12 +54,7 @@ const General = () => {
           </CardHeader>
           <CardBody>
             <iframe 
-              src={`https://view.officeapps.live.com/op/embed.aspx?src=${reportLink}`} width='100%' height='100%' frameBorder='0'>
-              This is an embedded
-              <a target='_blank' rel="noreferrer" href='http://office.com'>Microsoft Office</a>
-              document, powered by
-              <a target='_blank' rel="noreferrer" href='http://office.com/webapps'>Office Online</a>.
-            </iframe>
+              src={`https://docs.google.com/gview?url=${reportLink}`} width='100%' height='100%' frameBorder='0' />
           </CardBody>
         </Card>
       </GridItem>
