@@ -88,7 +88,7 @@ const EOCAccordion = () => {
         } = getDetailsOfEntireEOC(eocGeneralAndSpecific,eocRemarks);
 
         return (
-          <GridItem key={eocGeneralAndSpecific} md={4}>
+          <GridItem key={eocGeneralAndSpecific} md={10}>
             <EOCCard
               eocGeneralAndSpecific={eocGeneralAndSpecific}
               description={eoc.desc}
@@ -100,6 +100,8 @@ const EOCAccordion = () => {
           </GridItem>
         );
       });
+
+
 
       return (
         <Accordion key={eocSet.generalNum}>
