@@ -39,7 +39,6 @@ const EOCAccordion = () => {
   const courseEvaluation = useSelector((state) => state['course-evaluation']);
   const courseData = courseEvaluation?.data;
   const eocRemarks = courseData?.eocRemarks;
-
   const generalEocs = courseData?.generalEocs;
 
   const saveFields = (
@@ -101,7 +100,17 @@ const EOCAccordion = () => {
         );
       });
 
+      const addNewEOC = async () => {
+        const generalIndex = generalEocs.findIndex(x => x.generalNum == eocSet.generalNum);
+        const clonedGeneralEocs = JSON.parse(JSON.stringify(generalEocs));  // Clone
+        clonedGeneralEocs[generalIndex].specificEocs.push({
+          'specificNum': 42,
+          'desc': 'world\'s best EOC',
+          'indicatorsOfAttainment': []
+        });
 
+        await services['course-evaluation'].patch(courseData._id, {'generalEocs': clonedGeneralEocs});
+      };
 
       return (
         <Accordion key={eocSet.generalNum}>
@@ -112,7 +121,7 @@ const EOCAccordion = () => {
             <GridContainer>{eocCards}</GridContainer>
           </AccordionDetails>
           <div className={classes.accordionFooter}>
-            <Button>Add new Element of Competency (EOC)</Button>
+            <Button onClick={addNewEOC}>Add new Element of Competency (EOC)</Button>
           </div>
         </Accordion>
       );
