@@ -5,6 +5,7 @@ import { useState } from 'react';
 
 // Custom Components
 import EOCCard from './EOCCard.js';
+import CreateEOCModal from './CreateEOCModal.js';
 import ViewModal from './ViewModal.js';
 
 // Utilities
@@ -36,10 +37,17 @@ const EOCAccordion = () => {
   const [selectedEOC, setSelectedEOC] = useState(null);
   const classes = useStyles();
 
+  const [selectedGeneralEOC, setSelectedGeneralEOC] = useState(null);
+
   const courseEvaluation = useSelector((state) => state['course-evaluation']);
   const courseData = courseEvaluation?.data;
   const eocRemarks = courseData?.eocRemarks;
   const generalEocs = courseData?.generalEocs;
+
+  const [isNewEOCModalOpen, setNewEOCModal] = useState(false);
+
+  const closeNewEOCModal = () => setNewEOCModal(false);
+
 
   const saveFields = (
     eocGeneralAndSpecific,
@@ -48,6 +56,7 @@ const EOCAccordion = () => {
     eocsInSameJustification
   ) => {
     const eocReviewsCopy = JSON.parse(JSON.stringify(eocRemarks));  // Clone
+    console.log(eocReviewsCopy)
     const matchedIndex = getIndexOfEOCMatch(eocGeneralAndSpecific, eocReviewsCopy);
     const noReviewFound = matchedIndex === -1;
     // Determine if there exist an entry with the same justification
@@ -77,7 +86,7 @@ const EOCAccordion = () => {
   // Create EOC Card Component Sets per Accordion
   let accordions = null;
   if (eocRemarks !== null) {
-    accordions = generalEocs.map((eocSet) => {
+    accordions = courseData?.generalEocs.map((eocSet) => {
       const eocCards = eocSet.specificEocs.map((eoc) => {
         const eocGeneralAndSpecific = `${eocSet.generalNum}.${eoc.specificNum}`;
         const {
@@ -100,16 +109,9 @@ const EOCAccordion = () => {
         );
       });
 
-      const addNewEOC = async () => {
-        const generalIndex = generalEocs.findIndex(x => x.generalNum == eocSet.generalNum);
-        const clonedGeneralEocs = JSON.parse(JSON.stringify(generalEocs));  // Clone
-        clonedGeneralEocs[generalIndex].specificEocs.push({
-          'specificNum': 42,
-          'desc': 'world\'s best EOC',
-          'indicatorsOfAttainment': []
-        });
-
-        await services['course-evaluation'].patch(courseData._id, {'generalEocs': clonedGeneralEocs});
+      const openNewEOCModal = () => {
+        setSelectedGeneralEOC(eocSet._id);
+        setNewEOCModal(true);
       };
 
       return (
@@ -121,7 +123,12 @@ const EOCAccordion = () => {
             <GridContainer>{eocCards}</GridContainer>
           </AccordionDetails>
           <div className={classes.accordionFooter}>
-            <Button onClick={addNewEOC}>Add new Element of Competency (EOC)</Button>
+            <Button onClick={openNewEOCModal}>Add new Element of Competency (EOC)</Button>
+            <CreateEOCModal
+              isOpen={isNewEOCModalOpen}
+              closeModal={closeNewEOCModal}
+              selectedGeneralEoc={selectedGeneralEOC}
+            />
           </div>
         </Accordion>
       );
