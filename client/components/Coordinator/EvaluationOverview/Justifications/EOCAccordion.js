@@ -14,6 +14,7 @@ import { getIndexOfEOCMatch, getDetailsOfEntireEOC} from 'utils/eocs';
 import Card from 'components/MaterialKit/Card/Card.js';
 import GridContainer from 'components/MaterialKit/Grid/GridContainer.js';
 import GridItem from 'components/MaterialKit/Grid/GridItem.js';
+import Button from 'components/MaterialKit/CustomButtons/Button.js';
 
 // Material UI
 import Accordion from '@material-ui/core/Accordion';
@@ -21,8 +22,19 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
+//Styles
+import { makeStyles } from '@material-ui/core/styles';
+const useStyles = makeStyles(() => ({
+  accordionFooter: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    padding: '1em'
+  },
+}));
+
 const EOCAccordion = () => {
   const [selectedEOC, setSelectedEOC] = useState(null);
+  const classes = useStyles();
 
   const courseEvaluation = useSelector((state) => state['course-evaluation']);
   const courseData = courseEvaluation?.data;
@@ -97,6 +109,9 @@ const EOCAccordion = () => {
           <AccordionDetails>
             <GridContainer>{eocCards}</GridContainer>
           </AccordionDetails>
+          <div className={classes.accordionFooter}>
+            <Button>Add new Element of Competency (EOC)</Button>
+          </div>
         </Accordion>
       );
     });
