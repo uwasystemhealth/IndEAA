@@ -34,21 +34,18 @@ const useStyles = makeStyles(() => ({
 }));
 
 const EOCAccordion = () => {
-  const [selectedEOC, setSelectedEOC] = useState(null);
   const classes = useStyles();
 
+  const [selectedEOC, setSelectedEOC] = useState(null);
   const [selectedGeneralEOC, setSelectedGeneralEOC] = useState(null);
+  const deselectGeneralEOC = () => setSelectedGeneralEOC(null);
+  const deselectEOC = () => setSelectedEOC(null);
 
-  const courseEvaluation = useSelector((state) => state['course-evaluation']);
-  const courseData = courseEvaluation?.data;
-  const eocRemarks = courseData?.eocRemarks;
+  const courseData = useSelector((state) => state['course-evaluation'])?.data;
   const generalEocs = courseData?.generalEocs;
+  const eocRemarks = courseData?.eocRemarks;
 
-  const [isNewEOCModalOpen, setNewEOCModal] = useState(false);
-
-  const closeNewEOCModal = () => setNewEOCModal(false);
-
-
+  // Logic for updating/creating a new rating & justification
   const saveFields = (
     eocGeneralAndSpecific,
     developmentLevel,
@@ -56,7 +53,6 @@ const EOCAccordion = () => {
     eocsInSameJustification
   ) => {
     const eocReviewsCopy = JSON.parse(JSON.stringify(eocRemarks));  // Clone
-    console.log(eocReviewsCopy)
     const matchedIndex = getIndexOfEOCMatch(eocGeneralAndSpecific, eocReviewsCopy);
     const noReviewFound = matchedIndex === -1;
     // Determine if there exist an entry with the same justification
@@ -66,7 +62,7 @@ const EOCAccordion = () => {
         justification,
         developmentLevel,
       });
-    } else if (eocsInSameJustification.length === 0){ 
+    } else if (eocsInSameJustification.length === 0) {
       // If the eocNumber is empty, it means the justification is being deleted
       eocReviewsCopy.splice(matchedIndex,1);
     } 
@@ -81,7 +77,32 @@ const EOCAccordion = () => {
     });
   };
 
-  const deselectEOC = () => setSelectedEOC(null);
+  const createSpecificEoc = async (generalEoc, specificNum, desc, IOAs) => {
+    console.log("AAAAAHHH!!!", generalEocs)
+    try {
+      const clonedGeneralEocs = JSON.parse(JSON.stringify(generalEocs));  // Clone
+
+      // console.log(generalEocs)
+      const generalIndex = generalEocs.findIndex(x => x.generalNum == generalEoc);
+      const noGeneralEocFound = generalIndex === -1;
+      if (noGeneralEocFound) {
+        console.error("Can't create a specific EOC without a general EOC");
+        // Error, can't create a specific EOC without a general EOC.
+      } else {
+        clonedGeneralEocs[generalIndex].specificEocs.push({
+          'specificNum': specificNum,
+          'desc': desc,
+          'indicatorsOfAttainment': IOAs
+        });
+
+        services['course-evaluation'].patch(courseData?._id, {'generalEocs': clonedGeneralEocs});
+      }
+
+      closeModal();
+    } catch(error) {
+      console.error(error);
+    }
+  }
 
   // Create EOC Card Component Sets per Accordion
   let accordions = null;
@@ -109,11 +130,6 @@ const EOCAccordion = () => {
         );
       });
 
-      const openNewEOCModal = () => {
-        setSelectedGeneralEOC(eocSet._id);
-        setNewEOCModal(true);
-      };
-
       return (
         <Accordion key={eocSet.generalNum}>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
@@ -123,12 +139,7 @@ const EOCAccordion = () => {
             <GridContainer>{eocCards}</GridContainer>
           </AccordionDetails>
           <div className={classes.accordionFooter}>
-            <Button onClick={openNewEOCModal}>Add new Element of Competency (EOC)</Button>
-            <CreateEOCModal
-              isOpen={isNewEOCModalOpen}
-              closeModal={closeNewEOCModal}
-              selectedGeneralEoc={selectedGeneralEOC}
-            />
+            <Button onClick={() => setSelectedGeneralEOC(eocSet.generalNum)}>Add new Element of Competency (EOC)</Button>
           </div>
         </Accordion>
       );
@@ -140,11 +151,19 @@ const EOCAccordion = () => {
       <Card>
         <ViewModal
           eocGeneralAndSpecific={selectedEOC}
-          detailsOfEOC={getDetailsOfEntireEOC(selectedEOC,eocRemarks)}
+          detailsOfEOC={getDetailsOfEntireEOC(selectedEOC, eocRemarks)}
           isOpen={Boolean(selectedEOC)}
           closeModal={deselectEOC}
           saveFields={saveFields}
         />
+        {
+          <CreateEOCModal
+              isOpen={Boolean(selectedGeneralEOC)}
+              closeModal={deselectGeneralEOC}
+              selectedGeneralEoc={selectedGeneralEOC}
+              saveFields={createSpecificEoc}
+          />
+        }
         {accordions ?? <p>loading...</p>}
       </Card>
     </>

@@ -1,9 +1,8 @@
 // React + Redux + Functionality
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { services } from 'store/feathersClient';
 
-// Custom components
+
 import Button from 'components/MaterialKit/CustomButtons/Button.js';
 import CustomInput from 'components/MaterialKit/CustomInput/CustomInput.js';
 
@@ -48,7 +47,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
 
-const CreateEOCModal = ({closeModal, isOpen, selectedGeneralEoc}) => {
+const CreateEOCModal = ({closeModal, isOpen, selectedGeneralEoc, saveFields}) => {
   const classes = useStyles();
   const evaluationData = useSelector(state => state['course-evaluation'])?.data;
   const generalEocs = evaluationData.generalEocs;
@@ -57,22 +56,9 @@ const CreateEOCModal = ({closeModal, isOpen, selectedGeneralEoc}) => {
   const [desc, setDesc] = useState('');
   const [IOAs, setIOAs] = useState([]);
 
-  const handleSubmit = async () => {
-    try {
-      const generalIndex = generalEocs.findIndex(x => x._id == selectedGeneralEoc);
-      const clonedGeneralEocs = JSON.parse(JSON.stringify(generalEocs));  // Clone
-      clonedGeneralEocs[generalIndex].specificEocs.push({
-        'specificNum': specificNum,
-        'desc': desc,
-        'indicatorsOfAttainment': IOAs
-      });
+  const handleSubmit = () => {
+    saveFields(selectedGeneralEoc, specificNum, desc, IOAs);
 
-      await services['course-evaluation'].patch(selectedGeneralEoc, {'generalEocs': clonedGeneralEocs});
-
-      closeModal();
-    } catch(error) {
-      console.error(error);
-    }
   };
 
   return (
@@ -106,7 +92,7 @@ const CreateEOCModal = ({closeModal, isOpen, selectedGeneralEoc}) => {
         >
           <Close className={classes.modalClose} />
         </IconButton>
-        <h4 className={classes.modalTitle}>Hello world!</h4>
+        <h4 className={classes.modalTitle}>Adding new EOC for EOC group #{selectedGeneralEoc}</h4>
       </DialogTitle>
       <DialogContent id="modal-slide-description" className={classes.modalBody}>
         <CustomInput
@@ -140,17 +126,6 @@ const CreateEOCModal = ({closeModal, isOpen, selectedGeneralEoc}) => {
             onChange: (e) => setDesc(e.target.value),
           }}
         />
-        {/* <InputLabel className={classes.label}>Review due date</InputLabel>
-            <br />
-            <FormControl fullWidth>
-            <Datetime
-            onChange={(date) => {
-            setDueDate(date);
-            }}
-            value={dueDate}
-            placeholder="13/05/2031"
-            />
-            </FormControl> */}
       </DialogContent>
       <DialogActions
         className={classes.modalFooter + ' ' + classes.modalFooterCenter}

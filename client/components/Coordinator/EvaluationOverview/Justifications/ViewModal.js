@@ -49,8 +49,7 @@ const ViewModal = ({
 
   const { rating, justification, eocsInSameJustification } = detailsOfEOC;
 
-  const course = useSelector((state) => state['course-evaluation']).data;
-
+  const course = useSelector((state) => state['course-evaluation'].data);
 
   let staticDetails;
   if(eocGeneralAndSpecific)

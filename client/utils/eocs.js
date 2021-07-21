@@ -4,6 +4,10 @@ export const getIndexOfEOCMatch = (eocGeneralAndSpecific, eocReviews) =>
   );
 
 export const getDetailsOfEntireEOC = (eocGeneralAndSpecific,eocReviews) => {
+  if (eocGeneralAndSpecific === null) {
+    return { rating: 0, justification: null, eocsInSameJustification: []};
+  }
+  console.log(eocGeneralAndSpecific, eocReviews);
   const matchedIndex = getIndexOfEOCMatch(eocGeneralAndSpecific, eocReviews);
   const noReviewFound = matchedIndex === -1;
 
