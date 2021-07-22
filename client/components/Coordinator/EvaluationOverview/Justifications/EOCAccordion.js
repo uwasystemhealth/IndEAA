@@ -41,7 +41,9 @@ const EOCAccordion = () => {
   const deselectGeneralEOC = () => setSelectedGeneralEOC(null);
   const deselectEOC = () => setSelectedEOC(null);
 
-  const courseData = useSelector((state) => state['course-evaluation'])?.data;
+  const course = useSelector((state) => state['course-evaluation']);
+  console.log("COURSEDATA", course)
+  const courseData = course?.data;
   const generalEocs = courseData?.generalEocs;
   const eocRemarks = courseData?.eocRemarks;
 
@@ -78,8 +80,8 @@ const EOCAccordion = () => {
   };
 
   const createSpecificEoc = async (generalEoc, specificNum, desc, IOAs) => {
-    console.log("AAAAAHHH!!!", generalEocs)
     try {
+      console.log("THIS IS GENERALEOCS: ", generalEocs);
       const clonedGeneralEocs = JSON.parse(JSON.stringify(generalEocs));  // Clone
 
       // console.log(generalEocs)
@@ -89,10 +91,15 @@ const EOCAccordion = () => {
         console.error("Can't create a specific EOC without a general EOC");
         // Error, can't create a specific EOC without a general EOC.
       } else {
+        console.log({
+          'specificNum': specificNum,
+          'desc': desc,
+          'indicatorsOfAttainment': IOAs,
+        });
         clonedGeneralEocs[generalIndex].specificEocs.push({
           'specificNum': specificNum,
           'desc': desc,
-          'indicatorsOfAttainment': IOAs
+          'indicatorsOfAttainment': IOAs.map(ioa => ioa.ioa)
         });
 
         services['course-evaluation'].patch(courseData?._id, {'generalEocs': clonedGeneralEocs});

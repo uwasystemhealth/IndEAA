@@ -1,7 +1,8 @@
 // React + Redux + Functionality
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
 
+
+import IOARow from './IOARow.js';
 
 import Button from 'components/MaterialKit/CustomButtons/Button.js';
 import CustomInput from 'components/MaterialKit/CustomInput/CustomInput.js';
@@ -15,7 +16,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import People from '@material-ui/icons/People';
-
+import TextField from '@material-ui/core/TextField';
 
 import Close from '@material-ui/icons/Close';
 
@@ -49,17 +50,27 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 const CreateEOCModal = ({closeModal, isOpen, selectedGeneralEoc, saveFields}) => {
   const classes = useStyles();
-  const evaluationData = useSelector(state => state['course-evaluation'])?.data;
-  const generalEocs = evaluationData.generalEocs;
 
   const [specificNum, setSpecificNum] = useState('');
   const [desc, setDesc] = useState('');
+  const [IOAInProg, setIOAInProg] = useState('');
   const [IOAs, setIOAs] = useState([]);
 
   const handleSubmit = () => {
+    console.log('SUBMITTINGG!!!');
     saveFields(selectedGeneralEoc, specificNum, desc, IOAs);
-
   };
+
+  const addIOA = () => {
+    setIOAs((prev) => [{id: IOAs.length, ioa: IOAInProg}, ...prev]);
+  };
+
+  const remover = (id) => () => setIOAs(IOAs.filter(ioa => ioa.id != id));
+
+  const IOARows = IOAs.map(IOA => {
+    const removeIOA = remover(IOA.id);
+    return <IOARow ioa={IOA.ioa} removeIOA={removeIOA} key={IOA.id} />;
+  });
 
   return (
     <Dialog
@@ -126,6 +137,19 @@ const CreateEOCModal = ({closeModal, isOpen, selectedGeneralEoc, saveFields}) =>
             onChange: (e) => setDesc(e.target.value),
           }}
         />
+
+        Indicator of Attainment
+        <TextField
+          multiline
+          fullWidth
+          rows={4}
+          variant="filled"
+          value={IOAInProg}
+          id="justification"
+          onChange={(e) => setIOAInProg(e.target.value)}
+        />
+        <Button onClick={() => addIOA(IOAInProg)}>Add Indicator of Attainment</Button>
+        { IOARows }
       </DialogContent>
       <DialogActions
         className={classes.modalFooter + ' ' + classes.modalFooterCenter}
@@ -138,7 +162,6 @@ const CreateEOCModal = ({closeModal, isOpen, selectedGeneralEoc, saveFields}) =>
           color="success"
         >
           SAVE CHANGES
-
         </Button>
       </DialogActions>
     </Dialog>

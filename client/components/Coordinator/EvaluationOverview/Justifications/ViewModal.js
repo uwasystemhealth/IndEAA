@@ -49,7 +49,8 @@ const ViewModal = ({
 
   const { rating, justification, eocsInSameJustification } = detailsOfEOC;
 
-  const course = useSelector((state) => state['course-evaluation'].data);
+  const course = useSelector((state) => state['course-evaluation'])?.data;
+
 
   let staticDetails;
   if(eocGeneralAndSpecific)
@@ -111,8 +112,6 @@ const ViewModal = ({
     setModalState(newState);
   };
 
-
-
   const handleSave = () => {
     saveFields(
       eocGeneralAndSpecific,
@@ -137,6 +136,10 @@ const ViewModal = ({
     );
     return [...accumulator, ...currentSetEocNumbers];
   }, []);
+
+  if (course == null) {
+    return <div />;
+  }
 
   return (
     <Dialog
