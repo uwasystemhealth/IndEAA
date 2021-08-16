@@ -106,6 +106,7 @@ nav:
   - Coding Standards: developer/coding_standards.md
   - Data Engineering: developer/data_engineering.md
   - Database Support Scripts: developer/database_support_scripts.md
+  - Known Issues: developer/known_issues.md
   - Frontend:
     - Component vs Page: developer/frontend/component_vs_page.md
     - Transport/Integration Layer (Feathers-redux): developer/frontend/feathers_redux.md
