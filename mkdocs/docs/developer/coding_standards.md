@@ -231,3 +231,5 @@ If you have functions that you think are too generic, but it can be used for man
     - routing - this corresponds to `course_id`
     - anywhere else - this corresponds to `courseID` the unit code of the course.
 
+Furthermore, `_id` fields in the backend are treated as objects. So, if you need to compare IDs, refer [here](https://stackoverflow.com/questions/11637353/comparing-mongoose-id-and-strings).
+

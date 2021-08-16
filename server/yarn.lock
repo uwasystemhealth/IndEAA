@@ -2778,6 +2778,11 @@ node-preload@^0.2.1:
   dependencies:
     process-on-spawn "^1.0.0"
 
+node-pandoc-promise@0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/node-pandoc-promise/-/node-pandoc-promise-0.0.6.tgz#8410de8e42ed966d570ea730a3c9f731a4dc7a1d"
+  integrity sha512-3+8hezyBOaWqUWypHtfv8sPa0Yo0sE/KUvjLN1gm48wrwqG2B45fhgIU73H1adF33FXiXkPeTW3lw5cjicemdg==
+
 nodemon@^2.0.6:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/nodemon/-/nodemon-2.0.6.tgz#1abe1937b463aaf62f0d52e2b7eaadf28cc2240d"

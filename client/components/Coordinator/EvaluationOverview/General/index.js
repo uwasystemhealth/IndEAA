@@ -1,7 +1,7 @@
 // React + Redux + Functionality
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
-import {useCurrentCourseData} from 'components/customHooks/CoordinatorCourseLoad';
+import { useCurrentCourseData } from 'components/customHooks/CoordinatorCourseLoad';
 
 // Custom Components
 import Documents from 'components/Coordinator/EvaluationOverview/Documents';
@@ -25,20 +25,19 @@ const General = () => {
   useCurrentCourseData();
 
   const { courseID } = router.query;
-
   return (
     <GridContainer>
-      <GridItem md={6}>
+      <GridItem xs={6}>
         <Information />
       </GridItem>
-      <GridItem md={6}>
+      <GridItem xs={6}>
         <OtherInformation />
         <Controls
           evaluationID={courseID}
           archived={evaluationData?.isArchived}
         />
       </GridItem>
-      <GridItem md={6} ><DocumentsGeneralSection /></GridItem>
+      <GridItem xs={6} ><DocumentsGeneralSection /></GridItem>
     </GridContainer>
   );
 
@@ -49,7 +48,7 @@ const DocumentsGeneralSection = () => (<>
   <Card>
     <CardHeader color="success">Introduction Documents</CardHeader>
     <CardBody>
-      <Documents specificTags={'introduction'} gridItemProps={{}} removeAddDocument/> 
+      <Documents specificTags={'introduction'} gridItemProps={{}} removeAddDocument />
     </CardBody>
   </Card>
 </>);

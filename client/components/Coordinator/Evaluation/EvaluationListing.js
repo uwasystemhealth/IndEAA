@@ -7,7 +7,6 @@ import Button from 'components/MaterialKit/CustomButtons/Button.js';
 import Link from '@material-ui/core/Link';
 
 // Icons
-import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf';
 import HowToVoteIcon from '@material-ui/icons/HowToVote';
 
 //Styles
@@ -35,22 +34,12 @@ const EvaluationListing = ({
       alignItems="center"
       justify="center"
     >
-      <GridItem md={7}>
+      <GridItem xs={12} md={10}>
         <h3 className={classes.title}>{courseCode}</h3>
         <h4 className={classes.description}>{coordinatorNames}</h4>
         <h5 className={classes.description}>{evaluationDescription}</h5>
       </GridItem>
-      <GridItem md={2}>
-        <Button
-          color="primary"
-          type="button"
-          size="large"
-          startIcon={<PictureAsPdfIcon />}
-        >
-          Export
-        </Button>
-      </GridItem>
-      <GridItem md={2}>
+      <GridItem xs={12} md={2}>
         <Link href={`/coordinator/${evalId}`}>
           <Button
             color="primary"
