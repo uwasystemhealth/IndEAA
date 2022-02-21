@@ -7,6 +7,8 @@ const roleAndCourseBasedRestrictions = require('../../hooks/role-and-course-base
 const addCoordinatorsAndReviewersToEvaluation = require('../../hooks/add-coordinators-and-reviewers-to-evaluation');
 const addPermissionToUser = require('../../hooks/add-permission-to-user');
 
+const generateReport = require('../../hooks/generate-report');
+
 module.exports = {
     before: {
         all: [ authenticate('jwt') ],
@@ -22,9 +24,9 @@ module.exports = {
         all: [addCoordinatorsAndReviewersToEvaluation()],
         find: [],
         get: [],
-        create: [addPermissionToUser()],
-        update: [],
-        patch: [],
+        create: [addPermissionToUser(), generateReport()],
+        update: [generateReport()],
+        patch: [generateReport()],
         remove: []
     },
 

@@ -107,5 +107,8 @@ $RECYCLE.BIN/
 *.lnk
 
 # Others
-lib/
 data/
+*.docx
+
+# Exception: Template for IndEAA Reports
+!custom-reference.docx

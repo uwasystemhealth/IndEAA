@@ -4,6 +4,9 @@ const filterBasedPermission = require('../../hooks/filter-based-permission');
 const roleAndCourseBasedRestrictions = require('../../hooks/role-and-course-based-restrictions');
 
 
+const generateReport = require('../../hooks/generate-report');
+
+
 module.exports = {
     before: {
         all: [ authenticate('jwt') ],
@@ -19,9 +22,9 @@ module.exports = {
         all: [],
         find: [],
         get: [],
-        create: [],
-        update: [],
-        patch: [],
+        create: [generateReport()],
+        update: [generateReport()],
+        patch: [generateReport()],
         remove: []
     },
 

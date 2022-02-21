@@ -1,3 +1,8 @@
+# cypress and Allure
+/test_results
+/cypress/screenshots
+/cypress/videos
+
 # docker compose
 mongo/
 

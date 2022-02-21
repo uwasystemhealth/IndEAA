@@ -20,15 +20,16 @@
     "config": "config/"
   },
   "scripts": {
-    "test": "yarn run lint && yarn run jest",
+    "test": "NODE_ENV=test yarn run mocha",
+    "ci:test": "NODE_ENV=ci yarn run mocha",
     "lint": "eslint src/. test/. --config .eslintrc.json --fix",
     "dev": "nodemon --inspect=0.0.0.0 src/",
     "start": "node src/",
-    "jest": "jest  --forceExit"
+    "mocha": "nyc --reporter=text --reporter=html mocha test/ --recursive --exit --timeout 10000"
   },
   "standard": {
     "env": [
-      "jest"
+      "mocha"
     ],
     "ignore": []
   },
@@ -51,6 +52,7 @@
     "lodash": "^4.17.20",
     "mongodb-core": "^3.2.7",
     "mongoose": "^5.10.13",
+    "node-pandoc-promise": "0.0.6",
     "serve-favicon": "^2.5.0",
     "winston": "^3.0.0"
   },
@@ -58,7 +60,8 @@
     "axios": "^0.21.1",
     "eslint": "^7.13.0",
     "eslint-plugin-unused-imports": "^1.0.1",
-    "jest": "^26.6.3",
-    "nodemon": "^2.0.6"
+    "mocha": "^8.2.1",
+    "nodemon": "^2.0.6",
+    "nyc": "^15.1.0"
   }
 }

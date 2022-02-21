@@ -1,17 +1,14 @@
-// CORE COMPONENTS
-
-import EOCAccordion from './EOCAccordion.js';
-
-
-
+// React + Redux + Functionality
 import {useCurrentCourseData} from 'components/customHooks/CoordinatorCourseLoad';
 
+// Custom Components
+import EOCAccordion from './EOCAccordion.js';
 
 const Justifications = () => {
-    // Initiate Conditional Data Loading
-    useCurrentCourseData();
+  // Initiate Conditional Data Loading
+  useCurrentCourseData();
     
-    return <EOCAccordion />;
+  return <EOCAccordion />;
 };
 
 export default Justifications;

@@ -4,26 +4,14 @@
 // This hook is used for adding more information about the course-evaluation endpoint
 // This is an After Hook
 const errors = require('@feathersjs/errors');
+const getUsersForRoleClosure = require('../utils/feathersStuff');
 
 // eslint-disable-next-line no-unused-vars
 module.exports = function (options = {}) {
     return async context => {
         const {app, id,method} = context;
 
-        // Function for selection only a couple of information from each user
-        // that has a role in a course
-        const getUsersForRole = async (course_id,role) =>{
-            const query = await app.service('users').find({query:
-                { 
-                    $select:['_id','name','email'],
-                    perms: {
-                        $elemMatch: { course_id: course_id, role},
-                    }
-                }
-            });
-            return query.data;
-
-        };
+        const getUsersForRole = getUsersForRoleClosure(app);
 
         if(method!=='find'){ // All Services except find
             const [coordinators,reviewers] = await Promise.all([getUsersForRole(id,'Coordinator'),getUsersForRole(id,'Reviewer')]);
