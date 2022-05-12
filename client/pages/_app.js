@@ -23,6 +23,7 @@ import Head from 'next/head';
 import Router from 'next/router';
 import { Provider } from 'react-redux';
 import store from 'store/feathersClient';
+import { hotjar } from 'react-hotjar';
 
 // Custom Components
 import Navbar from 'components/Layout/Navbar';
@@ -84,6 +85,13 @@ const MyApp = ({ Component, pageProps }) => {
 
   }
   , []);
+
+  useEffect(() => {
+    hotjar.initialize(
+      parseInt(process.env.NEXT_PUBLIC_HOTJAR_ID || '', 10),
+      parseInt(process.env.NEXT_PUBLIC_HOTJAR_SFV || '', 10)
+    );
+  }, []);
 
   return (
     <Provider store={store}>
