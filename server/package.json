@@ -57,7 +57,7 @@
     "winston": "^3.0.0"
   },
   "devDependencies": {
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "eslint": "^7.13.0",
     "eslint-plugin-unused-imports": "^1.0.1",
     "mocha": "^8.2.1",
