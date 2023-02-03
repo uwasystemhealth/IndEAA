@@ -2066,9 +2066,9 @@ html-escaper@^2.0.0:
   integrity sha512-H2iMtd0I4Mt5eYiapRdIDjp+XzelXQ0tFE4JS7YFwFevXXMmOp9myNrUvCg0D6ws8iqkRPBfKHgbwig1SmlLfg==
 
 http-cache-semantics@^4.0.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/http-cache-semantics/-/http-cache-semantics-4.1.0.tgz#49e91c5cbf36c9b94bcfcd71c23d5249ec74e390"
-  integrity sha512-carPklcUh7ROWRK7Cv27RPtdhYhUsela/ue5/jKzjegVvXDqM2ILE9Q2BGn9JZJh1g87cp56su/FgQSzcWS8cQ==
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/http-cache-semantics/-/http-cache-semantics-4.1.1.tgz#abe02fcb2985460bf0323be664436ec3476a6d5a"
+  integrity sha512-er295DKPVsV82j5kw1Gjt+ADA/XYHsajl82cGNQG2eyoPkvgUhX+nDIyelzhIWbbsXP39EHcI6l5tYs2FYqYXQ==
 
 http-errors@1.7.2:
   version "1.7.2"
@@ -2771,17 +2771,17 @@ negotiator@0.6.2:
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.2.tgz#feacf7ccf525a77ae9634436a64883ffeca346fb"
   integrity sha512-hZXc7K2e+PgeI1eDBe/10Ard4ekbfrrqG8Ep+8Jmf4JID2bNg7NvCPOZN+kfF574pFQI7mum2AUqDidoKqcTOw==
 
+node-pandoc-promise@0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/node-pandoc-promise/-/node-pandoc-promise-0.0.6.tgz#8410de8e42ed966d570ea730a3c9f731a4dc7a1d"
+  integrity sha512-3+8hezyBOaWqUWypHtfv8sPa0Yo0sE/KUvjLN1gm48wrwqG2B45fhgIU73H1adF33FXiXkPeTW3lw5cjicemdg==
+
 node-preload@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/node-preload/-/node-preload-0.2.1.tgz#c03043bb327f417a18fee7ab7ee57b408a144301"
   integrity sha512-RM5oyBy45cLEoHqCeh+MNuFAxO0vTFBLskvQbOKnEE7YTTSN4tbN8QWDIPQ6L+WvKsB/qLEGpYe2ZZ9d4W9OIQ==
   dependencies:
     process-on-spawn "^1.0.0"
-
-node-pandoc-promise@0.0.6:
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/node-pandoc-promise/-/node-pandoc-promise-0.0.6.tgz#8410de8e42ed966d570ea730a3c9f731a4dc7a1d"
-  integrity sha512-3+8hezyBOaWqUWypHtfv8sPa0Yo0sE/KUvjLN1gm48wrwqG2B45fhgIU73H1adF33FXiXkPeTW3lw5cjicemdg==
 
 nodemon@^2.0.6:
   version "2.0.6"
